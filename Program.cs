@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,17 @@ builder.Services.AddDbContext<Furlough.DAL.DatabaseContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("furloughJon"));
     });
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
+
+//Localization and globalization
+builder.Services.AddRequestLocalization(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+});
+builder.Services.AddLocalization(
+    options =>
+    {
+        options.ResourcesPath = "Resources";
+    });
 
 var app = builder.Build();
 

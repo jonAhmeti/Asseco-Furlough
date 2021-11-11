@@ -15,6 +15,7 @@ namespace Furlough.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 
