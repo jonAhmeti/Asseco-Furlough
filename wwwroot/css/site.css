@@ -13,11 +13,15 @@ html {
   min-height: 100%;
 }
 
-html, body {
-    height: 100%;
-    background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+html,
+body {
+  height: 100%;
+  background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-body{
-    position: relative;
+body {
+  position: relative;
 }
