@@ -18,6 +18,8 @@ namespace Furlough.Models
         public DateTime InsertDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public int UpdateBy { get; set; }
+        public string Username { get; set; } = null!;
+        public string Password { get; set; } = null!;
 
         public virtual Role Role { get; set; } = null!;
         public virtual User UpdateByNavigation { get; set; } = null!;

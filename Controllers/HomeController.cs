@@ -1,4 +1,5 @@
 ﻿using Furlough.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -13,9 +14,15 @@ namespace Furlough.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
-        {
+        { 
+            return View(); 
+        }
 
+        [HttpPost]
+        public IActionResult Login()
+        {
             return View();
         }
 

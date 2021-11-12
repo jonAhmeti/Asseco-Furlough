@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,16 @@ builder.Services.AddMvc().AddRazorRuntimeCompilation();
 //Localization and globalization
 builder.Services.AddRequestLocalization(options =>
 {
+    var supportedCultures = new[] {
+        new CultureInfo("en-US"),
+        new CultureInfo("sq-AL"),
+    };
+
     options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
 });
+
 builder.Services.AddLocalization(
     options =>
     {
@@ -26,6 +35,7 @@ builder.Services.AddLocalization(
 
 var app = builder.Build();
 
+app.UseRequestLocalization();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -40,7 +50,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 
 app.UseEndpoints(endpoints =>
 {
