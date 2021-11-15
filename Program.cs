@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<Furlough.DAL.DatabaseContext>(
+builder.Services.AddDbContext<Furlough.DAL.FurloughContext>(
     options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("furloughJon"));

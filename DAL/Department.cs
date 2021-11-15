@@ -1,42 +1,39 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
 
-
 namespace Furlough.DAL
 {
-    public class User
+    public class Department
     {
         private readonly FurloughContext _context;
 
-        public User(FurloughContext context)
+        public Department(FurloughContext context)
         {
             _context = context;
         }
-        public bool Add(Models.User obj)
+
+        public bool Add(Models.Department obj)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_userAdd", connection)
+            using var command = new SqlCommand("sp_departmentAdd", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@Username", obj.Username);
-            command.Parameters.AddWithValue("@Password", obj.Password);
+            command.Parameters.AddWithValue("@Name", obj.Name);
 
             return command.ExecuteNonQuery() > 0;
         }
-        
-        public bool Edit(Models.User obj)
+
+        public bool Edit(Models.Department obj)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_userEdit", connection)
+            using var command = new SqlCommand("sp_departmentEdit", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            command.Parameters.AddWithValue("@RoleId", obj.RoleId);
-            command.Parameters.AddWithValue("@UpdateBy", obj.UpdateBy);
-            command.Parameters.AddWithValue("@Username", obj.Username);
-            command.Parameters.AddWithValue("@Password", obj.Password);
+            command.Parameters.AddWithValue("@Id", obj.Id);
+            command.Parameters.AddWithValue("@Name", obj.Name);
 
             return command.ExecuteNonQuery() > 0;
         }
@@ -44,7 +41,7 @@ namespace Furlough.DAL
         public bool Delete(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_userDelete", connection)
+            using var command = new SqlCommand("sp_departmentDelete", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -54,10 +51,10 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
-        public Models.User GetById(int id)
+        public Models.Department GetById(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_userGetById", connection)
+            using var command = new SqlCommand("sp_departmentGetById", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -67,7 +64,7 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader());
         }
 
-        public Models.User GetByUsername(int username)
+        public Models.Department GetByName(string name)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_userGetByUsername", connection)
@@ -75,24 +72,20 @@ namespace Furlough.DAL
                 CommandType = CommandType.StoredProcedure
             };
 
-            command.Parameters.AddWithValue("@Username", username);
+            command.Parameters.AddWithValue("@Name", name);
 
             return Mapper(command.ExecuteReader());
         }
 
         //Object mapper; reader to model
-        public Models.User Mapper(SqlDataReader reader)
+        public Models.Department Mapper(SqlDataReader reader)
         {
-            return new Models.User()
+            return new Models.Department()
             {
                 Id = reader.GetInt32("Id"),
-                InsertDate = reader.GetDateTime("InsertDate"),
-                Username = reader.GetString("Username"),
-                Password = reader.GetString("Password"),
-                RoleId = reader.GetInt32("RoleId"),
-                UpdateBy = reader.GetInt32("UpdateBy"),
-                UpdateDate = reader.GetDateTime("UpdateDate")
+                Name = reader.GetString("Name")
             };
         }
+
     }
 }

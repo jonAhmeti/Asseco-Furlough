@@ -10,5 +10,7 @@ namespace Furlough.DAL.Models
         public int BonusDays { get; set; }
         public int PrevYearDays { get; set; }
         public int SpentDays { get; set; }
+
+        public virtual Employee Employee { get; set; } = null!;
     }
 }
