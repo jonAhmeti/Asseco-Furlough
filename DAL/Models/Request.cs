@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Furlough.Models
+namespace Furlough.DAL.Models
 {
     public partial class Request
     {

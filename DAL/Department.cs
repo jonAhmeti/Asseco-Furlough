@@ -1,0 +1,91 @@
+﻿using Microsoft.Data.SqlClient;
+using System.Data;
+
+namespace Furlough.DAL
+{
+    public class Department
+    {
+        private readonly FurloughContext _context;
+
+        public Department(FurloughContext context)
+        {
+            _context = context;
+        }
+
+        public bool Add(Models.Department obj)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_departmentAdd", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@Name", obj.Name);
+
+            return command.ExecuteNonQuery() > 0;
+        }
+
+        public bool Edit(Models.Department obj)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_departmentEdit", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@Id", obj.Id);
+            command.Parameters.AddWithValue("@Name", obj.Name);
+
+            return command.ExecuteNonQuery() > 0;
+        }
+
+        public bool Delete(int id)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_departmentDelete", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@Id", id);
+
+            return command.ExecuteNonQuery() > 0;
+        }
+
+        public Models.Department GetById(int id)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_departmentGetById", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@Id", id);
+
+            return Mapper(command.ExecuteReader());
+        }
+
+        public Models.Department GetByName(string name)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_userGetByUsername", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@Name", name);
+
+            return Mapper(command.ExecuteReader());
+        }
+
+        //Object mapper; reader to model
+        public Models.Department Mapper(SqlDataReader reader)
+        {
+            return new Models.Department()
+            {
+                Id = reader.GetInt32("Id"),
+                Name = reader.GetString("Name")
+            };
+        }
+
+    }
+}
