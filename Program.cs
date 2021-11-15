@@ -33,6 +33,12 @@ builder.Services.AddLocalization(
         options.ResourcesPath = "Resources";
     });
 
+//Authentication and Authorization
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.AddScheme<>("BasicAuthenticator");
+//});
+
 var app = builder.Build();
 
 app.UseRequestLocalization();
@@ -48,7 +54,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
