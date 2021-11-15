@@ -6,37 +6,37 @@
 
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-10 col-md-8 col-lg-5">
-            <form class="form-example bg-white p-3 shadow" action="#" method="post">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" name="username" placeholder="Username...">
-                    <label for="username">Username</label>
+        <div class="col-10 col-md-8 col-lg-5 bg-white shadow rounded">
+            <div class="row row-cols-12 text-center pt-3 fs-4">
+                <div id="login" class="col-6">
+                    <p class="m-0">Log In</p>
                 </div>
-                <div class="form-floating mb-2">
-                    <input type="password" class="form-control" name="password" placeholder="Password...">
-                    <label for="password">Password</label>
+                <div id="signup" class="col-6">
+                    <p class="m-0">Sign Up</p>
                 </div>
-                <a href="#" class="float-end">Forgot Password?</a>
-                <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" name="remember-me">
-                    <label class="form-check-label" for="remember-me">Remember Me</label>
-                </div>
-                <div class="d-grid gap-2">
-                    <button class="btn btn-lg btn-outline-primary" type="submit"><i class="fa fa-sign-in"></i> Login</button>
-                </div>
-                <br>
-                <div class="row h-100 justify-content-center align-items-center">
-                    <div class="row ms-4">
-                        <hr class="col-5 mt-3">
-                        <p class="col-1 fs-5">or</p>
-                        <hr class="col-5 mt-3">
+            </div>
+            <div>
+                <form class="form-example p-3" action="#" method="post">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="username" placeholder="Username...">
+                        <label for="username">Username</label>
                     </div>
-                </div>
-                <div class="row h-100 justify-content-center text-center align-items-center">
-                    <p class="m-0">Scan QR Code with phone camera</p>
-                    <img class="w-50" src="~/images/sample-qr-code.svg" alt="QR-Code" />
-                </div>
-            </form>
+                    <div class="form-floating mb-2">
+                        <input type="password" class="form-control" name="password" placeholder="Password...">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="d-grid gap-2 mb-3">
+                        <button class="btn btn-lg btn-outline-primary" type="submit"><i class="fa fa-sign-in"></i>
+                            Login</button>
+                    </div>
+                    <a href="#" class="float-end">Forgot Password?</a>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" name="remember-me">
+                        <label class="form-check-label" for="remember-me">Remember Me</label>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>
