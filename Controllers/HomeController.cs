@@ -26,6 +26,29 @@ namespace Furlough.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult LoginPartial()
+        {
+            if (Request.Headers.ContainsKey("X-Requested-With")
+                && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
+            {
+                return PartialView("Partial/Login");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult SignupPartial()
+        {
+            if (Request.Headers.ContainsKey("X-Requested-With")
+                && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
+            {
+                return PartialView("Partial/Signup");
+            }
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();

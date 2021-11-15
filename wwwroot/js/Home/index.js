@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url:"/Home/Partial/Login.cshtml",
+        url:"Home/LoginPartial",
         success: function(result) {
             $(formWrapper).html(result);
         }
@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url:"/Home/Partial/Signup.cshtml",
+        url:"Home/SignupPartial",
         success: function(result) {
             $(formWrapper).html(result);
         }
