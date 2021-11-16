@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Furlough.DAL.Models;
 
 namespace Furlough.DAL
 {
@@ -26,17 +25,17 @@ namespace Furlough.DAL
             return _config.GetConnectionString("furloughJon");
         }
 
-        public virtual DbSet<AvailableDay> AvailableDays { get; set; } = null!;
-        public virtual DbSet<Department> Departments { get; set; } = null!;
-        public virtual DbSet<Employee> Employees { get; set; } = null!;
-        public virtual DbSet<Position> Positions { get; set; } = null!;
-        public virtual DbSet<Request> Requests { get; set; } = null!;
-        public virtual DbSet<RequestHistory> RequestHistories { get; set; } = null!;
-        public virtual DbSet<RequestStatus> RequestStatuses { get; set; } = null!;
-        public virtual DbSet<RequestType> RequestTypes { get; set; } = null!;
-        public virtual DbSet<Role> Roles { get; set; } = null!;
-        public virtual DbSet<SpentDaysHistory> SpentDaysHistories { get; set; } = null!;
-        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Models.AvailableDay> AvailableDays { get; set; } = null!;
+        public virtual DbSet<Models.Department> Departments { get; set; } = null!;
+        public virtual DbSet<Models.Employee> Employees { get; set; } = null!;
+        public virtual DbSet<Models.Position> Positions { get; set; } = null!;
+        public virtual DbSet<Models.Request> Requests { get; set; } = null!;
+        public virtual DbSet<Models.RequestHistory> RequestHistories { get; set; } = null!;
+        public virtual DbSet<Models.RequestStatus> RequestStatuses { get; set; } = null!;
+        public virtual DbSet<Models.RequestType> RequestTypes { get; set; } = null!;
+        public virtual DbSet<Models.Role> Roles { get; set; } = null!;
+        public virtual DbSet<Models.SpentDaysHistory> SpentDaysHistories { get; set; } = null!;
+        public virtual DbSet<Models.User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
