@@ -1,0 +1,8 @@
+﻿#activeIndicator {
+    transition: 0.4s ease-in-out;
+}
+
+#login:hover, #signup:hover {
+    color:  #1e77e2 !important;
+    cursor: pointer;
+}

@@ -1,6 +1,10 @@
 $( function () {
     let employeeSection = $("#employeeSection0");
     let userSection = $("#userSection");
-    let rightarrow = $("#arrowright");
-    let leftarrow = $("#arrowleft");
+    let rightArrow = $("#arrowright");
+    let leftArrow = $("#arrowleft");
+
+    $(leftArrow).on('click', function () {
+        $(employeeSection).css()
+    })
 });
