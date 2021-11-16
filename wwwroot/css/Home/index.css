@@ -1,11 +1,34 @@
-﻿@media only screen and (max-width: 768px) {
-    
+﻿@media only screen and (max-width: 900px) {
+  #modalWrapper {
+    width: 55%;
+  }
 }
+@media only screen and (min-width: 900px) {
+  #modalWrapper {
+    width: 45%;
+  }
+}
+@media only screen and (max-width: 640px) {
+    #modalWrapper {
+        width: 65%;
+    }
+    #emailWrapper {
+        width: 25%;
+    }
+}
+@media only screen and (max-width: 480px) {
+    #modalWrapper {
+      width: 90%;
+    }
+    #assecologo {
+        width: 80%;
+    }
+  }
 #activeIndicator {
-    transition: 0.4s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
-
-#login:hover, #signup:hover {
-    color:  #1e77e2 !important;
-    cursor: pointer;
+#login:hover,
+#signup:hover {
+  color: #1e77e2 !important;
+  cursor: pointer;
 }
