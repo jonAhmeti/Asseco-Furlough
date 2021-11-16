@@ -1,4 +1,7 @@
-﻿#activeIndicator {
+﻿@media only screen and (max-width: 768px) {
+    
+}
+#activeIndicator {
     transition: 0.4s ease-in-out;
 }
 
