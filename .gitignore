@@ -360,4 +360,6 @@ ______	VISUAL STUDIO CODE	______
 
 # Local History for Visual Studio Code
 .history/
-Furlough/appsettings.json
+
+#ignoring appsettings
+appsettings.json
