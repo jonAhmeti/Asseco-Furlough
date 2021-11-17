@@ -12,7 +12,9 @@ builder.Services.AddDbContext<Furlough.DAL.FurloughContext>(
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("furloughJon"));
     });
-builder.Services.AddMvc().AddRazorRuntimeCompilation();
+builder.Services.AddMvc().AddRazorRuntimeCompilation()
+    .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
 
 //Localization and globalization
 builder.Services.AddRequestLocalization(options =>
@@ -39,33 +41,39 @@ builder.Services.AddLocalization(
 //    options.AddScheme<>("BasicAuthenticator");
 //});
 
+//Adding DAL Services
+builder.Services.AddScoped<Furlough.DAL.User>();
+
 var app = builder.Build();
 
-app.UseRequestLocalization();
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+app.UseRequestLocalization(options =>
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+    options.RequestCultureProviders.Add(new CookieRequestCultureProvider());
+    // Configure the HTTP request pipeline.
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Home/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-app.UseRouting();
-app.UseAuthentication();
-app.UseAuthorization();
+    app.UseRouting();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "areas",
-        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+        endpoints.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+    });
+
+    app.Run();
 });
-
-app.Run();

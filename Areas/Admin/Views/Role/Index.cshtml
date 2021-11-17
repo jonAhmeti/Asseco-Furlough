@@ -26,16 +26,14 @@
         {
             <tr>
                 <td>
-                        <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </a>
+                    <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </a>
                 </td>
                 <td>
-                    <div>
-                        <a asp-action="Details" asp-route-id="@item.Id">
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </a>
-                    </div>
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </a>
                 </td>
                 <td>
                     <a asp-controller="Role" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

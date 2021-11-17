@@ -12,17 +12,26 @@ namespace Furlough.DAL
         {
             _context = context;
         }
-        public bool Add(Models.User obj)
+        public uint Add(Models.User obj)
         {
-            using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_userAdd", connection)
+            try
             {
-                CommandType = CommandType.StoredProcedure
-            };
-            command.Parameters.AddWithValue("@Username", obj.Username);
-            command.Parameters.AddWithValue("@Password", obj.Password);
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_userAdd", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Username", obj.Username);
+                command.Parameters.AddWithValue("@Password", obj.Password);
+                connection.Open();
+                return (uint)command.ExecuteScalar();
+            }
 
-            return command.ExecuteNonQuery() > 0;
+            catch (Exception e)
+            {
+                return 0;
+                throw;
+            }
         }
         
         public bool Edit(Models.User obj)

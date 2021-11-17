@@ -1,19 +1,22 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
 <form id="form" class="p-3 w-100 h-100" action="#" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" name="username" placeholder="Username">
-        <label for="username">Username</label>
+        <label for="username">@localizer["username"]</label>
     </div>
     <div class="form-floating mb-2">
         <input type="password" class="form-control" name="password" placeholder="Password">
-        <label for="password">Password</label>
+        <label for="password">@localizer["password"]</label>
     </div>
     <div class="d-grid gap-2 mb-3">
-        <button class="btn btn-lg btn-primary" type="submit"><i class="fa fa-sign-in"></i> Log In</button>
+        <button class="btn btn-lg btn-primary" type="submit"><i class="fa fa-sign-in"></i> @localizer["login"]</button>
     </div>
     
     <div class="form-check mb-3 float-start">
         <input type="checkbox" class="form-check-input" name="remember-me">
-        <label class="form-check-label" for="remember-me">Remember Me</label>
+        <label class="form-check-label" for="remember-me">@localizer["rememberMe"]</label>
     </div>
-    <a href="#" class="float-end">Forgot Password?</a>
+    <a href="#" class="float-end">@localizer["forgotPassword"]</a>
 </form>
