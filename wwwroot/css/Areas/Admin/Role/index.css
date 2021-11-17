@@ -1,0 +1,16 @@
+tr {
+  height: 40px;
+}
+td {
+  position: relative;
+  padding: 0 !important;
+}
+.rowLink::before {
+  position: absolute;
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
