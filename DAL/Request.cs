@@ -21,7 +21,7 @@ namespace Furlough.DAL
                 DateFrom = reader.GetDateTime("DateFrom"),
                 DateUntil = reader.GetDateTime("DateUntil"),
                 PaidDays = reader.GetInt32("PaidDays"),
-                RequestedBy = reader.GetInt32("RequestedBy"),
+                RequestedByUserId = reader.GetInt32("RequestedByUserId"),
                 RequestedOn = reader.GetDateTime("RequestedOn")
                 //StatusId instead of Status
             };

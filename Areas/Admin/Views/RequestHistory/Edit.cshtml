@@ -1,0 +1,46 @@
+﻿@model Furlough.DAL.Models.RequestHistory
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>RequestHistory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="RequestId" class="control-label"></label>
+                <select asp-for="RequestId" class="form-control" asp-items="ViewBag.RequestId"></select>
+                <span asp-validation-for="RequestId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlteredBy" class="control-label"></label>
+                <select asp-for="AlteredBy" class="form-control" asp-items="ViewBag.AlteredBy"></select>
+                <span asp-validation-for="AlteredBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlteredOn" class="control-label"></label>
+                <input asp-for="AlteredOn" class="form-control" />
+                <span asp-validation-for="AlteredOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlteredTo" class="control-label"></label>
+                <select asp-for="AlteredTo" class="form-control" asp-items="ViewBag.AlteredTo"></select>
+                <span asp-validation-for="AlteredTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

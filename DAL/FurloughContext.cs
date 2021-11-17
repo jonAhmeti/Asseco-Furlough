@@ -137,7 +137,7 @@ namespace Furlough.DAL
 
                 entity.HasOne(d => d.RequestedByNavigation)
                     .WithMany(p => p.Requests)
-                    .HasForeignKey(d => d.RequestedBy)
+                    .HasForeignKey(d => d.RequestedByUserId)
                     .HasConstraintName("FK__Request__Request__5629CD9C");
             });
 
