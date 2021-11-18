@@ -1,0 +1,61 @@
+﻿
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+html,
+body {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body {
+    position: relative;
+}
+/*
+aside::after {
+    content: "";
+    display: block;
+    width:20px;
+    height:100%;
+    position: relative;
+    left:90%;
+    background-color: red;
+}*/
+
+*{
+    box-sizing: border-box;
+}
+
+#infoCards {
+    height: 275px;
+    overflow: hidden;
+}
+
+#infoCards div.card {
+    min-height:150px;
+    max-height:230px;
+}
+
+#infoCardsArrowLeft, #infoCardsArrowRight {
+    z-index: 1;
+}
+
+    #infoCardsArrowLeft:hover, #infoCardsArrowRight:hover {
+        cursor: pointer;
+        box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+    }
+
+#infoCardsArrowRight {
+    right: 0;
+}

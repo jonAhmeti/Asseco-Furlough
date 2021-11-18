@@ -1,5 +1,52 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
-<div class="border border-danger w-100 h-100"></div>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+<script src="~/js/Areas/Employee/Home/index.js"></script>
+
+<div class="container-fluid overflow-hidden">
+    <div id="infoCardsWrapper" class="position-relative hstack">
+        <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="row-cols-1 row-cols-md-3 row-cols-lg-4 p-3 hstack" id="infoCards">
+            <!--Available days-->
+            <div class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa-solid fa-calendar-check text-success"></i> @localizer["availableDays"]</h5>
+                    <p class="card-text">@localizer["availableDaysMessage"]</p>
+                </div>
+            </div>
+            <!--Spent days-->
+            <div class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa-solid fa-calendar-minus text-warning"></i> @localizer["spentDays"]</h5>
+                    <p class="card-text">@localizer["spentDaysMessage"]</p>
+                </div>
+            </div>
+            <!--Bonus days-->
+            <div class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa-solid fa-calendar-plus text-info"></i> @localizer["bonusDays"]</h5>
+                    <p class="card-text">@localizer["bonusDaysMessage"]</p>
+                </div>
+            </div>
+            <!--Previous-year days-->
+            <div class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa-solid fa-calendar-day text-muted"></i> @localizer["prevYearDays"]</h5>
+                    <p class="card-text">@localizer["prevYearDaysMessage"]</p>
+                </div>
+            </div>
+
+            <!--Base days-->
+            <div class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa-solid fa-calendar-days text-primary"></i> @localizer["baseDays"]</h5>
+                    <p class="card-text">@localizer["baseDaysMessage"]</p>
+                </div>
+            </div>
+        </div>
+        <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowRight"><i class="fa-solid fa-arrow-right"></i></div>
+    </div>
+    <div class="bg-success row">Testing</div>
+</div>

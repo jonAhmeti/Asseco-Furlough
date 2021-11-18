@@ -6,13 +6,14 @@
     <title>@ViewData["Title"] - Furlough</title>
     <link rel="stylesheet" href="~/lib/bootstrap-5.1.3-dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Areas/Employee/Home/index.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Furlough.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="~/lib/jquery/dist/jquery-3.6.0.js"></script>
 </head>
-<body>
+<body class="d-flex flex-column">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow">
             <div class="container-fluid justify-content-around">
                 <!-- Header brand ASSECO image-->
                 <a class="navbar-brand p-3" asp-area="" asp-controller="Home" asp-action="Index"><img id="assecologo" src="~/images/asseco_southeasterneurope_logo.svg" alt="Asseco Logo" /></a>
@@ -29,8 +30,8 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="d-flex">
-        <aside class="h-100 w-25 border border-warning">
+    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1">
+        <aside class="col-lg-1 col-2 bg-white shadow-sm">
 
         </aside>
         @RenderBody()
