@@ -2,13 +2,18 @@
 
 @{
     ViewData["Title"] = "Index";
+    int counter = 0;
 }
 <link rel="stylesheet" href="~/css/Areas/Admin/Role/index.css">
-<h1>Index</h1>
+<script lang="javascript" type="text/javascript" src="~/js/Areas/Admin/Role/index.js"></script>
+<div class="h-25 d-flex pt-4 justify-content-center text-center innerShadow">
+    <div class="w-25 h-100 d-flex justify-content-center align-items-center border-bottom-0 headerCustomShadowBorder">
+        <h2>Roles</h2>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -18,28 +23,33 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th></th>
+            <th class="text-center">
+                <a asp-action="Create">Create <i class="fa fa-plus-square"></i></a>
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr rowId="@counter">
                 <td>
                     <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
                         @Html.DisplayFor(modelItem => item.Title)
                     </a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">
+                    <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
                         @Html.DisplayFor(modelItem => item.Description)
                     </a>
                 </td>
-                <td>
-                    <a asp-controller="Role" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td class="text-center">
+                    <a asp-controller="Role" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
+
+            //Counter Incremental
+            counter++;
         }
     </tbody>
 </table>
