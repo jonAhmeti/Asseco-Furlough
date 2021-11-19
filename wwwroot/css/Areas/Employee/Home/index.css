@@ -56,6 +56,11 @@ aside::after {
         box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
     }
 
-#infoCardsArrowRight {
-    right: 0;
+#infoCardsArrowLeft {
+    left: -100px;
 }
+
+#infoCardsArrowRight {
+    right: -100px;
+}
+
