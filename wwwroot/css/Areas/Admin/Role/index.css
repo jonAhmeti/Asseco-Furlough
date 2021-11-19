@@ -18,10 +18,10 @@ td a, th a {
   width: 100%;
   height: 100%;
 }
-.fa-edit:hover {
+.editHover:hover {
   color: var(--bs-warning);
 }
-.fa-trash:hover {
+.trashHover:hover {
   color: var(--bs-danger);
 }
 .headerCustomShadowBorder {
