@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
+    var today = DateTime.Now;
 }
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
@@ -48,5 +49,35 @@
         </div>
         <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowRight"><i class="fa-solid fa-arrow-right"></i></div>
     </div>
-    <div class="bg-success row">Testing</div>
-</div>
+    <!--Calendar-->
+    <div class="bg-success container">
+        <div class="col justify-content-center">
+            @{
+                byte colCounter = 0;
+                var daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
+                for (var i = 0; i < daysInMonth; i++)
+                {
+                    if (colCounter == 0)
+                    {
+                        @:<div class="row bg-danger border">
+                    }
+
+                        <div class="col-2 border" style="width: 5rem; height: 5rem;">
+                        @{
+                            //var day = new DateTime(today.Year, today.Month, today.Day + i + 1);
+                            var day = today.AddDays(i);
+                            @day.DayOfWeek
+                        }
+                    </div>
+
+                    colCounter++;
+                    if (colCounter == 7)
+                    {
+                        @:</div>
+                        colCounter = 0;
+                    }
+                }
+            }
+                </div>
+            </div>
+        </div>

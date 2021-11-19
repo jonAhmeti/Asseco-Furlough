@@ -33,8 +33,17 @@ aside::after {
     background-color: red;
 }*/
 
+aside {
+    z-index: 2;
+}
+
 *{
     box-sizing: border-box;
+}
+
+#infoCardsWrapper {
+    margin-left: var(--bs-gutter-x, -0.75rem);
+    margin-right: var(--bs-gutter-x, -0.75rem);
 }
 
 #infoCards {
@@ -63,4 +72,3 @@ aside::after {
 #infoCardsArrowRight {
     right: -100px;
 }
-
