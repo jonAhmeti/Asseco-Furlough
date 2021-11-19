@@ -50,8 +50,7 @@
         <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowRight"><i class="fa-solid fa-arrow-right"></i></div>
     </div>
     <!--Calendar-->
-    <div class="bg-success container">
-        <div class="col justify-content-center">
+        <div class="bg-success container" id="calendarWrapper">
             @{
                 byte colCounter = 0;
                 var daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
@@ -59,10 +58,10 @@
                 {
                     if (colCounter == 0)
                     {
-                        @:<div class="row bg-danger border">
+                        @:<div class="row">
                     }
 
-                        <div class="col-2 border" style="width: 5rem; height: 5rem;">
+                        <div class="col-auto border">
                         @{
                             //var day = new DateTime(today.Year, today.Month, today.Day + i + 1);
                             var day = today.AddDays(i);
@@ -80,4 +79,3 @@
             }
                 </div>
             </div>
-        </div>

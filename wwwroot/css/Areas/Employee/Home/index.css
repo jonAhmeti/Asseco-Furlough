@@ -72,3 +72,8 @@ aside {
 #infoCardsArrowRight {
     right: -100px;
 }
+
+#calendarWrapper .col-auto {
+    min-height: 5rem;
+    min-width: 5rem;
+}
