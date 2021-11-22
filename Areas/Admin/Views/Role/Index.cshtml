@@ -4,14 +4,12 @@
     ViewData["Title"] = "Index";
     int counter = 0;
 }
-<link rel="stylesheet" href="~/css/Areas/Admin/Role/index.css">
-<script lang="javascript" type="text/javascript" src="~/js/Areas/Admin/Role/index.js"></script>
 
 <div class="container-fluid p-0 mt-5">
     <div class="w-100 d-flex justify-content-center">
         <div
             class="blue-gradient-width shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
-            <h2 class="white-text mx-3">Roles</h2>
+            <h2 class="text-white mx-3">Roles</h2>
         </div>
     </div>
     <div class="tableDiv w-100 d-flex justify-content-center">
@@ -35,7 +33,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model) {
+                @foreach (var item in Model)
+                {
                     <tr rowId="@counter">
                         <td>
                             <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
@@ -49,12 +48,14 @@
                         </td>
                         <td class="text-center align-middle">
                             <div>
-                                    <a class="mx-1 text-warning px-4 rounded border border-warning" asp-controller="Role" asp-action="Edit" asp-route-id="@item.Id">
-                                        Edit
-                                    </a>
-                                    <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete" asp-route-id="@item.Id">
-                                        Delete
-                                    </a>
+                                <a class="mx-1 text-warning px-4 rounded border border-warning" asp-controller="Role"
+                                asp-action="Edit" asp-route-id="@item.Id">
+                                    Edit
+                                </a>
+                                <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
+                                asp-route-id="@item.Id">
+                                    Delete
+                                </a>
                             </div>
                         </td>
                     </tr>
