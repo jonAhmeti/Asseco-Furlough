@@ -30,7 +30,7 @@
                         @Html.DisplayNameFor(model => model.Description)
                     </th>
                     <th class="text-center">
-                        <a asp-action="Create">Add Role <i class="fa fa-plus-square"></i></a>
+                        <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">Create</a>
                     </th>
                 </tr>
             </thead>
@@ -47,7 +47,7 @@
                                 @Html.DisplayFor(modelItem => item.Description)
                             </a>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             <div>
                                     <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Delete" asp-route-id="@item.Id">
                                         Edit

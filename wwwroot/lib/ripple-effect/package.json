@@ -1,0 +1,52 @@
+{
+  "name": "@gabrielfins/ripple-effect",
+  "version": "1.0.5",
+  "description": "Precise implementation of Material Design's ripple effect with CSS, JavaScript and jQuery",
+  "exports": "./dist/ripples.js",
+  "main": "./dist/ripples.js",
+  "types": "./ripple-effect.d.ts",
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielfins/ripple-effect.git"
+  },
+  "keywords": [
+    "material design",
+    "material",
+    "ripples effect",
+    "ripple effect",
+    "ripples",
+    "ripple",
+    "effect",
+    "animation",
+    "css3",
+    "css",
+    "js",
+    "javascript",
+    "jquery"
+  ],
+  "author": {
+    "name": "Gabriel Figueredo",
+    "email": "contato.gabrielfins@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabrielfins/ripple-effect/issues"
+  },
+  "homepage": "https://github.com/gabrielfins/ripple-effect#readme",
+  "devDependencies": {
+    "css-loader": "^5.2.7",
+    "sass": "^1.35.2",
+    "sass-loader": "^11.1.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
