@@ -1,8 +1,38 @@
 ﻿@media only screen and (max-width: 480px) {
-    #modalWrapper {
-      width: 90%;
-    }
-    #assecologo {
-        width: 80%;
-    }
+  #modalWrapper {
+    width: 90%;
   }
+  #assecologo {
+    width: 80%;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  aside {padding-top: 15px;}
+  aside a {font-size: 18px;}
+}
+.sidenavLinks {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: white !important;
+  padding: 0.75rem 1.5rem !important;
+}
+aside {
+  background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+}
+.active {
+  color: #000 !important;
+  mix-blend-mode: screen;
+  background-color: white;
+}
+.sidenavLinks:hover { 
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.active:hover {
+  background-color: white;
+}
+
+
+html, body, main {
+  height: 100%;
+}

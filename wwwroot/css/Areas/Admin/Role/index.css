@@ -10,13 +10,16 @@ td a, th a {
 }
 .rowLink::before {
   margin-top: -8px;
-  position: absolute;
   content: "";
   display: block;
   position: absolute;
   left: 0;
   width: 100%;
   height: 100%;
+}
+.buttonTD {
+  height: 100%;
+  width: 100%;
 }
 .editHover:hover {
   color: var(--bs-warning);
@@ -37,4 +40,15 @@ td a, th a {
   -moz-box-shadow: inset 0 -10px 10px -10px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: inset 0 -10px 10px -10px rgba(0, 0, 0, 0.5);
   box-shadow: inset 0 -10px 10px -10px rgba(0, 0, 0, 0.5);
+}
+.blue-gradient-width {
+  background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+  width: 70%;
+}
+.white-text {
+  color: #fff !important;
+  text-decoration: none;
+}
+.tableDiv {
+  margin-top: -3rem;
 }
