@@ -5,6 +5,8 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 <script src="~/js/Areas/Employee/Home/index.js"></script>
+<link href="~/css/Areas/Employee/Home/calendar.css" rel="stylesheet"/>
+<script src="~/js/Areas/Employee/Home/calendar.js"></script>
 
 <div class="container-fluid overflow-hidden">
     <div id="infoCardsWrapper" class="position-relative hstack">
@@ -50,32 +52,77 @@
         <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowRight"><i class="fa-solid fa-arrow-right"></i></div>
     </div>
     <!--Calendar-->
-        <div class="bg-success container" id="calendarWrapper">
+    <section>
+        <div class="box d-flex flex-row">
+            <div class="container shadow">
+                <div id="calendar">
+                </div>
+            </div>
+        <div class="container border shadow-sm" id="selectedDays"> Hi</div>
+        </div>
+    </section>
+
+    @*<section id="calendarContainer" class="">
+        <div class="container dycalendar-container skin-black shadow-black" id="calendarWrapper">
             @{
                 byte colCounter = 0;
+                byte rowCounter = 0;
                 var daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
-                for (var i = 0; i < daysInMonth; i++)
+                for (var i = 0; i < 35; i++)
                 {
                     if (colCounter == 0)
                     {
-                        @:<div class="row">
+                        if (rowCounter != 0)
+                        {
+                            //check if row is last row
+                            if (rowCounter == 4)
+                            {
+                                @:<div class="row" style="border-bottom-left-radius: 1rem; border-bottom-right-radius: 1rem;">
+                            }
+                            else
+                            {
+                                @:<div class="row">
+                            }
+                        }
+                        else
+                        {
+                                @:<div class="row" style="border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
+                        }
                     }
 
-                        <div class="col-auto border">
+                        <div class="col-auto border border-white">
                         @{
                             //var day = new DateTime(today.Year, today.Month, today.Day + i + 1);
                             var day = today.AddDays(i);
-                            @day.DayOfWeek
+                            <p class="">@day.DayOfWeek
+                            @day.Date.Day</p>
                         }
                     </div>
 
                     colCounter++;
                     if (colCounter == 7)
                     {
+                        rowCounter++;
                         @:</div>
                         colCounter = 0;
                     }
                 }
             }
-                </div>
-            </div>
+            
+            <div id="calendar"></div>
+        </div>
+    </section>*@
+</div>
+
+<script>    
+        dycalendar.draw({
+            target:'#calendar',
+            type:'month',
+            dayformat:'full',
+            monthformat:'full',
+            highlighttargetdate:true,
+            highlighttoday:true,
+            prevnextbutton:'show'
+
+        });
+</script>

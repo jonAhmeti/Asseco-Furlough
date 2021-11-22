@@ -73,7 +73,11 @@ aside {
     right: -100px;
 }
 
+#calendarWrapper .row {
+    background-color: green;
+}
+
 #calendarWrapper .col-auto {
-    min-height: 5rem;
-    min-width: 5rem;
+    height: 112px;
+    width: 112px;
 }
