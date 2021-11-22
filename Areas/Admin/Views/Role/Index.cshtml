@@ -49,10 +49,10 @@
                         </td>
                         <td class="text-center align-middle">
                             <div>
-                                    <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Delete" asp-route-id="@item.Id">
+                                    <a class="mx-1 text-warning px-4 rounded border border-warning" asp-controller="Role" asp-action="Edit" asp-route-id="@item.Id">
                                         Edit
                                     </a>
-                                    <a class="mx-1 text-danger px-4 rounded border border-danger" asp-controller="Role" asp-action="Edit" asp-route-id="@item.Id">
+                                    <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete" asp-route-id="@item.Id">
                                         Delete
                                     </a>
                             </div>
