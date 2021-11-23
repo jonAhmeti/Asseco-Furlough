@@ -86,11 +86,13 @@
     padding : 5px;
 }
 
-.dycalendar-month-container .dycalendar-today-date,
-.dycalendar-month-container .dycalendar-target-date {
-    color : #fff;
-    border-radius: 2px;
-}
+/*Todays date styling*/
+    .dycalendar-month-container .dycalendar-today-date,
+    .dycalendar-month-container .dycalendar-target-date {
+        color: #fff !important;
+        border-radius: 50%;
+        background-color: var(--bs-dark);
+    }
 
 /*================================== MONTH CALENDAR ENS HERE ===============*/
 
@@ -340,8 +342,8 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
     overflow: hidden;
+    padding-bottom: 10px;
 }
 /*section::before
 {
@@ -403,7 +405,7 @@ section::after
 }
 
     #calendar table td:hover {
-        background: #000;
+        background: var(--bs-dark);
         color: #fff !important;
     }
 #calendar table tr:nth-child(1) td
@@ -418,10 +420,13 @@ section::after
         color: #fff;
     }
 
-.dycalendar-target-date 
-{
-    color: #000;
-    mix-blend-mode: screen;
+/*todays date styling*/
+.dycalendar-today-date {
+}
+
+.dycalendar-today-date:hover {
+    box-shadow: 0 0 7px 0px black;
+    background-color: red;
 }
 .dycalendar-prev-next-btn.prev-btn {
     background: #fff;
@@ -466,8 +471,18 @@ h3,a{
     
 }
 
-#selectedDays {
+#selectedDaysWrapper {
     position: relative;
     z-index: -1;
     left:-10px;
+}
+
+section div.box {
+    max-height: 412px;
+}
+
+#selectedDaysList {
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: inset 0 0.5rem 8px -7px rgb(0 0 0 / 15%) !important;
 }

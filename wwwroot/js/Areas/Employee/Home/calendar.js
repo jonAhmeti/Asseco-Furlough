@@ -1,4 +1,21 @@
+
+var selectedDates = new Array();
+
+const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+
+dayNames = {
+    full: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    d: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    dd: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    ddd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+};
+
+
 (function (global) {
+
+    const selectedDaysList = $("#selectedDaysList");
 
     "use strict";
 
@@ -10,7 +27,7 @@
         document = global.document,
 
         //starting year
-        START_YEAR = 1900,
+        START_YEAR = 2021,
 
         //end year
         END_YEAR = 9999,
@@ -49,8 +66,6 @@
         for (c = 0; c <= 6; c = c + 1) {
             td = document.createElement("td");
             td.innerHTML = "SMTWTFS"[c];
-            td.on('click', function () {
-            });
             tr.appendChild(td);
         }
         table.appendChild(tr);
@@ -78,6 +93,7 @@
             if (option.date === count && option.month === data.monthIndex && option.highlighttargetdate === true) {
                 td.setAttribute("class", "dycalendar-target-date");
             }
+
             tr.appendChild(td);
             count = count + 1;
             c = c + 1;
@@ -97,10 +113,12 @@
                 if (data.today.date === count && data.today.monthIndex === data.monthIndex && option.highlighttoday === true) {
                     td.setAttribute("class", "dycalendar-today-date");
                 }
-                if (option.date === count && option.month === data.monthIndex && option.highlighttargetdate === true) {
-                    td.setAttribute("class", "dycalendar-target-date");
-                }
+                //=============== this if statement sets specific class for today's date even if the month/year is different ===============
+                //if (option.date === count && option.month === data.monthIndex && option.highlighttargetdate === true) {
+                //    td.setAttribute("class", "dycalendar-target-date");
+                //}
                 count = count + 1;
+
                 tr.appendChild(td);
             }
             table.appendChild(tr);
@@ -553,6 +571,8 @@
             }
 
         }
+
+        setCalendarDayEvents();
     }
 
     //events
@@ -562,3 +582,63 @@
     global.dycalendar = dycalendar;
 
 }(typeof window !== "undefined" ? window : this));
+
+// onClick events for clicking on days
+function setCalendarDayEvents() {
+    let calendarHeader = $(".dycalendar-header");
+    let days = $("#calendar td");
+    let day = undefined;
+    let month = undefined;
+    let year = undefined;
+    for (var i = 0; i < days.length; i++)
+    {
+        if (!isNaN(days[i].innerText) && !isNaN(parseFloat(days[i].innerText)))
+        {
+            $(days[i]).on('click', function () {
+
+                
+
+
+                let dataOptions = JSON.parse(calendarHeader.attr('data-option'));
+
+                day = this.innerText;
+                month = dataOptions.month;
+                year = dataOptions.year;
+
+                let clickedDate = new Date(year, month, day);
+
+                if (dayNames.d[clickedDate.getDay()] != "S" && clickedDate >= new Date() && !containsDate(clickedDate, selectedDates)) {
+
+                    $(this).css('background-color', '#0dcaf0');
+                    console.log(`Date clicked: ${clickedDate}`);
+                    selectedDates.push(clickedDate);
+                    console.log(selectedDates);
+                    selectedDaysList.innerHTML = selectedDates.map(element => {
+                        return `<div class="row row-cols-6">
+                                <div class="col-4 text-end">
+                                    <i class="fa-solid fa-circle-check text-success"></i>
+                                </div>
+                                <div class="col-8 text-start"> 
+                                    ${dayNames.ddd[element.getDay()]} ${element.getDate()} ${monthNames[element.getMonth()]}
+                                     ${element.getFullYear()}
+                                </div>
+                            </div>`
+                    }).join('');
+                }
+            });
+        }
+
+    }
+}
+
+function containsDate(date, array) {
+    let found = false;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].getDate() == date.getDate()
+            && array[i].getMonth() == date.getMonth()
+            && array[i].getFullYear() == date.getFullYear()) {
+            found = true;
+        }
+    }
+    return found;
+}
