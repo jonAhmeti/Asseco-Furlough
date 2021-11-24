@@ -129,4 +129,16 @@
   <data name="edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="kishe" xml:space="preserve">
+    <value>kishe une po kodoj</value>
+  </data>
+  <data name="privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="test" xml:space="preserve">
+    <value>prov</value>
+  </data>
 </root>
