@@ -22,4 +22,20 @@
     <Folder Include="Areas\Manager\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\Shared\_Admin_Layout_en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_Admin_Layout_en.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Shared\_Admin_Layout_en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Admin_Layout_en.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

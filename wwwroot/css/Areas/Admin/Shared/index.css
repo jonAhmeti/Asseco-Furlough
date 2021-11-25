@@ -17,6 +17,12 @@ td a, th a {
   width: 100%;
   height: 100%;
 }
+.customSubPageTitle {
+  width: 15%;
+}
+.blue-gradient {
+  background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+}
 .blue-gradient-div {
   background: linear-gradient(40deg,#45cafc,#303f9f) !important;
   width: 70%;

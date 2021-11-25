@@ -35,7 +35,7 @@
                     </th>
 
                     <th class="text-center">
-                        <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">Create</a>
+                        <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">@Resources.Shared._Admin_Layout_en.create</a>
                     </th>
                 </tr>
             </thead>
@@ -66,11 +66,11 @@
                         <td class="text-center align-middle">
                             <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
                             asp-route-id="@item.Id">
-                                Edit
+                                @Resources.Shared._Admin_Layout_en.edit
                             </a>
                             <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
                             asp-route-id="@item.Id">
-                                Delete
+                                @Resources.Shared._Admin_Layout_en.delete
                             </a>
                         </td>
                     </tr>
