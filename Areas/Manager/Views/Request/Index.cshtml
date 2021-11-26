@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Furlough.DAL.Models.Request>
+
+@{
+    ViewData["Title"] = "Index";
+    int counter = 0;
+}
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+<div class="container-fluid p-0 mt-5">
+    <div class="w-100 d-flex justify-content-center">
+        <div
+            class="blue-gradient-div shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
+            <h2 class="text-white mx-3">@localizer["pageTitle"]</h2>
+        </div>
+    </div>
+    <div class="tableDiv w-100 d-flex justify-content-center">
+        <table class="table w-75 shadow rounded py-2 mx-4 mb-3">
+            <thead>
+                <tr>
+                    <th class="border-0"></th>
+                    <th class="border-0"></th>
+                    <th class="border-0"></th>
+                    <th class="border-0"></th>
+                    <th class="border-0 w-25"></th>
+                </tr>
+                <tr>
+                    <th>@localizer["userId"]</th>
+                    <th>@localizer["requestedTime"]</th>
+                    <th>@localizer["requestStatus"]</th>
+                    <th>@localizer["requestType"]</th>
+                    <th class="text-center">
+                        <a class="mx-1 text-primary px-4 rounded border border-primary"
+                            asp-action="Create">@Resources.Shared._Admin_Layout_en.create</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr rowId="@counter">
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.RequestedByUserId)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.RequestedOn)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.RequestStatus.Id)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
+                                @Html.DisplayFor(modelItem => item.RequestType.Id)
+                            </a>
+                        </td>
+                        <td class="text-center align-middle">
+                            <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
+                            asp-route-id="@item.Id">
+                                @Resources.Shared._Admin_Layout_en.edit
+                            </a>
+                            <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
+                            asp-route-id="@item.Id">
+                                @Resources.Shared._Admin_Layout_en.delete
+                            </a>
+                        </td>
+                    </tr>
+                    //Counter Incremental
+                    counter++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
