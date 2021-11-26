@@ -16,7 +16,7 @@ namespace Furlough.SecurityHandlers
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-
+            throw new NotImplementedException();
         }
     }
 }

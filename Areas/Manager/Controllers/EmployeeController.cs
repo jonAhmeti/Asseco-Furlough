@@ -13,10 +13,12 @@ namespace Furlough.Areas.Manager.Controllers
     [Area("Manager")]
     public class EmployeeController : Controller
     {
+        private readonly DAL.Employee _contextEmployee;
         private readonly FurloughContext _context;
 
-        public EmployeeController(FurloughContext context)
+        public EmployeeController(DAL.Employee contextEmployee, FurloughContext context)
         {
+            _contextEmployee = contextEmployee;
             _context = context;
         }
 
@@ -62,7 +64,7 @@ namespace Furlough.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,JoinDate,PositionId,DepartmentId,Email,Name")] Models.Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,UserId,JoinDate,PositionId,DepartmentId,Email,Name")] DAL.Models.Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -100,14 +102,14 @@ namespace Furlough.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,JoinDate,PositionId,DepartmentId,Email,Name")] Models.Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,JoinDate,PositionId,DepartmentId,Email,Name")] DAL.Models.Employee employee)
         {
             if (id != employee.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //This model should be a ViewModel instead of DAL.Models.Employee
             {
                 try
                 {

@@ -92,7 +92,7 @@ app.UseRequestLocalization(options =>
     {
         endpoints.MapControllerRoute(
             name: "areas",
-            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"); //.RequireAuthorization();
 
         endpoints.MapControllerRoute(
             name: "default",
