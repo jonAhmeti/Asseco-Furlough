@@ -4,7 +4,7 @@ tr {
 td {
   position: relative;
 }
-td a, th a {
+a {
   text-decoration: none;
   color: black;
 }
@@ -17,15 +17,19 @@ td a, th a {
   width: 100%;
   height: 100%;
 }
-.headerCustomShadowBorder {
-  position: relative;
-  background: #fff;
-  box-shadow: 0px -5px 5px rgba(0,0,0,0.25);
-  border-radius: 10px 10px 0 0;
+.customSubPageTitle {
+  width: 50%;
 }
-.blue-gradient-width {
+.subPageContainer {
+  margin: 2.5%;
+}
+.blue-gradient {
+  background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+}
+.blue-gradient-div {
   background: linear-gradient(40deg,#45cafc,#303f9f) !important;
   width: 70%;
+  z-index: 1;
 }
 .tableDiv {
   margin-top: -3rem;

@@ -1,7 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Index";
-    Layout = "../Shared/_Layout";
 
     var username = Context.User?.Identity?.Name;
 }
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
+<div>
+    <p>@localizer["test"]</p>
+</div>

@@ -8,7 +8,7 @@
 <div class="container-fluid p-0 mt-5">
     <div class="w-100 d-flex justify-content-center">
         <div
-            class="blue-gradient-width shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
+            class="blue-gradient-div shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
             <h2 class="text-white mx-3">Department</h2>
         </div>
     </div>
@@ -24,7 +24,7 @@
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th class="text-center">
-                        <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">Create</a>
+                        <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">@Resources.Shared._Admin_Layout_en.create</a>
                     </th>
                 </tr>
             </thead>
@@ -40,11 +40,11 @@
                         <td class="text-center align-middle">
                             <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
                             asp-route-id="@item.Id">
-                                Edit
+                                @Resources.Shared._Admin_Layout_en.edit
                             </a>
                             <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
                             asp-route-id="@item.Id">
-                                Delete
+                                @Resources.Shared._Admin_Layout_en.delete
                             </a>
                         </td>
                     </tr>
