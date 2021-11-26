@@ -2,6 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Furlough.SecurityHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,13 +42,31 @@ builder.Services.AddLocalization(
     });
 
 //Authentication and Authorization
-//builder.Services.AddAuthentication(options =>
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 //{
-//    options.AddScheme<>("BasicAuthenticator");
+//    options.SaveToken = true;
+//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidateLifetime = true,
+//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//        ValidAudience = builder.Configuration["Jwt:Issuer"],
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Token"])),
+//    };
 //});
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = "/";
+    options.LogoutPath = "/Logout";
+    options.ReturnUrlParameter = "";
+    options.Cookie.Name = "DaddyCookie";
+}).AddScheme<BasicAuthenticatorOptions, BasicAuthenticator>("BasicAuthenticator Handler", null);
 
 //Adding DAL Services
 builder.Services.AddScoped<Furlough.DAL.User>();
+builder.Services.AddScoped<Furlough.DAL.Employee>();
+builder.Services.AddScoped<Furlough.SecurityHandlers.JwtHandler>();
 
 var app = builder.Build();
 
@@ -68,7 +92,7 @@ app.UseRequestLocalization(options =>
     {
         endpoints.MapControllerRoute(
             name: "areas",
-            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
 
         endpoints.MapControllerRoute(
             name: "default",

@@ -52,7 +52,7 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
-        public bool GetById(int id)
+        public Models.Position GetById(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_positionGetById", connection)
@@ -62,10 +62,10 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Id", id);
 
-            return command.ExecuteNonQuery() > 0;
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
-        public bool GetByTitle(string title)
+        public Models.Position GetByTitle(string title)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_positionGetByTitle", connection)
@@ -75,18 +75,32 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Title", title);
 
-            return command.ExecuteNonQuery() > 0;
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
 
         //Object mapper; reader to model
-        public Models.Position Mapper(SqlDataReader reader)
+        public IEnumerable<Models.Position> Mapper(SqlDataReader reader)
         {
-            return new Models.Position()
+            var listObj = new List<Models.Position>();
+
+            try
             {
-                Id = reader.GetInt32("Id"),
-                Title = reader.GetString("Title")
-            };
+                while (reader.Read())
+                {
+                    listObj.Add(new Models.Position()
+                    {
+                        Id = reader.GetInt32("Id"),
+                        Title = reader.GetString("Title")
+                    });
+                }
+                return listObj;
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                throw;
+            }
         }
     }
 }

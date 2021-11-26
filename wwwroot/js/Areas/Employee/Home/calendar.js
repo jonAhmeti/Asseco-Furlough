@@ -1,5 +1,6 @@
 
 var selectedDates = new Array();
+var listShow = false;
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -608,10 +609,19 @@ function setCalendarDayEvents() {
                 let clickedDate = new Date(year, month, day);
 
                 if (dayNames.d[clickedDate.getDay()] != "S" && clickedDate >= new Date() && !containsDate(clickedDate, selectedDates)) {
+                    if (!listShow) {
+                        listShow = true;
+                        $("#selectedDaysWrapper").animate({ 'left': 0 }, 500);
+                        $("#calendarWrapper").animate({ 'left': 0 }, 500);
+                    }
 
                     $(this).css('background-color', '#0dcaf0');
                     console.log(`Date clicked: ${clickedDate}`);
                     selectedDates.push(clickedDate);
+                    //display sorted date
+                    selectedDates.sort((a, b) => {
+                        return a - b;
+                    });
                     console.log(selectedDates);
                     selectedDaysList.innerHTML = selectedDates.map(element => {
                         return `<div class="row row-cols-6">

@@ -61,7 +61,7 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Id", id);
 
-            return Mapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
         public Models.Department GetByName(string name)
@@ -74,17 +74,30 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Name", name);
 
-            return Mapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
         //Object mapper; reader to model
-        public Models.Department Mapper(SqlDataReader reader)
+        public IEnumerable<Models.Department> Mapper(SqlDataReader reader)
         {
-            return new Models.Department()
+            var listObj = new List<Models.Department>();
+            try
             {
-                Id = reader.GetInt32("Id"),
-                Name = reader.GetString("Name")
-            };
+                while (reader.Read())
+                {
+                    listObj.Add(new Models.Department()
+                    {
+                        Id = reader.GetInt32("Id"),
+                        Name = reader.GetString("Name")
+                    });
+                }
+                return listObj;
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                throw;
+            }
         }
 
     }

@@ -3,7 +3,8 @@ using Furlough.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Microsoft.Extensions.Localization;
+using Furlough.SecurityHandlers;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Furlough.Controllers
 {
@@ -11,33 +12,51 @@ namespace Furlough.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DAL.User _contextUser;
+        private readonly DAL.Employee _contextEmployee;
 
-        public HomeController(ILogger<HomeController> logger, DAL.User contextUser)
+        public HomeController(ILogger<HomeController> logger, 
+            DAL.User contextUser, DAL.Employee contextEmployee)
         {
             _logger = logger;
             _contextUser = contextUser;
+            _contextEmployee = contextEmployee;
         }
 
         [AllowAnonymous]
         public IActionResult Index(string? message = null)
         { 
-            return View(); 
+            return View();
         }
 
         #region Login/Signup
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Login(Models.User user)
         {
-            return RedirectToAction("Index");
+            var dbUser = _contextUser.GetByUsername(user.Username);
+            if (dbUser == null) return Error();
+
+            return Ok();
         }
 
         [HttpPost]
         public IActionResult Signup(Models.SignupViewModel signupModel)
         {
+            //var isValidEmail = (signupModel.Email.Split('@')[1] == "asseco-see.com");
+
             var userId = _contextUser.Add(new DAL.Models.User
             {
                 Username = signupModel.Username,
                 Password = signupModel.Password
+            });
+
+            _contextEmployee.Add(new DAL.Models.Employee
+            {
+                Email = signupModel.Email,
+                UserId = (int)userId,
+                Name = signupModel.Name,
+                DepartmentId = signupModel.DepartmentId,
+                PositionId = signupModel.PositionId
             });
 
             //Likely username already exists

@@ -1,27 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
+using System.Text.Encodings.Web;
 
 namespace Furlough.SecurityHandlers
 {
-    public class BasicAuthenticator : IAuthenticationHandler
+    public class BasicAuthenticator : AuthenticationHandler<BasicAuthenticatorOptions>
     {
-        public Task<AuthenticateResult> AuthenticateAsync()
+        public BasicAuthenticator(
+            IOptionsMonitor<BasicAuthenticatorOptions> options, 
+            ILoggerFactory logger, 
+            UrlEncoder encoder, 
+            ISystemClock clock) : base(options, logger, encoder, clock)
         {
-            throw new NotImplementedException();
         }
 
-        public Task ChallengeAsync(AuthenticationProperties? properties)
+        protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            throw new NotImplementedException();
-        }
 
-        public Task ForbidAsync(AuthenticationProperties? properties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task InitializeAsync(AuthenticationScheme scheme, HttpContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

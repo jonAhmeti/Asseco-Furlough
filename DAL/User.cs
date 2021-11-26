@@ -72,11 +72,12 @@ namespace Furlough.DAL
             };
 
             command.Parameters.AddWithValue("@Id", id);
+            connection.Open();
 
-            return Mapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
-        public Models.User GetByUsername(int username)
+        public Models.User GetByUsername(string username)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_userGetByUsername", connection)
@@ -85,23 +86,38 @@ namespace Furlough.DAL
             };
 
             command.Parameters.AddWithValue("@Username", username);
+            connection.Open();
 
-            return Mapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
         //Object mapper; reader to model
-        public Models.User Mapper(SqlDataReader reader)
+        public IEnumerable<Models.User> Mapper(SqlDataReader reader)
         {
-            return new Models.User()
+            var objList = new List<Models.User>();
+            try
             {
-                Id = reader.GetInt32("Id"),
-                InsertDate = reader.GetDateTime("InsertDate"),
-                Username = reader.GetString("Username"),
-                Password = reader.GetString("Password"),
-                RoleId = reader.GetInt32("RoleId"),
-                UpdateBy = reader.GetInt32("UpdateBy"),
-                UpdateDate = reader.GetDateTime("UpdateDate")
-            };
+                while (reader.Read())
+                {
+                    objList.Add(new Models.User()
+                    {
+                        Id = reader.GetInt32("Id"),
+                        InsertDate = reader.GetDateTime("InsertDate"),
+                        Username = reader.GetString("Username"),
+                        Password = reader.GetString("Password"),
+                        RoleId = reader.GetInt32("RoleId"),
+                        UpdateBy = reader["UpdateBy"] == DBNull.Value ? null : reader.GetInt32("UpdateBy"),
+                        UpdateDate = reader["UpdateDate"] == DBNull.Value ? null : reader.GetDateTime("UpdateDate")
+                    });
+                }
+                return objList;
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                throw;
+            }
+            
         }
     }
 }

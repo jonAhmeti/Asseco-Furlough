@@ -1,7 +1,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 
-<form id="form" class="p-3 w-100 h-100" action="#" method="post">
+<form id="form" class="p-3 w-100 h-100" asp-action="Login" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" name="username" placeholder="Username">
         <label for="username">@localizer["username"]</label>

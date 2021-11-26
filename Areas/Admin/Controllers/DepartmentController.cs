@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
 using Furlough.DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Furlough.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
     [Area("Admin")]
     public class DepartmentController : Controller
     {

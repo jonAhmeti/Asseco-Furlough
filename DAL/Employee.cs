@@ -66,8 +66,23 @@ namespace Furlough.DAL
             };
 
             command.Parameters.AddWithValue("@Id", id);
+            connection.Open();
 
-            return Mapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
+        }
+
+        public Models.Employee GetByUserId(int userId)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_employeeGetByUserId", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@UserId", userId);
+            connection.Open();
+
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
         public Models.Employee GetByEmail(string email)
@@ -80,22 +95,35 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Email", email);
 
-            return Mapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
         //Object mapper; reader to model
-        public Models.Employee Mapper(SqlDataReader reader)
+        public IEnumerable<Models.Employee> Mapper(SqlDataReader reader)
         {
-            return new Models.Employee()
+            var listObj = new List<Models.Employee>();
+            try
             {
-                Id = reader.GetInt32("Id"),
-                UserId = reader.GetInt32("UserId"),
-                PositionId = reader.GetInt32("PositionId"),
-                Name = reader.GetString("Name"),
-                DepartmentId = reader.GetInt32("DepartmentId"),
-                Email = reader.GetString("Email"),
-                JoinDate = reader.GetDateTime("JoinDate")
-            };
+                while (reader.Read())
+                {
+                    listObj.Add(new Models.Employee()
+                    {
+                        Id = reader.GetInt32("Id"),
+                        UserId = reader.GetInt32("UserId"),
+                        PositionId = reader.GetInt32("PositionId"),
+                        Name = reader.GetString("Name"),
+                        DepartmentId = reader.GetInt32("DepartmentId"),
+                        Email = reader.GetString("Email"),
+                        JoinDate = reader.GetDateTime("JoinDate")
+                    });
+                }
+                return listObj;
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                throw;
+            }
         }
     }
 }
