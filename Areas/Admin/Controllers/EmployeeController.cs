@@ -62,7 +62,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,JoinDate,PositionId,DepartmentId,Email,Name")] Models.Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,UserId,JoinDate,PositionId,DepartmentId,Email,Name")] DAL.Models.Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +100,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,JoinDate,PositionId,DepartmentId,Email,Name")] Models.Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,JoinDate,PositionId,DepartmentId,Email,Name")] DAL.Models.Employee employee)
         {
             if (id != employee.Id)
             {
