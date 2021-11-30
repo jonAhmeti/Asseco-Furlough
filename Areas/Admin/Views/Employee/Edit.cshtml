@@ -1,4 +1,4 @@
-﻿@model Furlough.DAL.Models.Employee
+﻿@model Furlough.Models.Employee
 
 @{
     ViewData["Title"] = "Edit";
@@ -33,12 +33,12 @@
                         <span asp-validation-for="JoinDate" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="PositionId" asp-items="ViewBag.PositionId"></select>
+                        <select class="form-control" asp-for="PositionId" asp-items="ViewBag.Positions"></select>
                         <label asp-for="PositionId"></label>
                         <span asp-validation-for="PositionId" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentId"></select>
+                        <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.Departments"></select>
                         <label asp-for="DepartmentId"></label>
                         <span asp-validation-for="DepartmentId" class="text-danger"></span>
                     </div>

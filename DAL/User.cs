@@ -42,25 +42,38 @@ namespace Furlough.DAL
                 CommandType = CommandType.StoredProcedure
             };
 
+            command.Parameters.AddWithValue("@UserId", obj.Id);
             command.Parameters.AddWithValue("@RoleId", obj.RoleId);
             command.Parameters.AddWithValue("@UpdateBy", obj.UpdateBy);
             command.Parameters.AddWithValue("@Username", obj.Username);
             command.Parameters.AddWithValue("@Password", obj.Password);
+            connection.Open();
 
             return command.ExecuteNonQuery() > 0;
         }
 
         public bool Delete(int id)
         {
-            using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_userDelete", connection)
+            try
             {
-                CommandType = CommandType.StoredProcedure
-            };
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_userDelete", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Id", id);
 
-            command.Parameters.AddWithValue("@Id", id);
+                connection.Open();
+                return command.ExecuteNonQuery() > 0;
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("User DAL error onDelete: " + e.Message);
+                Console.ResetColor();
 
-            return command.ExecuteNonQuery() > 0;
+                return false;
+            }
         }
 
         public Models.User GetById(int id)
@@ -91,6 +104,18 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
+        public IEnumerable<Models.User> GetAll()
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_userGetAll", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            connection.Open();
+
+            return Mapper(command.ExecuteReader());
+        }
+
         //Object mapper; reader to model
         public IEnumerable<Models.User> Mapper(SqlDataReader reader)
         {
@@ -104,7 +129,6 @@ namespace Furlough.DAL
                         Id = reader.GetInt32("Id"),
                         InsertDate = reader.GetDateTime("InsertDate"),
                         Username = reader.GetString("Username"),
-                        Password = reader.GetString("Password"),
                         RoleId = reader.GetInt32("RoleId"),
                         UpdateBy = reader["UpdateBy"] == DBNull.Value ? null : reader.GetInt32("UpdateBy"),
                         UpdateDate = reader["UpdateDate"] == DBNull.Value ? null : reader.GetDateTime("UpdateDate")

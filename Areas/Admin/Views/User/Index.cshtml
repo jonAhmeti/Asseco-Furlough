@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Furlough.DAL.Models.User>
+﻿@model IEnumerable<Furlough.Models.User>
 
 @{
     ViewData["Title"] = "Index";
@@ -25,10 +25,7 @@
                 @Html.DisplayNameFor(model => model.Password)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdateByNavigation)
+                @Html.DisplayNameFor(model => model.RoleId)
             </th>
             <th></th>
         </tr>
@@ -49,10 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Role.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateByNavigation.Id)
+                @Html.DisplayFor(modelItem => item.RoleId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

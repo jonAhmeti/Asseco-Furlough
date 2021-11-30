@@ -13,9 +13,9 @@ namespace Furlough.Models
         public string Email { get; set; } = null!;
         public string Name { get; set; } = null!;
 
-        public virtual Department Department { get; set; } = null!;
-        public virtual Position Position { get; set; } = null!;
-        public virtual User User { get; set; } = null!;
-        public virtual AvailableDay AvailableDay { get; set; } = null!;
+        //public virtual Department Department { get; set; } = null!;
+        //public virtual Position Position { get; set; } = null!;
+        //public virtual User User { get; set; } = null!;
+        //public virtual AvailableDay AvailableDay { get; set; } = null!;
     }
 }

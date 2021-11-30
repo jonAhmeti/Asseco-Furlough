@@ -1,4 +1,4 @@
-﻿@model Furlough.DAL.Models.User
+﻿@model Furlough.Models.User
 
 @{
     ViewData["Title"] = "Create";
@@ -13,8 +13,8 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
+                <label class="control-label">Role</label>
+                <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.Roles"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
@@ -25,10 +25,6 @@
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdateBy" class="control-label"></label>
-                <select asp-for="UpdateBy" class ="form-control" asp-items="ViewBag.UpdateBy"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

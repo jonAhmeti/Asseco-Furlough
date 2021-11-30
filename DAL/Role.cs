@@ -3,45 +3,40 @@ using System.Data;
 
 namespace Furlough.DAL
 {
-    public class Employee
+    public class Role
     {
-        private readonly FurloughContext _context;
+        private FurloughContext _context;
 
-        public Employee(FurloughContext context)
+        public Role(FurloughContext context)
         {
             _context = context;
         }
-        public bool Add(Models.Employee obj)
+
+        public bool Add(Models.Role obj)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_employeeAdd", connection)
+            using var command = new SqlCommand("sp_roleAdd", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@UserId", obj.UserId);
-            command.Parameters.AddWithValue("@PositionId", obj.PositionId);
-            command.Parameters.AddWithValue("@DepartmentId", obj.DepartmentId);
-            command.Parameters.AddWithValue("@Email", obj.Email);
-            command.Parameters.AddWithValue("@Name", obj.Name);
-            command.Parameters.AddWithValue("@JoinDate", obj.JoinDate);
+            command.Parameters.AddWithValue("@Title", obj.Title);
+            command.Parameters.AddWithValue("@Description", obj.Description);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
         }
 
-        public bool Edit(Models.Employee obj)
+        public bool Edit(Models.Role obj)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_employeeEdit", connection)
+            using var command = new SqlCommand("sp_roleEdit", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
             command.Parameters.AddWithValue("@Id", obj.Id);
-            command.Parameters.AddWithValue("@PositionId", obj.PositionId);
-            command.Parameters.AddWithValue("@DepartmentId", obj.DepartmentId);
-            command.Parameters.AddWithValue("@Email", obj.Email);
-            command.Parameters.AddWithValue("@Name", obj.Name);
+            command.Parameters.AddWithValue("@Title", obj.Title);
+            command.Parameters.AddWithValue("@Description", obj.Description);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
@@ -50,7 +45,7 @@ namespace Furlough.DAL
         public bool Delete(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_employeeDelete", connection)
+            using var command = new SqlCommand("sp_roleDelete", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -61,10 +56,10 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
-        public Models.Employee GetById(int id)
+        public Models.Role GetById(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_employeeGetById", connection)
+            using var command = new SqlCommand("sp_roleGetById", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -75,51 +70,45 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
-        public Models.Employee GetByUserId(int userId)
+        public Models.Role GetByName(string title)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_employeeGetByUserId", connection)
+            using var command = new SqlCommand("sp_roleGetByTitle", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            command.Parameters.AddWithValue("@UserId", userId);
+            command.Parameters.AddWithValue("@Title", title);
 
             connection.Open();
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
-        public Models.Employee GetByEmail(string email)
+        public IEnumerable<Models.Role> GetAll()
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_employeeGetByEmail", connection)
+            using var command = new SqlCommand("sp_roleGetAll", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            command.Parameters.AddWithValue("@Email", email);
-
             connection.Open();
-            return Mapper(command.ExecuteReader()).FirstOrDefault();
+            return Mapper(command.ExecuteReader());
         }
 
         //Object mapper; reader to model
-        public IEnumerable<Models.Employee> Mapper(SqlDataReader reader)
+        public IEnumerable<Models.Role> Mapper(SqlDataReader reader)
         {
-            var listObj = new List<Models.Employee>();
+            var listObj = new List<Models.Role>();
             try
             {
                 while (reader.Read())
                 {
-                    listObj.Add(new Models.Employee()
+                    listObj.Add(new Models.Role()
                     {
                         Id = reader.GetInt32("Id"),
-                        UserId = reader.GetInt32("UserId"),
-                        PositionId = reader.GetInt32("PositionId"),
-                        Name = reader.GetString("Name"),
-                        DepartmentId = reader.GetInt32("DepartmentId"),
-                        Email = reader.GetString("Email"),
-                        JoinDate = reader.GetDateTime("JoinDate")
+                        Title = reader.GetString("Title"),
+                        Description = reader.GetString("Description"),
                     });
                 }
                 return listObj;

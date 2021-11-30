@@ -7,23 +7,36 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
 using Furlough.DAL.Models;
+using Furlough.Models.Mapper;
 
 namespace Furlough.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class RoleController : Controller
     {
-        private readonly FurloughContext _context;
+        private DAL.Role _contextRole;
+        private DalMapper _dalMapper;
+        private ViewModelMapper _vmMapper;
 
-        public RoleController(FurloughContext context)
+        public RoleController(DAL.Role contextRole, 
+            Models.Mapper.DalMapper dalMapper, Models.Mapper.ViewModelMapper vmMapper)
         {
-            _context = context;
+            _contextRole = contextRole;
+
+            _dalMapper = dalMapper;
+            _vmMapper = vmMapper;
         }
 
         // GET: Admin/Role
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Roles.ToListAsync());
+            var roles = new List<Models.Role>();
+            foreach (var item in _contextRole.GetAll())
+            {
+                roles.Add(_vmMapper.RoleMap(item));
+            }
+
+            return View(roles);
         }
 
         // GET: Admin/Role/Details/5
@@ -34,14 +47,13 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var role = _contextRole.GetById(id.Value);
             if (role == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(_vmMapper.RoleMap(role));
         }
 
         // GET: Admin/Role/Create
@@ -55,12 +67,11 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description")] Role role)
+        public async Task<IActionResult> Create(Models.Role role)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(role);
-                await _context.SaveChangesAsync();
+                _contextRole.Add(_dalMapper.DalRoleMap(role));
                 return RedirectToAction(nameof(Index));
             }
             return View(role);
@@ -74,12 +85,12 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles.FindAsync(id);
+            var role = _contextRole.GetById(id.Value);
             if (role == null)
             {
                 return NotFound();
             }
-            return View(role);
+            return View(_vmMapper.RoleMap(role));
         }
 
         // POST: Admin/Role/Edit/5
@@ -87,7 +98,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description")] Role role)
+        public async Task<IActionResult> Edit(int id, Models.Role role)
         {
             if (id != role.Id)
             {
@@ -98,19 +109,15 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(role);
-                    await _context.SaveChangesAsync();
+                    var result = _contextRole.Edit(_dalMapper.DalRoleMap(role));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException e)
                 {
-                    if (!RoleExists(role.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(e.Message);
+                    Console.ResetColor();
+
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -125,14 +132,13 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var role = _contextRole.GetById(id.Value);
             if (role == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(_vmMapper.RoleMap(role));
         }
 
         // POST: Admin/Role/Delete/5
@@ -140,15 +146,9 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = await _context.Roles.FindAsync(id);
-            _context.Roles.Remove(role);
-            await _context.SaveChangesAsync();
+            var role = _contextRole.GetById(id);
+            var result = _contextRole.Delete(role.Id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool RoleExists(int id)
-        {
-            return _context.Roles.Any(e => e.Id == id);
         }
     }
 }

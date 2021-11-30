@@ -69,6 +69,12 @@
                     </a>
                 </div>
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                    <a class="sidenavLinks nav-link @(action=="Position" ? "active" : "")" asp-area="Admin"
+                        asp-controller="Position" asp-action="Index">
+                        <i class="fa-solid fa-chalkboard-user"></i> Position
+                    </a>
+                </div>
+                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
                     <a class="sidenavLinks nav-link @(action=="Role" ? "active" : "")" asp-area="Admin"
                         asp-controller="Role" asp-action="Index">
                         <i class="fas fa-user-tag"></i> Roles
