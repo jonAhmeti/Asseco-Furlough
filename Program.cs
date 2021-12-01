@@ -70,6 +70,7 @@ builder.Services.AddScoped<Furlough.Models.Mapper.ViewModelMapper>();
 builder.Services.AddScoped<Furlough.DAL.User>();
 builder.Services.AddScoped<Furlough.DAL.Employee>();
 builder.Services.AddScoped<Furlough.DAL.Department>();
+builder.Services.AddScoped<Furlough.DAL.DepartmentRoles>();
 builder.Services.AddScoped<Furlough.DAL.Role>();
 builder.Services.AddScoped<Furlough.DAL.Position>();
 builder.Services.AddScoped<Furlough.SecurityHandlers.JwtHandler>();
