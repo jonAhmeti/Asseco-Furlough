@@ -4,28 +4,41 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Position</h4>
-<hr />
+<div class="container subPageContainer">
+    <div class="w-100">
+        <div class="w-50 d-flex justify-content-between mb-3">
+            <div class="blue-gradient rounded customSubPageTitle d-flex justify-content-center align-middle">
+                <h2 class="text-white mt-1">Position Edit</h2>
+            </div>
+            <div class="d-flex align-items-center me-5">
+                <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
+                    asp-route-id="@Model.Id">@Resources.Shared._Admin_Layout_en.delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="w-100 ms-4">
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+            <div class="form-floating mb-2">
+                <input asp-for="Title" class="form-control" placeholder="Title"/>
+                <label asp-for="Title"></label>
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="d-flex justify-content-center mt-3">
+                <div class="form-group">
+                    <input type="submit" value="@Resources.Shared._Admin_Layout_en.save" class="btn btn-primary" />
+                </div>
+                <div class="w-50 d-flex justify-content-center">
+                    <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
+                        @Resources.Shared._Admin_Layout_en.backToList
+                    </a>
+                </div>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
-
+</div>
