@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Furlough.Models.User>
+﻿@model IEnumerable<Furlough.Models.DepartmentRoles>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.InsertDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
+                @Html.DisplayNameFor(model => model.DepartmentId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RoleId)
@@ -34,16 +25,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.InsertDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
+                @Html.DisplayFor(modelItem => item.DepartmentId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RoleId)

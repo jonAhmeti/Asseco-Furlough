@@ -63,9 +63,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.Cookie.Name = "DaddyCookie";
 }).AddScheme<BasicAuthenticatorOptions, BasicAuthenticator>("BasicAuthenticator Handler", null);
 
-//Adding DAL Services
+//Mapper services
+builder.Services.AddScoped<Furlough.Models.Mapper.DalMapper>();
+builder.Services.AddScoped<Furlough.Models.Mapper.ViewModelMapper>();
+//DAL services
 builder.Services.AddScoped<Furlough.DAL.User>();
 builder.Services.AddScoped<Furlough.DAL.Employee>();
+builder.Services.AddScoped<Furlough.DAL.Department>();
+builder.Services.AddScoped<Furlough.DAL.DepartmentRoles>();
+builder.Services.AddScoped<Furlough.DAL.Role>();
+builder.Services.AddScoped<Furlough.DAL.Position>();
 builder.Services.AddScoped<Furlough.SecurityHandlers.JwtHandler>();
 
 var app = builder.Build();

@@ -1,4 +1,4 @@
-﻿@model Furlough.DAL.Models.User
+﻿@model Furlough.Models.User
 
 @{
     ViewData["Title"] = "Edit";
@@ -14,19 +14,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                <label class="control-label">Role</label>
+                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.Roles"></select>
                 <span asp-validation-for="RoleId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="InsertDate" class="control-label"></label>
                 <input asp-for="InsertDate" class="form-control" />
                 <span asp-validation-for="InsertDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdateDate" class="control-label"></label>
-                <input asp-for="UpdateDate" class="form-control" />
-                <span asp-validation-for="UpdateDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
@@ -38,6 +33,7 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            <!-- this should be taken from HtppContext instead of supplied as a dropdown list -->
             <div class="form-group">
                 <label asp-for="UpdateBy" class="control-label"></label>
                 <select asp-for="UpdateBy" class="form-control" asp-items="ViewBag.UpdateBy"></select>

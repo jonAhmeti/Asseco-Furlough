@@ -31,5 +31,33 @@ namespace Furlough.Models.Mapper
                 JoinDate = obj.JoinDate,
             };
         }
+
+        public DAL.Models.Department DalDepartmentMap(Department obj)
+        {
+            return new DAL.Models.Department
+            {
+                Id = obj.Id,
+                Name = obj.Name
+            };
+        }
+
+        public DAL.Models.Position DalPositionMap(Position obj)
+        {
+            return new DAL.Models.Position
+            {
+                Id = obj.Id,
+                Title = obj.Title
+            };
+        }
+
+        public DAL.Models.Role DalRoleMap(Role obj)
+        {
+            return new DAL.Models.Role
+            {
+                Id = obj.Id,
+                Description = obj.Description,
+                Title = obj.Title
+            };
+        }
     }
 }

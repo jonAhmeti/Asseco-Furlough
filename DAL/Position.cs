@@ -20,8 +20,9 @@ namespace Furlough.DAL
                 CommandType = CommandType.StoredProcedure
             };
 
-           command.Parameters.AddWithValue("@Title", title);
+            command.Parameters.AddWithValue("@Title", title);
 
+            connection.Open();
             return command.ExecuteNonQuery() > 0;
         }
 
@@ -36,6 +37,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Id", obj.Id);
             command.Parameters.AddWithValue("@Title", obj.Title);
 
+            connection.Open();
             return command.ExecuteNonQuery() > 0;
         }
 
@@ -49,6 +51,7 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Id", id);
 
+            connection.Open();
             return command.ExecuteNonQuery() > 0;
         }
 
@@ -62,6 +65,7 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Id", id);
 
+            connection.Open();
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
@@ -75,9 +79,21 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Title", title);
 
+            connection.Open();
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
+        public IEnumerable<Models.Position> GetAll()
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_positionGetAll", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            connection.Open();
+            return Mapper(command.ExecuteReader());
+        }
 
         //Object mapper; reader to model
         public IEnumerable<Models.Position> Mapper(SqlDataReader reader)

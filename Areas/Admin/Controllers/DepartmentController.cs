@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
 using Furlough.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
+using Furlough.Models.Mapper;
 
 namespace Furlough.Areas.Admin.Controllers
 {
@@ -16,10 +17,20 @@ namespace Furlough.Areas.Admin.Controllers
     public class DepartmentController : Controller
     {
         private readonly FurloughContext _context;
+        private readonly DAL.Department _contextDepartment;
+        private readonly DalMapper _dalMapper;
+        private ViewModelMapper _vmMapper;
 
-        public DepartmentController(FurloughContext context)
+        public DepartmentController(FurloughContext context, DAL.Department contextDepartment,
+            Models.Mapper.DalMapper dalMapper, Models.Mapper.ViewModelMapper vmMapper)
         {
+            //Context variables
             _context = context;
+            _contextDepartment = contextDepartment;
+
+            //Object Mappers
+            _dalMapper = dalMapper;
+            _vmMapper = vmMapper;
         }
 
         // GET: Admin/Department
@@ -36,14 +47,16 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var department = await _context.Departments
-                .FirstOrDefaultAsync(m => m.Id == id);
+            //var department = await _context.Departments
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+
+            var department = _contextDepartment.GetById(id.Value);
             if (department == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(_vmMapper.DepartmentMap(department));
         }
 
         // GET: Admin/Department/Create
@@ -57,31 +70,57 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Models.Department department)
+        public async Task<IActionResult> Create(Models.Department department)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(department);
-                await _context.SaveChangesAsync();
+                if (ModelState.IsValid)
+                {
+                    //_context.Add(department);
+                    //await _context.SaveChangesAsync();
+                    var result = _contextDepartment.Add(_dalMapper.DalDepartmentMap(department));
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(department);
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error in DepartmentController of Admin Area in Create [POST] " + e.Message);
+                Console.ResetColor();
                 return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            
         }
 
         // GET: Admin/Department/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var department = await _context.Departments.FindAsync(id);
-            if (department == null)
+                var department = _contextDepartment.GetById(id.Value);
+
+                if (department == null)
+                {
+                    return NotFound();
+                }
+                return View(_vmMapper.DepartmentMap(department));
+            }
+            catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+
                 return NotFound();
             }
-            return View(department);
+            
         }
 
         // POST: Admin/Department/Edit/5
@@ -89,7 +128,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Models.Department department)
+        public async Task<IActionResult> Edit(int id, Models.Department department)
         {
             if (id != department.Id)
             {
@@ -100,8 +139,9 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(department);
-                    await _context.SaveChangesAsync();
+                    //_context.Update(department);
+                    //await _context.SaveChangesAsync();
+                    var result = _contextDepartment.Edit(_dalMapper.DalDepartmentMap(department));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -127,14 +167,13 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var department = await _context.Departments
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var department = _contextDepartment.GetById(id.Value);
             if (department == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(_vmMapper.DepartmentMap(department));
         }
 
         // POST: Admin/Department/Delete/5
@@ -142,9 +181,10 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var department = await _context.Departments.FindAsync(id);
-            _context.Departments.Remove(department);
-            await _context.SaveChangesAsync();
+            var department = _contextDepartment.GetById(id);
+            var result = _contextDepartment.Delete(department.Id);
+            //_context.Departments.Remove(department);
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

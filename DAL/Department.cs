@@ -21,6 +21,7 @@ namespace Furlough.DAL
             };
             command.Parameters.AddWithValue("@Name", obj.Name);
 
+            connection.Open();
             return command.ExecuteNonQuery() > 0;
         }
 
@@ -35,6 +36,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Id", obj.Id);
             command.Parameters.AddWithValue("@Name", obj.Name);
 
+            connection.Open();
             return command.ExecuteNonQuery() > 0;
         }
 
@@ -48,6 +50,7 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Id", id);
 
+            connection.Open();
             return command.ExecuteNonQuery() > 0;
         }
 
@@ -61,6 +64,7 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Id", id);
 
+            connection.Open();
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
@@ -74,6 +78,7 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@Name", name);
 
+            connection.Open();
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 

@@ -29,5 +29,33 @@
                 JoinDate = obj.JoinDate,
             };
         }
+
+        public Models.Department DepartmentMap(DAL.Models.Department obj)
+        {
+            return new Models.Department
+            {
+                Id = obj.Id,
+                Name = obj.Name
+            };
+        }
+
+        public Models.Position PositionMap(DAL.Models.Position obj)
+        {
+            return new Models.Position
+            {
+                Id = obj.Id,
+                Title = obj.Title
+            };
+        }
+
+        public Models.Role RoleMap(DAL.Models.Role obj)
+        {
+            return new Models.Role
+            {
+                Title = obj.Title,
+                Description = obj.Description,
+                Id = obj.Id
+            };
+        }
     }
 }

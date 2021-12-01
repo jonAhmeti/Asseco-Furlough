@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
-using Furlough.DAL.Models;
+using Furlough.Models.Mapper;
 
 namespace Furlough.Areas.Admin.Controllers
 {
@@ -14,16 +14,29 @@ namespace Furlough.Areas.Admin.Controllers
     public class PositionController : Controller
     {
         private readonly FurloughContext _context;
+        private readonly DAL.Position _contextPosition;
+        private readonly DalMapper _dalMapper;
+        private readonly ViewModelMapper _vmMapper;
 
-        public PositionController(FurloughContext context)
+        public PositionController(FurloughContext context, DAL.Position contextPosition,
+            Models.Mapper.DalMapper dalMapper, Models.Mapper.ViewModelMapper vmMapper)
         {
             _context = context;
+            _contextPosition = contextPosition;
+
+            _dalMapper = dalMapper;
+            _vmMapper = vmMapper;
         }
 
         // GET: Admin/Position
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Positions.ToListAsync());
+            var positions = new List<Models.Position>();
+            foreach (var item in _contextPosition.GetAll())
+            {
+                positions.Add(_vmMapper.PositionMap(item));
+            }
+            return View(positions);
         }
 
         // GET: Admin/Position/Details/5
@@ -34,14 +47,13 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var position = await _context.Positions
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var position = _contextPosition.GetById(id.Value);
             if (position == null)
             {
                 return NotFound();
             }
 
-            return View(position);
+            return View(_vmMapper.PositionMap(position));
         }
 
         // GET: Admin/Position/Create
@@ -55,12 +67,14 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title")] Models.Position position)
+        public async Task<IActionResult> Create(Models.Position position)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(position);
-                await _context.SaveChangesAsync();
+                //_context.Add(position);
+                //await _context.SaveChangesAsync();
+                var result = _contextPosition.Add(position.Title);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(position);
@@ -74,12 +88,12 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var position = await _context.Positions.FindAsync(id);
+            var position = _contextPosition.GetById(id.Value);
             if (position == null)
             {
                 return NotFound();
             }
-            return View(position);
+            return View(_vmMapper.PositionMap(position));
         }
 
         // POST: Admin/Position/Edit/5
@@ -87,7 +101,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title")] Models.Position position)
+        public async Task<IActionResult> Edit(int id, Models.Position position)
         {
             if (id != position.Id)
             {
@@ -98,8 +112,9 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(position);
-                    await _context.SaveChangesAsync();
+                    var result = _contextPosition.Edit(_dalMapper.DalPositionMap(position));
+                    //_context.Update(position);
+                    //await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,14 +140,13 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var position = await _context.Positions
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var position = _contextPosition.GetById(id.Value);
             if (position == null)
             {
                 return NotFound();
             }
 
-            return View(position);
+            return View(_vmMapper.PositionMap(position));
         }
 
         // POST: Admin/Position/Delete/5
@@ -140,9 +154,11 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var position = await _context.Positions.FindAsync(id);
-            _context.Positions.Remove(position);
-            await _context.SaveChangesAsync();
+            var position = _contextPosition.GetById(id);
+            var result = _contextPosition.Delete(id);
+            //var position = await _context.Positions.FindAsync(id);
+            //_context.Positions.Remove(position);
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
