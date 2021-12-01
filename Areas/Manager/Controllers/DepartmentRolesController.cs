@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Furlough.Areas.Manager.Controllers
 {
+    [Area("Manager")]
     public class DepartmentRolesController : Controller
     {
         private readonly DAL.DepartmentRoles _contextDepartmentRoles;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Furlough.Models;
 
 namespace Furlough.DAL
 {
@@ -250,5 +251,7 @@ namespace Furlough.DAL
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<Furlough.Models.DepartmentRoles> DepartmentRoles { get; set; }
     }
 }
