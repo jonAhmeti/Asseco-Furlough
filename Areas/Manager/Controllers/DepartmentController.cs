@@ -1,21 +1,38 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Furlough.Models.Mapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furlough.Areas.Manager.Controllers
 {
     [Area("Manager")]
-    public class DepartmentRolesController : Controller
+    public class DepartmentController : Controller
     {
-        private readonly DAL.DepartmentRoles _contextDepartmentRoles;
+        private readonly DAL.Role _contextRole;
+        private readonly DAL.DepartmentPositions _contextDepartmentRoles;
+        private readonly DAL.Position _contextPosition;
+        private readonly DalMapper _dalMapper;
+        private readonly ViewModelMapper _vmMapper;
 
-        public DepartmentRolesController(DAL.DepartmentRoles contextDepartmentRoles)
+        public DepartmentController(DAL.DepartmentPositions contextDepartmentPositions, DAL.Role contextRole, DAL.Position contextPosition,
+            DalMapper dalMapper, ViewModelMapper vmMapper)
         {
-            _contextDepartmentRoles = contextDepartmentRoles;
+            _contextRole = contextRole;
+            _contextDepartmentRoles = contextDepartmentPositions;
+            _contextPosition = contextPosition;
+
+            _dalMapper = dalMapper;
+            _vmMapper = vmMapper;
         }
 
         // GET: DepartmentRolesController
         public ActionResult Index()
         {
+            var positions = new List<Models.Position>();
+            foreach (var item in _contextDepartmentRoles.GetPositionsByDepartmentId(1)) //get Department By User/Employee Id
+            {
+                positions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
+            }
+
+            ViewBag.positions = positions;
             return View();
         }
 
@@ -28,6 +45,7 @@ namespace Furlough.Areas.Manager.Controllers
         // GET: DepartmentRolesController/Create
         public ActionResult Create()
         {
+            ViewBag.Roles = _contextRole.GetAll();
             return View();
         }
 

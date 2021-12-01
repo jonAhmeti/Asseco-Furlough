@@ -59,5 +59,15 @@ namespace Furlough.Models.Mapper
                 Title = obj.Title
             };
         }
+
+        public DAL.Models.DepartmentPositions DalDepartmentRolesMap(DepartmentPositions obj)
+        {
+            return new DAL.Models.DepartmentPositions
+            {
+                Id = obj.Id,
+                DepartmentId = obj.DepartmentId,
+                PositionId = obj.PositionId
+            };
+        }
     }
 }

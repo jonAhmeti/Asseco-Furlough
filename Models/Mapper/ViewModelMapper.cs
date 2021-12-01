@@ -57,5 +57,15 @@
                 Id = obj.Id
             };
         }
+
+        public Models.DepartmentPositions DepartmentRolesMap(DAL.Models.DepartmentPositions obj)
+        {
+            return new Models.DepartmentPositions
+            {
+                Id = obj.Id,
+                DepartmentId = obj.DepartmentId,
+                PositionId = obj.PositionId
+            };
+        }
     }
 }

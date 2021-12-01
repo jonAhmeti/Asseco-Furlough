@@ -252,6 +252,6 @@ namespace Furlough.DAL
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public DbSet<Furlough.Models.DepartmentRoles> DepartmentRoles { get; set; }
+        public DbSet<Furlough.Models.DepartmentPositions> DepartmentRoles { get; set; }
     }
 }
