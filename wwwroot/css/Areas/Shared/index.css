@@ -24,13 +24,18 @@ a {
   margin: 2.5%;
 }
 .blue-gradient {
-  background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+  background: linear-gradient(40deg, #45cafc, #303f9f) !important;
 }
 .blue-gradient-div {
-  background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+  background: linear-gradient(40deg, #45cafc, #303f9f) !important;
   width: 70%;
   z-index: 1;
 }
 .tableDiv {
   margin-top: -3rem;
+}
+#login:hover,
+#signup:hover {
+  color: #1e77e2 !important;
+  cursor: pointer;
 }

@@ -1,0 +1,108 @@
+﻿@media only screen and (max-width: 480px) {
+  #modalWrapper {
+    width: 90%;
+  }
+  #assecologo {
+    width: 80%;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  aside {
+    padding-top: 15px;
+  }
+  aside a {
+    font-size: 18px;
+  }
+}
+.sidenavLinks {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: white !important;
+  padding: 0.75rem 1.5rem !important;
+}
+aside {
+  background: linear-gradient(40deg, #45cafc, #303f9f) !important;
+}
+.active {
+  color: #000 !important;
+  mix-blend-mode: screen;
+  background-color: white;
+}
+.sidenavLinks:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.active:hover {
+  background-color: white;
+}
+
+.menuOpener {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  aside {
+    display: none;
+  }
+  .menuOpener {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.menu-icon .navicon {
+  background: #333;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background .2s ease-out;
+  width: 18px;
+}
+
+.menu-icon .navicon:before,
+.menu-icon .navicon:after {
+  background: #333;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  width: 100%;
+}
+.menu-icon .navicon:before {
+  top: 5px;
+}
+.menu-icon .navicon:after {
+  top: -5px;
+}
+.menu-btn {
+  display: none;
+}
+.menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+.menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+.menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+.menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
+
+html,
+body,
+main {
+  height: 100%;
+}
