@@ -1,6 +1,14 @@
 ﻿.rolePill {
     min-width: 200px !important;
+    background-color: #41b0eb;
+    color: white;
 }
+
+    .rolePill:hover {
+        cursor: pointer;
+        opacity: 0.5;
+        color: rgba(0,0,0,1);
+    }
 
 .clickable:hover {
     cursor: pointer;
@@ -17,15 +25,14 @@
 
 #hiderDiv {
     background-color: white;
-    top: 0px;
-    min-height: 300px;
+    top: -3rem;
+    min-height: 250px;
+    z-index: -1;
     position: absolute;
-    width:80%;
-    z-index:-1;
+    width: 100%;
 }
 
 #rolesEditContainer {
     top: -100%;
-    height: 500px;
     z-index: -2;
 }

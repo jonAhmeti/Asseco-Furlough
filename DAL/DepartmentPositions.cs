@@ -111,6 +111,28 @@ namespace Furlough.DAL
             }
         }
 
+        public IEnumerable<Models.DepartmentPositions> GetPositionsNotInDepartment(int departmentId)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_departmentPositionsGetNotInDepartmentId", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@DepartmentId", departmentId);
+
+                connection.Open();
+                return Mapper(command.ExecuteReader());
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+                return new List<Models.DepartmentPositions>();
+            }
+        }
         public IEnumerable<Models.DepartmentPositions> Mapper(SqlDataReader reader)
         {
             try

@@ -9,8 +9,9 @@
     <div class="container-fluid">
         <div class="row p-5">
             <div class="col">
-                
-                <div class="row" id="hiderDiv">
+                <div class="position-relative">
+                    <div class="row" id="hiderDiv">
+                    </div>
                 </div>
                 <h3><i class="fa-solid fa-bank"></i> //Banking// department</h3>
                 <div class="row">
@@ -19,12 +20,17 @@
                             @{
                                 foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.positions)
                                 {
-                                    <div class="rounded-pill bg-info rolePill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap"><span>@item.Title</span></div>
+                                    <div class="rounded-pill rolePill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap"><span>@item.Title</span></div>
                                 }
                             }
                         </div>
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 px-5 border roleBorder position-relative bg-warning" id="rolesEditContainer">
-                            <div class="col">Hi</div>
+                        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 px-5 py-4 border roleBorder position-relative" id="rolesEditContainer">
+                            @{
+                                foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.unaddedPositions)
+                                {
+                                    <div class="rounded-pill rolePill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap"><span>@item.Title</span></div>
+                                }
+                            }
                         </div>
                     </div>
                 </div>

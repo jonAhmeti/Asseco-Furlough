@@ -27,12 +27,22 @@ namespace Furlough.Areas.Manager.Controllers
         public ActionResult Index()
         {
             var positions = new List<Models.Position>();
+            var unaddedPositions = new List<Models.Position>();
             foreach (var item in _contextDepartmentRoles.GetPositionsByDepartmentId(1)) //get Department By User/Employee Id
             {
                 positions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
             }
+            foreach (var item in _contextPosition.GetAll())
+            {
+                var vmItem = _vmMapper.PositionMap(item);
+                if (!positions.Exists(x=> x.Id == vmItem.Id))
+                {
+                    unaddedPositions.Add(vmItem);
+                }
+            }
 
             ViewBag.positions = positions;
+            ViewBag.unaddedPositions = unaddedPositions;
             return View();
         }
 
