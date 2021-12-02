@@ -115,5 +115,35 @@ namespace Furlough.Areas.Manager.Controllers
                 return View();
             }
         }
+
+        [HttpPut]
+        public bool UpdateDepartmentPositions(int departmentId, IEnumerable<string> positionsId)
+        {
+            departmentId = 1;
+            var alreadyAddedPositions = new List<string>();
+            foreach (var item in _contextDepartmentRoles.GetPositionsByDepartmentId(departmentId))
+            {
+                alreadyAddedPositions.Add(item.PositionId.ToString());
+            }
+
+            var positionsToAdd = "";
+            for (var i = 0; i < positionsId.Count(); i++)
+            {
+                //if (alreadyAddedPositions.Contains(positionsId.ElementAt(i)))
+                //    continue;
+
+                if (i < positionsId.Count() - 1)
+                {
+                    positionsToAdd += $"{positionsId.ElementAt(i)},";
+                }
+                else
+                    positionsToAdd += $"{positionsId.ElementAt(i)}";
+            }
+            
+            //We don't connect Employee with DepartmentPositions
+            //because there might've been a position before that now no longer exists in a specific department
+            var result = _contextDepartmentRoles.UpdateDepartmentPositions(departmentId, positionsToAdd);
+            return true;
+        }
     }
 }

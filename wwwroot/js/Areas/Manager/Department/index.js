@@ -4,6 +4,15 @@
     let addedRoles = $(".addedRole");
     let unaddedRoles = $(".unaddedRole");
     const submitRoles = $("#submitRoles");
+    const submitSpan = $("#submitRoles > span");
+    const toastMsg = $("#toastMsg");
+    const toastBody = $("#toastBody");
+    const toastClose = $("#toastMsg button")
+
+    $(toastClose).on('click', function () {
+        $(toastMsg).hide();
+    });
+
 
     let initialValues = new Array();
     for (var i = 0; i < addedRoles.length; i++) {
@@ -53,6 +62,17 @@
 
                     addedRoles = $(".addedRole");
                     unaddedRoles = $(".unaddedRole");
+
+                    let tempAddedRoles = new Array();
+                    for (var i = 0; i < addedRoles.length; i++) {
+                        tempAddedRoles.push($(addedRoles[i]).attr("roleId"));
+                    }
+                    if (ArraysAreSame(tempAddedRoles, initialValues)) {
+                        $(submitSpan).addClass("disabled");
+                    }
+                    else {
+                        $(submitSpan).removeClass("disabled")
+                    }
                 });
             }
 
@@ -75,6 +95,17 @@
 
                     addedRoles = $(".addedRole");
                     unaddedRoles = $(".unaddedRole");
+
+                    let tempAddedRoles = new Array();
+                    for (var i = 0; i < addedRoles.length; i++) {
+                        tempAddedRoles.push($(addedRoles[i]).attr("roleId"));
+                    }
+                    if (ArraysAreSame(tempAddedRoles, initialValues)) {
+                        $(submitSpan).addClass("disabled");
+                    }
+                    else {
+                        $(submitSpan).removeClass("disabled")
+                    }
                 });
             }
         }
@@ -87,17 +118,42 @@
         }
 
         if (ArraysAreSame(addedRolesArray, initialValues)) {
-            alert("nothing changed");
+            //alert("nothing changed");
+            return;
         }
         else {
-            alert("bruh");
+            $(submitRoles).addClass("spinner-border").css({"width": "40px", "height": "40px", "color": "#41b0eb"});
+            $(submitSpan).addClass("visually-hidden");
+            $.ajax({
+                method: "PUT",
+                url: "Department/UpdateDepartmentPositions",
+                data: { positionsId: addedRolesArray }, //give DepartmentId taken from User Identity
+                success: function (result) {
+                    $(toastBody).html(`
+                                ${result ? "Roles updated successfully." : "Something went wrong."}
+                    `);
+                    $(toastMsg).show();
+                },
+                error: function (error) {
+                    $(toastBody).html(`
+                        Something went wrong. <br/>
+                        Status: ${error.status} <br/>
+                        ${error.responseText.toString()}
+                    `);
+                    $(toastMsg).show();
+                },
+                complete: function () {
+                    $(submitRoles).removeClass("spinner-border").removeAttr("style").css("top", "20px");
+                    $(submitSpan).removeClass("visually-hidden");
+                }
+            });
         }
     });
 });
 
 function ArraysAreSame(firstArray, secondArray) {
     return (firstArray.length == secondArray.length &&
-        firstArray.indexOf(secondArray[0]) > -1 &&
-        firstArray.indexOf(secondArray[1]) > -1 &&
-        firstArray.indexOf(secondArray[2]) > -1);
+       firstArray.indexOf(secondArray[0]) > -1 &&
+       firstArray.indexOf(secondArray[1]) > -1 &&
+       firstArray.indexOf(secondArray[2]) > -1);
 }

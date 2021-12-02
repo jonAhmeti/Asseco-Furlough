@@ -20,9 +20,9 @@
                             <span class="fs-5 btn position-relative bg-white px-3 text-secondary clickable" style="top:20px;" id="rolesEditBtn">
                                 Positions  <i class="fa-regular fa-pen-to-square ms-1" title="Edit roles"></i>
                             </span>
-                            <span class="fs-4 position-relative bg-white px-3" style="top:20px;" id="submitRoles">
-                                <div class="btn btn-outline-secondary disabled">Submit</div>
-                            </span>
+                            <div class="position-relative bg-white px-3" style="top:20px;" id="submitRoles">
+                                <span class="btn btn-outline-secondary disabled">Submit</span>
+                            </div>
                         </div>
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 px-5 pt-4 pb-3 border shadow-sm roleBorder" id="rolesContainer">
                             @{
@@ -47,5 +47,16 @@
     </div>
 </div>
 
+<!--Toast Message-->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastMsg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">   
+        <div class="toast-header">
+          <strong class="me-auto">System</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toastBody">
+        </div>
+    </div>
+</div>
 <!--    Scripts    -->
 <script src="~/js/Areas/Manager/Department/index.js"></script>

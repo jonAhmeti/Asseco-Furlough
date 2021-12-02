@@ -133,6 +133,30 @@ namespace Furlough.DAL
                 return new List<Models.DepartmentPositions>();
             }
         }
+
+        public bool UpdateDepartmentPositions(int departmentId, string positionsId)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_departmentPositionsUpdate", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@DepartmentId", departmentId);
+                command.Parameters.AddWithValue("@PositionsId", positionsId);
+
+                connection.Open();
+                return command.ExecuteNonQuery() > -1;
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+                return false;
+            }
+        }
         public IEnumerable<Models.DepartmentPositions> Mapper(SqlDataReader reader)
         {
             try
