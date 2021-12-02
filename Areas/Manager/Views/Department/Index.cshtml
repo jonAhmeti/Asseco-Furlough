@@ -20,7 +20,7 @@
                             @{
                                 foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.positions)
                                 {
-                                    <div class="rounded-pill rolePill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap"><span>@item.Title</span></div>
+                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill addedRole"><span>@item.Title</span></div>
                                 }
                             }
                         </div>
@@ -28,7 +28,7 @@
                             @{
                                 foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.unaddedPositions)
                                 {
-                                    <div class="rounded-pill rolePill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap"><span>@item.Title</span></div>
+                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill unaddedRole"><span>@item.Title</span></div>
                                 }
                             }
                         </div>
