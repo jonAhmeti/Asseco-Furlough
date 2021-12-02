@@ -13,14 +13,22 @@
                     <div class="row" id="hiderDiv">
                     </div>
                 </div>
-                <h3><i class="fa-solid fa-bank"></i> //Banking// department</h3>
+                <h3><span class="text-muted">Department <i class="fa-solid fa-angle-right mx-2 fs-4"></i></span> <span class="fs-4"> Banking</span></h3> <!--Take the department from UserId-->
                 <div class="row">
-                    <div class="col p-5"><span class="fs-4 position-relative bg-white px-3" style="top:20px;">Positions  <i class="fa-regular fa-pen-to-square ms-1 clickable" title="Edit roles" id="rolesEditBtn"></i></span>
+                    <div class="col p-5">
+                        <div class="d-flex justify-content-between">
+                            <span class="fs-5 btn position-relative bg-white px-3 text-secondary clickable" style="top:20px;" id="rolesEditBtn">
+                                Positions  <i class="fa-regular fa-pen-to-square ms-1" title="Edit roles"></i>
+                            </span>
+                            <span class="fs-4 position-relative bg-white px-3" style="top:20px;" id="submitRoles">
+                                <div class="btn btn-outline-secondary disabled">Submit</div>
+                            </span>
+                        </div>
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 px-5 pt-4 pb-3 border shadow-sm roleBorder" id="rolesContainer">
                             @{
                                 foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.positions)
                                 {
-                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill addedRole"><span>@item.Title</span></div>
+                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill addedRole" roleId=@item.Id><span>@item.Title</span></div>
                                 }
                             }
                         </div>
@@ -28,7 +36,7 @@
                             @{
                                 foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.unaddedPositions)
                                 {
-                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill unaddedRole"><span>@item.Title</span></div>
+                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill unaddedRole" roleId=@item.Id><span>@item.Title</span></div>
                                 }
                             }
                         </div>

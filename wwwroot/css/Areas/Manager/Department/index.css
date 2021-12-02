@@ -12,7 +12,7 @@
 
 .clickable:hover {
     cursor: pointer;
-    color: #0ca8c7;
+    color: #0ca8c7 !important;
 }
 
 .roleBorder {

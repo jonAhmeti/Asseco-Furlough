@@ -3,6 +3,14 @@
     const rolesEditContainer = $("#rolesEditContainer");
     let addedRoles = $(".addedRole");
     let unaddedRoles = $(".unaddedRole");
+    const submitRoles = $("#submitRoles");
+
+    let initialValues = new Array();
+    for (var i = 0; i < addedRoles.length; i++) {
+        initialValues.push($(addedRoles[i]).attr("roleId"));
+    }
+
+    console.log(initialValues);
 
     $(rolesEdit).on('click', function () {
         if ($(rolesEditContainer).css('top') == '0px') { //when unaddedRoleContainer is hidden
@@ -71,4 +79,25 @@
             }
         }
     });
+
+    submitRoles.on('click', function () {
+        let addedRolesArray = new Array();
+        for (var i = 0; i < addedRoles.length; i++) {
+            addedRolesArray.push($(addedRoles[i]).attr("roleId"));
+        }
+
+        if (ArraysAreSame(addedRolesArray, initialValues)) {
+            alert("nothing changed");
+        }
+        else {
+            alert("bruh");
+        }
+    });
 });
+
+function ArraysAreSame(firstArray, secondArray) {
+    return (firstArray.length == secondArray.length &&
+        firstArray.indexOf(secondArray[0]) > -1 &&
+        firstArray.indexOf(secondArray[1]) > -1 &&
+        firstArray.indexOf(secondArray[2]) > -1);
+}
