@@ -39,6 +39,11 @@ aside {
 .menuOpener {
   display: none;
 }
+@media screen and (min-width: 768px) {
+  aside {
+    display: block !important;
+  }
+}
 
 @media screen and (max-width: 768px) {
   aside {
