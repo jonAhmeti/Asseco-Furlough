@@ -31,7 +31,7 @@ a {
   width: 70%;
   z-index: 1;
 }
-.tableDiv {
+.tableDiv, .responsiveTableDiv, .roleTableDiv {
   margin-top: -3rem;
 }
 #login:hover,
