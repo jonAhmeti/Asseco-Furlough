@@ -129,6 +129,9 @@
                 url: "Department/UpdateDepartmentPositions",
                 data: { positionsId: addedRolesArray }, //give DepartmentId taken from User Identity
                 success: function (result) {
+                    initialValues = Array.from(addedRolesArray);
+                    $(submitSpan).addClass("disabled");
+
                     $(toastBody).html(`
                                 ${result ? "Roles updated successfully." : "Something went wrong."}
                     `);
@@ -152,8 +155,13 @@
 });
 
 function ArraysAreSame(firstArray, secondArray) {
-    return (firstArray.length == secondArray.length &&
-       firstArray.indexOf(secondArray[0]) > -1 &&
-       firstArray.indexOf(secondArray[1]) > -1 &&
-       firstArray.indexOf(secondArray[2]) > -1);
+    if (firstArray.length == secondArray.length) {
+        for (var i = 0; i < firstArray.length; i++) {
+            if (firstArray.indexOf(secondArray[i]) == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
 }
