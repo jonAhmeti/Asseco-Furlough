@@ -71,7 +71,7 @@
                         $(submitSpan).addClass("disabled");
                     }
                     else {
-                        $(submitSpan).removeClass("disabled")
+                        $(submitSpan).removeClass("disabled");
                     }
                 });
             }

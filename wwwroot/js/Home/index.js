@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    let login = $("#login");
-    let signup = $("#signup");
-    let formWrapper = $("#formWrapper");
-    let activeIndicator = $("#activeIndicator");
+    const login = $("#login");
+    const signup = $("#signup");
+    const formWrapper = $("#formWrapper");
+    const activeIndicator = $("#activeIndicator");
 
     $(login).on("click", function () {
         $(signup).attr("active", "false").addClass("text-muted");
@@ -28,6 +28,9 @@ $(document).ready(function () {
             url: "Home/SignupPartial",
             success: function (result) {
                 $(formWrapper).html(result);
+            },
+            error: function (error) {
+                console.log(error.responseText);
             }
         });
     });

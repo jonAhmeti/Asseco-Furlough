@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Furlough.SecurityHandlers;
 using Microsoft.AspNetCore.Authentication;
+using Furlough.Models.Mapper;
 
 namespace Furlough.Controllers
 {
@@ -13,13 +14,25 @@ namespace Furlough.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly DAL.User _contextUser;
         private readonly DAL.Employee _contextEmployee;
+        private readonly DAL.Department _contextDepartment;
+        private readonly DAL.Position _contextPosition;
+        private readonly DAL.DepartmentPositions _contextDepartmentPositions;
+        private readonly ViewModelMapper _vmMapper;
 
         public HomeController(ILogger<HomeController> logger, 
-            DAL.User contextUser, DAL.Employee contextEmployee)
+            DAL.User contextUser, DAL.Employee contextEmployee, 
+            DAL.Department contextDepartment, DAL.DepartmentPositions contextDepartmentPositions, DAL.Position contextPosition,
+            ViewModelMapper vmMapper)
         {
             _logger = logger;
+
             _contextUser = contextUser;
             _contextEmployee = contextEmployee;
+            _contextDepartment = contextDepartment;
+            _contextPosition = contextPosition;
+            _contextDepartmentPositions = contextDepartmentPositions;
+
+            _vmMapper = vmMapper;
         }
 
         [AllowAnonymous]
@@ -38,7 +51,7 @@ namespace Furlough.Controllers
 
             return Ok();
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Signup(Models.SignupViewModel signupModel)
         {
@@ -71,6 +84,7 @@ namespace Furlough.Controllers
 
         #endregion
         #region Partial Views Login/Signup
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult LoginPartial()
         {
@@ -82,17 +96,45 @@ namespace Furlough.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult SignupPartial()
         {
             if (Request.Headers.ContainsKey("X-Requested-With")
                 && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
             {
+                var departments = new List<Models.Department>();
+                foreach (var item in _contextDepartment.GetAll())
+                {
+                    departments.Add(_vmMapper.DepartmentMap(item));
+                }
+
+                ViewBag.departments = departments;
                 return PartialView("Partial/Signup");
             }
 
             return RedirectToAction("Index");
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IEnumerable<Models.Position>? GetPositions(string departmentId)
+        {
+            if (Request.Headers.ContainsKey("X-Requested-With")
+                && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
+            {
+                var departmentPositions = _contextDepartmentPositions.GetPositionsByDepartmentId(int.Parse(departmentId));
+                var positions = new List<Models.Position>();
+                foreach (var item in departmentPositions)
+                {
+                    positions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
+                }
+
+                return positions;
+            }
+            return null;
+        }
+
         #endregion
         public IActionResult Privacy()
         {

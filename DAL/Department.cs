@@ -82,6 +82,18 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
+        public IEnumerable<Models.Department> GetAll()
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_departmentGetAll", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            connection.Open();
+            return Mapper(command.ExecuteReader());
+        }
+
         //Object mapper; reader to model
         public IEnumerable<Models.Department> Mapper(SqlDataReader reader)
         {
