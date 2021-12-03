@@ -6,18 +6,21 @@
 
 <div class="container subPageContainer">
     <div class="w-100">
-        <div class="w-50 d-flex justify-content-between mb-3">
-            <div class="blue-gradient rounded customSubPageTitle d-flex justify-content-center align-middle">
-                <h2 class="text-white mt-1">Role Delete</h2>
+        <div class="detailHeaderWrapper d-flex justify-content-between mb-3">
+            <div class="blue-gradient rounded customSubPageTitle text-center">
+                <h2 class="text-white mt-2">Role Delete</h2>
             </div>
-            <div class="d-flex align-items-center me-5">
-                <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
-                    @Resources.Shared._Admin_Layout_en.backToList
-                </a>
+            <div class="d-flex align-items-center">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="@Resources.Shared._Admin_Layout_en.delete"
+                        class="mx-1 py-2 paddingXBtn btn btn-danger" />
+                </form>
+
             </div>
         </div>
     </div>
-    <div class="w-100 ms-4">
+    <div id="detailsWrapper" class="w-100 ms-4">
         <div>
             <h4>Are you sure you want to delete this?</h4>
         </div>
@@ -35,9 +38,10 @@
                 @Html.DisplayFor(model => model.Description)
             </dd>
         </dl>
-        <form asp-action="Delete">
-            <input type="hidden" asp-for="Id" />
-            <input type="submit" value="@Resources.Shared._Admin_Layout_en.delete" class="mx-1 px-4 btn btn-danger" />
-        </form>
+        <div class="w-auto">
+            <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
+                @Resources.Shared._Admin_Layout_en.backToList
+            </a>
+        </div>
     </div>
 </div>

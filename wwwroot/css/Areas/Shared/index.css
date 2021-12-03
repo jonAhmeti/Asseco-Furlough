@@ -17,9 +17,6 @@ a {
   width: 100%;
   height: 100%;
 }
-.customSubPageTitle {
-  width: 50%;
-}
 .subPageContainer {
   margin: 2.5%;
 }
@@ -31,11 +28,56 @@ a {
   width: 70%;
   z-index: 1;
 }
-.tableDiv, .responsiveTableDiv, .roleTableDiv {
+.tableDiv,
+.roleTableDiv {
   margin-top: -3rem;
 }
 #login:hover,
 #signup:hover {
   color: #1e77e2 !important;
   cursor: pointer;
+}
+
+.customSubPageTitle {
+  width: 70%;
+}
+
+.paddingXBtn {
+  padding: 0 1.5rem;
+}
+
+.detailHeaderWrapper {
+  width: 50%;
+}
+@media screen and (max-width: 320px) {
+  .paddingXBtn {
+    padding: 0 1rem;
+  }
+  .customSubPageTitle {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 300px) {
+  .paddingXBtn {
+    padding: 0 0.5rem;
+  }
+}
+@media screen and (max-width: 992px) {
+  .detailHeaderWrapper {
+    width: 66%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .detailHeaderWrapper {
+    width: 83%;
+  }
+  
+}
+@media screen and (max-width: 576px) {
+  .detailHeaderWrapper {
+    width: 100%;
+  }
+}
+tr td:last-child {
+  min-width: 210px;
 }
