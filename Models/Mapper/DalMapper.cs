@@ -29,6 +29,7 @@ namespace Furlough.Models.Mapper
                 PositionId = obj.PositionId,
                 DepartmentId = obj.DepartmentId,
                 JoinDate = obj.JoinDate,
+                Phone = obj.Phone
             };
         }
 

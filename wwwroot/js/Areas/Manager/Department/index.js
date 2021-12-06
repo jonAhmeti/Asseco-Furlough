@@ -8,6 +8,7 @@
     const toastMsg = $("#toastMsg");
     const toastBody = $("#toastBody");
     const toastClose = $("#toastMsg button")
+    const employeeCards = $(".employeePositions");
 
     $(toastClose).on('click', function () {
         $(toastMsg).hide();
@@ -152,6 +153,35 @@
             });
         }
     });
+
+    //set employee's selected position to the currently selected position
+    for (var i = 0; i < employeeCards.length; i++) {
+        let positionId = $(employeeCards[i]).attr("currentPosition");
+        $(employeeCards[i]).children(`option[value="${positionId}"]`).attr("selected", "selected");
+        $(employeeCards[i]).on("change", function () {
+            $.ajax({
+                method: "PUT",
+                url: "Department/UpdateEmployeePosition",
+                data: { employeeId: parseInt($(this).attr("employeeId")), positionId: parseInt($(this).val()) },
+                success: function (result) {
+                    $(toastBody).html(`
+                                ${result ? "Position changed successfully." :
+                            "Something went wrong changing employee's position."}
+                    `);
+                    $(toastMsg).show();
+                },
+                error: function (error) {
+                    $(toastBody).html(`
+                        Something went wrong. <br/>
+                        Status: ${error.status} <br/>
+                        ${error.responseText.toString()}
+                    `);
+                    $(toastMsg).show();
+                }
+
+            });
+        });
+    }
 });
 
 function ArraysAreSame(firstArray, secondArray) {

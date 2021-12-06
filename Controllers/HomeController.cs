@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Furlough.SecurityHandlers;
 using Microsoft.AspNetCore.Authentication;
 using Furlough.Models.Mapper;
+using System.Globalization;
 
 namespace Furlough.Controllers
 {
@@ -133,6 +134,23 @@ namespace Furlough.Controllers
                 return positions;
             }
             return null;
+        }
+
+        [AllowAnonymous]
+        [HttpPut]
+        public void ChangeLang(string lang)
+        {
+            var cultureInfo = new CultureInfo(lang);
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+            CookieBuilder builder = new CookieBuilder()
+            {
+                HttpOnly = true,
+                Expiration = new TimeSpan(1, 0, 0, 0),
+                Name = "languageCulture",
+            };
+
+            builder.Build(HttpContext);
         }
 
         #endregion

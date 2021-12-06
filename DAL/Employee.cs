@@ -24,6 +24,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Email", obj.Email);
             command.Parameters.AddWithValue("@Name", obj.Name);
             command.Parameters.AddWithValue("@JoinDate", obj.JoinDate);
+            command.Parameters.AddWithValue("@Phone", obj.Phone);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
@@ -42,6 +43,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@DepartmentId", obj.DepartmentId);
             command.Parameters.AddWithValue("@Email", obj.Email);
             command.Parameters.AddWithValue("@Name", obj.Name);
+            command.Parameters.AddWithValue("@Phone", obj.Phone);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
@@ -103,6 +105,20 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
+        public IEnumerable<Models.Employee> GetByDepartmentId(int departmentId)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_employeeGetByDepartmentId", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@DepartmentId", departmentId);
+
+            connection.Open();
+            return Mapper(command.ExecuteReader());
+        }
+
         //Object mapper; reader to model
         public IEnumerable<Models.Employee> Mapper(SqlDataReader reader)
         {
@@ -119,7 +135,8 @@ namespace Furlough.DAL
                         Name = reader.GetString("Name"),
                         DepartmentId = reader.GetInt32("DepartmentId"),
                         Email = reader.GetString("Email"),
-                        JoinDate = reader.GetDateTime("JoinDate")
+                        JoinDate = reader.GetDateTime("JoinDate"),
+                        Phone = reader["Phone"] == DBNull.Value ? null : reader.GetString("Phone")
                     });
                 }
                 return listObj;
