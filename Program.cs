@@ -29,6 +29,7 @@ builder.Services.AddRequestLocalization(options =>
         new CultureInfo("en-US"),
         new CultureInfo("sq-AL"),
         new CultureInfo("de-DE"),
+        new CultureInfo("mk-MK"),
     };
 
     options.DefaultRequestCulture = new RequestCulture("en-US");
