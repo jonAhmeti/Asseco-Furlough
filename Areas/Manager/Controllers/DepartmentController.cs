@@ -9,15 +9,20 @@ namespace Furlough.Areas.Manager.Controllers
         private readonly DAL.Role _contextRole;
         private readonly DAL.DepartmentPositions _contextDepartmentRoles;
         private readonly DAL.Position _contextPosition;
+        private readonly DAL.PositionHistory _contextPositionHisotry;
+        private readonly DAL.Employee _contextEmployee;
         private readonly DalMapper _dalMapper;
         private readonly ViewModelMapper _vmMapper;
 
-        public DepartmentController(DAL.DepartmentPositions contextDepartmentPositions, DAL.Role contextRole, DAL.Position contextPosition,
+        public DepartmentController(DAL.DepartmentPositions contextDepartmentPositions, DAL.Role contextRole, DAL.Position contextPosition, DAL.Employee contextEmployee,
+            DAL.PositionHistory contextPositionHistory,
             DalMapper dalMapper, ViewModelMapper vmMapper)
         {
             _contextRole = contextRole;
             _contextDepartmentRoles = contextDepartmentPositions;
             _contextPosition = contextPosition;
+            _contextPositionHisotry = contextPositionHistory;
+            _contextEmployee = contextEmployee;
 
             _dalMapper = dalMapper;
             _vmMapper = vmMapper;
@@ -26,9 +31,14 @@ namespace Furlough.Areas.Manager.Controllers
         // GET: DepartmentRolesController
         public ActionResult Index()
         {
+            //make dynamic
+            var departmentId = 1;
+            //make dynamic
+
             var positions = new List<Models.Position>();
             var unaddedPositions = new List<Models.Position>();
-            foreach (var item in _contextDepartmentRoles.GetPositionsByDepartmentId(1)) //get Department By User/Employee Id
+            var employees = new List<Models.Employee>();
+            foreach (var item in _contextDepartmentRoles.GetPositionsByDepartmentId(departmentId)) //get Department By User/Employee Id
             {
                 positions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
             }
@@ -40,7 +50,12 @@ namespace Furlough.Areas.Manager.Controllers
                     unaddedPositions.Add(vmItem);
                 }
             }
+            foreach (var item in _contextEmployee.GetByDepartmentId(departmentId))
+            {
+                employees.Add(_vmMapper.EmployeeMap(item));
+            }
 
+            ViewBag.employees = employees;
             ViewBag.positions = positions;
             ViewBag.unaddedPositions = unaddedPositions;
             return View();
@@ -144,6 +159,31 @@ namespace Furlough.Areas.Manager.Controllers
             //because there might've been a position before that now no longer exists in a specific department
             var result = _contextDepartmentRoles.UpdateDepartmentPositions(departmentId, positionsToAdd);
             return true;
+        }
+
+        [HttpPut]
+        public bool UpdateEmployeePosition(int employeeId, int positionId)
+        {
+            try
+            {
+                var historyResult = _contextPositionHisotry.Add(new DAL.Models.PositionHistory
+                {
+                    EmployeeId = employeeId,
+                    PositionId = positionId,
+                    SetByUserId = 1 //SET USER ID HERE
+                });
+                var dbEmployee = _contextEmployee.GetById(employeeId);
+                if (dbEmployee == null) return false;
+
+                dbEmployee.PositionId = positionId;
+                var result = _contextEmployee.Edit(dbEmployee);
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
         }
     }
 }
