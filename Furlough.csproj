@@ -22,21 +22,35 @@
   <ItemGroup>
     <Folder Include="Areas\Manager\Data\" />
     <Folder Include="Areas\Manager\Models\" />
+    <Folder Include="Resources\Areas\Admin\Views\Department\" />
+    <Folder Include="Resources\Areas\Admin\Views\Employee\" />
+    <Folder Include="Resources\Areas\Admin\Views\Home\" />
+    <Folder Include="Resources\Areas\Admin\Views\Role\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Shared\_Admin_Layout_en.Designer.cs">
+    <Compile Update="Resources\Shared\Layout\_Layout.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>_Admin_Layout_en.resx</DependentUpon>
+      <DependentUpon>_Layout.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Shared\Table\_Table.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_Table.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Shared\_Admin_Layout_en.resx">
+    <EmbeddedResource Update="Resources\Shared\Layout\_Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>_Admin_Layout_en.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+      <LastGenOutput>_Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Shared\Table\_Table.resx">
+      <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Table.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

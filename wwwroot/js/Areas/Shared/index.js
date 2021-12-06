@@ -1,4 +1,4 @@
-$(function () {
+$(function () { 
   var rowIdArray = $("[rowId]");
   for (let i = 0; i < rowIdArray.length; i++) {
     $(`tr[rowId=${i}]`).find("a.rowLink").hover(
@@ -10,22 +10,40 @@ $(function () {
         }
     );
   }
+  var pdTableDiv = $(".positionDepartmentTableDiv");
+  var roleTableDiv = $(".roleTableDiv");
+  var erTableDiv = $(".employeeRequestTableDiv");
+  var detailsWrapper = $("#detailsWrapper");
   $(window).on("load resize", function(){
-    if ($(window).width() < 470) {
-      $(".tableDiv").removeClass("d-flex justify-content-center");
-      $(".tableDiv").addClass("overflow-auto");
+    if ($(window).width() < 525) {
+      $(erTableDiv).removeClass("d-flex justify-content-center");
+      $(erTableDiv).addClass("overflow-auto");
     }
-    if ($(window).width() > 470) {
-      $(".tableDiv").removeClass("overflow-auto");
-      $(".tableDiv").addClass("d-flex justify-content-center");
+    if ($(window).width() > 525) {
+      $(erTableDiv).removeClass("overflow-auto");
+      $(erTableDiv).addClass("d-flex justify-content-center");
     }
     if ($(window).width() < 350) {
-      $(".roleTableDiv").removeClass("d-flex justify-content-center");
-      $(".roleTableDiv").addClass("overflow-auto");
+      $(pdTableDiv).removeClass("d-flex justify-content-center");
+      $(pdTableDiv).addClass("overflow-auto");
     }
     if ($(window).width() > 350) {
-      $(".roleTableDiv").removeClass("overflow-auto");
-      $(".roleTableDiv").addClass("d-flex justify-content-center");
+      $(pdTableDiv).removeClass("overflow-auto");
+      $(pdTableDiv).addClass("d-flex justify-content-center");
+    }
+    if ($(window).width() < 440) {
+      $(roleTableDiv).removeClass("d-flex justify-content-center");
+      $(roleTableDiv).addClass("overflow-auto");
+    }
+    if ($(window).width() > 440) {
+      $(roleTableDiv).removeClass("overflow-auto");
+      $(roleTableDiv).addClass("d-flex justify-content-center");
+    }
+    if ($(window).width() < 768) {
+      $(detailsWrapper).removeClass("ms-4");
+    }
+    if ($(window).width() > 768) {
+      $(detailsWrapper).addClass("ms-4");
     }
   });
 });
