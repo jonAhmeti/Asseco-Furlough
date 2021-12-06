@@ -137,8 +137,8 @@ namespace Furlough.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPut]
-        public void ChangeLang(string lang)
+        [HttpPost]
+        public IActionResult ChangeLang(string lang)
         {
             var cultureInfo = new CultureInfo(lang);
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
@@ -152,7 +152,7 @@ namespace Furlough.Controllers
 
             builder.Build(HttpContext);
 
-            RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         #endregion
