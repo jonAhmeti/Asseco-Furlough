@@ -22,14 +22,14 @@ namespace Resources.Shared {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class _Table_en {
+    public class _Layout {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal _Table_en() {
+        internal _Layout() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Furlough.Resources.Shared._Table_en", typeof(_Table_en).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Furlough.Resources.Shared.Layout._Layout", typeof(_Layout).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,47 @@ namespace Resources.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to list.
+        ///   Looks up a localized string similar to Department.
         /// </summary>
-        public static string backToList {
+        public static string depTitle {
             get {
-                return ResourceManager.GetString("backToList", resourceCulture);
+                return ResourceManager.GetString("depTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create.
+        ///   Looks up a localized string similar to Employee.
         /// </summary>
-        public static string create {
+        public static string empTitle {
             get {
-                return ResourceManager.GetString("create", resourceCulture);
+                return ResourceManager.GetString("empTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Position.
         /// </summary>
-        public static string delete {
+        public static string posTitle {
             get {
-                return ResourceManager.GetString("delete", resourceCulture);
+                return ResourceManager.GetString("posTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Request.
         /// </summary>
-        public static string edit {
+        public static string reqTitle {
             get {
-                return ResourceManager.GetString("edit", resourceCulture);
+                return ResourceManager.GetString("reqTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
+        ///   Looks up a localized string similar to Role.
         /// </summary>
-        public static string save {
+        public static string roleTitle {
             get {
-                return ResourceManager.GetString("save", resourceCulture);
+                return ResourceManager.GetString("roleTitle", resourceCulture);
             }
         }
     }

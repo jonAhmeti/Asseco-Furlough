@@ -9,7 +9,7 @@
     <div class="w-100 d-flex justify-content-center">
         <div
             class="blue-gradient-div shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
-            <h2 class="text-white mx-3">@Resources.Shared._Layout_en.posTitle</h2>
+            <h2 class="text-white mx-3">@Resources.Shared._Layout.posTitle</h2>
         </div>
     </div>
     <div class="positionDepartmentTableDiv w-100 d-flex justify-content-center">
@@ -25,7 +25,7 @@
                     </th>
                     <th class="text-center">
                         <a class="mx-1 text-primary px-4 rounded border border-primary"
-                            asp-action="Create">@Resources.Shared._Table_en.create</a>
+                            asp-action="Create">@Resources.Shared._Table.create</a>
                     </th>
                 </tr>
             </thead>
@@ -42,11 +42,11 @@
                             <div>
                                 <a class="mx-1 text-warning px-4 rounded border border-warning" asp-controller="Position"
                                 asp-action="Edit" asp-route-id="@item.Id">
-                                    @Resources.Shared._Table_en.edit
+                                    @Resources.Shared._Table.edit
                                 </a>
                                 <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
                                 asp-route-id="@item.Id">
-                                    @Resources.Shared._Table_en.delete
+                                    @Resources.Shared._Table.delete
                                 </a>
                             </div>
                         </td>
