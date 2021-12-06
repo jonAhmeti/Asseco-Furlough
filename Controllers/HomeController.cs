@@ -151,6 +151,8 @@ namespace Furlough.Controllers
             };
 
             builder.Build(HttpContext);
+
+            RedirectToAction("Index");
         }
 
         #endregion
