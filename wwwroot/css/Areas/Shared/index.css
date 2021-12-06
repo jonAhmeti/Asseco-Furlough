@@ -28,7 +28,8 @@ a {
   width: 70%;
   z-index: 1;
 }
-.tableDiv,
+.employeeRequestTableDiv,
+.positionDepartmentTableDiv,
 .roleTableDiv {
   margin-top: -3rem;
 }
