@@ -143,14 +143,8 @@ namespace Furlough.Controllers
             var cultureInfo = new CultureInfo(lang);
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-            CookieBuilder builder = new CookieBuilder()
-            {
-                HttpOnly = true,
-                Expiration = new TimeSpan(1, 0, 0, 0),
-                Name = "languageCulture",
-            };
 
-            builder.Build(HttpContext);
+            Response.Cookies.Append("languageCulture", cultureInfo.Name);
 
             return RedirectToAction("Index");
         }
