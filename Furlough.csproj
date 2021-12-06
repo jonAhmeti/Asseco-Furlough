@@ -25,18 +25,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Shared\_Admin_Layout_en.Designer.cs">
+    <Compile Update="Resources\Shared\Layout\_Layout.en.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>_Admin_Layout_en.resx</DependentUpon>
+      <DependentUpon>_Layout.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Shared\Table\_Table.en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_Table.en.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Shared\_Admin_Layout_en.resx">
+    <EmbeddedResource Update="Resources\Shared\Layout\_Layout.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>_Admin_Layout_en.Designer.cs</LastGenOutput>
+      <LastGenOutput>_Layout.en.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Shared\Table\_Table.en.resx">
+      <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Table.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

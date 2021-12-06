@@ -9,7 +9,7 @@
     <div class="w-100 d-flex justify-content-center">
         <div
             class="blue-gradient-div shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
-            <h2 class="text-white mx-3">Employee</h2>
+            <h2 class="text-white mx-3">@Resources.Shared._Layout_en.empTitle</h2>
         </div>
     </div>
     <div class="employeeRequestTableDiv w-100 d-flex justify-content-center">
@@ -24,18 +24,12 @@
                 </tr>
                 <tr>
                     <th>User Id</th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Department)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Position)
-                    </th>
-
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Position</th>
                     <th class="text-center">
-                        <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">@Resources.Shared._Table_en.create</a>
+                        <a class="mx-1 text-primary px-4 rounded border border-primary"
+                            asp-action="Create">@Resources.Shared._Table_en.create</a>
                     </th>
                 </tr>
             </thead>
