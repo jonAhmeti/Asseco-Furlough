@@ -29,27 +29,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Shared\Layout\_Layout.Designer.cs">
+    <Compile Update="Resources\Shared\Layout\_Layout.en.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>_Layout.resx</DependentUpon>
+      <DependentUpon>_Layout.en.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Shared\Table\_Table.Designer.cs">
+    <Compile Update="Resources\Shared\Table\_Table.en.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>_Table.resx</DependentUpon>
+      <DependentUpon>_Table.en.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Shared\Layout\_Layout.resx">
+    <EmbeddedResource Update="Resources\Shared\Layout\_Layout.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>_Layout.Designer.cs</LastGenOutput>
+      <LastGenOutput>_Layout.en.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Shared\Table\_Table.resx">
+    <EmbeddedResource Update="Resources\Shared\Table\_Table.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>_Table.Designer.cs</LastGenOutput>
+      <LastGenOutput>_Table.en.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
