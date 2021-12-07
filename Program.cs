@@ -26,13 +26,13 @@ builder.Services.AddMvc().AddRazorRuntimeCompilation()
 builder.Services.AddRequestLocalization(options =>
 {
     var supportedCultures = new[] {
-        new CultureInfo("en-US"),
-        new CultureInfo("sq-AL"),
-        new CultureInfo("de-DE"),
-        new CultureInfo("mk-MK"),
+        new CultureInfo("en"),
+        new CultureInfo("sq"),
+        new CultureInfo("de"),
+        new CultureInfo("mk")
     };
 
-    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.DefaultRequestCulture = new RequestCulture("en");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });

@@ -34,9 +34,9 @@
                         </li>
                     </ul>
                 </div>
-                <form action="Home/ChangeLang" method="post">
+                <form asp-action="ChangeLang" asp-controller="Home" method="post">
                     <div class="form-floating">
-                        <select class="form-select" id="langSelect" name="lang">
+                        <select class="form-select" id="langSelect" name="lang" onchange="this.form.submit();">
                             <label for="langSelect">Change language:</label>
                             <option selected hidden disabled></option>
                             <option value="en">English</option>
@@ -44,7 +44,6 @@
                             <option value="sq">Shqip</option>
                             <option value="mk">македонски</option>
                         </select>
-                        <input type="submit" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
