@@ -7,7 +7,7 @@
     $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
 }
 
-<form asp-action="ChangeLang" asp-controller="Home" method="post" asp-route-returnUrl="@returnUrl">
+<form asp-action="ChangeLang" asp-controller="Home" asp-area="" method="post" asp-route-returnUrl="@returnUrl">
     <div class="form-floating">
         <select id="cultureDropdown" class="form-select" name="lang" asp-for="@culture.RequestCulture.UICulture.Name"
             onchange="this.form.submit();">
