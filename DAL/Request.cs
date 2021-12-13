@@ -76,8 +76,8 @@ namespace Furlough.DAL
                         DateUntil = reader.GetDateTime("DateUntil"),
                         PaidDays = reader.GetInt32("PaidDays"),
                         RequestedByUserId = reader.GetInt32("RequestedByUserId"),
-                        RequestedOn = reader.GetDateTime("RequestedOn")
-                        //StatusId instead of Status
+                        RequestedOn = reader.GetDateTime("RequestedOn"),
+                        RequestStatusId = reader.GetByte("RequestStatusId"),
                     });
                 }
                 return listObj;
@@ -101,8 +101,8 @@ namespace Furlough.DAL
                         DepartmentId = reader.GetInt32("DepartmentId"),
                         DepartmentName = reader.GetString("DepartmentName"),
                         EmployeeName = reader.GetString("EmployeeName"),
-                        RequestDateFrom = DateOnly.Parse(reader.GetString("RequestDateFrom")),
-                        RequestDateUntil = DateOnly.Parse(reader.GetString("RequestDateUntil")),
+                        RequestDateFrom = reader.GetDateTime("RequestDateFrom"),
+                        RequestDateUntil = reader.GetDateTime("RequestDateUntil"),
                         RequestedByUserId = reader.GetInt32("RequestedByUserId"),
                         RequestedOn = reader.GetDateTime("RequestedOn"),
                         RequestId = reader.GetInt32("RequestId"),
