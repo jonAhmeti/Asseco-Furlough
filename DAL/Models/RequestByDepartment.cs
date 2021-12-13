@@ -10,7 +10,7 @@
         public DateTime RequestDateFrom { get; set; }
         public DateTime RequestDateUntil { get; set; }
         public DateTime RequestedOn { get; set; }
-        public int RequestStatusId { get; set; }
+        public byte RequestStatusId { get; set; }
         public int RequestPaidDays { get; set; }
     }
 }

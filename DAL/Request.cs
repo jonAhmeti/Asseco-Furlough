@@ -106,7 +106,7 @@ namespace Furlough.DAL
                         RequestId = reader.GetInt32("RequestId"),
                         EmployeeId = reader.GetInt32("EmployeeId"),
                         EmployeePositionId = reader.GetInt32("EmployeePositionId"),
-                        RequestStatusId = reader.GetInt32("RequestStatusId"),
+                        RequestStatusId = reader.GetByte("RequestStatusId"),
                         RequestPaidDays = reader.GetInt32("RequestPaidDays")
                     });
                 }
