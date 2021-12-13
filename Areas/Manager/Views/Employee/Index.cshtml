@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Furlough.DAL.Models.Employee>
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Index";
     int counter = 0;
@@ -23,10 +24,10 @@
                     <th class="border-0 w-25"></th>
                 </tr>
                 <tr>
-                    <th>User Id</th>
-                    <th>Name</th>
-                    <th>Department</th>
-                    <th>Position</th>
+                    <th>@localizer["userId"]</th>
+                    <th>@localizer["fullname"]</th>
+                    <th>@localizer["department"]</th>
+                    <th>@localizer["position"]</th>
 
                     <th class="text-center">
                         <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">@Resources.Shared._Table.create</a>
