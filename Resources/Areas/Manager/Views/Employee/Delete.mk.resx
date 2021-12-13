@@ -120,13 +120,22 @@
   <data name="deleteConfirmation" xml:space="preserve">
     <value>Дали сте сигурни дека сакате да го избришете ова?</value>
   </data>
-  <data name="description" xml:space="preserve">
-    <value>Опис</value>
+  <data name="department" xml:space="preserve">
+    <value>оддел</value>
+  </data>
+  <data name="fullname" xml:space="preserve">
+    <value>Целосно име</value>
+  </data>
+  <data name="joinDate" xml:space="preserve">
+    <value>Работејќи од</value>
   </data>
   <data name="pageTitle" xml:space="preserve">
-    <value>Избриши улоги</value>
+    <value>Вработен Избриши</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>Наслов</value>
+  <data name="position" xml:space="preserve">
+    <value>Позиција</value>
+  </data>
+  <data name="userId" xml:space="preserve">
+    <value>ИД</value>
   </data>
 </root>

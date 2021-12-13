@@ -123,6 +123,9 @@
   <data name="fullname" xml:space="preserve">
     <value>Целосно име</value>
   </data>
+  <data name="joinDate" xml:space="preserve">
+    <value>Работејќи од</value>
+  </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Вработен Креирај</value>
   </data>
@@ -131,8 +134,5 @@
   </data>
   <data name="userId" xml:space="preserve">
     <value>ИД</value>
-  </data>
-  <data name="workingSince" xml:space="preserve">
-    <value>Работејќи оттогаш</value>
   </data>
 </root>
