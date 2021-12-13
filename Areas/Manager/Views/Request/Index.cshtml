@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Furlough.DAL.Models.Request>
+﻿@model IEnumerable<Furlough.DAL.Models.RequestByDepartment>
 
 @{
     ViewData["Title"] = "Index";
@@ -25,10 +25,10 @@
                     <th class="border-0 w-25"></th>
                 </tr>
                 <tr>
-                    <th>@localizer["userId"]</th>
-                    <th>@localizer["requestedTime"]</th>
-                    <th>@localizer["requestStatus"]</th>
-                    <th>@localizer["requestType"]</th>
+                    <th>Requested on</th>
+                    <th>Employee</th>
+                    <th>From</th>
+                    <th>Until</th>
                     <th class="text-center">
                         <a class="mx-1 text-primary px-4 rounded border border-primary"
                             asp-action="Create">@Resources.Shared._Table.create</a>
@@ -40,32 +40,32 @@
                 {
                     <tr rowId="@counter">
                         <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.RequestedByUserId)
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestedOn">
+                                @item.RequestedOn
                             </a>
                         </td>
                         <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.RequestedOn)
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeName">
+                                @Html.DisplayFor(modelItem => item.EmployeeName)
                             </a>
                         </td>
                         <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.RequestStatus.Id)
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestDateFrom">
+                                @item.RequestDateFrom.ToShortDateString()
                             </a>
                         </td>
                         <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.RequestType.Id)
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestDateUntil">
+                                @item.RequestDateUntil.ToShortDateString()
                             </a>
                         </td>
                         <td class="text-center align-middle">
                             <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
-                            asp-route-id="@item.Id">
+                            asp-route-id="@item.RequestId">
                                 @Resources.Shared._Table.edit
                             </a>
                             <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
-                            asp-route-id="@item.Id">
+                            asp-route-id="@item.RequestId">
                                 @Resources.Shared._Table.delete
                             </a>
                         </td>

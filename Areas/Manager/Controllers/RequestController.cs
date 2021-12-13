@@ -14,17 +14,20 @@ namespace Furlough.Areas.Manager.Controllers
     public class RequestController : Controller
     {
         private readonly FurloughContext _context;
+        private readonly DAL.Request _contextRequest;
 
-        public RequestController(FurloughContext context)
+        public RequestController(FurloughContext context, DAL.Request contextRequest)
         {
             _context = context;
+            _contextRequest = contextRequest;
         }
 
         // GET: Manager/Request
         public async Task<IActionResult> Index()
         {
-            var furloughContext = _context.Requests.Include(r => r.RequestStatus).Include(r => r.RequestType).Include(r => r.RequestedByNavigation);
-            return View(await furloughContext.ToListAsync());
+            var departmentId = 1; //Get DepartmentId by HttpContext
+
+            return View(_contextRequest.GetByDepartment(departmentId));
         }
 
         // GET: Manager/Request/Details/5

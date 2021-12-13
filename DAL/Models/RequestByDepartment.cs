@@ -8,8 +8,8 @@
         public int EmployeeId { get; set; }
         public int RequestId { get; set; }
         public int RequestedByUserId { get; set; }
-        public DateOnly RequestDateFrom { get; set; }
-        public DateOnly RequestDateUntil { get; set; }
+        public DateTime RequestDateFrom { get; set; }
+        public DateTime RequestDateUntil { get; set; }
         public DateTime RequestedOn { get; set; }
     }
 }
