@@ -23,7 +23,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@DepartmentId", obj.DepartmentId);
             command.Parameters.AddWithValue("@Email", obj.Email);
             command.Parameters.AddWithValue("@Name", obj.Name);
-            command.Parameters.AddWithValue("@JoinDate", obj.JoinDate);
+            command.Parameters.AddWithValue("@JoinDate", obj.JoinDate <= DateTime.MinValue ? DateTime.Now : obj.JoinDate);
             command.Parameters.AddWithValue("@Phone", obj.Phone);
 
             connection.Open();

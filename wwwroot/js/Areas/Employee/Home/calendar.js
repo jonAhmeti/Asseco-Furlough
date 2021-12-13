@@ -636,9 +636,11 @@ function setCalendarDayEvents() {
                     }).join('');
 
                     let selectedDays = $(".selectedDay");
+                    console.log(selectedDays);
                     for (var i = 0; i < selectedDays.length; i++) {
                         $(selectedDays[i]).on('click', function () {
-                            console.log(selectedDays[i]);
+                            selectedDates = selectedDates.filter(element => element !== selectedDays[i]);
+                            console.log($(this));
                         });
                     }
                 }
