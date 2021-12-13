@@ -1,5 +1,6 @@
 ﻿@model Furlough.DAL.Models.Role
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Edit";
 }
@@ -8,7 +9,7 @@
     <div class="w-100">
         <div class="detailHeaderWrapper d-flex justify-content-between mb-3">
             <div class="blue-gradient rounded customSubPageTitle text-center">
-                <h2 class="text-white mt-2">Role Edit</h2>
+                <h2 class="text-white mt-2">@localizer["pageTitle"]</h2>
             </div>
             <div class="d-flex align-items-center">
                 <a class="mx-1 text-danger paddingXBtn rounded border border-danger" asp-action="Delete"
@@ -23,13 +24,13 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-floating mb-3">
-                        <input class="form-control" asp-for="Title" placeholder="Title" />
-                        <label asp-for="Title"></label>
+                        <input class="form-control" asp-for="Title" placeholder='@localizer["title"]'/>
+                        <label asp-for="Title">@localizer["title"]</label>
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-2">
-                        <input class="form-control" asp-for="Description" placeholder="Description" />
-                        <label asp-for="Description"></label>
+                        <input class="form-control" asp-for="Description" placeholder='@localizer["description"]'/>
+                        <label asp-for="Description">@localizer["description"]</label>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="d-flex justify-content-center mt-3">

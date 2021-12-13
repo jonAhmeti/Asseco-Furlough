@@ -2,6 +2,7 @@
 using Furlough.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
 using System.Diagnostics;
 using Furlough.SecurityHandlers;
 using Microsoft.AspNetCore.Authentication;
@@ -138,15 +139,20 @@ namespace Furlough.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult ChangeLang(string lang)
+
+        public IActionResult ChangeLang(string lang, string returnUrl)
         {
             var cultureInfo = new CultureInfo(lang);
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
 
-            Response.Cookies.Append("languageCulture", cultureInfo.Name);
+            this.HttpContext.Response.Cookies.Append
+            (
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(lang))
+            );
 
-            return RedirectToAction("Index");
+            return LocalRedirect(returnUrl);
         }
 
         #endregion

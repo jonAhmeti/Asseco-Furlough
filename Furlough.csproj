@@ -22,10 +22,7 @@
   <ItemGroup>
     <Folder Include="Areas\Manager\Data\" />
     <Folder Include="Areas\Manager\Models\" />
-    <Folder Include="Resources\Areas\Admin\Views\Department\" />
-    <Folder Include="Resources\Areas\Admin\Views\Employee\" />
     <Folder Include="Resources\Areas\Admin\Views\Home\" />
-    <Folder Include="Resources\Areas\Admin\Views\Role\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,10 +44,26 @@
       <LastGenOutput>_Layout.en.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Shared\Layout\_Layout.mk.resx">
+      <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Shared\Layout\_Layout.sq.resx">
+      <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Shared\Table\_Table.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>_Table.en.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Shared\Table\_Table.mk.resx">
+      <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Shared\Table\_Table.sq.resx">
+      <CustomToolNamespace>Resources.Shared</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
 

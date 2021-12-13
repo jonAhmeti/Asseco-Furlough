@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Furlough.DAL.Models.Department>
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Index";
     int counter = 0;
@@ -20,9 +21,7 @@
                     <th class="border-0 w-25"></th>
                 </tr>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
+                    <th>@localizer["departmentName"]</th>
                     <th class="text-center">
                         <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">@Resources.Shared._Table.create</a>
                     </th>

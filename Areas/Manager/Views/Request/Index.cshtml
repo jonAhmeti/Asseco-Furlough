@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Furlough.DAL.Models.Request>
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Index";
     int counter = 0;

@@ -1,5 +1,6 @@
 ﻿@model Furlough.DAL.Models.Employee
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Create";
 }
@@ -8,7 +9,7 @@
     <div class="w-100">
         <div class="detailHeaderWrapper d-flex justify-content-between mb-3">
             <div class="blue-gradient rounded customSubPageTitle text-center">
-                <h2 class="text-white mt-2">Employee Create</h2>
+                <h2 class="text-white mt-2">@localizer["pageTitle"]</h2>
             </div>
         </div>
     </div>
@@ -19,20 +20,20 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-floating mb-3">
                         <select class="form-control" asp-for="UserId" asp-items="ViewBag.UserId"></select>
-                        <label asp-for="UserId"></label>
+                        <label asp-for="UserId">@localizer["userId"]</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="JoinDate" />
-                        <label asp-for="JoinDate"></label>
+                        <label asp-for="JoinDate">@localizer["workingSince"]</label>
                         <span asp-validation-for="JoinDate" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-control" asp-for="PositionId" asp-items="ViewBag.PositionId"></select>
-                        <label asp-for="PositionId"></label>
+                        <label asp-for="PositionId">@localizer["position"]</label>
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentId"></select>
-                        <label asp-for="DepartmentId"></label>
+                        <label asp-for="DepartmentId">@localizer["department"]</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="Email" placeholder="Email" />
@@ -40,8 +41,8 @@
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-2">
-                        <input class="form-control" asp-for="Name" placeholder="Name" />
-                        <label asp-for="Name"></label>
+                        <input class="form-control" asp-for="Name" placeholder='@localizer["fullname"]' />
+                        <label asp-for="Name">@localizer["fullname"]</label>
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="d-flex justify-content-center mt-3">

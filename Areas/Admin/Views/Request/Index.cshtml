@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Furlough.DAL.Models.Request>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 @{
     ViewData["Title"] = "Index";
     int counter = 0;
 }
-@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer localizer
 
 <div class="container-fluid p-0 mt-5">
     <div class="w-100 d-flex justify-content-center">

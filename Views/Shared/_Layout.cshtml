@@ -24,7 +24,7 @@
                         src="~/images/asseco_southeasterneurope_logo.svg" alt="Asseco Logo" /></a>
                 <div
                     class="navbar-collapse collapse d-sm-inline-flex justify-content-between flex-row-reverse flex-grow-0">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav align-items-center">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -32,21 +32,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                 asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="ms-5 nav-item">
+                            <partial name="_Culture" />
+                        </li>
                     </ul>
                 </div>
-                <form asp-action="ChangeLang" asp-controller="Home" method="post">
-                    <div class="form-floating">
-                        <select class="form-select" id="langSelect" name="lang" onchange="this.form.submit();">
-                            <label for="langSelect">Change language:</label>
-                            <option selected hidden disabled></option>
-                            <option value="en">English</option>
-                            <option value="de">Deutsch</option>
-                            <option value="sq">Shqip</option>
-                            <option value="mk">македонски</option>
-                        </select>
-                    </div>
-                </form>
             </div>
+           
         </nav>
     </header>
     <main role="main">

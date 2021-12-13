@@ -1,9 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-@model User
+﻿@model User
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Home Page";
+}
+
 
 <link rel="stylesheet" href="~/css/Home/index.css"/>
 <div id="modalWrapper" class="d-flex flex-column mx-auto">
@@ -12,7 +13,6 @@
         <div id="signup" class="d-flex flex-grow-1 justify-content-center p-3 text-muted"><span class="fw-bold fs-5">@Localizer["Signup"]</span></div>
         <div id="activeIndicator" class="bg-primary border-5 position-absolute w-50 bottom-0 bg-lg-danger" style="height:5px;"></div>
     </div>
-
     <div id="formWrapper" class="d-flex flex-row bg-white rounded-bottom shadow-sm">
         <partial name="./Partial/Login"/>
     </div>

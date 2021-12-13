@@ -40,13 +40,16 @@
                         class="mw-100 mh-100" src="~/images/asseco_southeasterneurope_logo.svg" alt="Asseco Logo" /></a>
                 <div
                     class="navbar-collapse collapse d-sm-inline-flex justify-content-between flex-row-reverse flex-grow-0">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav align-items-center">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                 asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="ms-5 nav-item">
+                            <partial name="~/Views/Shared/_Culture.cshtml" />
                         </li>
                     </ul>
                 </div>

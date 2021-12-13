@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,15 +24,14 @@ builder.Services.AddMvc().AddRazorRuntimeCompilation()
     .AddDataAnnotationsLocalization();
 
 //Localization and globalization
-builder.Services.AddRequestLocalization(options =>
+builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var supportedCultures = new[] {
-        new CultureInfo("en"),
+    var supportedCultures = new[]
+     {
         new CultureInfo("sq"),
-        new CultureInfo("de"),
+        new CultureInfo("en"),
         new CultureInfo("mk")
     };
-
     options.DefaultRequestCulture = new RequestCulture("en");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
@@ -93,8 +93,9 @@ app.UseRequestLocalization(options =>
 
     app.UseHttpsRedirection();
     app.UseStaticFiles();
-
     app.UseRouting();
+    app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+    
     app.UseAuthentication();
     app.UseAuthorization();
 

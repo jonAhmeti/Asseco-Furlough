@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
 using Furlough.DAL.Models;
+using System.Globalization;
 
 namespace Furlough.Areas.Manager.Controllers
 {
@@ -154,6 +157,24 @@ namespace Furlough.Areas.Manager.Controllers
             }
 
             return View(employee);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+
+        public IActionResult ChangeLang(string lang, string returnUrl)
+        {
+            var cultureInfo = new CultureInfo(lang);
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+
+            this.HttpContext.Response.Cookies.Append
+            (
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(lang))
+            );
+
+            return LocalRedirect(returnUrl);
         }
 
         // POST: Manager/Employee/Delete/5
