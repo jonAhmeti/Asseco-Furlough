@@ -134,7 +134,7 @@ namespace Furlough.Controllers
             _contextEmployee.Add(new DAL.Models.Employee
             {
                 Email = signupModel.Email,
-                UserId = (int)userId,
+                UserId = userId,
                 Name = signupModel.Name,
                 DepartmentId = signupModel.DepartmentId,
                 PositionId = signupModel.PositionId
