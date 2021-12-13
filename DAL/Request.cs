@@ -98,15 +98,16 @@ namespace Furlough.DAL
                 {
                     listObj.Add(new Models.RequestByDepartment
                     {
-                        DepartmentId = reader.GetInt32("DepartmentId"),
-                        DepartmentName = reader.GetString("DepartmentName"),
                         EmployeeName = reader.GetString("EmployeeName"),
                         RequestDateFrom = reader.GetDateTime("RequestDateFrom"),
                         RequestDateUntil = reader.GetDateTime("RequestDateUntil"),
                         RequestedByUserId = reader.GetInt32("RequestedByUserId"),
                         RequestedOn = reader.GetDateTime("RequestedOn"),
                         RequestId = reader.GetInt32("RequestId"),
-                        EmployeeId = reader.GetInt32("EmployeeId")
+                        EmployeeId = reader.GetInt32("EmployeeId"),
+                        EmployeePositionId = reader.GetInt32("EmployeePositionId"),
+                        RequestStatusId = reader.GetInt32("RequestStatusId"),
+                        RequestPaidDays = reader.GetInt32("RequestPaidDays")
                     });
                 }
                 return listObj;

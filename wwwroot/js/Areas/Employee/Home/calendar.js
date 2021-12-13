@@ -622,24 +622,40 @@ function setCalendarDayEvents() {
                     selectedDates.sort((a, b) => {
                         return a - b;
                     });
-                    console.log(selectedDates);
+                    //console.log(selectedDates);
                     selectedDaysList.innerHTML = selectedDates.map(element => {
-                        return `<div class="row row-cols-6">
-                                <div class="col-4 text-end">
-                                    <i class="fa-solid fa-circle-check text-success"></i>
-                                </div>
-                                <div class="col-8 text-start"> 
-                                    ${dayNames.ddd[element.getDay()]} ${element.getDate()} ${monthNames[element.getMonth()]}
-                                     ${element.getFullYear()}
-                                </div>
-                            </div>`
+                        return `<div class="row row-cols-6 selectedDay">
+                                    <div class="col-4 text-end">
+                                        <i class="fa-solid fa-circle-check text-success"></i>
+                                    </div>
+                                    <div class="col-8 text-start"> 
+                                        ${dayNames.ddd[element.getDay()]} ${element.getDate()} ${monthNames[element.getMonth()]}
+                                         ${element.getFullYear()}
+                                    </div>
+                                </div>`
                     }).join('');
+
+                    let selectedDays = $(".selectedDay");
+                    for (var i = 0; i < selectedDays.length; i++) {
+                        $(selectedDays[i]).on('click', function () {
+                            selectedDates = selectedDates.filter(item => item !== selectedDates[i - 1]).sort((a, b) => { return a - b;});
+                            //removeSelectedDay(selectedDates, i - 1);
+                            //this.remove();
+                            console.log(selectedDates);
+                        });
+                    }
                 }
             });
         }
 
     }
 }
+
+//function removeSelectedDay(removeFromArray, index) {
+//    removeFromArray = removeFromArray.filter(item => item !== removeFromArray[index]);
+//    selectedDates = removeFromArray;
+//    console.log(removeFromArray);
+//}
 
 function containsDate(date, array) {
     let found = false;
