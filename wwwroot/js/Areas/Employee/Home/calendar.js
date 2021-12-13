@@ -641,6 +641,7 @@ function setCalendarDayEvents() {
                         $(selectedDays[i]).on('click', function () {
                             selectedDates = selectedDates.filter(element => element !== selectedDays[i]);
                             console.log($(this));
+                            console.log(selectedDates);
                         });
                     }
                 }

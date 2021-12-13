@@ -12,7 +12,7 @@ namespace Furlough.DAL
         {
             _context = context;
         }
-        public uint Add(Models.User obj)
+        public int Add(Models.User obj)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace Furlough.DAL
                 command.Parameters.AddWithValue("@Username", obj.Username);
                 command.Parameters.AddWithValue("@Password", obj.Password);
                 connection.Open();
-                return (uint)command.ExecuteScalar();
+                return (int)command.ExecuteScalar();
             }
 
             catch (Exception e)
