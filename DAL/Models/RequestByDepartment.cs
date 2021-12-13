@@ -8,6 +8,7 @@
         public int EmployeeId { get; set; }
         public int RequestId { get; set; }
         public int RequestedByUserId { get; set; }
+        public virtual RequestStatus RequestStatus { get; set; } = null!;
         public DateTime RequestDateFrom { get; set; }
         public DateTime RequestDateUntil { get; set; }
         public DateTime RequestedOn { get; set; }

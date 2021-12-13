@@ -120,13 +120,22 @@
   <data name="deleteConfirmation" xml:space="preserve">
     <value>Are you sure you want to delete this?</value>
   </data>
-  <data name="description" xml:space="preserve">
-    <value>Description</value>
+  <data name="department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="fullname" xml:space="preserve">
+    <value>Fullname</value>
+  </data>
+  <data name="joinDate" xml:space="preserve">
+    <value>Working Since</value>
   </data>
   <data name="pageTitle" xml:space="preserve">
-    <value>Role Delete</value>
+    <value>Employee Delete</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>Title</value>
+  <data name="position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="userId" xml:space="preserve">
+    <value>ID</value>
   </data>
 </root>

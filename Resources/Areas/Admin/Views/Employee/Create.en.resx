@@ -123,6 +123,9 @@
   <data name="fullname" xml:space="preserve">
     <value>Fullname</value>
   </data>
+  <data name="joinDate" xml:space="preserve">
+    <value>Working Since</value>
+  </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Employee Create</value>
   </data>
@@ -131,8 +134,5 @@
   </data>
   <data name="userId" xml:space="preserve">
     <value>ID</value>
-  </data>
-  <data name="workingSince" xml:space="preserve">
-    <value>Working since</value>
   </data>
 </root>

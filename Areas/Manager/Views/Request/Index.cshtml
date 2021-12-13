@@ -5,8 +5,6 @@
     ViewData["Title"] = "Index";
     int counter = 0;
 }
-@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer localizer
 
 <div class="container-fluid p-0 mt-5">
     <div class="w-100 d-flex justify-content-center">
@@ -26,10 +24,9 @@
                     <th class="border-0 w-25"></th>
                 </tr>
                 <tr>
-                    <th>Requested on</th>
-                    <th>Employee</th>
-                    <th>From</th>
-                    <th>Until</th>
+                    <th>@localizer["requestedBy"]</th>
+                    <th>@localizer["requestedTime"]</th>
+                    <th>@localizer["requestStatus"]</th>
                     <th class="text-center">
                         <a class="mx-1 text-primary px-4 rounded border border-primary"
                             asp-action="Create">@Resources.Shared._Table.create</a>
@@ -41,23 +38,18 @@
                 {
                     <tr rowId="@counter">
                         <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestedOn">
-                                @item.RequestedOn
-                            </a>
-                        </td>
-                        <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeName">
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
                                 @Html.DisplayFor(modelItem => item.EmployeeName)
                             </a>
                         </td>
                         <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestDateFrom">
-                                @item.RequestDateFrom.ToShortDateString()
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
+                                @item.RequestedOn
                             </a>
                         </td>
                         <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestDateUntil">
-                                @item.RequestDateUntil.ToShortDateString()
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
+                                @item.RequestDateFrom.ToShortDateString()
                             </a>
                         </td>
                         <td class="text-center align-middle">

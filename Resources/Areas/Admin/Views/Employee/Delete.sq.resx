@@ -120,13 +120,22 @@
   <data name="deleteConfirmation" xml:space="preserve">
     <value>A jeni i sigurt që dëshironi ta fshini këtë?</value>
   </data>
-  <data name="description" xml:space="preserve">
-    <value>Përshkrimi</value>
+  <data name="department" xml:space="preserve">
+    <value>Departamenti</value>
+  </data>
+  <data name="fullname" xml:space="preserve">
+    <value>Emri i plotë</value>
+  </data>
+  <data name="joinDate" xml:space="preserve">
+    <value>Duke punuar që nga</value>
   </data>
   <data name="pageTitle" xml:space="preserve">
-    <value>Fshijë rolin</value>
+    <value>Fshijë punëtorin</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>Titulli</value>
+  <data name="position" xml:space="preserve">
+    <value>Pozita</value>
+  </data>
+  <data name="userId" xml:space="preserve">
+    <value>ID</value>
   </data>
 </root>

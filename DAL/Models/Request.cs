@@ -18,7 +18,6 @@ namespace Furlough.DAL.Models
         public byte RequestStatusId { get; set; }
         public int PaidDays { get; set; }
         public int RequestTypeId { get; set; }
-
         public virtual RequestStatus RequestStatus { get; set; } = null!;
         public virtual RequestType RequestType { get; set; } = null!;
         public virtual User? RequestedByNavigation { get; set; }
