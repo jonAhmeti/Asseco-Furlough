@@ -3,9 +3,10 @@
 @inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locOptions
 @{
     var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
-    var returnUrl = string.IsNullOrWhiteSpace(Context.Request.Path) ? "~/" :
-    $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+    var cultureList = locOptions.Value.SupportedUICultures.Select(lang => new SelectListItem(localizer.GetString(lang.Name), lang.Name)).ToList();
+    var returnUrl = string.IsNullOrWhiteSpace(Context.Request.Path) ? "~/" : $"{Context.Request.Path.Value}{Context.Request.QueryString}";
 }
+
 
 <form asp-action="ChangeLang" asp-controller="Home" asp-area="" method="post" asp-route-returnUrl="@returnUrl">
     <div class="form-floating">

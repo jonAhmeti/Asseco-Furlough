@@ -59,65 +59,15 @@
                 </div>
             </div>
             <div class="container border shadow-sm" id="selectedDaysWrapper" style="left:-25%;">
-                <div class="p-3 py-5 w-100 h-100" id="">
-                    <div class="h-100 py-3" id="selectedDaysList">
+                <div class="p-3 pb-5 w-100 h-100" id="">
+                    <div id="selectDaysHeader" class="text-center"><h5>@localizer["selectedDaysHeader"]</h5></div>
+                    <div class="h-100 py-3 rounded" id="selectedDaysList">
 
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    @*<section id="calendarContainer" class="">
-        <div class="container dycalendar-container skin-black shadow-black" id="calendarWrapper">
-            @{
-                byte colCounter = 0;
-                byte rowCounter = 0;
-                var daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
-                for (var i = 0; i < 35; i++)
-                {
-                    if (colCounter == 0)
-                    {
-                        if (rowCounter != 0)
-                        {
-                            //check if row is last row
-                            if (rowCounter == 4)
-                            {
-                                @:<div class="row" style="border-bottom-left-radius: 1rem; border-bottom-right-radius: 1rem;">
-                            }
-                            else
-                            {
-                                @:<div class="row">
-                            }
-                        }
-                        else
-                        {
-                                @:<div class="row" style="border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
-                        }
-                    }
-
-                        <div class="col-auto border border-white">
-                        @{
-                            //var day = new DateTime(today.Year, today.Month, today.Day + i + 1);
-                            var day = today.AddDays(i);
-                            <p class="">@day.DayOfWeek
-                            @day.Date.Day</p>
-                        }
-                    </div>
-
-                    colCounter++;
-                    if (colCounter == 7)
-                    {
-                        rowCounter++;
-                        @:</div>
-                        colCounter = 0;
-                    }
-                }
-            }
-            
-            <div id="calendar"></div>
-        </div>
-    </section>*@
 </div>
 
 <script>    
