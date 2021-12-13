@@ -44,26 +44,13 @@ builder.Services.AddLocalization(
     });
 
 //Authentication and Authorization
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-//{
-//    options.SaveToken = true;
-//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidateLifetime = true,
-//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-//        ValidAudience = builder.Configuration["Jwt:Issuer"],
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Token"])),
-//    };
-//});
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.LoginPath = "/";
     options.LogoutPath = "/Logout";
     options.ReturnUrlParameter = "";
     options.Cookie.Name = "DaddyCookie";
-}).AddScheme<BasicAuthenticatorOptions, BasicAuthenticator>("BasicAuthenticator Handler", null);
+});
 
 //Mapper services
 builder.Services.AddScoped<Furlough.Models.Mapper.DalMapper>();

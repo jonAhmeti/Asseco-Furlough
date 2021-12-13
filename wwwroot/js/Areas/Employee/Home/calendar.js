@@ -638,10 +638,7 @@ function setCalendarDayEvents() {
                     let selectedDays = $(".selectedDay");
                     for (var i = 0; i < selectedDays.length; i++) {
                         $(selectedDays[i]).on('click', function () {
-                            selectedDates = selectedDates.filter(item => item !== selectedDates[i - 1]).sort((a, b) => { return a - b;});
-                            //removeSelectedDay(selectedDates, i - 1);
-                            //this.remove();
-                            console.log(selectedDates);
+                            console.log(selectedDays[i]);
                         });
                     }
                 }

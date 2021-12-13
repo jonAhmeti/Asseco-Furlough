@@ -8,6 +8,8 @@ using Furlough.SecurityHandlers;
 using Microsoft.AspNetCore.Authentication;
 using Furlough.Models.Mapper;
 using System.Globalization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Furlough.Controllers
 {
@@ -39,19 +41,83 @@ namespace Furlough.Controllers
 
         [AllowAnonymous]
         public IActionResult Index(string? message = null)
-        { 
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home", new { 
+                    Area = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Role").Value });
+
             return View();
         }
 
-        #region Login/Signup
+        #region Login/Signup/Logout
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index");
+        }
+
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(Models.User user)
+        public async Task<IActionResult> Login(Models.User user)
         {
-            var dbUser = _contextUser.GetByUsername(user.Username);
-            if (dbUser == null) return Error();
+            var area = "";
 
-            return Ok();
+            try
+            {
+                var dbUser = _contextUser.GetByUsername(user.Username);
+                if (dbUser == null) return NotFound("User not found.");
+
+                var employee = _contextEmployee.GetByUserId(dbUser.Id);
+                if (employee == null) return NotFound("Employee not found.");
+
+                //checking user role
+                var role = "Employee";
+                switch (dbUser.RoleId)
+                {
+                    case 1:
+                        {
+                            area = "Employee";
+                            break;
+                        }
+                    case 4:
+                        {
+                            area = "Manager";
+                            role = "Manager";
+                            break;
+                        }
+                    case 5:
+                        {
+                            area = "Admin";
+                            role = "Admin";
+                            break;
+                        }
+                    default:
+                        {
+                            area = "Employee";
+                            break;
+                        }
+                }
+
+                var claims = new[]
+                {
+                new Claim("Name", employee.Name),
+                new Claim("Role", role),
+                new Claim("Department", employee.DepartmentId.ToString()),
+                new Claim("Position", employee.PositionId.ToString()),
+                new Claim("JoinedOn", employee.JoinDate.ToString())
+            };
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+
+                
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index", "Home", new { area });
         }
         [AllowAnonymous]
         [HttpPost]

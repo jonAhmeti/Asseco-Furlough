@@ -28,9 +28,10 @@ namespace Furlough.Areas.Manager.Controllers
         // GET: Manager/Request
         public async Task<IActionResult> Index()
         {
-            var departmentId = 1; //Get DepartmentId by HttpContext
+            //Get DepartmentId by HttpContext
+            var departmentId = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value; 
 
-            return View(_contextRequest.GetByDepartment(departmentId));
+            return View(_contextRequest.GetByDepartment(int.Parse(departmentId)));
         }
 
         // GET: Manager/Request/Details/5
