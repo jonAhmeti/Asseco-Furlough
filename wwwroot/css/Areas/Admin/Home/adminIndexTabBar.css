@@ -1,0 +1,40 @@
+.tabBar {
+  position: relative;
+}
+.tabBar .line {
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  background: #000;
+}
+.tabBarList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.tabBarItem {
+  padding: 0;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+}
+.tabBarItem:hover {
+  opacity: 0.7;
+}
+.tabBarItem.active {
+  opacity: 1;
+}
+.tabBarItem:last-child {
+  margin-right: 0;
+}
+.tabBarItem a {
+  padding: 0.5rem 0;
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  font-size: 14px;
+}

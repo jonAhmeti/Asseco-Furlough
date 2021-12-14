@@ -141,6 +141,9 @@
   <data name="prevYearDaysMessage" xml:space="preserve">
     <value>Fut mesazhin në skedarin e burimit.</value>
   </data>
+  <data name="selectedDaysHeader" xml:space="preserve">
+    <value>Ditët e zgjedhura</value>
+  </data>
   <data name="spentDays" xml:space="preserve">
     <value>Ditë të shpenzuara</value>
   </data>

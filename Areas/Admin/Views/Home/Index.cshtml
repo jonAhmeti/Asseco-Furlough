@@ -6,6 +6,39 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 
-<div>
-    <p>@localizer["test"]</p>
+<link href="~/css/Areas/Admin/Home/adminIndexTabBar.css" rel="stylesheet" />
+<script src="~/js/Areas/Admin/Home/tabBar.js"></script>
+
+<div class="container p-5">
+    <div class="row w-100 h-100">
+        <div class="col-6 d-flex flex-column">
+            <div class="d-flex flex-column w-100 h-50 mb-2 rounded border border-dark">
+                <div class="tabBar">
+                    <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded">
+                        <div class="tabBarItem active col-4 rounded-start">
+                            <a href="">Banking</a>
+                        </div>
+                        <div class="tabBarItem col-4">
+                            <a href="">Dep2</a>
+                        </div>
+                        <div class="tabBarItem col-4 rounded-end">
+                            <a href="">Dep3</a>
+                        </div>
+                    </div>
+                    <div></div>
+                </div>
+                <div class="w-100 h-100">
+                    <div class="h-100 d-flex justify-content-center align-items-center">
+                        <p>DEPARTMENT EMPLOYEES</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 h-50 bg-warning"></div>
+        </div>
+        <div class="col-6">
+            <div class="tabBar w-100 h-100 bg-info">
+
+            </div>
+        </div>
+    </div>
 </div>

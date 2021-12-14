@@ -141,6 +141,9 @@
   <data name="prevYearDaysMessage" xml:space="preserve">
     <value>Вметнете порака во датотека со ресурси.</value>
   </data>
+  <data name="selectedDaysHeader" xml:space="preserve">
+    <value>Избрани денови</value>
+  </data>
   <data name="spentDays" xml:space="preserve">
     <value>Поминати денови</value>
   </data>
