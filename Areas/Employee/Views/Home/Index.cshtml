@@ -9,7 +9,7 @@
 <script src="~/js/Areas/Employee/Home/calendar.js"></script>
 
 <div class="container-fluid overflow-hidden">
-    <div id="infoCardsWrapper" class="position-relative hstack pb-3">
+    <div id="infoCardsWrapper" class="position-relative hstack pb-5">
         <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft"><i class="fa-solid fa-arrow-left"></i></div>
         <div class="row-cols-1 row-cols-md-3 row-cols-lg-4 p-3 hstack" id="infoCards">
             <!--Available days-->
@@ -87,7 +87,8 @@
     </div>
 </div>
 
-<script>    
+<script>
+    $(function(){
         dycalendar.draw({
             target:'#calendar',
             type:'month',
@@ -98,4 +99,6 @@
             prevnextbutton:'show'
 
         });
+        const selectedDaysList = $("#selectedDaysList");
+    });
 </script>

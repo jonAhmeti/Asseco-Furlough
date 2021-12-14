@@ -14,9 +14,8 @@ dayNames = {
 };
 
 
-$(function (global) {
+(function (global) {
 
-    const selectedDaysList = $("#selectedDaysList");
 
     "use strict";
 
@@ -573,7 +572,59 @@ $(function (global) {
 
         }
 
+        //self explanatory
         setCalendarDayEvents();
+        // ____________________________________ after calendar is drawn ____________________________________
+        const toastMsg = $("#toastMsg");
+        const toastBody = $("#toastBody");
+
+        const toastClose = $("#toastMsg button");
+        $(toastClose).on('click', function () {
+            $(toastMsg).hide();
+        });
+
+        const daysSubmitBtn = $("#selectedDaysSubmit");
+        const daysResetBtn = $("#selectedDaysReset");
+
+
+        //Submit button
+        $(daysSubmitBtn).on('click', function () {
+            //create temp array to increase value by 1. backend checks months from 1-12, meanwhile JS from 0-11.
+            //better to create a temporary array otherwise selectedDates will just keep increasing months and we will have to decrease it in a complete ajax statement
+            let tempArray = new Array();
+            for (var i = 0; i < selectedDates.length; i++) {
+                tempArray.push(`${selectedDates[i].split('/')[0]}/${parseInt(selectedDates[i].split('/')[1]) + 1}/${selectedDates[i].split('/')[2]}`);
+            }
+            $.ajax({
+                method: 'POST',
+                url: 'Employee/Home/SubmitRequest',
+                data: { dates: tempArray },
+                success: function (result) {
+                    $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
+                    $(toastBody).html(`
+                                ${result ? "Request submitted successfully." :
+                            "Something went wrong submitting your request."}
+                    `);
+                    $(toastMsg).show();
+                },
+                error: function (error) {
+                    $(daysSubmitBtn).animate({ color: '#CA0B00' }, 500);
+                    $(toastBody).html(`${result} <br /> Something went wrong submitting your request."}
+                    `);
+                    $(toastMsg).show();
+                },
+                complete: function () {
+                    $(this).finish();
+                    $(daysSubmitBtn).animate({ color: '#000' }, 1000);
+                }
+            });
+        });
+
+        $(daysResetBtn).on('click', function () {
+            selectedDates = new Array();
+            selectedDaysList.innerHTML = '';
+            $(".dycalendar-body td").removeAttr("style");
+        });
     }
 
     //events
@@ -672,57 +723,3 @@ function containsStringDate(date, array) {
 
     return found;
 }
-
-$(function () {
-
-    const toastMsg = $("#toastMsg");
-    const toastBody = $("#toastBody");
-
-    const toastClose = $("#toastMsg button");
-    $(toastClose).on('click', function () {
-        $(toastMsg).hide();
-    });
-
-    const daysSubmitBtn = $("#selectedDaysSubmit");
-    const daysResetBtn = $("#selectedDaysReset");
-
-
-    //Submit button
-    $(daysSubmitBtn).on('click', function () {
-        //create temp array to increase value by 1. backend checks months from 1-12, meanwhile JS from 0-11.
-        //better to create a temporary array otherwise selectedDates will just keep increasing months and we will have to decrease it in a complete ajax statement
-        let tempArray = new Array();
-        for (var i = 0; i < selectedDates.length; i++) {
-            tempArray.push(`${selectedDates[i].split('/')[0]}/${parseInt(selectedDates[i].split('/')[1]) + 1}/${selectedDates[i].split('/')[2]}`);
-        }
-        $.ajax({
-            method: 'POST',
-            url: 'Employee/Home/SubmitRequest',
-            data: { dates: tempArray },
-            success: function (result) {
-                $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
-                $(toastBody).html(`
-                                ${result ? "Request submitted successfully." :
-                        "Something went wrong submitting your request."}
-                    `);
-                $(toastMsg).show();
-            },
-            error: function (error) {
-                $(daysSubmitBtn).animate({ color: '#CA0B00' }, 500);
-                $(toastBody).html(`${result} <br /> Something went wrong submitting your request."}
-                    `);
-                $(toastMsg).show();
-            },
-            complete: function () {
-                $(this).finish();
-                $(daysSubmitBtn).animate({ color: '#000' }, 1000);
-            }
-        });
-    });
-
-    $(daysResetBtn).on('click', function () {
-        selectedDates = new Array();
-        selectedDaysList.innerHTML = '';
-        $(".dycalendar-body td").removeAttr("style");
-    });
-});
