@@ -624,7 +624,7 @@ function setCalendarDayEvents() {
                     });
                     //console.log(selectedDates);
                     selectedDaysList.innerHTML = selectedDates.map(element => {
-                        return `<div class="row row-cols-6 selectedDay">
+                        return `<div class="row row-cols-6">
                                     <div class="col-4 text-end">
                                         <i class="fa-solid fa-circle-check text-success"></i>
                                     </div>
@@ -635,15 +635,6 @@ function setCalendarDayEvents() {
                                 </div>`
                     }).join('');
 
-                    let selectedDays = $(".selectedDay");
-                    console.log(selectedDays);
-                    for (var i = 0; i < selectedDays.length; i++) {
-                        $(selectedDays[i]).on('click', function () {
-                            selectedDates = selectedDates.filter(element => element !== selectedDays[i]);
-                            console.log($(this));
-                            console.log(selectedDates);
-                        });
-                    }
                 }
             });
         }

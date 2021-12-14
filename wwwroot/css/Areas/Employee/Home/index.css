@@ -22,16 +22,6 @@ body {
 body {
     position: relative;
 }
-/*
-aside::after {
-    content: "";
-    display: block;
-    width:20px;
-    height:100%;
-    position: relative;
-    left:90%;
-    background-color: red;
-}*/
 
 aside {
     z-index: 2;
@@ -49,12 +39,34 @@ aside {
 #infoCards {
     height: 275px;
     overflow: hidden;
+    overflow-x: scroll;
 }
 
-#infoCards div.card {
-    min-height:150px;
-    max-height:230px;
-}
+    /*the scrollbar*/
+    #infoCards::-webkit-scrollbar{
+        height:0.4rem;
+    }
+
+    /*the scrollbar arrows on the sides*/
+    #infoCards::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    /*the draggable scrollbar handle*/
+    #infoCards::-webkit-scrollbar-thumb {
+        background-color: #0da8e2;
+        border-radius: 1rem;
+    }
+
+    /*the scrollbar track*/
+    #infoCards::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px 3px rgb(0 0 0 / 5%);
+    }
+
+    #infoCards div.card {
+        min-height: 150px;
+        max-height: 230px;
+    }
 
 #infoCardsArrowLeft, #infoCardsArrowRight {
     z-index: 1;
@@ -81,3 +93,12 @@ aside {
     height: 112px;
     width: 112px;
 }
+
+.clickable {
+    cursor: pointer;
+}
+
+    .clickable:hover {
+        color: rgba(0,0,0,0.5);
+        transition: 0.2s ease-in-out;
+    }

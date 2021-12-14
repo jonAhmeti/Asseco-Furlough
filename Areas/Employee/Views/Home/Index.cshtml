@@ -9,7 +9,7 @@
 <script src="~/js/Areas/Employee/Home/calendar.js"></script>
 
 <div class="container-fluid overflow-hidden">
-    <div id="infoCardsWrapper" class="position-relative hstack">
+    <div id="infoCardsWrapper" class="position-relative hstack pb-3">
         <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft"><i class="fa-solid fa-arrow-left"></i></div>
         <div class="row-cols-1 row-cols-md-3 row-cols-lg-4 p-3 hstack" id="infoCards">
             <!--Available days-->
@@ -60,7 +60,11 @@
             </div>
             <div class="container border shadow-sm" id="selectedDaysWrapper" style="left:-25%;">
                 <div class="p-3 pb-5 w-100 h-100" id="">
-                    <div id="selectDaysHeader" class="text-center"><h5>@localizer["selectedDaysHeader"]</h5></div>
+                    <div id="selectDaysHeader" class="d-flex justify-content-around">
+                        <i class="fa-solid fa-floppy-disk fs-4 clickable" title="Submit" id="selectedDaysSubmit"></i>
+                            <span class="fs-5">@localizer["selectedDaysHeader"]</span>
+                        <i class="fa-solid fa-rotate-left fs-4 clickable" title="Reset" id="selectedDaysReset"></i>
+                    </div>
                     <div class="h-100 py-3 rounded" id="selectedDaysList">
 
                     </div>
