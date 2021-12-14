@@ -707,5 +707,6 @@ $(function () {
     $(daysResetBtn).on('click', function () {
         selectedDates = new Array();
         selectedDaysList.innerHTML = '';
+        $(".dycalendar-body td").removeAttr("style");
     });
 });
