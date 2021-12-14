@@ -33,14 +33,9 @@
                         <label asp-for="RequestTypeId">@localizer["requestType"]</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input asp-for="DateFrom" class="form-control" />
-                        <label asp-for="DateFrom">@localizer["dateFrom"]</label>
-                        <span asp-validation-for="DateFrom" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input asp-for="DateUntil" class="form-control" />
-                        <label asp-for="DateUntil">@localizer["dateTo"]</label>
-                        <span asp-validation-for="DateUntil" class="text-danger"></span>
+                        <input asp-for="Dates" class="form-control" />
+                        <label asp-for="Dates">@localizer["dateFrom"]</label>
+                        <span asp-validation-for="Dates" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <input asp-for="PaidDays" class="form-control" placeholder="Paid Days" />

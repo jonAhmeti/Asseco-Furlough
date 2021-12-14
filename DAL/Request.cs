@@ -18,8 +18,7 @@ namespace Furlough.DAL
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@DateFrom", obj.DateFrom);
-            command.Parameters.AddWithValue("@DateUntil", obj.DateUntil);
+            command.Parameters.AddWithValue("@Dates", obj.Dates);
             command.Parameters.AddWithValue("@RequestedByUserId", obj.RequestedByUserId);
             command.Parameters.AddWithValue("@RequestStatusId", obj.RequestStatusId);
             command.Parameters.AddWithValue("@PaidDays", obj.PaidDays);
@@ -36,8 +35,7 @@ namespace Furlough.DAL
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@DateFrom", obj.DateFrom);
-            command.Parameters.AddWithValue("@DateUntil", obj.DateUntil);
+            command.Parameters.AddWithValue("@Dates", obj.Dates);
             command.Parameters.AddWithValue("@RequestedByUserId", obj.RequestedByUserId);
             command.Parameters.AddWithValue("@RequestStatusId", obj.RequestStatusId);
             command.Parameters.AddWithValue("@PaidDays", obj.PaidDays);
@@ -61,6 +59,19 @@ namespace Furlough.DAL
             return RequestByDepartmentMapper(command.ExecuteReader());
         }
 
+        public IEnumerable<Models.RequestByDepartment> GetById(int id)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_requestGetById", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@Id", id);
+
+            connection.Open();
+            return RequestByDepartmentMapper(command.ExecuteReader());
+        }
+
         //Object mapper; reader to model
         public IEnumerable<Models.Request> Mapper(SqlDataReader reader)
         {
@@ -72,8 +83,7 @@ namespace Furlough.DAL
                     listObj.Add(new Models.Request()
                     {
                         Id = reader.GetInt32("Id"),
-                        DateFrom = reader.GetDateTime("DateFrom"),
-                        DateUntil = reader.GetDateTime("DateUntil"),
+                        Dates = reader.GetString("Dates"),
                         PaidDays = reader.GetInt32("PaidDays"),
                         RequestedByUserId = reader.GetInt32("RequestedByUserId"),
                         RequestedOn = reader.GetDateTime("RequestedOn"),
@@ -99,8 +109,7 @@ namespace Furlough.DAL
                     listObj.Add(new Models.RequestByDepartment
                     {
                         EmployeeName = reader.GetString("EmployeeName"),
-                        RequestDateFrom = reader.GetDateTime("RequestDateFrom"),
-                        RequestDateUntil = reader.GetDateTime("RequestDateUntil"),
+                        RequestDates = reader.GetString("RequestDates"),
                         RequestedByUserId = reader.GetInt32("RequestedByUserId"),
                         RequestedOn = reader.GetDateTime("RequestedOn"),
                         RequestId = reader.GetInt32("RequestId"),

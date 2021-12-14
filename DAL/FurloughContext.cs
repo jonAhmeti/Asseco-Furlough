@@ -116,30 +116,11 @@ namespace Furlough.DAL
             {
                 entity.ToTable("Request");
 
-                entity.Property(e => e.DateFrom).HasColumnType("date");
-
-                entity.Property(e => e.DateUntil).HasColumnType("date");
+                entity.Property(e => e.Dates).HasColumnType("string");
 
                 entity.Property(e => e.RequestedOn)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.RequestStatus)
-                    .WithMany(p => p.Requests)
-                    .HasForeignKey(d => d.RequestStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Request__Status__5812160E");
-
-                entity.HasOne(d => d.RequestType)
-                    .WithMany(p => p.Requests)
-                    .HasForeignKey(d => d.RequestTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Request__Type__70DDC3D8");
-
-                entity.HasOne(d => d.RequestedByNavigation)
-                    .WithMany(p => p.Requests)
-                    .HasForeignKey(d => d.RequestedByUserId)
-                    .HasConstraintName("FK__Request__Request__5629CD9C");
             });
 
             modelBuilder.Entity<Models.RequestHistory>(entity =>
@@ -161,12 +142,6 @@ namespace Furlough.DAL
                     .HasForeignKey(d => d.AlteredTo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__RequestHi__Alter__5FB337D6");
-
-                entity.HasOne(d => d.Request)
-                    .WithMany(p => p.RequestHistories)
-                    .HasForeignKey(d => d.RequestId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RequestHi__Reque__5CD6CB2B");
             });
 
             modelBuilder.Entity<Models.RequestStatus>(entity =>

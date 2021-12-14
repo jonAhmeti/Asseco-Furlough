@@ -35,18 +35,9 @@ namespace Furlough.Areas.Manager.Controllers
         }
 
         // GET: Manager/Request/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var request = await _context.Requests
-                .Include(r => r.RequestStatus)
-                .Include(r => r.RequestType)
-                .Include(r => r.RequestedByNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var request = _contextRequest.GetById(id);
             if (request == null)
             {
                 return NotFound();
@@ -141,18 +132,9 @@ namespace Furlough.Areas.Manager.Controllers
         }
 
         // GET: Manager/Request/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var request = await _context.Requests
-                .Include(r => r.RequestStatus)
-                .Include(r => r.RequestType)
-                .Include(r => r.RequestedByNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var request = _contextRequest.GetById(id);
             if (request == null)
             {
                 return NotFound();

@@ -68,5 +68,24 @@
                 PositionId = obj.PositionId
             };
         }
+
+        public Models.Request RequestMap(DAL.Models.Request obj)
+        {
+            var datesStringArray = obj.Dates.Split(",");
+            var datesArray = new DateOnly[datesStringArray.Length];
+            for (int i = 0; i < datesStringArray.Length; i++)
+            {
+                var YYYYMMDD = datesStringArray[i].Split('/');
+                datesArray.Append(new DateOnly(int.Parse(YYYYMMDD[0]), int.Parse(YYYYMMDD[1]), int.Parse(YYYYMMDD[2])));
+            }
+            return new Models.Request
+            {
+                Id = obj.Id,
+                Dates = datesArray,
+                PaidDays = obj.PaidDays,
+                RequestedByUserId = obj.RequestedByUserId,
+                RequestTypeId = obj.RequestTypeId,
+            };
+        }
     }
 }

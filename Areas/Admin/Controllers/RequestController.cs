@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
 using Furlough.DAL.Models;
+using Furlough.Models.Mapper;
 
 namespace Furlough.Areas.Admin.Controllers
 {
@@ -14,32 +15,42 @@ namespace Furlough.Areas.Admin.Controllers
     public class RequestController : Controller
     {
         private readonly FurloughContext _context;
+        private readonly DAL.Request _contextRequest;
+        private readonly ViewModelMapper _vmMapper;
 
-        public RequestController(FurloughContext context)
+        public RequestController(FurloughContext context, DAL.Request contextRequest, ViewModelMapper vmMapper)
         {
             _context = context;
+            _contextRequest = contextRequest;
+
+            _vmMapper = vmMapper;
         }
 
         // GET: Admin/Request
         public async Task<IActionResult> Index()
         {
-            var furloughContext = _context.Requests.Include(r => r.RequestStatus).Include(r => r.RequestType).Include(r => r.RequestedByNavigation);
-            return View(await furloughContext.ToListAsync());
+            var userDepartment = "";
+            try
+            {
+                userDepartment = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value;
+                var departmentRequests = _contextRequest.GetByDepartment(int.Parse(userDepartment));
+                return View(departmentRequests);
+            }
+            catch (Exception e)
+            {
+                if (userDepartment == "")
+                    return RedirectToAction("Index", "Home", new { Area = "" });
+                  //return BadRequest("Not logged in, or this user doesn't belong to a department.");
+
+                Console.WriteLine(e.Message);
+            }
+            return RedirectToAction("Index", "Home", new { Area = "" });
         }
 
         // GET: Admin/Request/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var request = await _context.Requests
-                .Include(r => r.RequestStatus)
-                .Include(r => r.RequestType)
-                .Include(r => r.RequestedByNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var request = _contextRequest.GetById(id);
             if (request == null)
             {
                 return NotFound();
@@ -134,18 +145,9 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/Request/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var request = await _context.Requests
-                .Include(r => r.RequestStatus)
-                .Include(r => r.RequestType)
-                .Include(r => r.RequestedByNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var request = _contextRequest.GetById(id);
             if (request == null)
             {
                 return NotFound();

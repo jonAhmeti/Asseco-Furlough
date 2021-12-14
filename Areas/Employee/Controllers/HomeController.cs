@@ -5,6 +5,11 @@ namespace Furlough.Areas.Employee.Controllers
     [Area("Employee")]
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -13,6 +18,7 @@ namespace Furlough.Areas.Employee.Controllers
         [HttpPost]
         public IActionResult SubmitRequest(IEnumerable<DateTime> dates)
         {
+            
             return RedirectToAction("Index");
         }
     }
