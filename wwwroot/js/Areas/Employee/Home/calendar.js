@@ -692,11 +692,20 @@ $(function () {
             url: 'Employee/Home/SubmitRequest',
             data: { dates: tempArray },
             success: function (result) {
-
+                $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
             },
             error: function (error) {
-
+                $(daysSubmitBtn).animate({ color: '#CA0B00' }, 500);
+            },
+            complete: function () {
+                $(this).finish();
+                $(daysSubmitBtn).animate({ color: '#000' }, 1000);
             }
         });
+    });
+
+    $(daysResetBtn).on('click', function () {
+        selectedDates = new Array();
+        selectedDaysList.innerHTML = '';
     });
 });
