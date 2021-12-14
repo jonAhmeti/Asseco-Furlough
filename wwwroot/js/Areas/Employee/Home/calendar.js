@@ -14,7 +14,7 @@ dayNames = {
 };
 
 
-(function (global) {
+$(function (global) {
 
     const selectedDaysList = $("#selectedDaysList");
 
@@ -606,9 +606,9 @@ function setCalendarDayEvents() {
                 month = dataOptions.month;
                 year = dataOptions.year;
 
-                let clickedDate = new Date(year, month, day);
+                let clickedDate = `${year}/${month}/${day}`;
 
-                if (dayNames.d[clickedDate.getDay()] != "S" && clickedDate >= new Date() && !containsDate(clickedDate, selectedDates)) {
+                if (dayNames.d[new Date(year,month,day).getDay()] != "S" && new Date(year, month, day) >= new Date() && !containsStringDate(clickedDate, selectedDates)) {
                     if (!listShow) {
                         listShow = true;
                         $("#selectedDaysWrapper").animate({ 'left': 0 }, 500);
@@ -619,9 +619,7 @@ function setCalendarDayEvents() {
                     console.log(`Date clicked: ${clickedDate}`);
                     selectedDates.push(clickedDate);
                     //display sorted date
-                    selectedDates.sort((a, b) => {
-                        return a - b;
-                    });
+                    selectedDates.sort();
                     //console.log(selectedDates);
                     selectedDaysList.innerHTML = selectedDates.map(element => {
                         return `<div class="row row-cols-6">
@@ -629,8 +627,12 @@ function setCalendarDayEvents() {
                                         <i class="fa-solid fa-circle-check text-success"></i>
                                     </div>
                                     <div class="col-8 text-start"> 
-                                        ${dayNames.ddd[element.getDay()]} ${element.getDate()} ${monthNames[element.getMonth()]}
-                                         ${element.getFullYear()}
+                                        ${dayNames.ddd[new Date(element.split('/')[0],
+                                            element.split('/')[1],
+                                            element.split('/')[2]).getDay()]}
+                                        ${element.split('/')[2]} 
+                                        ${monthNames[element.split('/')[1]]}
+                                         ${element.split('/')[0]}
                                     </div>
                                 </div>`
                     }).join('');
@@ -659,3 +661,42 @@ function containsDate(date, array) {
     }
     return found;
 }
+
+function containsStringDate(date, array) {
+    let found = false;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] === date) {
+            found = true;
+        }
+    }
+
+    return found;
+}
+
+$(function () {
+
+    let daysSubmitBtn = $("#selectedDaysSubmit");
+    let daysResetBtn = $("#selectedDaysReset");
+
+
+    //Submit button
+    $(daysSubmitBtn).on('click', function () {
+        //create temp array to increase value by 1. backend checks months from 1-12, meanwhile JS from 0-11.
+        //better to create a temporary array otherwise selectedDates will just keep increasing months and we will have to decrease it in a complete ajax statement
+        let tempArray = new Array();
+        for (var i = 0; i < selectedDates.length; i++) {
+            tempArray.push(`${selectedDates[i].split('/')[0]}/${parseInt(selectedDates[i].split('/')[1]) + 1}/${selectedDates[i].split('/')[2]}`);
+        }
+        $.ajax({
+            method: 'POST',
+            url: 'Employee/Home/SubmitRequest',
+            data: { dates: tempArray },
+            success: function (result) {
+
+            },
+            error: function (error) {
+
+            }
+        });
+    });
+});

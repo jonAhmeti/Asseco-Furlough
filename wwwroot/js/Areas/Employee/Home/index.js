@@ -3,6 +3,7 @@
     let leftArrow = $("#infoCardsArrowLeft");
     let infoCards = $("#infoCards");
 
+    //info cards
     $(infoCards).on('mouseenter', function () {
 
         $(rightArrow).animate({ 'right': 0 }, 300);

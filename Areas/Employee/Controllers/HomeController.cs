@@ -9,5 +9,11 @@ namespace Furlough.Areas.Employee.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult SubmitRequest(IEnumerable<DateTime> dates)
+        {
+            return RedirectToAction("Index");
+        }
     }
 }
