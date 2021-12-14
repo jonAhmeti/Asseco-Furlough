@@ -675,8 +675,16 @@ function containsStringDate(date, array) {
 
 $(function () {
 
-    let daysSubmitBtn = $("#selectedDaysSubmit");
-    let daysResetBtn = $("#selectedDaysReset");
+    const toastMsg = $("#toastMsg");
+    const toastBody = $("#toastBody");
+
+    const toastClose = $("#toastMsg button");
+    $(toastClose).on('click', function () {
+        $(toastMsg).hide();
+    });
+
+    const daysSubmitBtn = $("#selectedDaysSubmit");
+    const daysResetBtn = $("#selectedDaysReset");
 
 
     //Submit button
@@ -693,9 +701,17 @@ $(function () {
             data: { dates: tempArray },
             success: function (result) {
                 $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
+                $(toastBody).html(`
+                                ${result ? "Request submitted successfully." :
+                        "Something went wrong submitting your request."}
+                    `);
+                $(toastMsg).show();
             },
             error: function (error) {
                 $(daysSubmitBtn).animate({ color: '#CA0B00' }, 500);
+                $(toastBody).html(`${result} <br /> Something went wrong submitting your request."}
+                    `);
+                $(toastMsg).show();
             },
             complete: function () {
                 $(this).finish();
