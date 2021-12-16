@@ -16,12 +16,18 @@ namespace Furlough.Areas.Admin.Controllers
     {
         private readonly FurloughContext _context;
         private readonly DAL.Request _contextRequest;
+        private readonly DAL.RequestType _contextRequestType;
+        private readonly DAL.Employee _contextEmployee;
         private readonly ViewModelMapper _vmMapper;
 
-        public RequestController(FurloughContext context, DAL.Request contextRequest, ViewModelMapper vmMapper)
+        public RequestController(FurloughContext context, DAL.Request contextRequest, DAL.RequestType contextRequestType,
+            DAL.Employee contextEmployee,
+            ViewModelMapper vmMapper)
         {
             _context = context;
             _contextRequest = contextRequest;
+            _contextRequestType = contextRequestType;
+            _contextEmployee = contextEmployee;
 
             _vmMapper = vmMapper;
         }
@@ -88,21 +94,22 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/Request/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var request = await _context.Requests.FindAsync(id);
+            var request = _contextRequest.GetById(id);
             if (request == null)
             {
                 return NotFound();
             }
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Id", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Id", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Id", request.RequestedByUserId);
+            var employee = _vmMapper.EmployeeMap(_contextEmployee.GetByUserId(request.RequestedByUserId));
+            if (employee == null)
+            {
+                return NotFound($"Employee with user id {request.RequestedByUserId} not found.");
+            }
+
+            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Type", request.RequestStatusId);
+            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
+            ViewData["Employee"] = employee;
             return View(request);
         }
 

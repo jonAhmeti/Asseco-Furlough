@@ -59,7 +59,7 @@ namespace Furlough.DAL
             return RequestByDepartmentMapper(command.ExecuteReader());
         }
 
-        public IEnumerable<Models.RequestByDepartment> GetById(int id)
+        public Models.Request GetById(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_requestGetById", connection)
@@ -69,7 +69,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Id", id);
 
             connection.Open();
-            return RequestByDepartmentMapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
         //Object mapper; reader to model

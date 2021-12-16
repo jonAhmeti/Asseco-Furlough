@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="employeeName" xml:space="preserve">
+    <value>Employee</value>
+  </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Requested Time</value>
+  </data>
+  <data name="requestPaidDays" xml:space="preserve">
+    <value>Paid Days</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="requestType" xml:space="preserve">
     <value>Type</value>
-  </data>
-  <data name="userId" xml:space="preserve">
-    <value>ID</value>
   </data>
 </root>

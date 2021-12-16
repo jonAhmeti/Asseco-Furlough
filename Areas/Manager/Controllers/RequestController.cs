@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
-using Furlough.DAL.Models;
 using System.Globalization;
 
 namespace Furlough.Areas.Manager.Controllers
@@ -75,21 +70,15 @@ namespace Furlough.Areas.Manager.Controllers
         }
 
         // GET: Manager/Request/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var request = await _context.Requests.FindAsync(id);
+            var request = _contextRequest.GetById(id);
             if (request == null)
             {
                 return NotFound();
             }
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Id", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Id", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Id", request.RequestedByUserId);
+            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Type", request.RequestStatusId);
+            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Type", request.RequestTypeId);
             return View(request);
         }
 

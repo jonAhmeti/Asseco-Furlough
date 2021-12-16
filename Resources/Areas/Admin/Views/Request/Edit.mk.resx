@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dateFrom" xml:space="preserve">
-    <value>Од</value>
+  <data name="dates" xml:space="preserve">
+    <value>датуми (ГГГГ/MM/ДД)</value>
   </data>
   <data name="dateTo" xml:space="preserve">
     <value>До</value>
+  </data>
+  <data name="employeeName" xml:space="preserve">
+    <value>Вработен</value>
   </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Побарајте уредување</value>
@@ -137,8 +140,5 @@
   </data>
   <data name="requestType" xml:space="preserve">
     <value>Тип</value>
-  </data>
-  <data name="userId" xml:space="preserve">
-    <value>ИД</value>
   </data>
 </root>
