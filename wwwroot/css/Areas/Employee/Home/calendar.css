@@ -475,6 +475,7 @@ h3,a{
     position: relative;
     z-index: -1;
     left:-10px;
+    opacity: 0;
 }
 
 section div.box {

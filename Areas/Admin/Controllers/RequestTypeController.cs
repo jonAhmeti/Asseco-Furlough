@@ -55,7 +55,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Type")] RequestType requestType)
+        public async Task<IActionResult> Create([Bind("Id,Type")] Models.RequestType requestType)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Type")] RequestType requestType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Type")] Models.RequestType requestType)
         {
             if (id != requestType.Id)
             {

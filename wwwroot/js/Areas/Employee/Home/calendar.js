@@ -1,4 +1,3 @@
-
 var selectedDates = new Array();
 var listShow = false;
 
@@ -589,16 +588,49 @@ dayNames = {
 
         //Submit button
         $(daysSubmitBtn).on('click', function () {
+
+            //Get paidDays and requestType values
+            const requestType = $('select[name="requestType"]');
+            const paidDays = $('input[name="paidDays"]');
+            const paidDaysValidate = $('#paidDaysValidate');
+            const requestTypeValidate = $('#requestTypeValidate');
+
+            //Validation for requestType and paidDays inputs
+            if (requestType.val() == null || paidDays.val() == null || $.trim(paidDays.val()) == '') {
+                if (!$.isNumeric(paidDays.val())) {
+                    console.log('paidDays is not Numeric');
+
+                    $(paidDays).addClass("border-danger");
+                    $(paidDaysValidate).removeClass("d-none");
+                    $(paidDays).on('change', function () {
+                        $(this).removeClass("border-danger");
+                        $(paidDaysValidate).addClass("d-none");
+                    });
+                }
+                if (requestType.val() == null) {
+                    console.log('requestType is null');
+
+                    $(requestType).addClass("border-danger");
+                    $(requestTypeValidate).removeClass("d-none");
+                    $(requestType).on('change', function () {
+                        $(this).removeClass("border-danger");
+                        $(requestTypeValidate).addClass("d-none");
+                    });
+                }
+                return;
+            }
+
             //create temp array to increase value by 1. backend checks months from 1-12, meanwhile JS from 0-11.
             //better to create a temporary array otherwise selectedDates will just keep increasing months and we will have to decrease it in a complete ajax statement
             let tempArray = new Array();
             for (var i = 0; i < selectedDates.length; i++) {
                 tempArray.push(`${selectedDates[i].split('/')[0]}/${parseInt(selectedDates[i].split('/')[1]) + 1}/${selectedDates[i].split('/')[2]}`);
             }
+
             $.ajax({
                 method: 'POST',
                 url: 'Employee/Home/SubmitRequest',
-                data: { dates: tempArray },
+                data: { Dates: tempArray, RequestTypeId: requestType.val(), PaidDays: paidDays.val() },
                 success: function (result) {
                     $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
                     $(toastBody).html(`
@@ -624,6 +656,12 @@ dayNames = {
             selectedDates = new Array();
             selectedDaysList.innerHTML = '';
             $(".dycalendar-body td").removeAttr("style");
+            if (listShow) {
+                listShow = false;
+                $("#selectedDaysWrapper").animate({ 'left': '-25%', 'opacity': '0' }, 500);
+                $("#calendarWrapper").animate({ 'left': '25%' }, 500);
+                $("#requestDetailsWrapper").animate({ 'left': '0%' }, 500);
+            }
         });
     }
 
@@ -662,8 +700,9 @@ function setCalendarDayEvents() {
                 if (dayNames.d[new Date(year,month,day).getDay()] != "S" && new Date(year, month, day) >= new Date() && !containsStringDate(clickedDate, selectedDates)) {
                     if (!listShow) {
                         listShow = true;
-                        $("#selectedDaysWrapper").animate({ 'left': 0 }, 500);
+                        $("#selectedDaysWrapper").animate({ 'left': 0, 'opacity': '1' }, 500);
                         $("#calendarWrapper").animate({ 'left': 0 }, 500);
+                        $("#requestDetailsWrapper").animate({ 'left': '100%' }, 500);
                     }
 
                     $(this).css('background-color', '#0dcaf0');

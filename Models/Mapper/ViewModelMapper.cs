@@ -72,11 +72,11 @@
         public Models.Request RequestMap(DAL.Models.Request obj)
         {
             var datesStringArray = obj.Dates.Split(",");
-            var datesArray = new DateOnly[datesStringArray.Length];
+            var datesArray = new DateTime[datesStringArray.Length];
             for (int i = 0; i < datesStringArray.Length; i++)
             {
                 var YYYYMMDD = datesStringArray[i].Split('/');
-                datesArray.Append(new DateOnly(int.Parse(YYYYMMDD[0]), int.Parse(YYYYMMDD[1]), int.Parse(YYYYMMDD[2])));
+                datesArray.Append(new DateTime(int.Parse(YYYYMMDD[0]), int.Parse(YYYYMMDD[1]), int.Parse(YYYYMMDD[2])));
             }
             return new Models.Request
             {

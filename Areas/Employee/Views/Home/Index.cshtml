@@ -35,7 +35,7 @@
             </div>
             <!--Previous-year days-->
             <div class="card m-2" style="width: 18rem;">
-                <div class="card-body">
+               <div class="card-body">
                     <h5 class="card-title"><i class="fa-solid fa-calendar-day text-muted"></i> @localizer["prevYearDays"]</h5>
                     <p class="card-text">@localizer["prevYearDaysMessage"]</p>
                 </div>
@@ -65,8 +65,27 @@
                             <span class="fs-5">@localizer["selectedDaysHeader"]</span>
                         <i class="fa-solid fa-rotate-left fs-4 clickable" title="Reset" id="selectedDaysReset"></i>
                     </div>
-                    <div class="h-100 py-3 rounded" id="selectedDaysList">
+                    <div class="h-100 d-flex">
+                        <div class="h-100 py-3 rounded w-100" id="selectedDaysList">
 
+                        </div>
+                        <div class="position-absolute" id="requestDetailsWrapper">
+                            <!--Type of leave input-->
+                                <div class="form-floating">
+                                    <select class="form-select" name="requestType"
+                                        asp-items="@(new SelectList(ViewBag.requestTypes, "Id", "Type"))">
+                                        <option disabled selected value="0">-- Choose type --</option>
+                                    </select>
+                                    <label for="requestType">Type of leave</label>
+                                    <span id="requestTypeValidate" class="d-none text-danger">Please specify the type of your request.</span>
+                                </div>
+                                <!--Paid days input-->
+                                <div class="form-floating">
+                                    <input class="form-control" type="number" placeholder="Paid days" name="paidDays"/>
+                                    <label for="requestType">Paid days</label>
+                                    <span id="paidDaysValidate" class="d-none text-danger">Please specify number of paid days.</span>
+                                </div>
+                        </div>
                     </div>
                 </div>
             </div>
