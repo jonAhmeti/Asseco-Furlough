@@ -70,5 +70,33 @@ namespace Furlough.Models.Mapper
                 PositionId = obj.PositionId
             };
         }
+
+        public DAL.Models.Request DalRequestMap(Request obj)
+        {
+            var datesString = "";
+            for (int i = 0; i < obj.Dates.Count(); i++)
+            {
+                var date = $"{obj.Dates.ElementAt(i).Year}/{obj.Dates.ElementAt(i).Month}/{obj.Dates.ElementAt(i).Day}";
+                if (i == obj.Dates.Count() - 1)
+                {
+                    datesString += date;
+                }
+                else
+                {
+                    datesString += date + ",";
+                }
+            }
+
+            return new DAL.Models.Request
+            {
+                Id = obj.Id,
+                PaidDays = obj.PaidDays,
+                RequestedByUserId = obj.RequestedByUserId,
+                RequestedOn = obj.RequestedOn,
+                RequestStatusId = obj.RequestStatusId == 0 ? (byte)1 : obj.RequestStatusId,
+                RequestTypeId = obj.RequestTypeId,
+                Dates = datesString
+            };
+        }
     }
 }

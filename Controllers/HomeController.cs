@@ -101,6 +101,7 @@ namespace Furlough.Controllers
                 var claims = new[]
                 {
                 new Claim("Name", employee.Name),
+                new Claim("User", dbUser.Id.ToString()),
                 new Claim("Role", role),
                 new Claim("Department", employee.DepartmentId.ToString()),
                 new Claim("Position", employee.PositionId.ToString()),
