@@ -10,12 +10,20 @@
             <div class="card col mx-2 roleBorder" style="width: 18rem;" employeeId="@item.Id">
                 <div class="card-body">
                     <!-- decrease by 1 since arrays start at 0 -->
-                    <h4 class="card-title text-center mb-3">@ViewBag.RequestTypes[--item.RequestTypeId].Type</h4>
+                <h4 class="card-title text-center mb-3">@ViewBag.RequestTypes[--item.RequestTypeId].Type</h4>
                     <div class="card-subtitle text-muted rounded-pill border border-2 text-center">Requested on @item.RequestedOn.ToShortDateString().Replace("/", "-")</div>
                     <p class="card-text mt-4">Paid Days: @item.PaidDays</p>
-                    <select class="form-control" asp-items="@(new SelectList(item.Dates, "Date", "Date"))" />
+                    <!-- datepicker -->
+                <div class="input-group date">
+                        <input class="form-control datepicker" placeholder="Dates">
+                        <div class="input-group-text">
+                            <i class="fa-solid fa-calendar"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         }
     </div>
 </div>
+
+<script src="~/js/Areas/Employee/Request/index.js"></script>
