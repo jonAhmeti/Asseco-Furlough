@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Furlough.Models.Request>
+@{
+    ViewBag.Title = "Pending Requests";
+}
+<div class="h-100 w-100 p-5">
+    <h3 class="text-muted">My pending requests <span class="ms-3 px-2 rounded-circle bg-danger">@Model.Count()</span></h3>
+    <div class="">
+        @foreach (var item in Model)
+        {
+            <div class="card col mx-2 roleBorder" style="width: 18rem;" employeeId="@item.Id">
+                <div class="card-body">
+                    <!-- decrease by 1 since arrays start at 0 -->
+                    <h4 class="card-title text-center mb-3">@ViewBag.RequestTypes[--item.RequestTypeId].Type</h4>
+                    <div class="card-subtitle text-muted rounded-pill border border-2 text-center">Requested on @item.RequestedOn.ToShortDateString().Replace("/", "-")</div>
+                    <p class="card-text mt-4">Paid Days: @item.PaidDays</p>
+                    <select class="form-control" asp-items="@(new SelectList(item.Dates, "Date", "Date"))" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

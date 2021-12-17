@@ -45,6 +45,20 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
+        public IEnumerable<Models.Request> GetByUser(int userId, int requestStatusId = 0)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_requestGetOfEmployee", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@RequestStatusId", requestStatusId); //if 0, returns all requests of user
+            command.Parameters.AddWithValue("@UserId", userId);
+
+            connection.Open();
+            return Mapper(command.ExecuteReader());
+        }
         //Change Model to reflect the actual db model
         public IEnumerable<Models.RequestByDepartment> GetByDepartment(int departmentId)
         {
@@ -88,6 +102,7 @@ namespace Furlough.DAL
                         RequestedByUserId = reader.GetInt32("RequestedByUserId"),
                         RequestedOn = reader.GetDateTime("RequestedOn"),
                         RequestStatusId = reader.GetByte("RequestStatusId"),
+                        RequestTypeId = reader.GetInt32("RequestTypeId")
                     });
                 }
                 return listObj;

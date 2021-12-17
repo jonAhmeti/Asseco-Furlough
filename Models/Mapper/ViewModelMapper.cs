@@ -76,7 +76,7 @@
             for (int i = 0; i < datesStringArray.Length; i++)
             {
                 var YYYYMMDD = datesStringArray[i].Split('/');
-                datesArray.Append(new DateTime(int.Parse(YYYYMMDD[0]), int.Parse(YYYYMMDD[1]), int.Parse(YYYYMMDD[2])));
+                datesArray[i] = (new DateTime(int.Parse(YYYYMMDD[0]), int.Parse(YYYYMMDD[1]), int.Parse(YYYYMMDD[2])));
             }
             return new Models.Request
             {
@@ -85,6 +85,8 @@
                 PaidDays = obj.PaidDays,
                 RequestedByUserId = obj.RequestedByUserId,
                 RequestTypeId = obj.RequestTypeId,
+                RequestedOn = obj.RequestedOn,
+                RequestStatusId = obj.RequestStatusId
             };
         }
     }
