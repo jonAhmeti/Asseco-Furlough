@@ -24,7 +24,7 @@
 aside {
   background: linear-gradient(40deg, #45cafc, #303f9f) !important;
 }
-.active {
+aside .active {
   color: #000 !important;
   mix-blend-mode: screen;
   background-color: white;
