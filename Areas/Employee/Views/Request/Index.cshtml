@@ -4,17 +4,31 @@
 @{
     ViewBag.Title = "Pending Requests";
 }
+<link rel="stylesheet" href="~/css/Areas/Employee/Request/index.css" />
+
 <div class="h-100 w-100 p-5">
     <div class="text-muted fs-3 d-flex">My pending requests <span class="ms-3 rounded-circle border border-primary shadow-sm text-center fs-4" style="min-height:40px; min-width:40px;">@Model.Count()</span></div>
     <div class="p-5 row row-cols-1 row-cols-md-3 row-cols-lg-5">
         @foreach (var item in Model)
         {
-            <div class="card col mx-2 roleBorder" style="width: 18rem; border-radius:0.55rem;" employeeId="@item.Id">
+            <div class="card col m-2 roleBorder" style="width: 18rem; border-radius:0.55rem; font-family:'Trebuchet MS','monospace';" employeeId="@item.Id">
                 <div class="card-body">
                     <!-- decrease by 1 since arrays start at 0 -->
                 <h4 class="card-title text-center mb-3">@ViewBag.RequestTypes[--item.RequestTypeId].Type</h4>
-                    <div class="card-subtitle text-muted rounded-pill border border-2 text-center px-2">@localizer["requestedOn"] @item.RequestedOn.ToLongDateString()</div>
-                    <p class="card-text mt-4">Paid Days: @item.PaidDays</p>
+                <!-- requested-on row -->
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-1 text-center roundIcon" style="background-color:#FFB800;"><i class="fa-solid fa-calendar"></i></div>
+                        <div class="ms-3 d-flex flex-column fw-bold">@localizer["requestedOn"]
+                            <div class="card-subtitle text-black-50">@item.RequestedOn.ToLongDateString()</div>
+                        </div>
+                    </div>
+                    <!-- paid days row -->
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-1 text-center roundIcon" style="background-color:#6EEB83;min-width:30px; min-height:30px;"><i class="fa-solid fa-coins"></i></div>
+                        <div class="card-text ms-3 d-flex flex-column fw-bold">Paid days
+                            <div class="text-black-50" style="margin-top:-0.2rem;">@item.PaidDays business days</div>
+                        </div>
+                    </div>
                     <!-- datepicker -->
                     <div class="input-group date">
                         <input readonly class="form-control datepicker" placeholder="Dates" requestId="@item.Id" value="@item.Dates">
@@ -22,6 +36,8 @@
                             <i class="fa-solid fa-calendar"></i>
                         </div>
                     </div>
+                    <!-- submit edited dates button -->
+                    <button class="form-control btn btn-outline-primary mt-5">Edit dates</button>
                 </div>
             </div>
         }
