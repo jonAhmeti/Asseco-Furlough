@@ -1,21 +1,23 @@
-﻿@model IEnumerable<Furlough.Models.Request>
+﻿@model IEnumerable<Furlough.DAL.Models.Request>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewBag.Title = "Pending Requests";
 }
 <div class="h-100 w-100 p-5">
-    <h3 class="text-muted">My pending requests <span class="ms-3 rounded-circle bg-danger">@Model.Count()</span></h3>
-    <div class="p-5">
+    <div class="text-muted fs-3 d-flex">My pending requests <span class="ms-3 rounded-circle border border-primary shadow-sm text-center fs-4" style="min-height:40px; min-width:40px;">@Model.Count()</span></div>
+    <div class="p-5 row row-cols-1 row-cols-md-3 row-cols-lg-5">
         @foreach (var item in Model)
         {
-            <div class="card col mx-2 roleBorder" style="width: 18rem;" employeeId="@item.Id">
+            <div class="card col mx-2 roleBorder" style="width: 18rem; border-radius:0.55rem;" employeeId="@item.Id">
                 <div class="card-body">
                     <!-- decrease by 1 since arrays start at 0 -->
                 <h4 class="card-title text-center mb-3">@ViewBag.RequestTypes[--item.RequestTypeId].Type</h4>
-                    <div class="card-subtitle text-muted rounded-pill border border-2 text-center">Requested on @item.RequestedOn.ToShortDateString().Replace("/", "-")</div>
+                    <div class="card-subtitle text-muted rounded-pill border border-2 text-center px-2">@localizer["requestedOn"] @item.RequestedOn.ToLongDateString()</div>
                     <p class="card-text mt-4">Paid Days: @item.PaidDays</p>
                     <!-- datepicker -->
-                <div class="input-group date">
-                        <input class="form-control datepicker" placeholder="Dates">
+                    <div class="input-group date">
+                        <input class="form-control datepicker" placeholder="Dates" requestId="@item.Id" value="@item.Dates">
                         <div class="input-group-text">
                             <i class="fa-solid fa-calendar"></i>
                         </div>

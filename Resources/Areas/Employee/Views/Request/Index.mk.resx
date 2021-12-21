@@ -117,19 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="depTitle" xml:space="preserve">
-    <value>Department</value>
-  </data>
-  <data name="empTitle" xml:space="preserve">
-    <value>Employee</value>
-  </data>
-  <data name="posTitle" xml:space="preserve">
-    <value>Position</value>
-  </data>
-  <data name="reqTitle" xml:space="preserve">
-    <value>Requests</value>
-  </data>
-  <data name="roleTitle" xml:space="preserve">
-    <value>Role</value>
+  <data name="requestedOn" xml:space="preserve">
+    <value>побарано во</value>
   </data>
 </root>

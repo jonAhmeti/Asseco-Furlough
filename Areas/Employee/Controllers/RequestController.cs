@@ -28,14 +28,9 @@ namespace Furlough.Areas.Employee.Controllers
             try
             {
                 var userId = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value;
-                var pendingRequests = new List<Models.Request>();
-                foreach (var item in _contextRequest.GetByUser(int.Parse(userId), 1))
-                {
-                    pendingRequests.Add(_vmMapper.RequestMap(item));
-                }
 
                 ViewBag.RequestTypes = _contextRequestType.GetAll();
-                return View(pendingRequests);
+                return View(_contextRequest.GetByUser(int.Parse(userId), 1));
             }
             catch (Exception e)
             {

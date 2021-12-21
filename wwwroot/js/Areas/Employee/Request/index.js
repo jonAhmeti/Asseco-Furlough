@@ -9,4 +9,10 @@
         daysOfWeekHighlighted: '0,6',
         language: 'ES'
     });
+
+    const datepickers = $('.datepicker');
+
+    for (var i = 0; i < datepickers.length; i++) {
+        console.log(datepickers.length);
+    }
 });

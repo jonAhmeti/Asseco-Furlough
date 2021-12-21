@@ -1,17 +1,18 @@
 ﻿$(function () {
     let rightArrow = $("#infoCardsArrowRight");
     let leftArrow = $("#infoCardsArrowLeft");
-    let infoCards = $("#infoCards");
+    let infoCards = $("#infoCards"); 2
+    const infoCardsWrapper = $("#infoCardsWrapper");
 
     //info cards
-    $(infoCards).on('mouseenter', function () {
+    $(infoCardsWrapper).on('mouseenter', function () {
 
         $(rightArrow).animate({ 'right': 0 }, 300);
         $(leftArrow).animate({ 'left': 0 }, 300);
     });
 
 
-    $(infoCards).on('mouseleave', function () {
+    $(infoCardsWrapper).on('mouseleave', function () {
         //if hovering over the left and right arrows
         if ($("#infoCardsArrowRight:hover").length != 0 || $("#infoCardsArrowLeft:hover").length != 0)
             return;

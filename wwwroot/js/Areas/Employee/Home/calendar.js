@@ -629,7 +629,7 @@ dayNames = {
 
             $.ajax({
                 method: 'POST',
-                url: 'Employee/Home/SubmitRequest',
+                url: '/Employee/Home/SubmitRequest',
                 data: { Dates: tempArray, RequestTypeId: requestType.val(), PaidDays: paidDays.val() },
                 success: function (result) {
                     $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
