@@ -15,7 +15,10 @@ $(function () {
       width: wid,
     });
   }
-
+  $(window).on("resize", function () {
+    var divWidth = $(".tabBarItem").width();
+    line.css("width", divWidth);
+  });
   tab.find(".tabBarItem a").click(function (e) {
     e.preventDefault();
     if (!$(this).parent().hasClass("active") && !tab.hasClass("animate")) {

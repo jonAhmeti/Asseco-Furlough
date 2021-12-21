@@ -67,9 +67,8 @@
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="w-100">
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                    <a class="sidenavLinks nav-link @(action=="Employee" ? "active" : "")" asp-area="Admin"
-                        asp-controller="Employee" asp-action="Index">
-                        <i class="fas fa-user-friends"></i> @Resources.Shared._Layout.empTitle
+                    <a class="sidenavLinks nav-link @(action=="" ? "active" : "")" href="/">
+                        <i class="fas fa-columns"></i> @Resources.Shared._Layout.dashTitle
                     </a>
                 </div>
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
@@ -79,21 +78,27 @@
                     </a>
                 </div>
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                    <a class="sidenavLinks nav-link @(action=="Employee" ? "active" : "")" asp-area="Admin"
+                        asp-controller="Employee" asp-action="Index">
+                        <i class="fas fa-user-friends"></i> @Resources.Shared._Layout.empTitle
+                    </a>
+                </div>
+                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
                     <a class="sidenavLinks nav-link @(action=="Position" ? "active" : "")" asp-area="Admin"
                         asp-controller="Position" asp-action="Index">
                         <i class="fa-solid fa-chalkboard-user"></i> @Resources.Shared._Layout.posTitle
                     </a>
                 </div>
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                    <a class="sidenavLinks nav-link @(action=="Role" ? "active" : "")" asp-area="Admin"
-                        asp-controller="Role" asp-action="Index">
-                        <i class="fas fa-user-tag"></i> @Resources.Shared._Layout.roleTitle
-                    </a>
-                </div>
-                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
                     <a class="sidenavLinks nav-link @(action=="Request" ? "active" : "")" asp-area="Admin"
                         asp-controller="Request" asp-action="Index">
                         <i class="fa-solid fa-bars-staggered"></i> @Resources.Shared._Layout.reqTitle
+                    </a>
+                </div>
+                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                    <a class="sidenavLinks nav-link @(action=="Role" ? "active" : "")" asp-area="Admin"
+                        asp-controller="Role" asp-action="Index">
+                        <i class="fas fa-user-tag"></i> @Resources.Shared._Layout.roleTitle
                     </a>
                 </div>
             </div>

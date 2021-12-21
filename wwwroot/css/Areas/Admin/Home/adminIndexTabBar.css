@@ -23,6 +23,7 @@
   opacity: 0.7;
 }
 .tabBarItem.active {
+  background: white;
   opacity: 1;
 }
 .tabBarItem:last-child {
