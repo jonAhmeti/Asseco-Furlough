@@ -1,44 +1,75 @@
 ﻿@{
     ViewData["Title"] = "Index";
-
-    var username = Context.User?.Identity?.Name;
 }
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 
-<link href="~/css/Areas/Admin/Home/adminIndexTabBar.css" rel="stylesheet" />
-<script src="~/js/Areas/Admin/Home/tabBar.js"></script>
+<link href="~/css/Areas/Shared/dashboardIndex.css" rel="stylesheet" />
+<script src="~/js/Areas/Shared/tabBar.js"></script>
 
-<div class="container p-5">
-    <div class="row w-100 h-100">
-        <div class="col-6 d-flex flex-column">
-            <div class="d-flex flex-column w-100 h-50 mb-2 rounded border border-dark">
+<div class="container d-flex justify-content-center p-2 p-sm-3 p-md-4 p-lg-5">
+    <div class="row row-cols-1 row-cols-lg-2 w-100 h-100">
+        <div class="col my-lg-0 my-2">
+            <div class="d-flex flex-column w-100 h-100 mb-2 rounded border border-dark">
                 <div class="tabBar">
                     <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded">
                         <div class="tabBarItem active col-4 rounded-start">
                             <a href="">Banking</a>
                         </div>
                         <div class="tabBarItem col-4">
-                            <a href="">Dep2</a>
+                            <a href="">AIS</a>
                         </div>
                         <div class="tabBarItem col-4 rounded-end">
-                            <a href="">Dep3</a>
+                            <a href="">CASD</a>
                         </div>
                     </div>
                     <div></div>
                 </div>
                 <div class="w-100 h-100">
-                    <div class="h-100 d-flex justify-content-center align-items-center">
-                        <p>DEPARTMENT EMPLOYEES</p>
+                    <div class="h-100 d-flex justify-content-center align-items-center text-center">
+                        <p>GIMME A SHOVEL <br /> LEMME DIG MY OWN GRAVE</p>
                     </div>
                 </div>
             </div>
-            <div class="w-100 h-50 bg-warning"></div>
         </div>
-        <div class="col-6">
-            <div class="tabBar w-100 h-100 bg-info">
-
-            </div>
+        <div class="col my-lg-0 my-2">
+            <a asp-area="Admin" asp-controller="Request" asp-action="Index">
+                <div class="w-100 h-100 d-flex flex-column align-items-center text-center rounded border border-dark">
+                    <h2 class="recentRequestHeader  py-5">@localizer["recentRequests"]</h2>
+                    <div class="w-100 h-100">
+                        <ul class="listHeader w-100 row mx-0 list-unstyled">
+                            <li class="col-4">@localizer["name"]</li>
+                            <li class="col-4">@localizer["requestedTime"]</li>
+                            <li class="col-4">@localizer["type"]</li>
+                        </ul>
+                        <ul class="listItem w-100 row mx-0 list-unstyled">
+                            <li class="col-4">name1</li>
+                            <li class="col-4">time1</li>
+                            <li class="col-4">type1</li>
+                        </ul>
+                        <ul class="listItem w-100 row mx-0 list-unstyled">
+                            <li class="col-4">name2</li>
+                            <li class="col-4">time2</li>
+                            <li class="col-4">type2</li>
+                        </ul>
+                        <ul class="listItem w-100 row mx-0 list-unstyled">
+                            <li class="col-4">name3</li>
+                            <li class="col-4">time3</li>
+                            <li class="col-4">type3</li>
+                        </ul>
+                        <ul class="listItem w-100 row mx-0 list-unstyled">
+                            <li class="col-4">name4</li>
+                            <li class="col-4">time4</li>
+                            <li class="col-4">type4</li>
+                        </ul>
+                        <ul class="listItem w-100 row mx-0 list-unstyled">
+                            <li class="col-4">name5</li>
+                            <li class="col-4">time5</li>
+                            <li class="col-4">type5</li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 </div>

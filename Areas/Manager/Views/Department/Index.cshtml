@@ -5,7 +5,7 @@
 }
 
 <link rel="stylesheet" href="~/css/Areas/Manager/Department/index.css"/>
-<div class="w-100 h-100">
+<div class="w-100 h-100 flex-grow-1 overflow-auto">
     <div class="container-fluid">
         <div class="row p-5">
             <div class="col">
@@ -13,30 +13,37 @@
                     <div class="row" id="hiderDiv">
                     </div>
                 </div>
-                <h3><span class="text-muted">Department <i class="fa-solid fa-angle-right mx-2 fs-4"></i></span> <span class="fs-4"> Banking</span></h3> <!--Take the department from UserId-->
+                <h3><span class="text-muted">Department <i class="fa-solid fa-angle-right mx-2 fs-4"></i></span> <span
+                        class="fs-4"> Banking</span></h3>
+                <!--Take the department from UserId-->
                 <div class="row">
                     <div class="col p-5">
                         <div class="d-flex justify-content-between">
-                            <span class="fs-5 btn position-relative bg-white px-3 text-secondary clickable" style="top:20px;" id="rolesEditBtn" title="Edit roles">
-                                Positions  <i class="fa-regular fa-pen-to-square ms-1"></i>
+                            <span class="fs-5 btn position-relative bg-white px-3 text-secondary clickable" style="top:20px;"
+                                id="rolesEditBtn" title="Edit roles">
+                                Positions <i class="fa-regular fa-pen-to-square ms-1"></i>
                             </span>
                             <div class="position-relative bg-white px-3" style="top:20px;" id="submitRoles">
                                 <span class="btn btn-outline-secondary disabled">Submit</span>
                             </div>
                         </div>
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 px-5 pt-4 pb-3 border shadow-sm roleBorder" id="rolesContainer">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 px-5 pt-4 pb-3 border shadow-sm roleBorder"
+                            id="rolesContainer">
                             @{
                                 foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.positions)
                                 {
-                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill addedRole" roleId=@item.Id><span>@item.Title</span></div>
+                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill addedRole"
+                                    roleId=@item.Id><span>@item.Title</span></div>
                                 }
                             }
                         </div>
-                        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 px-5 py-4 border roleBorder position-relative" id="rolesEditContainer">
+                        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 px-5 py-4 border roleBorder position-relative"
+                            id="rolesEditContainer">
                             @{
                                 foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.unaddedPositions)
                                 {
-                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill unaddedRole" roleId=@item.Id><span>@item.Title</span></div>
+                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill unaddedRole"
+                                    roleId=@item.Id><span>@item.Title</span></div>
                                 }
                             }
                         </div>
@@ -44,18 +51,19 @@
                 </div>
             </div>
             <!-- Employee cards row -->
-            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 px-5">
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 justify-content-center px-5">
                 @foreach (Furlough.Models.Employee item in ViewBag.employees)
                 {
-                        <div class="card col mx-2 roleBorder" style="width: 18rem;" employeeId="@item.Id">
-                          <div class="card-body">
+                    <div class="card col m-2 roleBorder" style="width: 18rem;" employeeId="@item.Id">
+                        <div class="card-body">
                             <h4 class="card-title text-center mb-3">@item.Name</h4>
-                            <div class="card-subtitle text-muted rounded-pill border border-2 text-center">Joined on @item.JoinDate.ToShortDateString().Replace("/", "-")</div>
+                            <div class="card-subtitle text-muted rounded-pill border border-2 text-center">Joined on
+                                @item.JoinDate.ToShortDateString().Replace("/", "-")</div>
                             <p class="card-text mt-4">Contact:<span class="fw-light"><br />@item.Email<br />@item.Phone</span></p>
                             <select class="form-select employeePositions" employeeId=@item.Id currentPosition=@item.PositionId
-                                asp-items="@(new SelectList(ViewBag.positions, nameof(Position.Id), nameof(Position.Title)))"></select>
-                          </div>
+                            asp-items="@(new SelectList(ViewBag.positions, nameof(Position.Id), nameof(Position.Title)))"></select>
                         </div>
+                    </div>
                 }
             </div>
         </div>
