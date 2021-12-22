@@ -23,6 +23,7 @@
   opacity: 0.7;
 }
 .tabBarItem.active {
+  background: white;
   opacity: 1;
 }
 .tabBarItem:last-child {
@@ -36,5 +37,36 @@
   display: block;
   font-weight: 600;
   letter-spacing: 0.2em;
+  font-size: 14px;
+}
+.divLink div {
+  text-decoration: none;
+  color: #000;
+}
+.recentRequestHeader {
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+}
+.listHeader li {
+  padding: 0.5rem 0;
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  font-size: 14px;
+}
+.listItem li {
+  padding: 0.5rem 0;
+  text-decoration: none;
+  color: #000;
+  text-transform: capitalize;
+  display: block;
+  font-weight: 600;
   font-size: 14px;
 }

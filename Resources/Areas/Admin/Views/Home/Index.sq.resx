@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dashTitle" xml:space="preserve">
-    <value>Ballina</value>
+  <data name="name" xml:space="preserve">
+    <value>Emri</value>
   </data>
-  <data name="depTitle" xml:space="preserve">
-    <value>Department</value>
+  <data name="recentRequests" xml:space="preserve">
+    <value>Kërkesat e fundit</value>
   </data>
-  <data name="empTitle" xml:space="preserve">
-    <value>Punëtor</value>
+  <data name="requestedTime" xml:space="preserve">
+    <value>Koha e kërkesës</value>
   </data>
-  <data name="posTitle" xml:space="preserve">
-    <value>Pozita</value>
-  </data>
-  <data name="reqTitle" xml:space="preserve">
-    <value>Kërkesa</value>
-  </data>
-  <data name="roleTitle" xml:space="preserve">
-    <value>Role</value>
+  <data name="type" xml:space="preserve">
+    <value>Tipi</value>
   </data>
 </root>

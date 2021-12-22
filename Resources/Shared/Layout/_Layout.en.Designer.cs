@@ -59,7 +59,14 @@ namespace Resources.Shared {
                 resourceCulture = value;
             }
         }
-        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard.
+        /// </summary>
+        public static string dashTitle {
+            get {
+                return ResourceManager.GetString("dashTitle", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
