@@ -42,7 +42,7 @@
                 <div class="card m-2" style="width: 18rem;">
                     <div class="card-body">
                         <div class="card-title fw-bold fs-5"><span class="roundIcon p-2 text-black-50" style="background-color:@backgroundCircle">@Html.Raw(icon)</span> @localizer[item.Type]</div>
-                        <p class="card-text">@localizer[item.Type + "Message"]</p>
+                        <p class="card-text">@string.Format(@localizer[item.Type + "Message"].Value, ViewBag.availableDays.GetType().GetProperty(item.Type).GetValue(ViewBag.availableDays))</p>
                     </div>
                 </div>
 

@@ -102,6 +102,7 @@ namespace Furlough.Controllers
                 {
                 new Claim("Name", employee.Name),
                 new Claim("User", dbUser.Id.ToString()),
+                new Claim("Employee", employee.Id.ToString()),
                 new Claim("Role", role),
                 new Claim("Department", employee.DepartmentId.ToString()),
                 new Claim("Position", employee.PositionId.ToString()),

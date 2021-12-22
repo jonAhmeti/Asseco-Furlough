@@ -121,7 +121,7 @@
     <value>Birth days</value>
   </data>
   <data name="BirthMessage" xml:space="preserve">
-    <value>Birth days taken so far</value>
+    <value>You have {0} birth leave days left.</value>
   </data>
   <data name="BloodDonation" xml:space="preserve">
     <value>Blood donor days</value>
@@ -157,7 +157,7 @@
     <value>Medical days</value>
   </data>
   <data name="MedicalMessage" xml:space="preserve">
-    <value>Medical days left message.</value>
+    <value>You have {0} medical leave days left.</value>
   </data>
   <data name="Overtime" xml:space="preserve">
     <value>Bonus overtime days</value>
@@ -184,6 +184,6 @@
     <value>Base year days</value>
   </data>
   <data name="YearlyMessage" xml:space="preserve">
-    <value>Yearly days left message.</value>
+    <value>You have {0} yearly leave days left.</value>
   </data>
 </root>

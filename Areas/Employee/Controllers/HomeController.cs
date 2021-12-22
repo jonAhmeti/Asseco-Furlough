@@ -23,7 +23,9 @@ namespace Furlough.Areas.Employee.Controllers
 
         public IActionResult Index()
         {
+            var employeeId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
             ViewBag.requestTypes = _contextRequestType.GetAll();
+            ViewBag.availableDays = _contextAvailableDays.GetByEmployeeId(employeeId).FirstOrDefault();
             return View();
         }
 
