@@ -117,29 +117,53 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="availableDays" xml:space="preserve">
-    <value>Available days</value>
+  <data name="Birth" xml:space="preserve">
+    <value>Birth days</value>
   </data>
-  <data name="availableDaysMessage" xml:space="preserve">
-    <value>Insert message in resource file.</value>
+  <data name="BirthMessage" xml:space="preserve">
+    <value>Birth days taken so far</value>
   </data>
-  <data name="baseDays" xml:space="preserve">
-    <value>Base days</value>
+  <data name="BloodDonation" xml:space="preserve">
+    <value>Blood donor days</value>
   </data>
-  <data name="baseDaysMessage" xml:space="preserve">
-    <value>Insert message in resource file.</value>
+  <data name="BloodDonationMessage" xml:space="preserve">
+    <value>Blood donation message.</value>
   </data>
-  <data name="bonusDays" xml:space="preserve">
-    <value>Bonus days</value>
+  <data name="ChildDays" xml:space="preserve">
+    <value>Child days</value>
   </data>
-  <data name="bonusDaysMessage" xml:space="preserve">
-    <value>Insert message in resource file.</value>
+  <data name="ChildDaysMessage" xml:space="preserve">
+    <value>Chid days left message.</value>
   </data>
-  <data name="prevYearDays" xml:space="preserve">
-    <value>Previous-year days</value>
+  <data name="Confinement" xml:space="preserve">
+    <value>Confinement days</value>
   </data>
-  <data name="prevYearDaysMessage" xml:space="preserve">
-    <value>Insert message in resource file.</value>
+  <data name="ConfinementMessage" xml:space="preserve">
+    <value>Confinement days taken so far</value>
+  </data>
+  <data name="DeathOfRelative" xml:space="preserve">
+    <value>Days for a relative's death</value>
+  </data>
+  <data name="DeathOfRelativeMessage" xml:space="preserve">
+    <value>Celebrate their life</value>
+  </data>
+  <data name="Marriage" xml:space="preserve">
+    <value>Marriage days</value>
+  </data>
+  <data name="MarriageMessage" xml:space="preserve">
+    <value>Marriage days left message.</value>
+  </data>
+  <data name="Medical" xml:space="preserve">
+    <value>Medical days</value>
+  </data>
+  <data name="MedicalMessage" xml:space="preserve">
+    <value>Medical days left message.</value>
+  </data>
+  <data name="Overtime" xml:space="preserve">
+    <value>Bonus overtime days</value>
+  </data>
+  <data name="OvertimeMessage" xml:space="preserve">
+    <value>Overtime days left message.</value>
   </data>
   <data name="selectedDaysHeader" xml:space="preserve">
     <value>Selected days</value>
@@ -148,6 +172,18 @@
     <value>Spent days</value>
   </data>
   <data name="spentDaysMessage" xml:space="preserve">
-    <value>Insert message in resource file.</value>
+    <value>Spent days message in resource file.</value>
+  </data>
+  <data name="Unpaid" xml:space="preserve">
+    <value>Unpaid days spent</value>
+  </data>
+  <data name="UnpaidMessage" xml:space="preserve">
+    <value>Unpaid days taken so far</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Base year days</value>
+  </data>
+  <data name="YearlyMessage" xml:space="preserve">
+    <value>Yearly days left message.</value>
   </data>
 </root>

@@ -587,6 +587,8 @@ dayNames = {
 
 
         //Submit button
+        //clear onClick event, otherwise every new year the onClick event executed +1 method that is added from drawCalendar
+        $(daysSubmitBtn).unbind();
         $(daysSubmitBtn).on('click', function () {
 
             //Get paidDays and requestType values

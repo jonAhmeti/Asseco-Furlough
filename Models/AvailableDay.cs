@@ -6,11 +6,15 @@ namespace Furlough.Models
     public partial class AvailableDay
     {
         public int EmployeeId { get; set; }
-        public int BaseDays { get; set; }
-        public int BonusDays { get; set; }
-        public int PrevYearDays { get; set; }
-        public int SpentDays { get; set; }
-
-        public virtual Employee Employee { get; set; } = null!;
+        public int Medical { get; set; }
+        public int Yearly { get; set; }
+        public int Overtime { get; set; }
+        public int Birth { get; set; }
+        public int ChildDays { get; set; }
+        public int Marriage { get; set; }
+        public int Unpaid { get; set; }
+        public int BloodDonation { get; set; }
+        public int Confinement { get; set; }
+        public int DeathOfRelative { get; set; }
     }
 }

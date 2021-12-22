@@ -8,12 +8,15 @@ namespace Furlough.Areas.Employee.Controllers
     {
         private DAL.Request _contextRequest;
         private DAL.RequestType _contextRequestType;
+        private DAL.AvailableDays _contextAvailableDays;
         private DalMapper _dalMapper;
 
-        public HomeController(DAL.RequestType contextRequestType, DAL.Request contextRequest, DalMapper dalMapper)
+        public HomeController(DalMapper dalMapper, 
+            DAL.RequestType contextRequestType, DAL.Request contextRequest, DAL.AvailableDays contextAvailableDays )
         {
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
+            _contextAvailableDays = contextAvailableDays;
 
             _dalMapper = dalMapper;
         }

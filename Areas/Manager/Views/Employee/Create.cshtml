@@ -19,7 +19,7 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="UserId" asp-items="ViewBag.UserId"></select>
+                        <input class="form-control" />
                         <label asp-for="UserId">@localizer["userId"]</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -28,12 +28,8 @@
                         <span asp-validation-for="JoinDate" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="PositionId" asp-items="ViewBag.PositionId"></select>
+                        <select class="form-control" asp-for="PositionId" asp-items="ViewBag.DepartmentPositions"></select>
                         <label asp-for="PositionId">@localizer["position"]</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentId"></select>
-                        <label asp-for="DepartmentId">@localizer["department"]</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="Email" placeholder="Email" />

@@ -143,3 +143,12 @@ section {
     /*justify-content: start !important;*/
     overflow-x: auto !important;
 }
+
+.roundIcon {
+    align-items:center;
+    justify-content: center;
+    min-width: 42px;
+    min-height: 42px;
+    display: inline-flex;
+    border-radius: 50%;
+}

@@ -48,20 +48,6 @@ namespace Furlough.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Models.AvailableDay>(entity =>
-            {
-                entity.HasKey(e => e.EmployeeId)
-                    .HasName("PK__Availabl__7AD04F115A7DCA01");
-
-                entity.Property(e => e.EmployeeId).ValueGeneratedNever();
-
-                entity.HasOne(d => d.Employee)
-                    .WithOne(p => p.AvailableDay)
-                    .HasForeignKey<Models.AvailableDay>(d => d.EmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Available__Emplo__114A936A");
-            });
-
             modelBuilder.Entity<Models.Department>(entity =>
             {
                 entity.ToTable("Department");

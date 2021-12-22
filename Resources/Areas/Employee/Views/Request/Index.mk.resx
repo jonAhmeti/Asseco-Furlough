@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="businessDays" xml:space="preserve">
+    <value>работни денови</value>
+  </data>
+  <data name="editDates" xml:space="preserve">
+    <value>Yредување датуми</value>
+  </data>
+  <data name="leaveType" xml:space="preserve">
+    <value>Tип на барање</value>
+  </data>
+  <data name="paidDays" xml:space="preserve">
+    <value>Платени денови</value>
+  </data>
   <data name="requestedOn" xml:space="preserve">
-    <value>побарано во</value>
+    <value>Побарано во</value>
   </data>
 </root>

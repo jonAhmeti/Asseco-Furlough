@@ -14,7 +14,12 @@
             <div class="card col m-2 roleBorder" style="width: 18rem; border-radius:0.55rem; font-family:'Trebuchet MS','monospace';" employeeId="@item.Id">
                 <div class="card-body">
                     <!-- decrease by 1 since arrays start at 0 -->
-                <h4 class="card-title text-center mb-3">@ViewBag.RequestTypes[--item.RequestTypeId].Type</h4>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-1 text-center roundIcon" style="background-color:#1BE7FF;"><i class="fa-solid fa-person-running"></i></div>
+                        <div class="ms-3 d-flex flex-column fw-bold">@localizer["leaveType"]
+                            <div class="card-subtitle text-black-50">@ViewBag.RequestTypes[--item.RequestTypeId].Type</div>
+                        </div>
+                    </div>
                 <!-- requested-on row -->
                     <div class="d-flex align-items-center mb-3">
                         <div class="rounded-circle p-1 text-center roundIcon" style="background-color:#FFB800;"><i class="fa-solid fa-calendar"></i></div>
@@ -25,8 +30,8 @@
                     <!-- paid days row -->
                     <div class="d-flex align-items-center mb-3">
                         <div class="rounded-circle p-1 text-center roundIcon" style="background-color:#6EEB83;min-width:30px; min-height:30px;"><i class="fa-solid fa-coins"></i></div>
-                        <div class="card-text ms-3 d-flex flex-column fw-bold">Paid days
-                            <div class="text-black-50" style="margin-top:-0.2rem;">@item.PaidDays business days</div>
+                        <div class="card-text ms-3 d-flex flex-column fw-bold">@localizer["paidDays"]
+                            <div class="text-black-50" style="margin-top:-0.2rem;">@item.PaidDays @localizer["businessDays"]</div>
                         </div>
                     </div>
                     <!-- datepicker -->
@@ -37,7 +42,7 @@
                         </div>
                     </div>
                     <!-- submit edited dates button -->
-                    <button class="form-control btn btn-outline-primary mt-5">Edit dates</button>
+                    <button class="form-control btn btn-outline-primary mt-5">@localizer["editDates"]</button>
                 </div>
             </div>
         }

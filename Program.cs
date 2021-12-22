@@ -65,6 +65,7 @@ builder.Services.AddScoped<Furlough.DAL.Position>();
 builder.Services.AddScoped<Furlough.DAL.PositionHistory>();
 builder.Services.AddScoped<Furlough.DAL.Request>();
 builder.Services.AddScoped<Furlough.DAL.RequestType>();
+builder.Services.AddScoped<Furlough.DAL.AvailableDays>();
 //builder.Services.AddScoped<Furlough.SecurityHandlers.JwtHandler>();
 
 var app = builder.Build();

@@ -10,41 +10,43 @@ using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
 using Furlough.DAL.Models;
 using System.Globalization;
+using Furlough.Models.Mapper;
 
 namespace Furlough.Areas.Manager.Controllers
 {
     [Area("Manager")]
     public class EmployeeController : Controller
     {
+        private readonly ViewModelMapper _vmMapper;
         private readonly DAL.Employee _contextEmployee;
+        private readonly DAL.Position _contextPosition;
+        private readonly DAL.DepartmentPositions _contextDepartmentPosition;
         private readonly FurloughContext _context;
 
-        public EmployeeController(DAL.Employee contextEmployee, FurloughContext context)
+        public EmployeeController(ViewModelMapper vmMapper, DAL.Employee contextEmployee, DAL.Position contextPosition, DAL.DepartmentPositions contextDepartmentPosition, FurloughContext context)
         {
+            _vmMapper = vmMapper;
+
             _contextEmployee = contextEmployee;
+            _contextPosition = contextPosition;
+            _contextDepartmentPosition = contextDepartmentPosition;
+
             _context = context;
         }
 
         // GET: Manager/Employee
         public async Task<IActionResult> Index()
         {
-            var furloughContext = _context.Employees.Include(e => e.Department).Include(e => e.Position).Include(e => e.User);
-            return View(await furloughContext.ToListAsync());
+            var departmentId = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value;
+            var employees = _contextEmployee.GetByDepartmentId(int.Parse(departmentId));
+
+            return View(employees);
         }
 
         // GET: Manager/Employee/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = await _context.Employees
-                .Include(e => e.Department)
-                .Include(e => e.Position)
-                .Include(e => e.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var employee = _contextEmployee.GetById(id);
             if (employee == null)
             {
                 return NotFound();
@@ -56,9 +58,14 @@ namespace Furlough.Areas.Manager.Controllers
         // GET: Manager/Employee/Create
         public IActionResult Create()
         {
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id");
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
+            var departmentPositions = new List<Models.Position>();
+            foreach (var item in _contextDepartmentPosition.GetPositionsByDepartmentId(departmentId))
+            {
+                departmentPositions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
+            }
+            
+            ViewBag.DepartmentPositions = new SelectList(departmentPositions, "Id", "Title");
             return View();
         }
 

@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="businessDays" xml:space="preserve">
+    <value>business days</value>
+  </data>
+  <data name="editDates" xml:space="preserve">
+    <value>Edit dates</value>
+  </data>
+  <data name="leaveType" xml:space="preserve">
+    <value>Leave type</value>
+  </data>
+  <data name="paidDays" xml:space="preserve">
+    <value>Paid days</value>
+  </data>
   <data name="requestedOn" xml:space="preserve">
     <value>Requested on</value>
   </data>
