@@ -635,16 +635,12 @@ dayNames = {
                 data: { Dates: tempArray, RequestTypeId: requestType.val(), PaidDays: paidDays.val() },
                 success: function (result) {
                     $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
-                    $(toastBody).html(`
-                                ${result ? "Request submitted successfully." :
-                            "Something went wrong submitting your request."}
-                    `);
+                    $(toastBody).html("Request submitted successfully.");
                     $(toastMsg).show();
                 },
                 error: function (error) {
                     $(daysSubmitBtn).animate({ color: '#CA0B00' }, 500);
-                    $(toastBody).html(`${result} <br /> Something went wrong submitting your request."}
-                    `);
+                    $(toastBody).html(`${error.responseText} <br /> Something went wrong submitting your request.`);
                     $(toastMsg).show();
                 },
                 complete: function () {

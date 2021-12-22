@@ -30,15 +30,29 @@ namespace Furlough.Areas.Employee.Controllers
         }
 
         [HttpPost]
-        public bool SubmitRequest(Models.Request request)
+        public IActionResult SubmitRequest(Models.Request request)
         {
-            var result = false;
+            IActionResult result;
+
             try
             {
+                var employeeId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
+                var availableDays = _contextAvailableDays.GetByEmployeeId(employeeId).FirstOrDefault();
+
+                //This gets the type's property dynamically using the type of the request,
+                //after which we get that property from availableDays and get it's value
+                var daysLeft = availableDays.GetType().GetProperty(_contextRequestType.GetById(request.RequestTypeId).Type).GetValue(availableDays);
+                if (daysLeft == null) return BadRequest();
+                if (request.PaidDays > (int)daysLeft)
+                {
+                    result = BadRequest("Not enough days left.");
+                    return result;
+                }
+
                 request.RequestedByUserId = int.Parse(
                     HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
-
-                result = _contextRequest.Add(_dalMapper.DalRequestMap(request));
+                
+                result = _contextRequest.Add(_dalMapper.DalRequestMap(request)) ? Ok() : StatusCode(500, "Something went wrong while adding your request");
             }
             catch (Exception e)
             {
@@ -46,6 +60,7 @@ namespace Furlough.Areas.Employee.Controllers
                 Console.WriteLine(e.Message);
                 Console.ResetColor();
 
+                result = StatusCode(500);
                 return result;
             }
              return result;
