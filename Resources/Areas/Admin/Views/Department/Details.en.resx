@@ -120,6 +120,9 @@
   <data name="departmentName" xml:space="preserve">
     <value>Department name</value>
   </data>
+  <data name="FkError" xml:space="preserve">
+    <value>This department can't be deleted. It is already being used for employees.</value>
+  </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Department Details</value>
   </data>

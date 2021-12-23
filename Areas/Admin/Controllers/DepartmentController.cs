@@ -160,18 +160,15 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/Department/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id, string message = null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var department = _contextDepartment.GetById(id.Value);
+            var department = _contextDepartment.GetById(id);
             if (department == null)
             {
                 return NotFound();
             }
+
+            ViewBag.FkError = message != null && message.Contains("FK__EMPLOYEE__Depart__4222D4EF");
 
             return View(_vmMapper.DepartmentMap(department));
         }
@@ -181,11 +178,18 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var department = _contextDepartment.GetById(id);
-            var result = _contextDepartment.Delete(department.Id);
-            //_context.Departments.Remove(department);
-            //await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var department = _contextDepartment.GetById(id);
+                var result = _contextDepartment.Delete(department.Id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                var message = e.Message;
+                return RedirectToAction(nameof(Delete), new { message });
+                throw;
+            }
         }
 
         private bool DepartmentExists(int id)
