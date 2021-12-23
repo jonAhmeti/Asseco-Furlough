@@ -12,7 +12,7 @@
         public int Marriage { get; set; } //Marriage leave days, defaults to 5
         public int Unpaid { get; set; } //Unpaid days start at 0, increase with every day when a request is made as this type
         public int BloodDonation { get; set; } //For donating blood you get 2 days of leave
-        public int Confinement { get; set; } //Starts at 0, increases depending on the selected dates
+        public int Maternity { get; set; } //Starts at 0, increases depending on the selected dates
         public int DeathOfRelative { get; set; } //Afaik 5 days a year,
     }
 }

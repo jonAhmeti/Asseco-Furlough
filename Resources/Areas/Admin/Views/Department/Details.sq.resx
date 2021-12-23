@@ -120,9 +120,6 @@
   <data name="departmentName" xml:space="preserve">
     <value>Emri i Departamentit</value>
   </data>
-  <data name="FkError" xml:space="preserve">
-    <value>Ky departament nuk mund të fshihet sepse është në përdorim.</value>
-  </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Detajet e departamentit</value>
   </data>

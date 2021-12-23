@@ -53,6 +53,8 @@ namespace Furlough.Areas.Employee.Controllers
                     HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
                 
                 result = _contextRequest.Add(_dalMapper.DalRequestMap(request)) ? Ok() : StatusCode(500, "Something went wrong while adding your request");
+                var dbResult = _contextAvailableDays    //deduct days left from requested paidDays
+                    .SetDays(employeeId, _contextRequestType.GetById(request.RequestTypeId).Type, (int)daysLeft - request.PaidDays);
             }
             catch (Exception e)
             {

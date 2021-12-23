@@ -14,7 +14,7 @@ namespace Furlough.Models
         public int Marriage { get; set; }
         public int Unpaid { get; set; }
         public int BloodDonation { get; set; }
-        public int Confinement { get; set; }
+        public int Maternity { get; set; }
         public int DeathOfRelative { get; set; }
     }
 }

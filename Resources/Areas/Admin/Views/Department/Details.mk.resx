@@ -120,9 +120,6 @@
   <data name="departmentName" xml:space="preserve">
     <value>Име на одделот</value>
   </data>
-  <data name="FkError" xml:space="preserve">
-    <value>Овој оддел не може да се избрише бидејќи веќе се користи.</value>
-  </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Детали за одделот</value>
   </data>

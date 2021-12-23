@@ -32,8 +32,8 @@
                         { icon = "<i class=\"fa-solid fa-martini-glass-citrus\"></i>"; backgroundCircle = "#917bbf"; break; }
                     case "Unpaid":
                         { icon = "<span class=\"material-icons-round\">money_off</span>"; backgroundCircle = "#A0CED9"; break; }
-                    case "Confinement":
-                        { icon = "<span class=\"material-icons-round\">local_police</span>"; backgroundCircle = "#F7B801"; break; }
+                    case "Maternity":
+                        { icon = "<span class=\"material-icons-round\">chair</span>"; backgroundCircle = "#F7B801"; break; }
                     case "Birth":
                         { icon = "<span class=\"material-icons-round\">pregnant_woman</span>"; backgroundCircle = "#D33F49"; break; } 
                     case "DeathOfRelative":
@@ -43,7 +43,7 @@
                     <div class="card-body">
                         <div class="card-title fw-bold fs-5"><span class="roundIcon p-2 text-black-50" style="background-color:@backgroundCircle">@Html.Raw(icon)</span> @localizer[item.Type]</div>
                         @*String format used for selecting parameters from localizer, including reflections for available days to dynamically get it's properties and values*@
-                        <p class="card-text">@string.Format(@localizer[item.Type + "Message"].Value, ViewBag.availableDays.GetType().GetProperty(item.Type).GetValue(ViewBag.availableDays))</p>
+                        <p class="card-text">@Html.Raw(string.Format(@localizer[item.Type + "Message"].Value, ViewBag.availableDays.GetType().GetProperty(item.Type).GetValue(ViewBag.availableDays)))</p>
                     </div>
                 </div>
 
