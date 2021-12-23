@@ -117,37 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="availableDays" xml:space="preserve">
-    <value>Ditë në dispozicion</value>
+  <data name="Birth" xml:space="preserve">
+    <value>Ditë të lindjes</value>
   </data>
-  <data name="availableDaysMessage" xml:space="preserve">
-    <value>Fut mesazhin në skedarin e burimit.</value>
+  <data name="BirthMessage" xml:space="preserve">
+    <value>Ju kanë mbetur edhe {0} ditë pushimi të lindjes.</value>
   </data>
-  <data name="baseDays" xml:space="preserve">
-    <value>Ditët bazë</value>
+  <data name="BloodDonation" xml:space="preserve">
+    <value>Ditët të dhurimit të gjakut.</value>
   </data>
-  <data name="baseDaysMessage" xml:space="preserve">
-    <value>Fut mesazhin në skedarin e burimit.</value>
+  <data name="BloodDonationMessage" xml:space="preserve">
+    <value>Mesazhi për dhurimin e gjakut.</value>
   </data>
-  <data name="bonusDays" xml:space="preserve">
-    <value>Ditë bonus</value>
+  <data name="Child" xml:space="preserve">
+    <value>Ditë të fëmijës.</value>
   </data>
-  <data name="bonusDaysMessage" xml:space="preserve">
-    <value>Fut mesazhin në skedarin e burimit.</value>
+  <data name="ChildMessage" xml:space="preserve">
+    <value>Mesazhi i ditëve të fëmijës.</value>
   </data>
-  <data name="prevYearDays" xml:space="preserve">
-    <value>Ditë të vitit të kaluar</value>
+  <data name="Confinement" xml:space="preserve">
+    <value>Ditë të burgosjes</value>
   </data>
-  <data name="prevYearDaysMessage" xml:space="preserve">
-    <value>Fut mesazhin në skedarin e burimit.</value>
+  <data name="ConfinementMessage" xml:space="preserve">
+    <value>Ditët e burgosjes të marra deri më tani</value>
+  </data>
+  <data name="DeathOfRelative" xml:space="preserve">
+    <value>Ditë për vdekje të familjarëve të afërm</value>
+  </data>
+  <data name="DeathOfRelativeMessage" xml:space="preserve">
+    <value>Na vjen keq për humbjen tuaj.</value>
+  </data>
+  <data name="Marriage" xml:space="preserve">
+    <value>Ditë të martesës</value>
+  </data>
+  <data name="MarriageMessage" xml:space="preserve">
+    <value>Mesazhi i ditëve të martesës.</value>
+  </data>
+  <data name="Medical" xml:space="preserve">
+    <value>Pushim mjekësor.</value>
+  </data>
+  <data name="MedicalMessage" xml:space="preserve">
+    <value>Ju kanë mbetur edhe {0} ditë pushim mjekësor.</value>
+  </data>
+  <data name="Overtime" xml:space="preserve">
+    <value>Ditë bonus jashtë orarit</value>
+  </data>
+  <data name="OvertimeMessage" xml:space="preserve">
+    <value>Mesazhi i ditëve bonus jashtë orarit.</value>
   </data>
   <data name="selectedDaysHeader" xml:space="preserve">
-    <value>Ditët e zgjedhura</value>
+    <value>Ditë të zgjedhura</value>
   </data>
   <data name="spentDays" xml:space="preserve">
     <value>Ditë të shpenzuara</value>
   </data>
   <data name="spentDaysMessage" xml:space="preserve">
-    <value>Fut mesazhin në skedarin e burimit.</value>
+    <value>Mesazhi i ditëve të shpenzuara në skedarin e burimit.</value>
+  </data>
+  <data name="Unpaid" xml:space="preserve">
+    <value>Ditë të papaguara të shpenzuara</value>
+  </data>
+  <data name="UnpaidMessage" xml:space="preserve">
+    <value>Ditë të papaguara të përdorura deri më tani.</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Ditët vjetore bazë</value>
+  </data>
+  <data name="YearlyMessage" xml:space="preserve">
+    <value>Ju kanë mbetur {0} ditë pushimi vjetor.</value>
   </data>
 </root>

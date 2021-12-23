@@ -129,6 +129,9 @@
   <data name="paidDays" xml:space="preserve">
     <value>Paid days</value>
   </data>
+  <data name="pendingRequests" xml:space="preserve">
+    <value>My Pending Requests</value>
+  </data>
   <data name="requestedOn" xml:space="preserve">
     <value>Requested on</value>
   </data>

@@ -129,6 +129,9 @@
   <data name="paidDays" xml:space="preserve">
     <value>Ditët me pagesë</value>
   </data>
+  <data name="pendingRequests" xml:space="preserve">
+    <value>Kërkesat e mia në pritje</value>
+  </data>
   <data name="requestedOn" xml:space="preserve">
     <value>Kërkuar me datën:</value>
   </data>

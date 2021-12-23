@@ -129,11 +129,11 @@
   <data name="BloodDonationMessage" xml:space="preserve">
     <value>Blood donation message.</value>
   </data>
-  <data name="ChildDays" xml:space="preserve">
+  <data name="Child" xml:space="preserve">
     <value>Child days</value>
   </data>
-  <data name="ChildDaysMessage" xml:space="preserve">
-    <value>Chid days left message.</value>
+  <data name="ChildMessage" xml:space="preserve">
+    <value>Child days left message.</value>
   </data>
   <data name="Confinement" xml:space="preserve">
     <value>Confinement days</value>

@@ -129,6 +129,9 @@
   <data name="paidDays" xml:space="preserve">
     <value>Платени денови</value>
   </data>
+  <data name="pendingRequests" xml:space="preserve">
+    <value>Мои барања што чекаат</value>
+  </data>
   <data name="requestedOn" xml:space="preserve">
     <value>Побарано во</value>
   </data>
