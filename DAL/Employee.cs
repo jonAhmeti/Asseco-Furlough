@@ -62,6 +62,17 @@ namespace Furlough.DAL
             connection.Open();
             return command.ExecuteNonQuery() > 0;
         }
+        public IEnumerable<Models.Employee> GetAll()
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_employeeGetAll", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            connection.Open();
+            return Mapper(command.ExecuteReader());
+        }
 
         public Models.Employee GetById(int id)
         {
