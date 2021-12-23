@@ -15,14 +15,21 @@ namespace Furlough.Areas.Admin.Controllers
     {
         private readonly FurloughContext _context;
         private readonly DAL.Employee _contextEmployee;
+        private readonly DAL.Department _contextDepartment;
+        private readonly DAL.User _contextUsers;
+        private readonly DAL.Position _contextPositions;
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
 
-        public EmployeeController(FurloughContext context, DAL.Employee contextEmployee,
+        public EmployeeController(FurloughContext context, DAL.Employee contextEmployee, DAL.Department contextDepartment, DAL.User contextUsers, DAL.Position contextPositions,
             Models.Mapper.ViewModelMapper vmMapper, Models.Mapper.DalMapper dalMapper)
         {
             _context = context;
             _contextEmployee = contextEmployee;
+            _contextDepartment = contextDepartment;
+            _contextUsers = contextUsers;
+            _contextPositions = contextPositions;
+
             _vmMapper = vmMapper;
             _dalMapper = dalMapper;
         }
@@ -30,23 +37,13 @@ namespace Furlough.Areas.Admin.Controllers
         // GET: Admin/Employee
         public async Task<IActionResult> Index()
         {
-            var furloughContext = _context.Employees.Include(e => e.Department).Include(e => e.Position).Include(e => e.User);
-            return View(await furloughContext.ToListAsync());
+            return View(_contextEmployee.GetAll());
         }
 
         // GET: Admin/Employee/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = await _context.Employees
-                .Include(e => e.Department)
-                .Include(e => e.Position)
-                .Include(e => e.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var employee = _contextEmployee.GetById(id);
             if (employee == null)
             {
                 return NotFound();
@@ -58,9 +55,9 @@ namespace Furlough.Areas.Admin.Controllers
         // GET: Admin/Employee/Create
         public IActionResult Create()
         {
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id");
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name");
+            ViewData["PositionId"] = new SelectList(_contextPositions.GetAll(), "Id", "Id");
+            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id");
             return View();
         }
 
@@ -78,31 +75,26 @@ namespace Furlough.Areas.Admin.Controllers
                 //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id", employee.DepartmentId);
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Id", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", employee.UserId);
+            ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
+            ViewData["PositionId"] = new SelectList(_contextPositions.GetAll(), "Id", "Id", employee.PositionId);
+            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
             return View(employee);
         }
 
         // GET: Admin/Employee/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             try
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                var employee = _contextEmployee.GetById(id.Value);
+                var employee = _contextEmployee.GetById(id);
                 if (employee == null)
                 {
                     return NotFound();
                 }
 
-                ViewData["Departments"] = new SelectList(_context.Departments, "Id", "Name", employee.DepartmentId);
-                ViewData["Positions"] = new SelectList(_context.Positions, "Id", "Title", employee.PositionId);
-                ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", employee.UserId);
+                ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
+                ViewData["Positions"] = new SelectList(_contextPositions.GetAll(), "Id", "Title", employee.PositionId);
+                ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
                 return View(_vmMapper.EmployeeMap(employee));
             }
             catch (Exception e)
@@ -148,25 +140,16 @@ namespace Furlough.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Departments"] = new SelectList(_context.Departments, "Id", "Name", employee.DepartmentId);
-            ViewData["Positions"] = new SelectList(_context.Positions, "Id", "Title", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", employee.UserId);
+            ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
+            ViewData["Positions"] = new SelectList(_contextPositions.GetAll(), "Id", "Title", employee.PositionId);
+            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
             return View(employee);
         }
 
         // GET: Admin/Employee/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = await _context.Employees
-                .Include(e => e.Department)
-                .Include(e => e.Position)
-                .Include(e => e.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var employee = _contextEmployee.GetById(id);
             if (employee == null)
             {
                 return NotFound();
@@ -180,9 +163,12 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
+            var employee = _contextEmployee.GetById(id);
+            if (employee == null) {
+                return NotFound();
+            }
+            var result = _contextEmployee.Delete(employee.Id);
+            
             return RedirectToAction(nameof(Index));
         }
 

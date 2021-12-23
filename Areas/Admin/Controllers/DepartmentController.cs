@@ -36,7 +36,7 @@ namespace Furlough.Areas.Admin.Controllers
         // GET: Admin/Department
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departments.ToListAsync());
+            return View(_contextDepartment.GetAll());
         }
 
         // GET: Admin/Department/Details/5
