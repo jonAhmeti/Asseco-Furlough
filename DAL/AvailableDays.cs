@@ -38,7 +38,7 @@ namespace Furlough.DAL
                         EmployeeId = reader.GetInt32("EmployeeId"),
                         Birth = reader.GetInt32("Birth"),
                         BloodDonation = reader.GetInt32("BloodDonation"),
-                        ChildDays = reader.GetInt32("ChildDays"),
+                        Child = reader.GetInt32("Child"),
                         Confinement = reader.GetInt32("Confinement"),
                         DeathOfRelative = reader.GetInt32("DeathOfRelative"),
                         Marriage = reader.GetInt32("Marriage"),

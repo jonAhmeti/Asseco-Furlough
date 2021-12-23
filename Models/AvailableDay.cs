@@ -10,7 +10,7 @@ namespace Furlough.Models
         public int Yearly { get; set; }
         public int Overtime { get; set; }
         public int Birth { get; set; }
-        public int ChildDays { get; set; }
+        public int Child { get; set; }
         public int Marriage { get; set; }
         public int Unpaid { get; set; }
         public int BloodDonation { get; set; }
