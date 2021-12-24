@@ -40,7 +40,7 @@
                     <tr rowId="@counter">
                         <td>
                             <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.User.Id)
+                                @Html.DisplayFor(modelItem => item.UserId)
                             </a>
                         </td>
                         <td>
@@ -50,12 +50,12 @@
                         </td>
                         <td>
                             <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.Department.Id)
+                                @Html.DisplayFor(modelItem => item.DepartmentId)
                             </a>
                         </td>
                         <td>
                             <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.Position.Id)
+                                @Html.DisplayFor(modelItem => item.PositionId)
                             </a>
                         </td>
                         <td class="text-center align-middle">
