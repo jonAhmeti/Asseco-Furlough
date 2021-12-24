@@ -57,7 +57,7 @@ namespace Furlough.Areas.Admin.Controllers
         {
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name");
             ViewData["PositionId"] = new SelectList(_contextPositions.GetAll(), "Id", "Id");
-            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id");
+            ViewData["UserId"] = new SelectList(_contextUsers.GetUnattachedToEmployees(), "Id", "Username");
             return View();
         }
 

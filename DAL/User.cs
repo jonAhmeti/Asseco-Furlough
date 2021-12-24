@@ -76,6 +76,18 @@ namespace Furlough.DAL
             }
         }
 
+        public IEnumerable<Models.User> GetUnattachedToEmployees()
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_userUnlinkedToEmployee", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            connection.Open();
+
+            return Mapper(command.ExecuteReader());
+        }
+
         public Models.User GetById(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());

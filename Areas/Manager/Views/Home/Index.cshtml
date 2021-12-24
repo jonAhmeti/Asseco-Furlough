@@ -29,31 +29,14 @@
                             <li class="col-4">@localizer["requestedTime"]</li>
                             <li class="col-4">@localizer["type"]</li>
                         </ul>
-                        <ul class="listItem w-100 row mx-0 list-unstyled">
-                            <li class="col-4">name1</li>
-                            <li class="col-4">time1</li>
-                            <li class="col-4">type1</li>
-                        </ul>
-                        <ul class="listItem w-100 row mx-0 list-unstyled">
-                            <li class="col-4">name2</li>
-                            <li class="col-4">time2</li>
-                            <li class="col-4">type2</li>
-                        </ul>
-                        <ul class="listItem w-100 row mx-0 list-unstyled">
-                            <li class="col-4">name3</li>
-                            <li class="col-4">time3</li>
-                            <li class="col-4">type3</li>
-                        </ul>
-                        <ul class="listItem w-100 row mx-0 list-unstyled">
-                            <li class="col-4">name4</li>
-                            <li class="col-4">time4</li>
-                            <li class="col-4">type4</li>
-                        </ul>
-                        <ul class="listItem w-100 row mx-0 list-unstyled">
-                            <li class="col-4">name5</li>
-                            <li class="col-4">time5</li>
-                            <li class="col-4">type5</li>
-                        </ul>
+                         @foreach (Furlough.DAL.Models.RequestByDepartment item in ViewBag.requests)
+                        {
+                            <ul class="listItem w-100 row mx-0 list-unstyled">
+                                <li class="col-4">@item.EmployeeName</li>
+                                <li class="col-4">@item.RequestedOn</li>
+                                <li class="col-4">@item.RequestStatusId</li>
+                            </ul>
+                        }
                     </div>
                 </div>
             </a>

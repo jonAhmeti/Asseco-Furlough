@@ -8,8 +8,15 @@ namespace Furlough.Areas.Manager.Controllers
     [Area("Manager")]
     public class HomeController : Controller
     {
+        private readonly DAL.Request _contextRequest;
+
+        public HomeController(DAL.Request contextRequest)
+        {
+            _contextRequest = contextRequest;
+        }
         public IActionResult Index()
         {
+            ViewBag.requests = _contextRequest.GetAllByRowCount(5);
             return View();
         }
 
