@@ -65,9 +65,30 @@ aside {
     }
 
     #infoCards div.card {
-        min-height: 150px;
-        max-height: 230px;
+        height: 150px;
+        overflow-y: auto;
     }
+
+        #infoCards div.card::-webkit-scrollbar {
+            width: 0rem;
+        }
+
+        /*the scrollbar arrows on the sides*/
+        #infoCards div.card::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        /*the draggable scrollbar handle*/
+        #infoCards div.card::-webkit-scrollbar-thumb {
+            background-color: rgba(13,168,226, 0.1);
+            border-radius: 1rem;
+        }
+
+        /*the scrollbar track*/
+        #infoCards div.card::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+        }
 
 #infoCardsArrowLeft, #infoCardsArrowRight {
     z-index: 1;
