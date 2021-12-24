@@ -154,37 +154,38 @@ namespace Furlough.Controllers
 
         #endregion
         #region Partial Views Login/Signup
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult LoginPartial()
-        {
-            if (Request.Headers.ContainsKey("X-Requested-With")
-                && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
-            {
-                return PartialView("Partial/Login");
-            }
-            return RedirectToAction("Index");
-        }
+        
+        // [AllowAnonymous]
+        // [HttpGet]
+        // public IActionResult LoginPartial()
+        // {
+        //     if (Request.Headers.ContainsKey("X-Requested-With")
+        //         && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
+        //     {
+        //         return PartialView("Partial/Login");
+        //     }
+        //     return RedirectToAction("Index");
+        // }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult SignupPartial()
-        {
-            if (Request.Headers.ContainsKey("X-Requested-With")
-                && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
-            {
-                var departments = new List<Models.Department>();
-                foreach (var item in _contextDepartment.GetAll())
-                {
-                    departments.Add(_vmMapper.DepartmentMap(item));
-                }
+        // [AllowAnonymous]
+        // [HttpGet]
+        // public IActionResult SignupPartial()
+        // {
+        //     if (Request.Headers.ContainsKey("X-Requested-With")
+        //         && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
+        //     {
+        //         var departments = new List<Models.Department>();
+        //         foreach (var item in _contextDepartment.GetAll())
+        //         {
+        //             departments.Add(_vmMapper.DepartmentMap(item));
+        //         }
 
-                ViewBag.departments = departments;
-                return PartialView("Partial/Signup");
-            }
+        //         ViewBag.departments = departments;
+        //         return PartialView("Partial/Signup");
+        //     }
 
-            return RedirectToAction("Index");
-        }
+        //     return RedirectToAction("Index");
+        // }
 
         [AllowAnonymous]
         [HttpGet]
