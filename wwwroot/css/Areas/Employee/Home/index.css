@@ -90,6 +90,13 @@ aside {
             border-radius: 1rem;
         }
 
+        #infoCards div.card .card-title {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 1;
+        }
+
 #infoCardsArrowLeft, #infoCardsArrowRight {
     z-index: 1;
 }
