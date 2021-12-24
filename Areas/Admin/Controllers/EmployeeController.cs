@@ -129,7 +129,7 @@ namespace Furlough.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Id))
+                    if (_contextEmployee.GetById(id) == null)
                     {
                         return NotFound();
                     }
@@ -170,11 +170,6 @@ namespace Furlough.Areas.Admin.Controllers
             var result = _contextEmployee.Delete(employee.Id);
             
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool EmployeeExists(int id)
-        {
-            return _context.Employees.Any(e => e.Id == id);
         }
     }
 }
