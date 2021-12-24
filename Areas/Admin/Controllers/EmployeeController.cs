@@ -57,7 +57,9 @@ namespace Furlough.Areas.Admin.Controllers
         {
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name");
             ViewData["PositionId"] = new SelectList(_contextPositions.GetAll(), "Id", "Id");
-            ViewData["UserId"] = new SelectList(_contextUsers.GetUnattachedToEmployees(), "Id", "Username");
+
+            var unattachedUsers = _contextUsers.GetUnattachedToEmployees();
+            ViewData["Users"] = unattachedUsers.Count() == 0 ? null : new SelectList(unattachedUsers, "Id", "Username");
             return View();
         }
 
@@ -77,7 +79,7 @@ namespace Furlough.Areas.Admin.Controllers
             }
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
             ViewData["PositionId"] = new SelectList(_contextPositions.GetAll(), "Id", "Id", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
+            ViewData["Users"] = new SelectList(_contextUsers.GetUnattachedToEmployees(), "Id", "Username");
             return View(employee);
         }
 

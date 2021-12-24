@@ -19,8 +19,19 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="UserId" asp-items="ViewBag.UserId"></select>
-                        <label asp-for="UserId">@localizer["userId"]</label>
+                        @{
+                            if (ViewBag.Users == null)
+                            {
+                                <input class="form-control text-primary" readonly value="@localizer["createNewUser"]"/>
+                                <label asp-for="UserId">@localizer["userId"]</label>
+                            }
+                            else
+                            {
+                                <select class="form-control" asp-for="UserId" asp-items="ViewBag.UserId"></select>
+                                <label asp-for="UserId">@localizer["userId"]</label>
+                            }
+                        }
+                        
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="JoinDate" />
