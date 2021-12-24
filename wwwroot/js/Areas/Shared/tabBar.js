@@ -1,9 +1,8 @@
 $(function () {
   var tab = $(".tabBar");
-  var line = $( ".tabBar div" ).last();
-  line.addClass("line");
-
-  var active = tab.find(".active");
+  var line = $( ".line" ).last();
+  
+  var active = tab.find(".activeBar");
   var pos = 0;
   var wid = 0;
 
@@ -15,18 +14,18 @@ $(function () {
       width: wid,
     });
   }
-  $(window).on("resize", function () {
+  $(window).on("load resize", function () {
     var divWidth = $(".tabBarItem").width();
     line.css("width", divWidth);
   });
   tab.find(".tabBarItem a").click(function (e) {
     e.preventDefault();
-    if (!$(this).parent().hasClass("active") && !tab.hasClass("animate")) {
+    if (!$(this).parent().hasClass("activeBar") && !tab.hasClass("animate")) {
         tab.addClass("animate");
 
       var _this = $(this);
 
-      tab.find(".tabBarItem").removeClass("active");
+      tab.find(".tabBarItem").removeClass("activeBar");
 
       var position = _this.parent().position();
       var width = _this.parent().width();
@@ -48,7 +47,7 @@ $(function () {
                 tab.removeClass("animate");
               }
             );
-            _this.parent().addClass("active");
+            _this.parent().addClass("activeBar");
           }
         );
       } else {
@@ -68,7 +67,7 @@ $(function () {
                 tab.removeClass("animate");
               }
             );
-            _this.parent().addClass("active");
+            _this.parent().addClass("activeBar");
           }
         );
       }

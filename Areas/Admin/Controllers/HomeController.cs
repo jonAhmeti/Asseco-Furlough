@@ -5,6 +5,12 @@ namespace Furlough.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : Controller
     {   
+        private readonly DAL.Department _contextDepartment;
+
+        public HomeController(DAL.Department contextDepartment)
+        {
+            _contextDepartment = contextDepartment;
+        }
         public IActionResult Index()
         {
             var requests = new List<Furlough.DAL.Models.RequestByDepartment>{
@@ -37,7 +43,7 @@ namespace Furlough.Areas.Admin.Controllers
 
             ViewBag.requests = requests;
 
-            return View();
+             return View(_contextDepartment.GetAll());
         }
     }
 }

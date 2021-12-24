@@ -22,7 +22,7 @@
 .tabBarItem:hover {
   opacity: 0.7;
 }
-.tabBarItem.active {
+.tabBarItem.activeBar {
   background: white;
   opacity: 1;
 }
