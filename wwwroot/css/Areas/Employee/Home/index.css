@@ -70,7 +70,7 @@ aside {
     }
 
         #infoCards div.card::-webkit-scrollbar {
-            width: 0rem;
+            width: 0.3rem;
         }
 
         /*the scrollbar arrows on the sides*/
