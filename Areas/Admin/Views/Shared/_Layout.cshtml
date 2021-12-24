@@ -25,6 +25,7 @@
     <link href="~/lib/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/lib/font-awesome-6.0/css/all.min.css" rel="stylesheet">
     <link href="~/css/Areas/Shared/index.css" rel="stylesheet">
+    <link href="~/css/Areas/Shared/customScrollBar.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/Areas/Shared/index.js"></script>
@@ -64,11 +65,11 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1">
+    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1 overflow-auto">
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="w-100">
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                    <a class="sidenavLinks nav-link d-flex align-items-center justify-content-start @(action=="" ? "active" : "")" href="/">
+                    <a id="dashboardLink" class="sidenavLinks nav-link d-flex align-items-center @(action=="" ? "active" : "")" href="/">
                         <span class="material-icons-round align-middle">dashboard</span> @Resources.Shared._Layout.dashTitle
                     </a>
                 </div>
@@ -104,7 +105,9 @@
                 </div>
             </div>
         </aside>
-        @RenderBody()
+        <div class="w-100 h-100 flex-grow-1 overflow-auto">
+            @RenderBody()
+        </div>
     </main>
 </body>
 <script src="~/js/site.js" asp-append-version="true"></script>

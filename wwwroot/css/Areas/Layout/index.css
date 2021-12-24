@@ -36,6 +36,10 @@ aside .active {
   background-color: white;
 }
 
+#dashboardLink {
+  justify-content: start;
+}
+
 .menuOpener {
   display: none;
 }
@@ -52,6 +56,9 @@ aside .active {
   .menuOpener {
     display: flex;
     align-items: center;
+  }
+  #dashboardLink {
+    justify-content: center;
   }
 }
 
