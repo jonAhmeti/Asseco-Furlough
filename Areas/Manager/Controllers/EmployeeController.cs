@@ -20,15 +20,19 @@ namespace Furlough.Areas.Manager.Controllers
         private readonly ViewModelMapper _vmMapper;
         private readonly DAL.Employee _contextEmployee;
         private readonly DAL.Position _contextPosition;
+        private readonly DAL.User _contextUsers;
+        private readonly DAL.Department _contextDepartments;
         private readonly DAL.DepartmentPositions _contextDepartmentPosition;
         private readonly FurloughContext _context;
 
-        public EmployeeController(ViewModelMapper vmMapper, DAL.Employee contextEmployee, DAL.Position contextPosition, DAL.DepartmentPositions contextDepartmentPosition, FurloughContext context)
+        public EmployeeController(ViewModelMapper vmMapper, DAL.Employee contextEmployee, DAL.Position contextPosition, DAL.User contextUsers, DAL.Department contextDepartments, DAL.DepartmentPositions contextDepartmentPosition, FurloughContext context)
         {
             _vmMapper = vmMapper;
 
             _contextEmployee = contextEmployee;
             _contextPosition = contextPosition;
+            _contextUsers = contextUsers;
+            _contextDepartments = contextDepartments;
             _contextDepartmentPosition = contextDepartmentPosition;
 
             _context = context;
@@ -82,28 +86,23 @@ namespace Furlough.Areas.Manager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id", employee.DepartmentId);
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Id", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", employee.UserId);
+            ViewData["DepartmentId"] = new SelectList(_contextDepartments.GetAll(), "Id", "Name", employee.DepartmentId);
+            ViewData["PositionId"] = new SelectList(_contextPosition.GetAll(), "Id", "Title", employee.PositionId);
+            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
             return View(employee);
         }
 
         // GET: Manager/Employee/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = _contextEmployee.GetById(id);
             if (employee == null)
             {
                 return NotFound();
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id", employee.DepartmentId);
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Id", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", employee.UserId);
+            ViewData["DepartmentId"] = new SelectList(_contextDepartments.GetAll(), "Id", "Name", employee.DepartmentId);
+            ViewData["PositionId"] = new SelectList(_contextPosition.GetAll(), "Id", "Title", employee.PositionId);
+            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
             return View(employee);
         }
 
@@ -139,9 +138,9 @@ namespace Furlough.Areas.Manager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id", employee.DepartmentId);
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Id", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", employee.UserId);
+            ViewData["DepartmentId"] = new SelectList(_contextDepartments.GetAll(), "Id", "Name", employee.DepartmentId);
+            ViewData["PositionId"] = new SelectList(_contextPosition.GetAll(), "Id", "Title", employee.PositionId);
+            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
             return View(employee);
         }
 
@@ -164,24 +163,6 @@ namespace Furlough.Areas.Manager.Controllers
             }
 
             return View(employee);
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-
-        public IActionResult ChangeLang(string lang, string returnUrl)
-        {
-            var cultureInfo = new CultureInfo(lang);
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-
-            this.HttpContext.Response.Cookies.Append
-            (
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(lang))
-            );
-
-            return LocalRedirect(returnUrl);
         }
 
         // POST: Manager/Employee/Delete/5
