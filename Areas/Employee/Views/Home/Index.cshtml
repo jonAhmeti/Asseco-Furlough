@@ -8,7 +8,7 @@
 <link href="~/css/Areas/Employee/Home/calendar.css" rel="stylesheet" />
 <script src="~/js/Areas/Employee/Home/calendar.js"></script>
 <div class="w-100 h-100">
-    <div class="container-fluid">
+    <div class="container-fluid overflow-hidden">
         <div id="infoCardsWrapper" class="position-relative hstack pb-5 justify-content-center">
             <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft"><i
                     class="fa-solid fa-arrow-left"></i></div>
@@ -73,8 +73,7 @@
                 <div class="container border shadow-sm" id="selectedDaysWrapper" style="left:-25%;">
                     <div class="p-3 pb-5 w-100 h-100" id="">
                         <div id="selectDaysHeader" class="d-flex justify-content-around">
-                            <i class="fa-solid fa-floppy-disk fs-4 clickable" title="Submit"
-                                id="selectedDaysSubmit"></i>
+                            <i class="fa-solid fa-floppy-disk fs-4 clickable" title="Submit" id="selectedDaysSubmit"></i>
                             <span class="fs-5">@localizer["selectedDaysHeader"]</span>
                             <i class="fa-solid fa-rotate-left fs-4 clickable" title="Reset" id="selectedDaysReset"></i>
                         </div>
@@ -108,7 +107,6 @@
         </section>
     </div>
 </div>
-
 
 <!--Toast Message-->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1111">
