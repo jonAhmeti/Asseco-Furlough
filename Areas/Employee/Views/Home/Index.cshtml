@@ -5,101 +5,117 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 <script src="~/js/Areas/Employee/Home/index.js"></script>
-<link href="~/css/Areas/Employee/Home/calendar.css" rel="stylesheet"/>
+<link href="~/css/Areas/Employee/Home/calendar.css" rel="stylesheet" />
 <script src="~/js/Areas/Employee/Home/calendar.js"></script>
-
-<div class="container-fluid overflow-hidden">
-    <div id="infoCardsWrapper" class="position-relative hstack pb-5 justify-content-center">
-        <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft"><i class="fa-solid fa-arrow-left"></i></div>
-        <div class="row-cols-1 row-cols-md-3 row-cols-lg-4 p-3 hstack" id="infoCards">
-            @foreach (var item in (IEnumerable<Furlough.DAL.Models.RequestType>)ViewBag.requestTypes)
-            {
-                string icon = "";
-                string backgroundCircle = "#000";
-                switch (item.Type)
+<div class="w-100 h-100">
+    <div class="container-fluid">
+        <div id="infoCardsWrapper" class="position-relative hstack pb-5 justify-content-center">
+            <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft"><i
+                    class="fa-solid fa-arrow-left"></i></div>
+            <div class="row-cols-1 row-cols-md-3 row-cols-lg-4 p-3 hstack" id="infoCards">
+                @foreach (var item in (IEnumerable<Furlough.DAL.Models.RequestType>)ViewBag.requestTypes)
                 {
-                    case "Medical":
-                        { icon = "<i class=\"fa-solid fa-stethoscope\"></i>"; backgroundCircle = "#A0CED9"; break; }
-                    case "BloodDonation":
-                        { icon = "<span class=\"material-icons-round\">bloodtype</span>"; backgroundCircle = "#DE3C4B"; break; }
-                    case "Yearly":
-                        { icon = "<i class=\"fa-solid fa-calendar-days\"></i>"; backgroundCircle = "#FFC09F"; break; }
-                    case "Overtime":
-                        { icon = "<i class=\"fa-solid fa-business-time\"></i>"; backgroundCircle = "#3bc199"; break; }
-                    case "Child":
-                        { icon = "<span class=\"material-icons-round\">family_restroom</span>"; backgroundCircle = "#f9ad3b"; break; }
-                    case "Marriage":
-                        { icon = "<i class=\"fa-solid fa-martini-glass-citrus\"></i>"; backgroundCircle = "#917bbf"; break; }
-                    case "Unpaid":
-                        { icon = "<span class=\"material-icons-round\">money_off</span>"; backgroundCircle = "#A0CED9"; break; }
-                    case "Maternity":
-                        { icon = "<span class=\"material-icons-round\">chair</span>"; backgroundCircle = "#F7B801"; break; }
-                    case "Birth":
-                        { icon = "<span class=\"material-icons-round\">pregnant_woman</span>"; backgroundCircle = "#D33F49"; break; } 
-                    case "DeathOfRelative":
-                        { icon = "<i class=\"fa-solid fa-heart\"></i>"; backgroundCircle = "#DF1B48"; break; }
-                }
-                <div class="card m-2" style="width: 18rem;">
-                    <div class="card-body">
-                        <div class="card-title fw-bold fs-5"><span class="roundIcon p-2 text-black-50" style="background-color:@backgroundCircle">@Html.Raw(icon)</span> @localizer[item.Type]</div>
-                        @*String format used for selecting parameters from localizer, including reflections for available days to dynamically get it's properties and values*@
-                        <p class="card-text">@Html.Raw(string.Format(@localizer[item.Type + "Message"].Value, ViewBag.availableDays.GetType().GetProperty(item.Type).GetValue(ViewBag.availableDays)))</p>
-                    </div>
-                </div>
-
-            }
-        </div>
-        <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowRight"><i class="fa-solid fa-arrow-right"></i></div>
-    </div>
-    <!--Calendar-->
-    <section>
-        <div class="box d-flex flex-row">
-            <div class="container shadow" id="calendarWrapper" style="left:25%">
-                <div id="calendar">
-                </div>
-            </div>
-            <div class="container border shadow-sm" id="selectedDaysWrapper" style="left:-25%;">
-                <div class="p-3 pb-5 w-100 h-100" id="">
-                    <div id="selectDaysHeader" class="d-flex justify-content-around">
-                        <i class="fa-solid fa-floppy-disk fs-4 clickable" title="Submit" id="selectedDaysSubmit"></i>
-                            <span class="fs-5">@localizer["selectedDaysHeader"]</span>
-                        <i class="fa-solid fa-rotate-left fs-4 clickable" title="Reset" id="selectedDaysReset"></i>
-                    </div>
-                    <div class="h-100 d-flex">
-                        <div class="h-100 py-3 rounded w-100" id="selectedDaysList">
-
+                    string icon = "";
+                    string backgroundCircle = "#000";
+                    switch (item.Type)
+                    {
+                        case "Medical":
+                            { icon = "<i class=\"fa-solid fa-stethoscope\"></i>"; backgroundCircle = "#A0CED9"; break; }
+                        case "BloodDonation":
+                            { icon = "<span class=\"material-icons-round\">bloodtype</span>"; backgroundCircle = "#DE3C4B"; break; }
+                        case "Yearly":
+                            { icon = "<i class=\"fa-solid fa-calendar-days\"></i>"; backgroundCircle = "#FFC09F"; break; }
+                        case "Overtime":
+                            { icon = "<i class=\"fa-solid fa-business-time\"></i>"; backgroundCircle = "#3bc199"; break; }
+                        case "Child":
+                            {
+                                icon = "<span class=\"material-icons-round\">family_restroom</span>"; backgroundCircle = "#f9ad3b";
+                                break;
+                            }
+                        case "Marriage":
+                            { icon = "<i class=\"fa-solid fa-martini-glass-citrus\"></i>"; backgroundCircle = "#917bbf"; break; }
+                        case "Unpaid":
+                            { icon = "<span class=\"material-icons-round\">money_off</span>"; backgroundCircle = "#A0CED9"; break; }
+                        case "Maternity":
+                            { icon = "<span class=\"material-icons-round\">chair</span>"; backgroundCircle = "#F7B801"; break; }
+                        case "Birth":
+                            {
+                                icon = "<span class=\"material-icons-round\">pregnant_woman</span>"; backgroundCircle = "#D33F49";
+                                break;
+                            }
+                        case "DeathOfRelative":
+                            { icon = "<i class=\"fa-solid fa-heart\"></i>"; backgroundCircle = "#DF1B48"; break; }
+                    }
+                    <div class="card m-2" style="width: 18rem;">
+                        <div class="card-body">
+                            <div class="card-title fw-bold fs-5"><span class="roundIcon p-2 text-black-50"
+                                style="background-color:@backgroundCircle">@Html.Raw(icon)</span> @localizer[item.Type]
+                            </div>
+                            @*String format used for selecting parameters from localizer, including reflections for
+                                available days to dynamically get it's properties and values*@
+                            <p class="card-text">@Html.Raw(string.Format(@localizer[item.Type + "Message"].Value,
+                            ViewBag.availableDays.GetType().GetProperty(item.Type).GetValue(ViewBag.availableDays)))</p>
                         </div>
-                        <div class="position-absolute" id="requestDetailsWrapper">
-                            <!--Type of leave input-->
+                    </div>
+
+                }
+            </div>
+            <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowRight"><i
+                    class="fa-solid fa-arrow-right"></i></div>
+        </div>
+        <!--Calendar-->
+        <section>
+            <div class="box d-flex flex-row">
+                <div class="container shadow" id="calendarWrapper" style="left:25%">
+                    <div id="calendar">
+                    </div>
+                </div>
+                <div class="container border shadow-sm" id="selectedDaysWrapper" style="left:-25%;">
+                    <div class="p-3 pb-5 w-100 h-100" id="">
+                        <div id="selectDaysHeader" class="d-flex justify-content-around">
+                            <i class="fa-solid fa-floppy-disk fs-4 clickable" title="Submit"
+                                id="selectedDaysSubmit"></i>
+                            <span class="fs-5">@localizer["selectedDaysHeader"]</span>
+                            <i class="fa-solid fa-rotate-left fs-4 clickable" title="Reset" id="selectedDaysReset"></i>
+                        </div>
+                        <div class="h-100 d-flex">
+                            <div class="h-100 py-3 rounded w-100" id="selectedDaysList">
+
+                            </div>
+                            <div class="position-absolute" id="requestDetailsWrapper">
+                                <!--Type of leave input-->
                                 <div class="form-floating">
                                     <select class="form-select" name="requestType"
                                         asp-items="@(new SelectList(ViewBag.requestTypes, "Id", "Type"))">
                                         <option disabled selected value="0">-- Choose type --</option>
                                     </select>
                                     <label for="requestType">Type of leave</label>
-                                    <span id="requestTypeValidate" class="d-none text-danger">Please specify the type of your request.</span>
+                                    <span id="requestTypeValidate" class="d-none text-danger">Please specify the type of
+                                        your request.</span>
                                 </div>
                                 <!--Paid days input-->
                                 <div class="form-floating">
-                                    <input class="form-control" type="number" placeholder="Paid days" name="paidDays"/>
+                                    <input class="form-control" type="number" placeholder="Paid days" name="paidDays" />
                                     <label for="requestType">Paid days</label>
-                                    <span id="paidDaysValidate" class="d-none text-danger">Please specify number of paid days.</span>
+                                    <span id="paidDaysValidate" class="d-none text-danger">Please specify number of paid
+                                        days.</span>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </div>
 
 
 <!--Toast Message-->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1111">
-    <div id="toastMsg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">   
+    <div id="toastMsg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
-          <strong class="me-auto">System</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <strong class="me-auto">System</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body" id="toastBody">
         </div>
@@ -107,15 +123,15 @@
 </div>
 
 <script>
-    $(function(){
+    $(function () {
         dycalendar.draw({
-            target:'#calendar',
-            type:'month',
-            dayformat:'full',
-            monthformat:'full',
-            highlighttargetdate:true,
-            highlighttoday:true,
-            prevnextbutton:'show'
+            target: '#calendar',
+            type: 'month',
+            dayformat: 'full',
+            monthformat: 'full',
+            highlighttargetdate: true,
+            highlighttoday: true,
+            prevnextbutton: 'show'
 
         });
         const selectedDaysList = $("#selectedDaysList");

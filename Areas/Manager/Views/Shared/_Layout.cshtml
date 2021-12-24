@@ -66,11 +66,11 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1 overflow-auto">
+    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1 ">
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="w-100">
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                    <a class="sidenavLinks nav-link d-flex align-items-center justify-content-start @(action=="" ? "active" : "")" href="/">
+                    <a id="dashboardLink" class="sidenavLinks nav-link d-flex align-items-center @(action=="" ? "active" : "")" href="/">
                         <span class="material-icons-round align-middle">dashboard</span> @Resources.Shared._Layout.dashTitle
                     </a>
                 </div>
@@ -94,7 +94,9 @@
                 </div>
             </div>
         </aside>
-        @RenderBody()
+        <div class="w-100 h-100 flex-grow-1 overflow-auto">
+            @RenderBody()
+        </div>
     </main>
 </body>
 <script src="~/js/site.js" asp-append-version="true"></script>

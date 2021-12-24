@@ -26,12 +26,12 @@
     <link href="~/css/Areas/Layout/index.css" rel="stylesheet" />
     <link href="~/css/Areas/Employee/Home/index.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/Furlough.styles.css" rel="stylesheet" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery-3.6.0.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/Areas/Shared/index.js"></script>
     <script src="~/lib/font-awesome-6.0/js/all.min.js"></script>
     <script src="~/lib/ripple-effect/dist/ripples.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 </head>
 
 <body class="d-flex flex-column">
@@ -63,7 +63,7 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1">
+    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1 overflow-auto">
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="w-100">
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
@@ -74,7 +74,9 @@
                 </div>
             </div>
         </aside>
-        @RenderBody()
+        <div class="w-100 h-100 flex-grow-1 overflow-auto">
+            @RenderBody()
+        </div>
     </main>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap-5.1.3-dist/js/bootstrap.js"></script>
