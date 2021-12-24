@@ -43,11 +43,17 @@ namespace Furlough.Areas.Employee.Controllers
                 //after which we get that property from availableDays and get it's value
                 var daysLeft = availableDays.GetType().GetProperty(_contextRequestType.GetById(request.RequestTypeId).Type).GetValue(availableDays);
                 if (daysLeft == null) return BadRequest();
-                if (request.PaidDays > (int)daysLeft)
+                if (request.PaidDays > (int)daysLeft || request.PaidDays < 0)
                 {
                     result = BadRequest("Not enough days left.");
                     return result;
                 }
+
+                return Ok();
+                //if (request.PaidDays)
+                //{
+
+                //}
 
                 request.RequestedByUserId = int.Parse(
                     HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);

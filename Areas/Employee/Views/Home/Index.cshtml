@@ -93,9 +93,10 @@
                                         your request.</span>
                                 </div>
                                 <!--Paid days input-->
+                                <input class="form-control" type="number" placeholder="Paid days" name="paidDays" min="0" hidden/>
                                 <div class="form-floating">
-                                    <input class="form-control" type="number" placeholder="Paid days" name="paidDays" min="0"/>
-                                    <label for="requestType">Paid days</label>
+                                    <input id="selectedDaysNum" type="number" class="form-control" placeholder="Select days" readonly />
+                                    <label for="requestType">No. of days selected</label>
                                     <span id="paidDaysValidate" class="d-none text-danger">Please specify number of paid days.</span>
                                 </div>
                             </div>

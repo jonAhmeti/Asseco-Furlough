@@ -725,7 +725,10 @@ function setCalendarDayEvents() {
                                 </div>`
                     }).join('');
 
-                    $('input[name="paidDays"]').attr('max', selectedDates.length);
+                    const paidDays = $('input[name="paidDays"]');
+                    $(paidDays).attr('max', selectedDates.length);
+                    $(paidDays).val(selectedDates.length);
+                    $("#selectedDaysNum").val(selectedDates.length);
                 }
             });
         }
