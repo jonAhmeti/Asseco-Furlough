@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Furlough.DAL;
 using System.Globalization;
 
 namespace Furlough.Areas.Manager.Controllers
@@ -11,13 +10,18 @@ namespace Furlough.Areas.Manager.Controllers
     [Area("Manager")]
     public class RequestController : Controller
     {
-        private readonly FurloughContext _context;
+        private readonly DAL.User _contextUser;
         private readonly DAL.Request _contextRequest;
+        private readonly DAL.RequestType _contextRequestType;
+        private readonly DAL.RequestStatus _contextRequestStatus;
 
-        public RequestController(FurloughContext context, DAL.Request contextRequest)
+        public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType,
+            DAL.RequestStatus contextRequestStatus, DAL.User contextUser)
         {
-            _context = context;
+            _contextUser = contextUser;
             _contextRequest = contextRequest;
+            _contextRequestType = contextRequestType;
+            _contextRequestStatus = contextRequestStatus;
         }
 
         // GET: Manager/Request
@@ -44,9 +48,9 @@ namespace Furlough.Areas.Manager.Controllers
         // GET: Manager/Request/Create
         public IActionResult Create()
         {
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Id");
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Id");
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type");
+            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type");
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username");
             return View();
         }
 
@@ -59,13 +63,13 @@ namespace Furlough.Areas.Manager.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(request);
-                await _context.SaveChangesAsync();
+                var result =  _contextRequest.Add(request);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Id", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Id", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Id", request.RequestedByUserId);
+
+            ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
+            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
             return View(request);
         }
 
@@ -77,8 +81,8 @@ namespace Furlough.Areas.Manager.Controllers
             {
                 return NotFound();
             }
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Type", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Type", request.RequestTypeId);
+            ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
+            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
             return View(request);
         }
 
@@ -98,12 +102,11 @@ namespace Furlough.Areas.Manager.Controllers
             {
                 try
                 {
-                    _context.Update(request);
-                    await _context.SaveChangesAsync();
+                    var result = _contextRequest.Edit(request);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RequestExists(request.Id))
+                    if (_contextRequest.GetById(id) == null)
                     {
                         return NotFound();
                     }
@@ -114,9 +117,9 @@ namespace Furlough.Areas.Manager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Id", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Id", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Id", request.RequestedByUserId);
+            ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
+            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
             return View(request);
         }
 
@@ -150,20 +153,5 @@ namespace Furlough.Areas.Manager.Controllers
             return LocalRedirect(returnUrl);
         }
 
-        // POST: Manager/Request/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var request = await _context.Requests.FindAsync(id);
-            _context.Requests.Remove(request);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool RequestExists(int id)
-        {
-            return _context.Requests.Any(e => e.Id == id);
-        }
     }
 }

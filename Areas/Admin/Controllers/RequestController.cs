@@ -17,19 +17,23 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly FurloughContext _context;
         private readonly DAL.Request _contextRequest;
         private readonly DAL.RequestType _contextRequestType;
+        private readonly DAL.RequestStatus _contextRequestStatus;
         private readonly DAL.Employee _contextEmployee;
         private readonly ViewModelMapper _vmMapper;
+        private readonly DalMapper _dalMapper;
 
         public RequestController(FurloughContext context, DAL.Request contextRequest, DAL.RequestType contextRequestType,
-            DAL.Employee contextEmployee,
-            ViewModelMapper vmMapper)
+            DAL.Employee contextEmployee, DAL.RequestStatus contextRequestStatus,
+            ViewModelMapper vmMapper, DalMapper dalMapper)
         {
             _context = context;
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
+            _contextRequestStatus = contextRequestStatus;
             _contextEmployee = contextEmployee;
 
             _vmMapper = vmMapper;
+            _dalMapper = dalMapper;
         }
 
         // GET: Admin/Request
@@ -107,7 +111,7 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound($"Employee with user id {request.RequestedByUserId} not found.");
             }
 
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Type", request.RequestStatusId);
+            ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
             ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
             ViewData["Employee"] = employee;
             return View(request);
@@ -129,8 +133,7 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(request);
-                    await _context.SaveChangesAsync();
+                    var result = _contextRequest.Edit(_dalMapper.DalRequestMap(request));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -145,9 +148,9 @@ namespace Furlough.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Id", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Id", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Id", request.RequestedByUserId);
+            ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
+            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Type", request.RequestTypeId);
+            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Username", request.RequestedByUserId);
             return View(request);
         }
 

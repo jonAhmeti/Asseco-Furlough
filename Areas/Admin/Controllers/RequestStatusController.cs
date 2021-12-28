@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
-using Furlough.DAL.Models;
 
 namespace Furlough.Areas.Admin.Controllers
 {
@@ -87,7 +86,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(byte id, [Bind("Id,Type")] RequestStatus requestStatus)
+        public async Task<IActionResult> Edit(byte id, [Bind("Id,Type")] Models.RequestStatus requestStatus)
         {
             if (id != requestStatus.Id)
             {
