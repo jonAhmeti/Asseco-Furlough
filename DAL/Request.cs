@@ -99,6 +99,19 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
+        public bool DeleteById(int id)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_requestDeleteById", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@Id", id);
+
+            connection.Open();
+            return command.ExecuteNonQuery() > 0;
+        }
+
         //Object mapper; reader to model
         public IEnumerable<Models.Request> Mapper(SqlDataReader reader)
         {

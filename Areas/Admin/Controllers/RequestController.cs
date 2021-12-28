@@ -168,9 +168,7 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var request = await _context.Requests.FindAsync(id);
-            _context.Requests.Remove(request);
-            await _context.SaveChangesAsync();
+            var request = _contextRequest.DeleteById(id);
             return RedirectToAction(nameof(Index));
         }
 

@@ -10,8 +10,9 @@
 <div class="w-100 h-100">
     <div class="container-fluid overflow-hidden">
         <div id="infoCardsWrapper" class="position-relative hstack pb-5 justify-content-center">
-            <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft"><i
-                    class="fa-solid fa-arrow-left"></i></div>
+            <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
             <div class="row-cols-1 row-cols-md-3 row-cols-lg-4 p-3 hstack" id="infoCards">
                 @foreach (var item in (IEnumerable<Furlough.DAL.Models.RequestType>)ViewBag.requestTypes)
                 {
@@ -48,20 +49,24 @@
                     }
                     <div class="card m-2" style="width: 18rem;">
                         <div class="card-body">
-                            <div class="card-title fw-bold fs-5"><span class="roundIcon p-2 text-black-50"
-                                style="background-color:@backgroundCircle">@Html.Raw(icon)</span> @localizer[item.Type]
+                            <div class="card-title fw-bold fs-5 pb-1">
+                                <span class="roundIcon p-2 text-black-50"
+                                  style="background-color:@backgroundCircle">@Html.Raw(icon)</span> @localizer[item.Type]
                             </div>
                             @*String format used for selecting parameters from localizer, including reflections for
                                 available days to dynamically get it's properties and values*@
-                            <p class="card-text">@Html.Raw(string.Format(@localizer[item.Type + "Message"].Value,
-                            ViewBag.availableDays.GetType().GetProperty(item.Type).GetValue(ViewBag.availableDays)))</p>
+                            <p class="card-text">
+                                @Html.Raw(string.Format(@localizer[item.Type + "Message"].Value,
+                            ViewBag.availableDays.GetType().GetProperty(item.Type).GetValue(ViewBag.availableDays)))
+                            </p>
                         </div>
                     </div>
 
                 }
             </div>
-            <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowRight"><i
-                    class="fa-solid fa-arrow-right"></i></div>
+            <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowRight">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
         </div>
         <!--Calendar-->
         <section>
@@ -79,26 +84,29 @@
                         </div>
                         <div class="h-100 d-flex">
                             <div class="h-100 py-3 rounded w-100" id="selectedDaysList">
-
                             </div>
                             <div class="position-absolute" id="requestDetailsWrapper">
                                 <!--Type of leave input-->
                                 <div class="form-floating">
                                     <select class="form-select" name="requestType"
-                                        asp-items="@(new SelectList(ViewBag.requestTypes, "Id", "Type"))">
+                                            asp-items="@(new SelectList(ViewBag.requestTypes, "Id", "Type"))">
                                         <option disabled selected value="0">-- Choose type --</option>
                                     </select>
                                     <label for="requestType">Type of leave</label>
-                                    <span id="requestTypeValidate" class="d-none text-danger">Please specify the type of
-                                        your request.</span>
+                                    <span id="requestTypeValidate" class="d-none text-danger">
+                                        Please specify the type of
+                                        your request.
+                                    </span>
                                 </div>
-                                <!--Paid days input-->
-                                <input class="form-control" type="number" placeholder="Paid days" name="paidDays" min="0" hidden/>
+                                <!--Paid days input hidden and total no. of days selected-->
+                                <input class="form-control" type="number" placeholder="Paid days" name="paidDays" min="0" hidden />
                                 <div class="form-floating">
                                     <input id="selectedDaysNum" type="number" class="form-control" placeholder="Select days" readonly />
                                     <label for="requestType">No. of days selected</label>
                                     <span id="paidDaysValidate" class="d-none text-danger">Please specify number of paid days.</span>
                                 </div>
+                                <!---->
+                                <textarea class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
