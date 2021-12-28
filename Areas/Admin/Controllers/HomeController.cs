@@ -7,17 +7,20 @@ namespace Furlough.Areas.Admin.Controllers
     {
         private readonly DAL.Request _contextRequest;
         private readonly DAL.Department _contextDepartment;
+        private readonly DAL.Employee _contextEmployee;
 
-        public HomeController(DAL.Department contextDepartment, DAL.Request contextRequest)
+        public HomeController(DAL.Department contextDepartment, DAL.Request contextRequest, DAL.Employee contextEmployee)
         {
             _contextRequest = contextRequest;
             _contextDepartment = contextDepartment;
+            _contextEmployee = contextEmployee;
         }
         public IActionResult Index()
         {
             ViewBag.requests = _contextRequest.GetAllByRowCount(5);
-
-             return View(_contextDepartment.GetAll());
+            ViewBag.departments = _contextDepartment.GetAll();
+            ViewBag.employees = _contextEmployee.GetAll();
+             return View();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
-@model IEnumerable<Furlough.DAL.Models.Department>
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 
@@ -11,7 +10,7 @@
             <div class="d-flex flex-column w-100 h-100 mb-2 rounded border border-dark">
                 <div class="tabBar">
                     <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded-top">
-                        @foreach (var item in Model)
+                        @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
                         {
                             <div class="tabBarItem col rounded-top">
                                 <a href="">@item.Name</a>
@@ -20,9 +19,23 @@
                     </div>
                     <div class="line"></div>
                 </div>
-                <div class="w-100 h-100">
-                    <div class="h-100 d-flex justify-content-center align-items-center text-center">
-                        <p>GIMME A SHOVEL <br /> LEMME DIG MY OWN GRAVE</p>
+                <div class="d-flex flex-column w-100 h-100 text-center flex-grow-1 overflow-auto">
+                    <ul class="listHeader w-100 row mx-0 mb-0 list-unstyled border-bottom border-2 border-dark">
+                        <li class="col">@localizer["userId"]</li>
+                        <li class="col">@localizer["name"]</li>
+                        <li class="col">@localizer["department"]</li>
+                        <li class="col">@localizer["position"]</li>
+                    </ul>
+                    <div class="w-100 h-100 flex-grow-1 overflow-auto">
+                        @foreach (Furlough.DAL.Models.Employee item in ViewBag.employees)
+                        {
+                            <ul class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
+                                <li class="col">@item.UserId</li>
+                                <li class="col">@item.Name</li>
+                                <li class="col">@item.DepartmentId</li>
+                                <li class="col">@item.PositionId</li>
+                            </ul>
+                        }
                     </div>
                 </div>
             </div>
@@ -30,7 +43,7 @@
         <div class="col my-lg-0 my-2">
             <a asp-area="Admin" asp-controller="Request" asp-action="Index">
                 <div class="w-100 h-100 d-flex flex-column align-items-center text-center rounded border border-dark">
-                    <h2 class="recentRequestHeader  py-5">@localizer["recentRequests"]</h2>
+                    <h2 class="recentRequestHeader py-5">@localizer["recentRequests"]</h2>
                     <div class="w-100 h-100">
                         <ul class="listHeader w-100 row mx-0 list-unstyled">
                             <li class="col-4">@localizer["name"]</li>
