@@ -139,6 +139,6 @@
     <value>Статус</value>
   </data>
   <data name="requestType" xml:space="preserve">
-    <value>Тип</value>
+    <value>Вид на барање</value>
   </data>
 </root>

@@ -133,7 +133,7 @@
     <value>Status</value>
   </data>
   <data name="requestType" xml:space="preserve">
-    <value>Type</value>
+    <value>Type of request</value>
   </data>
   <data name="userId" xml:space="preserve">
     <value>ID</value>

@@ -133,7 +133,7 @@
     <value>Statusi</value>
   </data>
   <data name="requestType" xml:space="preserve">
-    <value>Tipi</value>
+    <value>Lloji i kërkesës</value>
   </data>
   <data name="userId" xml:space="preserve">
     <value>ID</value>
