@@ -111,5 +111,16 @@ namespace Resources.Shared {
                 return ResourceManager.GetString("roleTitle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string userTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("userTitle", resourceCulture);
+            }
+        }
     }
 }

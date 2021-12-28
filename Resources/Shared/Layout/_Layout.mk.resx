@@ -135,4 +135,7 @@
   <data name="roleTitle" xml:space="preserve">
     <value>Улога</value>
   </data>
+  <data name="userTitle" xml:space="preserve">
+    <value>User</value>
+  </data>
 </root>
