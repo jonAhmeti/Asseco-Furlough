@@ -126,8 +126,8 @@
   <data name="pageTitle" xml:space="preserve">
     <value>Детали за барање</value>
   </data>
-  <data name="paidDays" xml:space="preserve">
-    <value>Платени денови</value>
+  <data name="requestDaysAmount" xml:space="preserve">
+    <value>Оставете денови</value>
   </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Барано време</value>

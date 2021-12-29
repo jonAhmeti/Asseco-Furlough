@@ -126,8 +126,8 @@
   <data name="pageTitle" xml:space="preserve">
     <value>Krijo kërkesë</value>
   </data>
-  <data name="paidDays" xml:space="preserve">
-    <value>Ditë të paguara</value>
+  <data name="requestDaysAmount" xml:space="preserve">
+    <value>Ditët e pushimit</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
     <value>Statusi</value>

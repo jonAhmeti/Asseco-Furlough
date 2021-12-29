@@ -120,11 +120,11 @@
   <data name="employeeName" xml:space="preserve">
     <value>Punëtori</value>
   </data>
+  <data name="requestDaysAmount" xml:space="preserve">
+    <value>Ditët e pushimit</value>
+  </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Koha e kërkesës</value>
-  </data>
-  <data name="requestPaidDays" xml:space="preserve">
-    <value>Ditet e paguara</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
     <value>Statusi</value>

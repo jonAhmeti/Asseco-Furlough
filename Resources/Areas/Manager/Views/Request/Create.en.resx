@@ -126,8 +126,8 @@
   <data name="pageTitle" xml:space="preserve">
     <value>Request Create</value>
   </data>
-  <data name="paidDays" xml:space="preserve">
-    <value>Paid Days</value>
+  <data name="requestDaysAmount" xml:space="preserve">
+    <value>Leave days</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
     <value>Status</value>

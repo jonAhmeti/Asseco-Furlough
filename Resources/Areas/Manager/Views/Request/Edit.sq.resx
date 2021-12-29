@@ -123,8 +123,8 @@
   <data name="pageTitle" xml:space="preserve">
     <value>Azhurimi i kërkesës</value>
   </data>
-  <data name="paidDays" xml:space="preserve">
-    <value>Ditë të paguara</value>
+  <data name="requestDaysAmount" xml:space="preserve">
+    <value>Ditët e pushimit</value>
   </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Koha e kërkesës</value>
