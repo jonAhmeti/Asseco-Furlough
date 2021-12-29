@@ -117,25 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dashTitle" xml:space="preserve">
-    <value>ДОМА</value>
+  <data name="insertDate" xml:space="preserve">
+    <value>Insert Date</value>
   </data>
-  <data name="depTitle" xml:space="preserve">
-    <value>оддел</value>
+  <data name="pageTitle" xml:space="preserve">
+    <value>User Details</value>
   </data>
-  <data name="empTitle" xml:space="preserve">
-    <value>Вработен</value>
+  <data name="role" xml:space="preserve">
+    <value>Role</value>
   </data>
-  <data name="posTitle" xml:space="preserve">
-    <value>Позиција</value>
+  <data name="updateDate" xml:space="preserve">
+    <value>Update Date</value>
   </data>
-  <data name="reqTitle" xml:space="preserve">
-    <value>Барање</value>
-  </data>
-  <data name="roleTitle" xml:space="preserve">
-    <value>Улога</value>
-  </data>
-  <data name="userTitle" xml:space="preserve">
-    <value>Корисници</value>
+  <data name="username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

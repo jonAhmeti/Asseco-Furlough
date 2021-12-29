@@ -19,14 +19,14 @@
                     </div>
                     <div class="line"></div>
                 </div>
-                <div class="d-flex flex-column w-100 h-100 text-center flex-grow-1 overflow-auto">
+                <div class="d-flex flex-column w-100 h-100 text-center">
                     <ul class="listHeader w-100 row mx-0 mb-0 list-unstyled border-bottom border-2 border-dark">
                         <li class="col">@localizer["userId"]</li>
                         <li class="col">@localizer["name"]</li>
                         <li class="col">@localizer["department"]</li>
                         <li class="col">@localizer["position"]</li>
                     </ul>
-                    <div class="w-100 h-100 flex-grow-1 overflow-auto">
+                    <div class="w-100 flex-grow-1 overflow-auto" style="height: 500px;">
                         @foreach (Furlough.DAL.Models.Employee item in ViewBag.employees)
                         {
                             <ul class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">

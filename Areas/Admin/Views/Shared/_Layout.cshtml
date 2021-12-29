@@ -33,7 +33,7 @@
     <script src="~/lib/ripple-effect/dist/ripples.js"></script>
 </head>
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-column overflow-hidden">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow">
             <div class="container-fluid justify-content-around">
@@ -65,12 +65,11 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1 overflow-auto">
+    <main role="main" class="d-flex flex-row row-cols-12">
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="w-100">
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                    <a id="dashboardLink" class="sidenavLinks nav-link d-flex align-items-center @(action=="" ? "active" : "")" asp-area="Admin"
-                        asp-controller="Home" asp-action="Index">
+                    <a id="dashboardLink" class="sidenavLinks nav-link d-flex align-items-center @(action=="" ? "active" : "")" href="/">
                         <span class="material-icons-round align-middle">dashboard</span> @Resources.Shared._Layout.dashTitle
                     </a>
                 </div>
@@ -83,13 +82,13 @@
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
                     <a class="sidenavLinks nav-link @(action=="User" ? "active" : "")" asp-area="Admin"
                         asp-controller="User" asp-action="Index">
-                        <i class="fas fa-building"></i> @Resources.Shared._Layout.userTitle
+                        <i class="fas fa-user-friends"></i> @Resources.Shared._Layout.userTitle
                     </a>
                 </div>
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
                     <a class="sidenavLinks nav-link @(action=="Employee" ? "active" : "")" asp-area="Admin"
                         asp-controller="Employee" asp-action="Index">
-                        <i class="fas fa-user-friends"></i> @Resources.Shared._Layout.empTitle
+                        <i class="fas fa-user-tie"></i> @Resources.Shared._Layout.empTitle
                     </a>
                 </div>
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
@@ -112,7 +111,7 @@
                 </div>
             </div>
         </aside>
-        <div class="w-100 h-100 flex-grow-1 overflow-auto">
+        <div class="w-100 h-100" style="overflow-x: hidden;">
             @RenderBody()
         </div>
     </main>

@@ -15,13 +15,16 @@ namespace Furlough.Areas.Admin.Controllers
     {
         private readonly FurloughContext _context;
         private readonly DAL.User _contextUser;
+        private readonly DAL.Role _contextRole;
         private readonly Models.Mapper.DalMapper _dalMapper;
         private readonly Models.Mapper.ViewModelMapper _vmMapper;
-        public UserController(FurloughContext context, DAL.User contextUser,
+        public UserController(FurloughContext context, DAL.User contextUser, DAL.Role contextRole,
             Models.Mapper.DalMapper dalMapper, Models.Mapper.ViewModelMapper vmMapper)
         {
             _context = context;
             _contextUser = contextUser;
+            _contextRole = contextRole;
+
             _dalMapper = dalMapper;
             _vmMapper = vmMapper;
         }
@@ -59,7 +62,7 @@ namespace Furlough.Areas.Admin.Controllers
         // GET: Admin/User/Create
         public IActionResult Create()
         {
-            ViewData["Roles"] = new SelectList(_context.Roles, "Id", "Title");
+            ViewData["Roles"] = new SelectList(_contextRole.GetAll(), "Id", "Title");
             return View();
         }
 
@@ -77,27 +80,22 @@ namespace Furlough.Areas.Admin.Controllers
                 _contextUser.Add(_dalMapper.DalUserMap(user));
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
-            ViewData["UpdateBy"] = new SelectList(_context.Users, "Id", "Id", user.UpdateBy);
+            ViewData["RoleId"] = new SelectList(_contextRole.GetAll(), "Id", "Title", user.RoleId);
+            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.UpdateBy);
             return View(user);
         }
 
         // GET: Admin/User/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = _vmMapper.UserMap(_contextUser.GetById(id.Value));
+            var user = _vmMapper.UserMap(_contextUser.GetById(id));
             if (user == null)
             {
                 return NotFound();
             }
 
-            ViewData["Roles"] = new SelectList(_context.Roles, "Id", "Title", user.RoleId);
-            ViewData["UpdateBy"] = new SelectList(_context.Users, "Id", "Id", user.UpdateBy);
+            ViewData["Roles"] = new SelectList(_contextRole.GetAll(), "Id", "Title", user.RoleId);
+            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.UpdateBy);
             return View(user);
         }
 
@@ -123,68 +121,27 @@ namespace Furlough.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
-                    if (!UserExists(user.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error in UserController of Admin Area onEdit: " + e.Message);
-                        Console.ResetColor();
-                    }
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error in UserController of Admin Area onEdit: " + e.Message);
+                    Console.ResetColor();
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Roles"] = new SelectList(_context.Roles, "Id", "Title", user.RoleId);
-            ViewData["UpdateBy"] = new SelectList(_context.Users, "Id", "Id", user.UpdateBy);
+            ViewData["Roles"] = new SelectList(_contextRole.GetAll(), "Id", "Title", user.RoleId);
+            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.UpdateBy);
             return View(user);
         }
 
         // GET: Admin/User/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.Users
-                .Include(u => u.Role)
-                .Include(u => u.UpdateByNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = _contextUser.GetById(id);
             if (user == null)
             {
                 return NotFound();
             }
-
+            var result = _contextUser.Delete(user.Id);
             return View(user);
-        }
-
-        // POST: Admin/User/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            //var user = await _context.Users.FindAsync(id);
-            //_context.Users.Remove(user);
-            //await _context.SaveChangesAsync();
-            try
-            {
-                var result = _contextUser.Delete(id);
-            }
-            catch (Exception e)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error in UserController of Admin Area onDelete: " + e.Message);
-                Console.ResetColor();
-            }
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Furlough.Areas.Manager.Controllers
 {
@@ -9,33 +6,18 @@ namespace Furlough.Areas.Manager.Controllers
     public class HomeController : Controller
     {
         private readonly DAL.Request _contextRequest;
+        private readonly DAL.Employee _contextEmployee;
 
-        public HomeController(DAL.Request contextRequest)
+        public HomeController(DAL.Request contextRequest, DAL.Employee contextEmployee)
         {
             _contextRequest = contextRequest;
+            _contextEmployee = contextEmployee;
         }
         public IActionResult Index()
         {
             ViewBag.requests = _contextRequest.GetAllByRowCount(5);
+            ViewBag.employees = _contextEmployee.GetAll();
             return View();
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-
-        public IActionResult ChangeLang(string lang, string returnUrl)
-        {
-            var cultureInfo = new CultureInfo(lang);
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-
-            this.HttpContext.Response.Cookies.Append
-            (
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(lang))
-            );
-
-            return LocalRedirect(returnUrl);
         }
     }
 }
