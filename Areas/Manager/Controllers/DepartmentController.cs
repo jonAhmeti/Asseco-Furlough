@@ -164,24 +164,6 @@ namespace Furlough.Areas.Manager.Controllers
             return true;
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-
-        public IActionResult ChangeLang(string lang, string returnUrl)
-        {
-            var cultureInfo = new CultureInfo(lang);
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-
-            this.HttpContext.Response.Cookies.Append
-            (
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(lang))
-            );
-
-            return LocalRedirect(returnUrl);
-        }
-
         [HttpPut]
         public bool UpdateEmployeePosition(int employeeId, int positionId)
         {
