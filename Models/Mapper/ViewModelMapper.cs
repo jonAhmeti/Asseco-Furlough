@@ -82,11 +82,12 @@
             {
                 Id = obj.Id,
                 Dates = datesArray,
-                PaidDays = obj.PaidDays,
+                DaysAmount = obj.DaysAmount,
                 RequestedByUserId = obj.RequestedByUserId,
                 RequestTypeId = obj.RequestTypeId,
                 RequestedOn = obj.RequestedOn,
-                RequestStatusId = obj.RequestStatusId
+                RequestStatusId = obj.RequestStatusId,
+                Reason = obj.Reason
             };
         }
     }

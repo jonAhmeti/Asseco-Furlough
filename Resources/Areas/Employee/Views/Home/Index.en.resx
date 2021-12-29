@@ -135,6 +135,9 @@
   <data name="ChildMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;You're allowed to spend 3 days if you have a child younger than 3 years old.</value>
   </data>
+  <data name="chooseType" xml:space="preserve">
+    <value>Choose type</value>
+  </data>
   <data name="DeathOfRelative" xml:space="preserve">
     <value>Days for a relative's death</value>
   </data>
@@ -159,11 +162,26 @@
   <data name="MedicalMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;You can take medical leave for health reasons. Requirements: Doctor's prescription.</value>
   </data>
+  <data name="noDaysSelected" xml:space="preserve">
+    <value>No. of days selected</value>
+  </data>
   <data name="Overtime" xml:space="preserve">
     <value>Bonus overtime days</value>
   </data>
   <data name="OvertimeMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Here are the days you've earned from working overtime so far.</value>
+  </data>
+  <data name="reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="reasonValidate" xml:space="preserve">
+    <value>Please specify a reason for requesting unpaid leave. Must be longer than 10 characters.</value>
+  </data>
+  <data name="requestType" xml:space="preserve">
+    <value>Type of leave</value>
+  </data>
+  <data name="requestTypeValidate" xml:space="preserve">
+    <value>Please specify the type of your request.</value>
   </data>
   <data name="selectedDaysHeader" xml:space="preserve">
     <value>Selected days</value>

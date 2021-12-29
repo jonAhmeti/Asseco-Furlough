@@ -144,7 +144,21 @@ aside {
 #requestDetailsWrapper {
     left: 0%;
     z-index: 1;
-    min-width: 200px;
+    min-width: 250px;
+}
+
+    #requestDetailsWrapper textarea {
+        min-height: 100px;
+        max-height: 250px;
+    }
+
+#labelReason {
+    background-color: white;
+    width: 100%;
+    height: auto;
+    margin-top: 7px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 #calendarWrapper {

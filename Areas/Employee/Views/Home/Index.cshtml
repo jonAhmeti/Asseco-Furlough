@@ -86,27 +86,29 @@
                             <div class="h-100 py-3 rounded w-100" id="selectedDaysList">
                             </div>
                             <div class="position-absolute" id="requestDetailsWrapper">
+                                 <!--Paid days input hidden and total no. of days selected-->
+                                <input class="form-control" type="number" placeholder="Paid days" name="paidDays" min="0" hidden />
+                                <div class="form-floating">
+                                    <input id="selectedDaysNum" type="number" class="form-control" placeholder="@localizer["noDaysSelected"]" readonly />
+                                    <label class="text-nowrap">@localizer["noDaysSelected"]</label>
+                                </div>
                                 <!--Type of leave input-->
                                 <div class="form-floating">
                                     <select class="form-select" name="requestType"
                                             asp-items="@(new SelectList(ViewBag.requestTypes, "Id", "Type"))">
-                                        <option disabled selected value="0">-- Choose type --</option>
+                                        <option disabled selected value="0">-- @localizer["chooseType"] --</option>
                                     </select>
-                                    <label for="requestType">Type of leave</label>
+                                    <label for="requestType" class="text-nowrap">@localizer["requestType"]</label>
                                     <span id="requestTypeValidate" class="d-none text-danger">
-                                        Please specify the type of
-                                        your request.
+                                        @localizer["requestTypeValidate"]
                                     </span>
                                 </div>
-                                <!--Paid days input hidden and total no. of days selected-->
-                                <input class="form-control" type="number" placeholder="Paid days" name="paidDays" min="0" hidden />
+                                <!--Reason input for unpaid leave is a requirement-->
                                 <div class="form-floating">
-                                    <input id="selectedDaysNum" type="number" class="form-control" placeholder="Select days" readonly />
-                                    <label for="requestType">No. of days selected</label>
-                                    <span id="paidDaysValidate" class="d-none text-danger">Please specify number of paid days.</span>
+                                    <textarea id="unpaidReason" name="Reason" class="form-control"></textarea>
+                                    <label id="labelReason" for="Reason" class="text-nowrap">@localizer["reason"]</label>
+                                    <span id="reasonValidate" class="d-none text-danger">@localizer["reasonValidate"]</span>
                                 </div>
-                                <!---->
-                                <textarea class="form-control"></textarea>
                             </div>
                         </div>
                     </div>

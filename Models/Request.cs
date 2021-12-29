@@ -10,7 +10,8 @@ namespace Furlough.Models
         public int RequestedByUserId { get; set; }
         public DateTime RequestedOn { get; set; }
         public byte RequestStatusId { get; set; }
-        public int PaidDays { get; set; }
+        public int DaysAmount { get; set; }
         public int RequestTypeId { get; set; }
+        public string Reason { get; set; }
     }
 }

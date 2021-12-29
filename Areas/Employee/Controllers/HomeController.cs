@@ -43,24 +43,20 @@ namespace Furlough.Areas.Employee.Controllers
                 //after which we get that property from availableDays and get it's value
                 var daysLeft = availableDays.GetType().GetProperty(_contextRequestType.GetById(request.RequestTypeId).Type).GetValue(availableDays);
                 if (daysLeft == null) return BadRequest();
-                if (request.PaidDays > (int)daysLeft || request.PaidDays < 0)
+
+                //RequestTypeId = 8 is Unpaid Type
+                if (request.RequestTypeId != 8 && (request.DaysAmount > (int)daysLeft || request.DaysAmount < 0))
                 {
                     result = BadRequest("Not enough days left.");
                     return result;
                 }
-
-                return Ok();
-                //if (request.PaidDays)
-                //{
-
-                //}
 
                 request.RequestedByUserId = int.Parse(
                     HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
                 
                 result = _contextRequest.Add(_dalMapper.DalRequestMap(request)) ? Ok() : StatusCode(500, "Something went wrong while adding your request");
                 var dbResult = _contextAvailableDays    //deduct days left from requested paidDays
-                    .SetDays(employeeId, _contextRequestType.GetById(request.RequestTypeId).Type, (int)daysLeft - request.PaidDays);
+                    .SetDays(employeeId, _contextRequestType.GetById(request.RequestTypeId).Type, (int)daysLeft - request.DaysAmount);
             }
             catch (Exception e)
             {

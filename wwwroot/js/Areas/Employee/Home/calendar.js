@@ -596,9 +596,12 @@ dayNames = {
             const paidDays = $('input[name="paidDays"]');
             const paidDaysValidate = $('#paidDaysValidate');
             const requestTypeValidate = $('#requestTypeValidate');
+            const unpaidReason = $('#unpaidReason');
+            const unpaidReasonValidate = $('#reasonValidate');
 
+            let unpaidReasonVal = unpaidReason.val();
             //Validation for requestType and paidDays inputs
-            if (requestType.val() == null || paidDays.val() == null || $.trim(paidDays.val()) == '') {
+            if (requestType.val() == null || (requestType.val() === "8" && unpaidReasonVal.length < 10) || paidDays.val() == null || $.trim(paidDays.val()) == '') {
                 if (!$.isNumeric(paidDays.val())) {
                     console.log('paidDays is not Numeric');
 
@@ -619,6 +622,17 @@ dayNames = {
                         $(requestTypeValidate).addClass("d-none");
                     });
                 }
+
+                if (unpaidReasonVal.length < 10) {
+                    console.log('invalid reason for unpaid request type, length: ' + unpaidReasonVal.length);
+
+                    $(unpaidReason).addClass("border-danger");
+                    $(unpaidReasonValidate).removeClass("d-none");
+                    $(unpaidReason).on('focus', function () {
+                        $(this).removeClass("border-danger");
+                        $(unpaidReasonValidate).addClass("d-none");
+                    });
+                }
                 return;
             }
 
@@ -632,7 +646,7 @@ dayNames = {
             $.ajax({
                 method: 'POST',
                 url: '/Employee/Home/SubmitRequest',
-                data: { Dates: tempArray, RequestTypeId: requestType.val(), PaidDays: paidDays.val() },
+                data: { Dates: tempArray, RequestTypeId: requestType.val(), DaysAmount: paidDays.val(), Reason: unpaidReasonVal },
                 success: function (result) {
                     $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
                     $(toastBody).html("Request submitted successfully.");

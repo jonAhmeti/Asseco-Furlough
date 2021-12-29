@@ -21,7 +21,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Dates", obj.Dates);
             command.Parameters.AddWithValue("@RequestedByUserId", obj.RequestedByUserId);
             command.Parameters.AddWithValue("@RequestStatusId", obj.RequestStatusId);
-            command.Parameters.AddWithValue("@PaidDays", obj.PaidDays);
+            command.Parameters.AddWithValue("@DaysAmount", obj.DaysAmount);
             command.Parameters.AddWithValue("@RequestTypeId", obj.RequestTypeId);
 
             connection.Open();
@@ -38,7 +38,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Dates", obj.Dates);
             command.Parameters.AddWithValue("@RequestedByUserId", obj.RequestedByUserId);
             command.Parameters.AddWithValue("@RequestStatusId", obj.RequestStatusId);
-            command.Parameters.AddWithValue("@PaidDays", obj.PaidDays);
+            command.Parameters.AddWithValue("@DaysAmount", obj.DaysAmount);
             command.Parameters.AddWithValue("@RequestTypeId", obj.RequestTypeId);
 
             connection.Open();
@@ -124,11 +124,12 @@ namespace Furlough.DAL
                     {
                         Id = reader.GetInt32("Id"),
                         Dates = reader.GetString("Dates"),
-                        PaidDays = reader.GetInt32("PaidDays"),
+                        DaysAmount = reader.GetInt32("DaysAmount"),
                         RequestedByUserId = reader.GetInt32("RequestedByUserId"),
                         RequestedOn = reader.GetDateTime("RequestedOn"),
                         RequestStatusId = reader.GetByte("RequestStatusId"),
-                        RequestTypeId = reader.GetInt32("RequestTypeId")
+                        RequestTypeId = reader.GetInt32("RequestTypeId"),
+                        Reason = reader.GetString("Reason")
                     });
                 }
                 return listObj;
@@ -157,7 +158,7 @@ namespace Furlough.DAL
                         EmployeeId = reader.GetInt32("EmployeeId"),
                         EmployeePositionId = reader.GetInt32("EmployeePositionId"),
                         RequestStatusId = reader.GetByte("RequestStatusId"),
-                        RequestPaidDays = reader.GetInt32("RequestPaidDays")
+                        RequestDaysAmount = reader.GetInt32("RequestDaysAmount")
                     });
                 }
                 return listObj;
