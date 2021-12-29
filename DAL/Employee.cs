@@ -147,7 +147,8 @@ namespace Furlough.DAL
                         DepartmentId = reader.GetInt32("DepartmentId"),
                         Email = reader.GetString("Email"),
                         JoinDate = reader.GetDateTime("JoinDate"),
-                        Phone = reader["Phone"] == DBNull.Value ? null : reader.GetString("Phone")
+                        Phone = reader["Phone"] == DBNull.Value ? null : reader.GetString("Phone"),
+                        WorkStartDate = reader["WorkStartDate"] == DBNull.Value ? DateTime.MinValue : reader.GetDateTime("WorkStartDate")
                     });
                 }
                 return listObj;

@@ -33,7 +33,7 @@
                         <label asp-for="RequestTypeId">@localizer["requestType"]</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input asp-for="Dates" class="form-control" />
+                        <input asp-for="Dates" class="form-control datepicker" />
                         <label asp-for="Dates">@localizer["dateFrom"]</label>
                         <span asp-validation-for="Dates" class="text-danger"></span>
                     </div>
@@ -57,3 +57,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/js/Areas/Manager/Request/create.js"></script>

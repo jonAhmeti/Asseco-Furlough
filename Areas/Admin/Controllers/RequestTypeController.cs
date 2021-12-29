@@ -7,35 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
 using Furlough.DAL.Models;
+using Furlough.Models.Mapper;
 
 namespace Furlough.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class RequestTypeController : Controller
     {
-        private readonly FurloughContext _context;
+        private readonly DAL.RequestType _contextRequestType;
+        private readonly DalMapper _dalMapper;
 
-        public RequestTypeController(FurloughContext context)
+        public RequestTypeController(DAL.RequestType contextRequestType,
+            DalMapper dalMapper)
         {
-            _context = context;
+            _contextRequestType = contextRequestType;
+            _dalMapper = dalMapper;
         }
 
         // GET: Admin/RequestType
         public async Task<IActionResult> Index()
         {
-            return View(await _context.RequestTypes.ToListAsync());
+            return View(_contextRequestType.GetAll());
         }
 
         // GET: Admin/RequestType/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var requestType = await _context.RequestTypes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var requestType = _contextRequestType.GetById(id);
             if (requestType == null)
             {
                 return NotFound();
@@ -59,22 +57,16 @@ namespace Furlough.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(requestType);
-                await _context.SaveChangesAsync();
+                var result = _contextRequestType.Add(_dalMapper.DalRequestTypeMap(requestType));
                 return RedirectToAction(nameof(Index));
             }
             return View(requestType);
         }
 
         // GET: Admin/RequestType/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var requestType = await _context.RequestTypes.FindAsync(id);
+            var requestType = _contextRequestType.GetById(id);
             if (requestType == null)
             {
                 return NotFound();
@@ -98,19 +90,14 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(requestType);
-                    await _context.SaveChangesAsync();
+                    var result = _contextRequestType.Edit(_dalMapper.DalRequestTypeMap(requestType));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception e)
                 {
-                    if (!RequestTypeExists(requestType.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                   Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(e.Message);
+                    Console.ResetColor();
+                    return BadRequest(e.Message);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -118,15 +105,9 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/RequestType/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var requestType = await _context.RequestTypes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var requestType = _contextRequestType.GetById(id);
             if (requestType == null)
             {
                 return NotFound();
@@ -140,15 +121,9 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var requestType = await _context.RequestTypes.FindAsync(id);
-            _context.RequestTypes.Remove(requestType);
-            await _context.SaveChangesAsync();
+            var requestType = _contextRequestType.GetById(id);
+            var result = _contextRequestType.Delete(requestType.Id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool RequestTypeExists(int id)
-        {
-            return _context.RequestTypes.Any(e => e.Id == id);
         }
     }
 }

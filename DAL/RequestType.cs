@@ -24,6 +24,29 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader());
         }
 
+        public bool Delete(int id)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_requestTypeDelete", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Id", id);
+
+                connection.Open();
+                return command.ExecuteNonQuery() > 0;
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+                return false;
+            }
+            
+        }
         public Models.RequestType GetById(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());
@@ -37,6 +60,55 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
+        public bool Add(Models.RequestType obj)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_requestTypeAdd", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Type", obj.Type);
+                command.Parameters.AddWithValue("@Description", obj.Description);
+
+                connection.Open();
+                return command.ExecuteNonQuery() > 0;
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+
+                return false;
+            }
+        }
+        public bool Edit(Models.RequestType obj)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_requestTypeEdit", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Id", obj.Id);
+                command.Parameters.AddWithValue("@Type", obj.Type);
+                command.Parameters.AddWithValue("@Description", obj.Description);
+
+                connection.Open();
+                return command.ExecuteNonQuery() > 0;
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+
+                return false;
+            }
+        }
         //Object mapper; reader to model
         public IEnumerable<Models.RequestType> Mapper(SqlDataReader reader)
         {
@@ -48,7 +120,7 @@ namespace Furlough.DAL
                     listObj.Add(new Models.RequestType()
                     {
                         Id = reader.GetInt32("Id"),
-                        Type = reader.GetString("Type")
+                        Type = reader.GetString("Type"),
                     });
                 }
                 return listObj;

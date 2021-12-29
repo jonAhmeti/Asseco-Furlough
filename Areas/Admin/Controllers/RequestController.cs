@@ -14,7 +14,7 @@ namespace Furlough.Areas.Admin.Controllers
     [Area("Admin")]
     public class RequestController : Controller
     {
-        private readonly FurloughContext _context;
+        private readonly DAL.User _contextUser;
         private readonly DAL.Request _contextRequest;
         private readonly DAL.RequestType _contextRequestType;
         private readonly DAL.RequestStatus _contextRequestStatus;
@@ -22,11 +22,11 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
 
-        public RequestController(FurloughContext context, DAL.Request contextRequest, DAL.RequestType contextRequestType,
+        public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.User contextUser,
             DAL.Employee contextEmployee, DAL.RequestStatus contextRequestStatus,
             ViewModelMapper vmMapper, DalMapper dalMapper)
         {
-            _context = context;
+            _contextUser = contextUser;
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
             _contextRequestStatus = contextRequestStatus;
@@ -72,9 +72,9 @@ namespace Furlough.Areas.Admin.Controllers
         // GET: Admin/Request/Create
         public IActionResult Create()
         {
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Id");
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Id");
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type");
+            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type");
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username");
             return View();
         }
 
@@ -87,13 +87,12 @@ namespace Furlough.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(request);
-                await _context.SaveChangesAsync();
+                var result = _contextRequest.Add(_dalMapper.DalRequestMap(request));
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RequestStatusId"] = new SelectList(_context.RequestStatuses, "Id", "Id", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Id", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Id", request.RequestedByUserId);
+            ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
+            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
             return View(request);
         }
 
@@ -137,7 +136,7 @@ namespace Furlough.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RequestExists(request.Id))
+                    if (_contextRequest.GetById(id) == null)
                     {
                         return NotFound();
                     }
@@ -149,8 +148,8 @@ namespace Furlough.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_context.RequestTypes, "Id", "Type", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_context.Users, "Id", "Username", request.RequestedByUserId);
+            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
             return View(request);
         }
 
@@ -173,11 +172,6 @@ namespace Furlough.Areas.Admin.Controllers
         {
             var request = _contextRequest.DeleteById(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool RequestExists(int id)
-        {
-            return _context.Requests.Any(e => e.Id == id);
         }
     }
 }

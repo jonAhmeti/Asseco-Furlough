@@ -29,7 +29,8 @@ namespace Furlough.Models.Mapper
                 PositionId = obj.PositionId,
                 DepartmentId = obj.DepartmentId,
                 JoinDate = obj.JoinDate,
-                Phone = obj.Phone
+                Phone = obj.Phone,
+                WorkStartDate = obj.WorkStartDate,
             };
         }
 
@@ -97,6 +98,16 @@ namespace Furlough.Models.Mapper
                 RequestTypeId = obj.RequestTypeId,
                 Dates = datesString,
                 Reason = obj.Reason
+            };
+        }
+
+        public DAL.Models.RequestType DalRequestTypeMap(RequestType obj)
+        {
+            return new DAL.Models.RequestType
+            {
+                Id = obj.Id,
+                Type = obj.Type,
+                Description = obj.Description
             };
         }
     }
