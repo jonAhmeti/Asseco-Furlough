@@ -120,11 +120,11 @@
   <data name="employeeName" xml:space="preserve">
     <value>Employee</value>
   </data>
+  <data name="requestDaysAmount" xml:space="preserve">
+    <value>Leave days</value>
+  </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Requested Time</value>
-  </data>
-  <data name="requestPaidDays" xml:space="preserve">
-    <value>Paid Days</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
     <value>Status</value>

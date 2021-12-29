@@ -120,11 +120,11 @@
   <data name="dates" xml:space="preserve">
     <value>Dates</value>
   </data>
-  <data name="pageTitle" xml:space="preserve">
-    <value>Побарајте уредување</value>
-  </data>
   <data name="paidDays" xml:space="preserve">
     <value>Платени денови</value>
+  </data>
+  <data name="requestDaysAmount" xml:space="preserve">
+    <value>Оставете денови</value>
   </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Барано време</value>

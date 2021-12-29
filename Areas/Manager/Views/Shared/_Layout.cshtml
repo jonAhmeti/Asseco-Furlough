@@ -66,7 +66,7 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="d-flex flex-row row-cols-12">
+    <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1" style="overflow-y: auto; overflow-x: hidden;">
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="w-100">
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </aside>
-        <div class="w-100 h-100" style="overflow-x: hidden;">
+        <div class="w-100 h-100 flex-auto-1" style="overflow-y: auto; overflow-x: hidden;">
             @RenderBody()
         </div>
     </main>

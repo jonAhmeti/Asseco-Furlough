@@ -120,11 +120,11 @@
   <data name="employeeName" xml:space="preserve">
     <value>Вработен</value>
   </data>
+  <data name="requestDaysAmount" xml:space="preserve">
+    <value>Оставете денови</value>
+  </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Барано време</value>
-  </data>
-  <data name="requestPaidDays" xml:space="preserve">
-    <value>Платени денови</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
     <value>Статус</value>
