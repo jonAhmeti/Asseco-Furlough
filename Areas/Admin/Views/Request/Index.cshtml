@@ -8,13 +8,12 @@
 }
 
 <div class="container-fluid p-0 mt-5">
-    <div class="w-100 d-flex justify-content-center"> @*//change d-none*@
-        <div
-            class="blue-gradient-div shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
+    <div class="w-100 d-flex justify-content-center">
+        <div class="blue-gradient-div shadow rounded-pill py-2 mx-4 d-flex justify-content-center align-items-center">
             <h2 class="text-white mx-3">@Resources.Shared._Layout.reqTitle</h2>
         </div>
     </div>
-    <div class="w-75 m-auto">
+    <div class="w-75 m-auto overflow-auto shadow border rounded" style="margin-top:-2rem !important;">
         <table class="table rounded">
             <thead>
                 <tr>
@@ -24,7 +23,7 @@
                     <th>@localizer["requestDaysAmount"]</th>
                     <th class="text-center">
                         <a class="mx-1 text-primary px-4 rounded border border-primary"
-                            asp-action="Create">@Resources.Shared._Table.create</a>
+                           asp-action="Create">@Resources.Shared._Table.create</a>
                     </th>
                 </tr>
             </thead>
@@ -54,11 +53,11 @@
                         </td>
                         <td class="text-center align-middle">
                             <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
-                            asp-route-id="@item.RequestId">
+                           asp-route-id="@item.RequestId">
                                 @Resources.Shared._Table.edit
                             </a>
                             <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
-                            asp-route-id="@item.RequestId">
+                           asp-route-id="@item.RequestId">
                                 @Resources.Shared._Table.delete
                             </a>
                         </td>
@@ -68,12 +67,12 @@
                 }
             </tbody>
         </table>
-        </div>
+    </div>
 </div>
 
 <!--DataTables-->
 <script src="~/lib/DataTables/datatables.min.js"></script>
 <link rel="stylesheet" href="~/lib/DataTables/datatables.min.css" />
 
-<link rel="stylesheet" href="~/css/Areas/Admin/Shared/dataTables.css"/>
-<script src="~/js/Areas/Admin/"></script>
+<link rel="stylesheet" href="~/css/Areas/Admin/Shared/dataTables.css" />
+<script src="~/js/Areas/Admin/Request/dataTables.js"></script>
