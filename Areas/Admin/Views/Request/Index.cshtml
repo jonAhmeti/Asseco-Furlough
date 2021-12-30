@@ -8,16 +8,15 @@
 }
 
 <div class="container-fluid p-0 mt-5">
-    <div class="w-100 d-flex justify-content-center d-none"> @*//change d-none*@
+    <div class="w-100 d-flex justify-content-center"> @*//change d-none*@
         <div
             class="blue-gradient-div shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
             <h2 class="text-white mx-3">@Resources.Shared._Layout.reqTitle</h2>
         </div>
     </div>
-    <div class="employeeRequestTableDiv w-100 d-flex justify-content-center">
+    <div class="w-75 m-auto">
         <table class="table rounded">
             <thead>
-                <tr id="buttonsContainer"></tr>
                 <tr>
                     <th>@localizer["employeeName"]</th>
                     <th>@localizer["requestedTime"]</th>
@@ -69,16 +68,12 @@
                 }
             </tbody>
         </table>
-    </div>
+        </div>
 </div>
+
+<!--DataTables-->
 <script src="~/lib/DataTables/datatables.min.js"></script>
 <link rel="stylesheet" href="~/lib/DataTables/datatables.min.css" />
-<script>
-    $(function(){
-        var table = $(".table").DataTable({
-            dom: "<'d-flex flex-column border rounded'B<'d-flex justify-content-center my-2'f><t>p>",
-            buttons: true
-        });
 
-    });
-</script>
+<link rel="stylesheet" href="~/css/Areas/Admin/Shared/dataTables.css"/>
+<script src="~/js/Areas/Admin/"></script>
