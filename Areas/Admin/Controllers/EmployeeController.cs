@@ -197,7 +197,7 @@ namespace Furlough.Areas.Admin.Controllers
 
                 yearCounter++;
 
-                if(yearCounter == 0) //this if might be obsolete bc of the foor loop's condition
+                if(yearCounter == 0) //this if might be obsolete bc of the for loop's condition
                 {
                     yearlyDaysAllowed = 18;
                 }
@@ -218,8 +218,8 @@ namespace Furlough.Areas.Admin.Controllers
             return new int[] { yearCounter, span.Days, yearlyDaysAllowed }; //at this point in the code
                                                                             //yearCounter = years working
                                                                             //span.Days = days so far not counted into yearly leave
-                                                                            //the "for loop" is also supposed to manage leap years
                                                                             //yearlyDaysAllowed = the amount of yearly leave days available for this employee
+                                                                            //the "for loop" is also supposed to manage leap years
         }
     }
 }
