@@ -12,7 +12,7 @@ namespace Furlough.DAL
             _context = context;
         }
 
-        public IEnumerable<Models.AvailableDay> GetByEmployeeId(int employeeId)
+        public Models.AvailableDay GetByEmployeeId(int employeeId)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_availableDaysGetByEmployeeId", connection)
@@ -22,7 +22,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@EmployeeId", employeeId);
 
             connection.Open();
-            return Mapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
 
         public bool SetDays(int employeeId, string requestType, int daysAmount)

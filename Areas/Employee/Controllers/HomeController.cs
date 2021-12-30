@@ -25,7 +25,7 @@ namespace Furlough.Areas.Employee.Controllers
         {
             var employeeId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
             ViewBag.requestTypes = _contextRequestType.GetAll();
-            ViewBag.availableDays = _contextAvailableDays.GetByEmployeeId(employeeId).FirstOrDefault();
+            ViewBag.availableDays = _contextAvailableDays.GetByEmployeeId(employeeId);
             return View();
         }
 
@@ -37,7 +37,7 @@ namespace Furlough.Areas.Employee.Controllers
             try
             {
                 var employeeId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
-                var availableDays = _contextAvailableDays.GetByEmployeeId(employeeId).FirstOrDefault();
+                var availableDays = _contextAvailableDays.GetByEmployeeId(employeeId);
 
                 //This gets the type's property dynamically using the type of the request,
                 //after which we get that property from availableDays and get it's value
