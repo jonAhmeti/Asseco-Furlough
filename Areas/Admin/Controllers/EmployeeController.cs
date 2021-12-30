@@ -79,6 +79,7 @@ namespace Furlough.Areas.Admin.Controllers
                 //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
             ViewData["PositionId"] = new SelectList(_contextPositions.GetAll(), "Id", "Id", employee.PositionId);
             ViewData["Users"] = new SelectList(_contextUsers.GetUnattachedToEmployees(), "Id", "Username");
@@ -162,18 +163,62 @@ namespace Furlough.Areas.Admin.Controllers
             return View(employee);
         }
 
-        // POST: Admin/Employee/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        // POST: Admin/Employee/Reset/5
+        public async Task<IActionResult> Reset(int id)
         {
+            id = 7; //hardcoded - change later
             var employee = _contextEmployee.GetById(id);
-            if (employee == null) {
-                return NotFound();
+            if (employee == null) 
+                return NotFound("Employee not found.");
+
+            /*  Reset logic based on employee's work start date */
+            CalculateYearlyDays(employee.WorkStartDate);
+            return Ok(); //Added temporarily
+        }
+
+        public int[] CalculateYearlyDays(DateTime workStartDate)
+        {
+            var endOfYear = new DateTime(DateTime.Now.Year, 12, 31);
+            var span = endOfYear.Subtract(workStartDate);
+            int yearlyDaysAllowed = 18;
+
+            var yearCounter = 0;
+            for (int i = 0; i < endOfYear.Year - workStartDate.Year; i++)
+            {
+                if (span.Days <= 0)
+                    return new int[] { yearCounter, span.Days, yearlyDaysAllowed };
+
+                var date = new DateTime(workStartDate.Year + i, workStartDate.Month, 1);
+                var nextDate = new DateTime(workStartDate.Year + i + 1, workStartDate.Month, 1);
+                
+                var thatYearsTotalDays  = nextDate - date;
+                span = span.Subtract(new TimeSpan(days:thatYearsTotalDays.Days, 0,0,0));
+
+                yearCounter++;
+
+                if(yearCounter == 0) //this if might be obsolete bc of the foor loop's condition
+                {
+                    yearlyDaysAllowed = 18;
+                }
+                else if (yearCounter == 1)
+                {
+                    yearlyDaysAllowed = 20;
+                }
+                else if(yearCounter == 6)
+                {
+                    yearlyDaysAllowed = 21;
+                }
+                else if(yearCounter % 5 == 0)
+                {
+                    yearlyDaysAllowed++;
+                }
             }
-            var result = _contextEmployee.Delete(employee.Id);
             
-            return RedirectToAction(nameof(Index));
+            return new int[] { yearCounter, span.Days, yearlyDaysAllowed }; //at this point in the code
+                                                         //yearCounter = years working
+                                                         //span.Days = days so far not counted into yearly leave
+                                                         //the "for loop" is also supposed to manage leap years
+                                                         //yearlyDaysAllowed = the amount of yearly leave days available for this employee
         }
     }
 }
