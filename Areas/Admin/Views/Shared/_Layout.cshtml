@@ -34,7 +34,7 @@
 </head>
 
 <body class="d-flex flex-column overflow-hidden">
-    <header>
+    <header style="z-index: 1;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow">
             <div class="container-fluid justify-content-around">
                 <!-- Header brand ASSECO image-->
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </aside>
-        <div class="w-100 h-100 flex-grow-1" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="w-100 h-100 flex-grow-1" style="overflow-y: auto; overflow-x: hidden; z-index: 0;">
             @RenderBody()
         </div>
     </main>

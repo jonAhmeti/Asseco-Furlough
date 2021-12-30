@@ -129,6 +129,9 @@
   <data name="edit" xml:space="preserve">
     <value>Уредување</value>
   </data>
+  <data name="reset" xml:space="preserve">
+    <value>Ресет</value>
+  </data>
   <data name="save" xml:space="preserve">
     <value>Зачувај</value>
   </data>

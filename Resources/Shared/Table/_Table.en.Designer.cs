@@ -95,6 +95,15 @@ namespace Resources.Shared {
                 return ResourceManager.GetString("edit", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string reset {
+            get {
+                return ResourceManager.GetString("reset", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Save.

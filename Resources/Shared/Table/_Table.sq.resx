@@ -129,6 +129,9 @@
   <data name="edit" xml:space="preserve">
     <value>Ndrysho</value>
   </data>
+  <data name="reset" xml:space="preserve">
+    <value>Resetoje</value>
+  </data>
   <data name="save" xml:space="preserve">
     <value>Ruaj</value>
   </data>
