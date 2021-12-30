@@ -166,7 +166,7 @@ namespace Furlough.Areas.Admin.Controllers
         // POST: Admin/Employee/Reset/5
         public async Task<IActionResult> Reset(int id)
         {
-            id = 7; //hardcoded - change later
+            id = 11; //hardcoded - change later
             var employee = _contextEmployee.GetById(id);
             if (employee == null) 
                 return NotFound("Employee not found.");
@@ -176,6 +176,7 @@ namespace Furlough.Areas.Admin.Controllers
             return Ok(); //Added temporarily
         }
 
+        //Calculates yearly days available starting from workStartDate
         public int[] CalculateYearlyDays(DateTime workStartDate)
         {
             var endOfYear = new DateTime(DateTime.Now.Year, 12, 31);
@@ -215,10 +216,10 @@ namespace Furlough.Areas.Admin.Controllers
             }
             
             return new int[] { yearCounter, span.Days, yearlyDaysAllowed }; //at this point in the code
-                                                         //yearCounter = years working
-                                                         //span.Days = days so far not counted into yearly leave
-                                                         //the "for loop" is also supposed to manage leap years
-                                                         //yearlyDaysAllowed = the amount of yearly leave days available for this employee
+                                                                            //yearCounter = years working
+                                                                            //span.Days = days so far not counted into yearly leave
+                                                                            //the "for loop" is also supposed to manage leap years
+                                                                            //yearlyDaysAllowed = the amount of yearly leave days available for this employee
         }
     }
 }

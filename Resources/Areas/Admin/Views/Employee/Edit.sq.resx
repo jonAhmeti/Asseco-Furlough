@@ -123,9 +123,6 @@
   <data name="fullname" xml:space="preserve">
     <value>Emri i plotë</value>
   </data>
-  <data name="joinDate" xml:space="preserve">
-    <value>Duke punuar që nga</value>
-  </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Azhurimi i punëtorit</value>
   </data>
@@ -133,6 +130,9 @@
     <value>Pozita</value>
   </data>
   <data name="userId" xml:space="preserve">
-    <value>ID</value>
+    <value>ID e përdoruesit</value>
+  </data>
+  <data name="workingSince" xml:space="preserve">
+    <value>Duke punuar që nga</value>
   </data>
 </root>

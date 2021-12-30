@@ -29,9 +29,9 @@
                         <span asp-validation-for="UserId" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" asp-for="JoinDate"/>
-                        <label asp-for="JoinDate">@localizer["joinDate"]</label>
-                        <span asp-validation-for="JoinDate" class="text-danger"></span>
+                        <input class="form-control" type="date" asp-for="WorkStartDate" min="1991-01-01" max="@string.Format("{0}-{1}-{2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)"/>
+                        <label>@localizer["workingSince"]</label>
+                        <span asp-validation-for="WorkStartDate" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-control" asp-for="PositionId" asp-items="ViewBag.Positions"></select>
