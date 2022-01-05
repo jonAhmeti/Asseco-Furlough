@@ -181,41 +181,29 @@ namespace Furlough.Areas.Admin.Controllers
         {
             var endOfYear = new DateTime(DateTime.Now.Year, 12, 31);
             var span = endOfYear.Subtract(workStartDate);
-            int yearlyDaysAllowed = 18;
 
-            var yearCounter = 0;
-            for (int i = 0; i < endOfYear.Year - workStartDate.Year; i++)
+            double daysAvailable = 0;
+
+            for (int i = workStartDate.Year; i < DateTime.Now.Year; i++)
             {
-                if (span.Days <= 0)
-                    return new int[] { yearCounter, span.Days, yearlyDaysAllowed };
+                var tempYearStart = new DateTime(i, 1, 1);
+                var tempYearEnd = new DateTime(i, 12, 31);
 
-                var date = new DateTime(workStartDate.Year + i, workStartDate.Month, 1);
-                var nextDate = new DateTime(workStartDate.Year + i + 1, workStartDate.Month, 1);
-                
-                var thatYearsTotalDays  = nextDate - date;
-                span = span.Subtract(new TimeSpan(days:thatYearsTotalDays.Days, 0,0,0));
+                if (i == workStartDate.Year)
+                {
+                    var yearSpan = tempYearEnd - workStartDate;
+                    daysAvailable = yearSpan.Days / (tempYearEnd.DayOfYear / 12) * 1.5;
+                }
+                else
+                {
+                    var firstPart = new DateTime(i, workStartDate.Month, workStartDate.Day) - tempYearStart;
+                    var secondPart = tempYearEnd - new DateTime(i, workStartDate.Month, workStartDate.Day);
 
-                yearCounter++;
 
-                if(yearCounter == 0) //this if might be obsolete bc of the for loop's condition
-                {
-                    yearlyDaysAllowed = 18;
-                }
-                else if (yearCounter == 1)
-                {
-                    yearlyDaysAllowed = 20;
-                }
-                else if(yearCounter == 6)
-                {
-                    yearlyDaysAllowed = 21;
-                }
-                else if(yearCounter % 5 == 0)
-                {
-                    yearlyDaysAllowed++;
                 }
             }
-            
-            return new int[] { yearCounter, span.Days, yearlyDaysAllowed }; //at this point in the code
+           
+            return new int[] { }; //at this point in the code
                                                                             //yearCounter = years working
                                                                             //span.Days = days so far not counted into yearly leave
                                                                             //yearlyDaysAllowed = the amount of yearly leave days available for this employee
