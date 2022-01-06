@@ -53,10 +53,14 @@ namespace Furlough.Areas.Employee.Controllers
 
                 request.RequestedByUserId = int.Parse(
                     HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
-                
+
+
+                //new value of days, adds instead of deducting if request type is unpaid (meaning unpaid leave days only increase, others decrease)
+                var newDaysValue = (request.RequestTypeId == 8) ? (int)daysLeft + request.DaysAmount : (int)daysLeft - request.DaysAmount;
+
                 result = _contextRequest.Add(_dalMapper.DalRequestMap(request)) ? Ok() : StatusCode(500, "Something went wrong while adding your request");
                 var dbResult = _contextAvailableDays    //deduct days left from requested paidDays
-                    .SetDays(employeeId, _contextRequestType.GetById(request.RequestTypeId).Type, (int)daysLeft - request.DaysAmount);
+                    .SetDays(employeeId, _contextRequestType.GetById(request.RequestTypeId).Type, newDaysValue);
             }
             catch (Exception e)
             {

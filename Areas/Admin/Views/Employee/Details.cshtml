@@ -48,9 +48,9 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.UserId)
             </dd>
-            <dt class="col-sm-2">@localizer["availableDays"]</dt>
-            <dd class="col">
-                <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6">
+            <dt class="col-sm-2">@localizer["availableDays"]:</dt>
+            <dd class="col-sm-10">
+                <div class="row">
                     @foreach (var item in typeof(Furlough.DAL.Models.AvailableDay).GetProperties())
                     {
                         if (item.Name == "EmployeeId")
@@ -88,10 +88,10 @@
                                 { icon = "<i class=\"fa-solid fa-heart\"></i>"; backgroundCircle = "#DF1B48"; break; }
                         }
 
-                        <div class="rounded-pill border col p-0 d-flex me-2 mt-2">
+                        <div class="rounded-pill border col-auto p-0 d-flex me-2 mt-2" style="line-height: 0;">
                             <div class="d-flex align-items-center pe-3">
                                 <span class="roundIcon text-black-50 me-2" style="background-color: @backgroundCircle;">@Html.Raw(icon)</span>
-                                <span>@item.Name : @item.GetValue(ViewBag.EmployeeDays)</span></div>
+                                <span>@item.Name | @item.GetValue(ViewBag.EmployeeDays)</span></div>
                         </div>
                     }
                 </div>
