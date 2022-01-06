@@ -120,6 +120,9 @@
   <data name="businessDays" xml:space="preserve">
     <value>business days</value>
   </data>
+  <data name="cancelRequest" xml:space="preserve">
+    <value>Cancel request</value>
+  </data>
   <data name="editDates" xml:space="preserve">
     <value>Edit dates</value>
   </data>

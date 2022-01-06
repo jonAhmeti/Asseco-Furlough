@@ -38,7 +38,7 @@
                     { icon = "<i class=\"fa-solid fa-heart\"></i>"; backgroundCircle = "#DF1B48"; break; }
                 }
 
-            <div class="card col m-2 roleBorder" style="width: 18rem; border-radius:0.55rem; font-family:'Trebuchet MS','monospace';" employeeId="@item.Id">
+            <div class="card col m-2 roleBorder" style="width: 18rem; border-radius:0.55rem; font-family:'Trebuchet MS','monospace';">
                 <div class="card-body">
                     <!-- decrease by 1 since arrays start at 0 -->
                     <div class="d-flex align-items-center mb-3">
@@ -69,7 +69,9 @@
                         </div>
                     </div>
                     <!-- submit edited dates button -->
-                    <button class="form-control btn btn-outline-primary mt-5">@localizer["editDates"]</button>
+                    <button name="edit" requestId="@item.Id" class="form-control btn btn-outline-primary mt-5">@localizer["editDates"]</button>
+                    <!-- cancel request button -->
+                    <button name="cancel" requestId="@item.Id" class="form-control btn btn-outline-danger mt-2">@localizer["cancelRequest"]</button>
                 </div>
             </div>
         }

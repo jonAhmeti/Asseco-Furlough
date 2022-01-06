@@ -120,6 +120,9 @@
   <data name="businessDays" xml:space="preserve">
     <value>ditë pune</value>
   </data>
+  <data name="cancelRequest" xml:space="preserve">
+    <value>Anulo kërkesën</value>
+  </data>
   <data name="editDates" xml:space="preserve">
     <value>Ndrysho datat</value>
   </data>

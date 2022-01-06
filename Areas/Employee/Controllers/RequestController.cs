@@ -42,73 +42,35 @@ namespace Furlough.Areas.Employee.Controllers
             }
         }
 
-        // GET: RequestController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        // POST: RequestController/Cancel/5
 
-        // GET: RequestController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: RequestController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: RequestController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: RequestController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: RequestController/Delete/5
+        [HttpPost("Cancel")]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: RequestController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var request = _contextRequest.GetById(id);
+                var loggedinUserId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+
+                if (request == null)
+                    return NotFound("Request doesn't exist.");
+
+                //if not the logged in user's request
+                if (request.RequestedByUserId != loggedinUserId)
+                    return BadRequest("Something went wrong cancelling your request.");
+
+                var result = _contextRequest.DeleteById(request.Id);
+                return result ? Ok() : StatusCode(500, "Something went wrong cancelling your request.");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+
+                return StatusCode(500);
             }
+            
         }
     }
 }
