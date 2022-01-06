@@ -20,8 +20,16 @@
             {
                 extend: 'print',
                 title: 'Admin_Request-' + new Date().toISOString(),
+                orientation: 'landscape',
                 exportOptions: {
+                    stripHtml: false,
                     columns: 'th:not(:last-child)'
+                },
+                customize: function (win) {
+                    $(win.document.body)
+                        .prepend(
+                            `<img src="https://${window.location.host}/images/asseco_southeasterneurope_logo.svg" style="position:absolute; bottom:0; left:0; opacity:0.1; width:50%;"/>`
+                        ); //window.location.host gets localhost:port at the moment
                 }
                 
             }],
