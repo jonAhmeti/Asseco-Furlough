@@ -11,6 +11,17 @@ namespace Furlough.DAL
         {
             _context = context;
         }
+        public IEnumerable<Models.AvailableDayGetAll> GetAll()
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_availableDaysGetAll", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            connection.Open();
+            return DetailedMapper(command.ExecuteReader());
+        }
 
         public Models.AvailableDay GetByEmployeeId(int employeeId)
         {
@@ -83,5 +94,38 @@ namespace Furlough.DAL
             }
         }
 
+        public IEnumerable<Models.AvailableDayGetAll> DetailedMapper(SqlDataReader reader)
+        {
+            var listObj = new List<Models.AvailableDayGetAll>();
+            try
+            {
+                while (reader.Read())
+                {
+                    listObj.Add(new Models.AvailableDayGetAll
+                    {
+                        EmployeeId = reader.GetInt32("EmployeeId"),
+                        EmployeeName = reader.GetString("EmployeeName"),
+                        EmployeeDepartment = reader.GetString("EmployeeDepartment"),
+                        EmployeePosition = reader.GetString("EmployeePosition"),
+                        Medical = reader.GetInt32("Medical"),
+                        Yearly = reader.GetInt32("Yearly"),
+                        Overtime = reader.GetInt32("Overtime"),
+                        Birth = reader.GetInt32("Birth"),
+                        Child = reader.GetInt32("Child"),
+                        Marriage = reader.GetInt32("Marriage"),
+                        Unpaid = reader.GetInt32("Unpaid"),
+                        BloodDonation = reader.GetInt32("BloodDonation"),
+                        Maternity = reader.GetInt32("Maternity"),
+                        DeathOfRelative = reader.GetInt32("DeathOfRelative"),
+                    });
+                }
+                return listObj;
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                throw;
+            }
+        }
     }
 }

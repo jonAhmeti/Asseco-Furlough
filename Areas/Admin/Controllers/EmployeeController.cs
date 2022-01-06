@@ -179,10 +179,12 @@ namespace Furlough.Areas.Admin.Controllers
         //Calculates yearly days available starting from workStartDate
         public int[] CalculateYearlyDays(DateTime workStartDate)
         {
+            //Shieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet maybe convert 1.5 monthly rate to daily : 365 | 366 then for every day of the month raise
             var endOfYear = new DateTime(DateTime.Now.Year, 12, 31);
             var span = endOfYear.Subtract(workStartDate);
 
             double daysAvailable = 0;
+            int yearCounter = 0;
 
             for (int i = workStartDate.Year; i < DateTime.Now.Year; i++)
             {
@@ -192,15 +194,25 @@ namespace Furlough.Areas.Admin.Controllers
                 if (i == workStartDate.Year)
                 {
                     var yearSpan = tempYearEnd - workStartDate;
-                    daysAvailable = yearSpan.Days / (tempYearEnd.DayOfYear / 12) * 1.5;
+                    var aproxWorkMonths = Math.Floor(yearSpan.Days / (float)tempYearEnd.DayOfYear * 12);
+                    daysAvailable = aproxWorkMonths * 1.5;
                 }
                 else
                 {
-                    var firstPart = new DateTime(i, workStartDate.Month, workStartDate.Day) - tempYearStart;
-                    var secondPart = tempYearEnd - new DateTime(i, workStartDate.Month, workStartDate.Day);
+                    var beforeAnniversary = new DateTime(i, workStartDate.Month, workStartDate.Day) - tempYearStart;
+                    var afterAnniversary = tempYearEnd - new DateTime(i, workStartDate.Month, workStartDate.Day);
+                    var prevYearEnd = new DateTime(i - 1, 12, 31);
 
-
+                    if (yearCounter == 1)
+                    {
+                        var aproxWorkMonthsBefore = Math.Floor(beforeAnniversary.Days / (float)prevYearEnd.DayOfYear * 12);
+                        var aproxWorkMonthsAfter = Math.Floor(afterAnniversary.Days / (float)tempYearEnd.DayOfYear * 12);
+                        daysAvailable += aproxWorkMonthsBefore * 1.5;
+                        daysAvailable += aproxWorkMonthsAfter * (float)1.66;
+                    }
                 }
+
+                yearCounter++;
             }
            
             return new int[] { }; //at this point in the code

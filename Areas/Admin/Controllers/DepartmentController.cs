@@ -12,7 +12,6 @@ using Furlough.Models.Mapper;
 
 namespace Furlough.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
     [Area("Admin")]
     public class DepartmentController : Controller
     {

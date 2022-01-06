@@ -117,28 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="availDaysTitle" xml:space="preserve">
-    <value>Достапни денови</value>
+  <data name="birth" xml:space="preserve">
+    <value>Birth</value>
   </data>
-  <data name="dashTitle" xml:space="preserve">
-    <value>ДОМА</value>
+  <data name="bloodDonation" xml:space="preserve">
+    <value>Blood donation</value>
   </data>
-  <data name="depTitle" xml:space="preserve">
-    <value>оддел</value>
+  <data name="child" xml:space="preserve">
+    <value>Child</value>
   </data>
-  <data name="empTitle" xml:space="preserve">
-    <value>Вработен</value>
+  <data name="deathOfRelative" xml:space="preserve">
+    <value>Relative's death</value>
   </data>
-  <data name="posTitle" xml:space="preserve">
-    <value>Позиција</value>
+  <data name="employeeDepartment" xml:space="preserve">
+    <value>Department</value>
   </data>
-  <data name="reqTitle" xml:space="preserve">
-    <value>Барање</value>
+  <data name="employeeName" xml:space="preserve">
+    <value>Employee</value>
   </data>
-  <data name="roleTitle" xml:space="preserve">
-    <value>Улога</value>
+  <data name="employeePosition" xml:space="preserve">
+    <value>Position</value>
   </data>
-  <data name="userTitle" xml:space="preserve">
-    <value>Корисници</value>
+  <data name="marriage" xml:space="preserve">
+    <value>Marriage</value>
+  </data>
+  <data name="maternity" xml:space="preserve">
+    <value>Maternity</value>
+  </data>
+  <data name="medical" xml:space="preserve">
+    <value>Medical</value>
+  </data>
+  <data name="overtime" xml:space="preserve">
+    <value>Overtime</value>
+  </data>
+  <data name="unpaid" xml:space="preserve">
+    <value>Unpaid</value>
+  </data>
+  <data name="yearly" xml:space="preserve">
+    <value>Yearly</value>
   </data>
 </root>

@@ -122,5 +122,13 @@ namespace Resources.Shared {
                 return ResourceManager.GetString("userTitle", resourceCulture);
             }
         }
+
+        public static string availDaysTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("availDaysTitle", resourceCulture);
+            }
+        }
     }
 }

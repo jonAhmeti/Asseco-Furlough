@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Furlough.DAL.Models.AvailableDayGetAll>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = "Employees' available days";
+    int counter = 0;
+}
+
+<div class="container-fluid p-0 mt-5">
+    <div class="w-100 d-flex justify-content-center">
+        <div class="blue-gradient-div shadow rounded-pill py-2 mx-4 d-flex justify-content-center align-items-center">
+            <h2 class="text-white mx-3">@Resources.Shared._Layout.availDaysTitle</h2>
+        </div>
+    </div>
+    <div class="mx-5 m-auto overflow-auto shadow border rounded" style="margin-top:-2rem !important;">
+        <table class="table rounded">
+            <thead>
+                <tr>
+                    <th>@localizer["employeeName"]</th>
+                    <th>@localizer["employeeDepartment"]</th>
+                    <th>@localizer["employeePosition"]</th>
+                    <th>@localizer["medical"]</th>
+                    <th>@localizer["yearly"]</th>
+                    <th>@localizer["overtime"]</th>
+                    <th>@localizer["birth"]</th>
+                    <th>@localizer["child"]</th>
+                    <th>@localizer["marriage"]</th>
+                    <th>@localizer["unpaid"]</th>
+                    <th>@localizer["bloodDonation"]</th>
+                    <th>@localizer["maternity"]</th>
+                    <th>@localizer["deathOfRelative"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr rowId="@counter">
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.EmployeeName)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.EmployeeDepartment)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.EmployeePosition)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.Medical)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.Yearly)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.Overtime)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.Birth)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.Child)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.Marriage)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.Unpaid)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.BloodDonation)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.Maternity)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.DeathOfRelative)
+                            </a>
+                        </td>
+                    </tr>
+                    //Counter Incremental
+                    counter++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--DataTables-->
+<script src="~/lib/DataTables/datatables.min.js"></script>
+<link rel="stylesheet" href="~/lib/DataTables/datatables.min.css" />
+
+<link rel="stylesheet" href="~/css/Areas/Admin/Shared/dataTables.css" />
+<script src="~/js/Areas/Admin/AvailableDays/dataTables.js"></script>
