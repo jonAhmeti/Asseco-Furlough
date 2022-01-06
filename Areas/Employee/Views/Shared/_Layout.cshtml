@@ -30,7 +30,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery-3.6.0.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/Areas/Shared/index.js"></script>
+    <script src="~/js/Areas/Layout/side.js"></script>
     <script src="~/lib/font-awesome-6.0/js/all.min.js"></script>
     <script src="~/lib/ripple-effect/dist/ripples.js"></script>
 </head>
@@ -38,9 +38,9 @@
 <body class="d-flex flex-column overflow-hidden">
     <header style="z-index: 1;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow">
-            <div class="container-fluid justify-content-around">
+            <div class="container-fluid mx-0 mx-md-5 justify-content-sm-between justify-content-around">
                 <!-- Header brand ASSECO image-->
-                <a class="navbar-brand p-3" asp-area="" asp-controller="Home" asp-action="Index"><img id="assecologo"
+                <a class="navbar-brand me-0 me-sm-3 assecoLogoLink d-flex justify-content-center justify-content-sm-start p-2" asp-area="" asp-controller="Home" asp-action="Index"><img id="assecologo"
                         src="~/images/asseco_southeasterneurope_logo.svg" alt="Asseco Logo" /></a>
                 <div
                     class="navbar-collapse collapse d-sm-inline-flex justify-content-between flex-row-reverse flex-grow-0">
@@ -52,7 +52,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                 asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="ms-5 me-4 nav-item">
+                        <li class="ms-5 nav-item">
                             <partial name="~/Views/Shared/_Culture.cshtml" />
                         </li>
                         <li class="ms-4 nav-item">
@@ -60,13 +60,21 @@
                         </li>
                     </ul>
                 </div>
-
+                <div class="menuOpener">
+                    <input class="menu-btn" type="checkbox" id="menu-btn" />
+                    <label id="sideHam" class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+                </div>
             </div>
         </nav>
     </header>
     <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1" style="overflow-y: auto; overflow-x: hidden;">
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="w-100">
+                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                    <a id="dashboardLink" class="sidenavLinks nav-link d-flex align-items-center @(action=="" ? "active" : "")" href="/">
+                        <span class="material-icons-round align-middle">dashboard</span> @Resources.Shared._Layout.dashTitle
+                    </a>
+                </div>
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
                     <a class="sidenavLinks nav-link @(action=="Request" ? "active" : "")" asp-area="Employee"
                         asp-controller="Request" asp-action="Index">

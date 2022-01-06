@@ -82,3 +82,29 @@ a {
 tr td:last-child {
   min-width: 210px;
 }
+#assecologo {
+  max-height: 60px;
+}
+.assecoLogoLink {
+  width: auto;
+}
+@media screen and (max-width: 640px) {
+  #assecologo,
+  .assecoLogoLink {
+    width: 99%;
+  }
+}
+@media screen and (max-width: 575.5px) {
+  #assecologo,
+  .assecoLogoLink {
+    width: auto;
+  }
+}
+@media screen and (max-width: 320px) {
+  #assecologo {
+    width: 90%;
+  }
+  .assecoLogoLink {
+    width: 75%;
+  }
+}
