@@ -10,7 +10,7 @@ $(function () {
       $(menuCheckbox).prop('checked', false);
     }
     if (($(window).width() < 768) && (menuCheckbox.is(":checked") == true)) {
-      sideNav.css({"display": "block", "padding-top": "5rem", "width": "100vw", "position": "absolute", "z-index": "99", "text-align": "center"});
+      sideNav.css({"display": "block", "padding-top": "1rem", "width": "100vw", "position": "absolute", "z-index": "99", "text-align": "center"});
       sideNav.next().css({"display": "none"});
     }
   });
@@ -20,7 +20,7 @@ $(function () {
       sideNav.css({"display": "none"});
       sideNav.next().css({"display": "block"});
     } else {
-      sideNav.css({"display": "block", "padding-top": "5rem", "width": "100vw", "position": "absolute", "z-index": "99", "text-align": "center"});
+      sideNav.css({"display": "block", "padding-top": "1rem", "width": "100vw", "position": "absolute", "z-index": "99", "text-align": "center"});
       sideNav.next().css({"display": "none"});
     }
   });

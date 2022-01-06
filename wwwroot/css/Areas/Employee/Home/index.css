@@ -1,6 +1,4 @@
-﻿
-
-@media (min-width: 768px) {
+﻿@media (min-width: 768px) {
     html {
         font-size: 16px;
     }
@@ -180,3 +178,30 @@ section {
     display: inline-flex;
     border-radius: 50%;
 }
+
+#assecologo {
+    max-height: 60px;
+  }
+  .assecoLogoLink {
+    width: auto;
+  }
+  @media screen and (max-width: 640px) {
+    #assecologo,
+    .assecoLogoLink {
+      width: 99%;
+    }
+  }
+  @media screen and (max-width: 575.5px) {
+    #assecologo,
+    .assecoLogoLink {
+      width: auto;
+    }
+  }
+  @media screen and (max-width: 320px) {
+    #assecologo {
+      width: 90%;
+    }
+    .assecoLogoLink {
+      width: 75%;
+    }
+  }  
