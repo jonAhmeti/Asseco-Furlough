@@ -50,7 +50,7 @@ namespace Furlough.Areas.Admin.Controllers
             }
 
             ViewData["EmployeeDays"] = _contextAvailableDays.GetByEmployeeId(employee.Id);
-
+            
             return View(employee);
         }
 
