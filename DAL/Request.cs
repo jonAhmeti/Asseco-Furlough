@@ -45,7 +45,7 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
-        public IEnumerable<Models.RequestByDepartment> GetAllByRowCount(int rowCount)
+        public IEnumerable<Models.RequestByDepartment> GetAllByRowCount(int rowCount, int departmentId = -1)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_requestGetAllByRowCount", connection)
@@ -53,7 +53,11 @@ namespace Furlough.DAL
                 CommandType = CommandType.StoredProcedure
             };
 
-            command.Parameters.AddWithValue("@RowCount", rowCount); 
+            command.Parameters.AddWithValue("@RowCount", rowCount);
+
+            if (departmentId != -1)
+                command.Parameters.AddWithValue("@DepartmentId", departmentId);
+
             connection.Open();
             return RequestByDepartmentMapper(command.ExecuteReader());
         }

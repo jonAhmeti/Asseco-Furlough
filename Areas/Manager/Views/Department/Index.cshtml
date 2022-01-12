@@ -61,7 +61,9 @@
                                 @item.JoinDate.ToShortDateString().Replace("/", "-")</div>
                             <p class="card-text mt-4">Contact:<span class="fw-light"><br />@item.Email<br />@item.Phone</span></p>
                             <select class="form-select employeePositions" employeeId=@item.Id currentPosition=@item.PositionId
-                            asp-items="@(new SelectList(ViewBag.positions, nameof(Position.Id), nameof(Position.Title)))"></select>
+                            asp-items="@(new SelectList(ViewBag.positions, nameof(Position.Id), nameof(Position.Title)))">
+                                <option disabled value="-1" selected>-- Choose one --</option>
+                            </select>
                         </div>
                     </div>
                 }

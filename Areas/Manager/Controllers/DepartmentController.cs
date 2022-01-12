@@ -34,9 +34,7 @@ namespace Furlough.Areas.Manager.Controllers
         // GET: DepartmentRolesController
         public ActionResult Index()
         {
-            //make dynamic
-            var departmentId = 1;
-            //make dynamic
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
 
             var positions = new List<Models.Position>();
             var unaddedPositions = new List<Models.Position>();
@@ -64,80 +62,11 @@ namespace Furlough.Areas.Manager.Controllers
             return View();
         }
 
-        // GET: DepartmentRolesController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: DepartmentRolesController/Create
-        public ActionResult Create()
-        {
-            ViewBag.Roles = _contextRole.GetAll();
-            return View();
-        }
-
-        // POST: DepartmentRolesController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: DepartmentRolesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: DepartmentRolesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: DepartmentRolesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: DepartmentRolesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         [HttpPut]
         public bool UpdateDepartmentPositions(int departmentId, IEnumerable<string> positionsId)
         {
-            departmentId = 1;
+            departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
             var alreadyAddedPositions = new List<string>();
             foreach (var item in _contextDepartmentRoles.GetPositionsByDepartmentId(departmentId))
             {
