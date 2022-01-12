@@ -45,12 +45,12 @@
                         <span asp-validation-for="RequestedOn" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control datepicker" asp-for="Dates" />
+                        <input readonly class="form-control bg-white datepicker" asp-for="Dates" />
                         <label asp-for="Dates">@localizer["dates"]</label>
                         <span asp-validation-for="Dates" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" asp-for="DaysAmount" />
+                        <input disabled class="form-control" asp-for="DaysAmount" />
                         <label asp-for="DaysAmount">@localizer["requestDaysAmount"]</label>
                         <span asp-validation-for="DaysAmount" class="text-danger"></span>
                     </div>

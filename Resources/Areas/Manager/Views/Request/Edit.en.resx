@@ -124,7 +124,7 @@
     <value>Request Edit</value>
   </data>
   <data name="requestDaysAmount" xml:space="preserve">
-    <value>Leave days</value>
+    <value>Total business days</value>
   </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Requested Time</value>

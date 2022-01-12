@@ -124,7 +124,7 @@
     <value>Azhurimi i kërkesës</value>
   </data>
   <data name="requestDaysAmount" xml:space="preserve">
-    <value>Ditët e pushimit</value>
+    <value>Totali i ditëve të punës</value>
   </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Koha e kërkesës</value>

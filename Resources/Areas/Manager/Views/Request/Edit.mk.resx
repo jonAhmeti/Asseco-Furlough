@@ -124,7 +124,7 @@
     <value>Платени денови</value>
   </data>
   <data name="requestDaysAmount" xml:space="preserve">
-    <value>Оставете денови</value>
+    <value>Вкупно работни денови</value>
   </data>
   <data name="requestedTime" xml:space="preserve">
     <value>Барано време</value>
