@@ -54,8 +54,8 @@ namespace Furlough.Areas.Employee.Controllers
                 if (request == null)
                     return NotFound("Request doesn't exist.");
 
-                //if not the logged in user's request
-                if (request.RequestedByUserId != loggedinUserId)
+                //if not the logged in user's request or the request isn't pending
+                if (request.RequestedByUserId != loggedinUserId  || request.RequestStatusId != 1 )
                     return BadRequest("Something went wrong cancelling your request.");
 
                 var result = _contextRequest.DeleteById(request.Id);
