@@ -12,7 +12,7 @@
                     <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded-top">
                         @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
                         {
-                            <div class="tabBarItem col rounded-top">
+                            <div class="tabBarItem col rounded-top" departmentId="@item.Id">
                                 <a href="">@item.Name</a>
                             </div>
                         }
