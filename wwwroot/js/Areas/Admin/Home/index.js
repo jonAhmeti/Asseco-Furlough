@@ -9,8 +9,13 @@
     };
 
     for (let i = 0; i < departments.length; i++) {
+        var clickPrevention = false;
         $(departments[i]).on("click", function () {
-            if (!$(this).hasClass("activeBar")) {
+            if (clickPrevention) {
+                return;
+            } 
+            else if (!$(this).hasClass("activeBar")) {
+                console.log("lol");
                 var tabText = $(this).find("a").text();
                 for (let i = 0; i < employeeDep.length; i++) {
                     var listDepText = employeeDep[i].getElementsByTagName("li");
@@ -23,6 +28,8 @@
                     }
                 }
             }
+            clickPrevention = true;
+            setTimeout(function(){clickPrevention = false;}, 450);
         });
     }
 });
