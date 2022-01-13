@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="~/css/Areas/Employee/Request/index.css" />
 
 <div class="h-100 w-100 p-5">
-    <div class="text-muted fs-3 d-flex">@localizer["pendingRequests"] <span class="ms-3 rounded-circle border border-primary shadow-sm text-center fs-4" style="min-height:40px; min-width:40px;">@Model.Count()</span></div>
+    <div class="text-muted fs-3 d-flex">@localizer["pendingRequests"] <span id="requestCount" class="ms-3 rounded-circle border border-primary shadow-sm text-center fs-4" style="min-height:40px; min-width:40px;">@Model.Count()</span></div>
     <div class="p-5 row row-cols-1 row-cols-md-3 row-cols-lg-5">
         @foreach (var item in Model)
         {
@@ -38,7 +38,7 @@
                     { icon = "<i class=\"fa-solid fa-heart\"></i>"; backgroundCircle = "#DF1B48"; break; }
                 }
 
-            <div class="card col m-2 roleBorder" style="width: 18rem; border-radius:0.55rem; font-family:'Trebuchet MS','monospace';">
+            <div requestId="@item.Id" class="card col m-2 roleBorder" style="width: 18rem; border-radius:0.55rem; font-family:'Trebuchet MS','monospace';">
                 <div class="card-body">
                     <!-- decrease by 1 since arrays start at 0 -->
                     <div class="d-flex align-items-center mb-3">

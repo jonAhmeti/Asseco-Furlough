@@ -20,11 +20,14 @@
     for (var i = 0; i < cancelBtns.length; i++) {
         $(cancelBtns[i]).on('click', function () {
             $.ajax({
+                requestId: this.getAttribute("requestId"),
                 method: 'POST',
-                url: 'Request/Cancel',
-                data: { id: this.getAttribute("requestId") },
+                url: `Request/Cancel/${this.getAttribute("requestId")}`,
                 success: function (result) {
-
+                    $(`div[requestid="${this.requestId}"]`).animate({ height: 0, width: 0, opacity: 0 }, 1000,
+                        function () { $(this).remove(); });
+                    const requestCount = $("#requestCount");
+                    $(requestCount).text(parseInt($(requestCount).text()) - 1);
                 },
                 error: function (error) {
 
