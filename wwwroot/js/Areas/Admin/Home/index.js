@@ -1,6 +1,6 @@
 ﻿$(function () {
     const departments = $(".tabBarItem");
-    var employeeDep = $(".listItem");
+    var employeeDep = $(".tabBar").next().find(".listItem");
     const lookup = {
         Banking: 1,
         Test: 2,
@@ -12,18 +12,14 @@
         $(departments[i]).on("click", function () {
             if (!$(this).hasClass("activeBar")) {
                 var tabText = $(this).find("a").text();
-                // employeeDep.forEach(element => {
-                //     var listDepText = element.text();
-                //     if (lookup[tabText] == listDepText) {
-                //         employeeDep[i].parent().addClass("d-block");
-                //     } else {
-                //         employeeDep[i].parent().addClass("d-none");
-                //     }
-                // });
                 for (let i = 0; i < employeeDep.length; i++) {
-                    var ar = employeeDep[i].getElementsByTagName("li");
-                    if ($("ul li").hasClass("col")) {
-                        console.log(ar[2]);
+                    var listDepText = employeeDep[i].getElementsByTagName("li");
+                    if (lookup[tabText] == $(listDepText[2]).text()) {
+                        $(listDepText).parent().removeClass("d-none");
+                        $(listDepText).parent().addClass("row");
+                    } else {
+                        $(listDepText).parent().addClass("d-none");
+                        $(listDepText).parent().removeClass("row");
                     }
                 }
             }
