@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="dates" xml:space="preserve">
-    <value>Dates</value>
+    <value>датуми (ГГГГ/MM/ДД)</value>
   </data>
   <data name="paidDays" xml:space="preserve">
     <value>Платени денови</value>

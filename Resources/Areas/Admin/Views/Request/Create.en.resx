@@ -120,6 +120,9 @@
   <data name="dateFrom" xml:space="preserve">
     <value>From</value>
   </data>
+  <data name="dates" xml:space="preserve">
+    <value>Dates (YYYY/MM/DD)</value>
+  </data>
   <data name="dateTo" xml:space="preserve">
     <value>To</value>
   </data>

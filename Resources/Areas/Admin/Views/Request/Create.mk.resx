@@ -120,6 +120,9 @@
   <data name="dateFrom" xml:space="preserve">
     <value>Од</value>
   </data>
+  <data name="dates" xml:space="preserve">
+    <value>датуми (ГГГГ/MM/ДД)</value>
+  </data>
   <data name="dateTo" xml:space="preserve">
     <value>До</value>
   </data>
