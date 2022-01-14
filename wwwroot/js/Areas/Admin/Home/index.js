@@ -11,18 +11,6 @@
         departmentsName.push(departments[i].innerText);
         lookup[departmentsName[i]] = departmentsID[i];
 
-        for (let i = 0; i < employeeDep.length; i++) {
-            var listDepText = employeeDep[i].getElementsByTagName("li");
-            var tabText = $(".activeBar").find("a").text().toUpperCase();
-            if (lookup[tabText] == $(listDepText[2]).text()) {
-                $(listDepText).parent().removeClass("d-none");
-                $(listDepText).parent().addClass("row");
-            } else {
-                $(listDepText).parent().addClass("d-none");
-                $(listDepText).parent().removeClass("row");
-            }
-        }
-
         var clickPrevention = false;
         
         $(departments[i]).on("click", function () {
