@@ -1,22 +1,36 @@
 ﻿$(function () {
     const departments = $(".tabBarItem");
+    var departmentsID = [];
+    var departmentsName = [];
     var employeeDep = $(".tabBar").next().find(".listItem");
-    const lookup = {
-        Banking: 1,
-        Test: 2,
-        AIS: 5,
-        CASD: 6,
-    };
-
+    var lookup = {};
+    
     for (let i = 0; i < departments.length; i++) {
+
+        departmentsID.push($(departments[i]).attr("departmentId"));
+        departmentsName.push(departments[i].innerText);
+        lookup[departmentsName[i]] = departmentsID[i];
+
+        for (let i = 0; i < employeeDep.length; i++) {
+            var listDepText = employeeDep[i].getElementsByTagName("li");
+            var tabText = $(".activeBar").find("a").text().toUpperCase();
+            if (lookup[tabText] == $(listDepText[2]).text()) {
+                $(listDepText).parent().removeClass("d-none");
+                $(listDepText).parent().addClass("row");
+            } else {
+                $(listDepText).parent().addClass("d-none");
+                $(listDepText).parent().removeClass("row");
+            }
+        }
+
         var clickPrevention = false;
+        
         $(departments[i]).on("click", function () {
             if (clickPrevention) {
                 return;
             } 
             else if (!$(this).hasClass("activeBar")) {
-                console.log("lol");
-                var tabText = $(this).find("a").text();
+                var tabText = $(this).find("a").text().toUpperCase();
                 for (let i = 0; i < employeeDep.length; i++) {
                     var listDepText = employeeDep[i].getElementsByTagName("li");
                     if (lookup[tabText] == $(listDepText[2]).text()) {
@@ -32,4 +46,7 @@
             setTimeout(function(){clickPrevention = false;}, 450);
         });
     }
+    console.log(departmentsID);
+    console.log(departmentsName);
+    console.log(lookup);
 });
