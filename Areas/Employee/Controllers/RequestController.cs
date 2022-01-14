@@ -9,17 +9,19 @@ namespace Furlough.Areas.Employee.Controllers
     {
         private DalMapper _dalMapper;
         private ViewModelMapper _vmMapper;
-        private DAL.Request _contextRequest;
-        private DAL.RequestType _contextRequestType;
+        private readonly DAL.Request _contextRequest;
+        private readonly DAL.RequestType _contextRequestType;
+        private readonly DAL.AvailableDays _contextAvailableDay;
 
         public RequestController(DalMapper dalMapper, ViewModelMapper vmMapper,
-            DAL.Request contextRequest, DAL.RequestType contextRequestType )
+            DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.AvailableDays contextAvailableDay )
         {
             _dalMapper = dalMapper;
             _vmMapper = vmMapper;
 
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
+            _contextAvailableDay = contextAvailableDay;
         }
         // GET: RequestController
         public ActionResult Index()
@@ -50,6 +52,7 @@ namespace Furlough.Areas.Employee.Controllers
             {
                 var request = _contextRequest.GetById(id);
                 var loggedinUserId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+                var loggedinEmployee = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
 
                 if (request == null)
                     return NotFound("Request doesn't exist.");
@@ -59,6 +62,16 @@ namespace Furlough.Areas.Employee.Controllers
                     return BadRequest("Something went wrong cancelling your request.");
 
                 var result = _contextRequest.DeleteById(request.Id);
+
+                //set back employeeDays based on the request daysAmount
+                if (result)
+                {
+                    var availableDays = _contextAvailableDay.GetByEmployeeId(loggedinEmployee);
+                    var requestType = _contextRequestType.GetById(request.RequestTypeId);
+                    var availableRequestDays = (int)availableDays.GetType().GetProperty(requestType.Type).GetValue(availableDays);
+                    var res = _contextAvailableDay.SetDays(loggedinEmployee, requestType.Type, availableRequestDays + request.DaysAmount);
+                }
+
                 return result ? Ok() : StatusCode(500, "Something went wrong cancelling your request.");
             }
             catch (Exception e)
