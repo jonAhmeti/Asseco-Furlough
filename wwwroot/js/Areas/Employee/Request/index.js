@@ -21,7 +21,7 @@
         $(cancelBtns[i]).on('click', function () {
             $.ajax({
                 requestId: this.getAttribute("requestId"),
-                method: 'POST',
+                method: 'DELETE',
                 url: `Request/Cancel/${this.getAttribute("requestId")}`,
                 success: function (result) {
                     $(`div[requestid="${this.requestId}"]`).animate({ width: 0, opacity: 0 }, 1000,

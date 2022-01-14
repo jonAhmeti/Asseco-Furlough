@@ -44,8 +44,10 @@ namespace Furlough.Areas.Employee.Controllers
             }
         }
 
+
+
         // POST: RequestController/Cancel/5
-        [HttpPost, ActionName("Cancel")]
+        [HttpDelete, ActionName("Cancel")]
         public ActionResult Delete(int id)
         {
             try
