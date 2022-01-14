@@ -1,4 +1,4 @@
-tr {
+.indexTable tr {
   height: 40px;
 }
 td {
@@ -79,7 +79,7 @@ a {
     width: 100%;
   }
 }
-tr td:last-child {
+.indexTable tr td:last-child {
   min-width: 210px;
 }
 #assecologo {

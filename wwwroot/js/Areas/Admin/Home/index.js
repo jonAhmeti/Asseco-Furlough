@@ -23,10 +23,8 @@
                     var listDepText = employeeDep[i].getElementsByTagName("li");
                     if (lookup[tabText] == $(listDepText[2]).text()) {
                         $(listDepText).parent().removeClass("d-none");
-                        $(listDepText).parent().addClass("row");
                     } else {
                         $(listDepText).parent().addClass("d-none");
-                        $(listDepText).parent().removeClass("row");
                     }
                 }
             }
