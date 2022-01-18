@@ -65,7 +65,7 @@ namespace Furlough.SecurityHandlers
             }
             catch (Exception e)
             {
-                string extraMessage = "\n**Possible user's DB password is not long enough to contain the salt"; //salt length should be 24 characters
+                string extraMessage = "\n**Reason probably: user's DB password is not long enough to contain the salt"; //salt length should be 24 characters
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message + extraMessage);
                 Console.ResetColor();
