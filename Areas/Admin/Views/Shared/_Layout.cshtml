@@ -78,8 +78,7 @@
     <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1" style="overflow-y: auto; overflow-x: hidden;">
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                <a id="dashboardLink"
-                    class="sidenavLinks nav-link d-flex align-items-center @(action=="" ? "active" : "")" href="/">
+                <a id="dashboardLink" class="sidenavLinks nav-link d-flex align-items-center @(action=="" ? "active" : "")" href="/">
                     <span class="material-icons-round align-middle">dashboard</span> @Resources.Shared._Layout.dashTitle
                 </a>
             </div>
@@ -102,7 +101,7 @@
                 </a>
             </div>
             <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                <a class="sidenavLinks nav-link d-flex align-items-center @(action=="AvailableDays" ? "active" : "")"
+                <a id="daysLink" class="sidenavLinks nav-link d-flex align-items-center @(action=="AvailableDays" ? "active" : "")"
                     asp-area="Admin" asp-controller="AvailableDays" asp-action="Index">
                     <span class="material-icons-round align-middle">dns</span> @Resources.Shared._Layout.availDaysTitle
                 </a>
@@ -141,5 +140,4 @@
 <script src="~/lib/DataTables/datatables.min.js"></script>
 <link rel="stylesheet" href="~/lib/DataTables/datatables.min.css" />
 <script src="~/lib/DataTables/jszip.min.js"></script>
-
 </html>

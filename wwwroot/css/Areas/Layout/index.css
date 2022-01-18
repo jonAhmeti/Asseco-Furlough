@@ -36,7 +36,7 @@ aside .active {
   background-color: white;
 }
 
-#dashboardLink {
+#dashboardLink, #daysLink {
   justify-content: start;
 }
 
@@ -57,7 +57,7 @@ aside .active {
     display: flex;
     align-items: center;
   }
-  #dashboardLink {
+  #dashboardLink, #daysLink {
     justify-content: center;
   }
 }
