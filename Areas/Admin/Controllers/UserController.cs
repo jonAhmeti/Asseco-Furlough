@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Furlough.DAL;
 using Furlough.DAL.Models;
+using System.Text.RegularExpressions;
 
 namespace Furlough.Areas.Admin.Controllers
 {
@@ -18,6 +19,7 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly DAL.Role _contextRole;
         private readonly Models.Mapper.DalMapper _dalMapper;
         private readonly Models.Mapper.ViewModelMapper _vmMapper;
+
         public UserController(FurloughContext context, DAL.User contextUser, DAL.Role contextRole,
             Models.Mapper.DalMapper dalMapper, Models.Mapper.ViewModelMapper vmMapper)
         {
@@ -75,8 +77,17 @@ namespace Furlough.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_context.Add(user);
-                //await _context.SaveChangesAsync();
+                //Password validation
+                var regexPassword = new Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-]).{8,32}$");
+                if (!regexPassword.IsMatch(user.Password.Trim()))
+                {
+                    return BadRequest("Password can't be empty or contain spaces");
+                }
+
+                //Re-set user password to the hashed value
+                var passwordHasher = new SecurityHandlers.PasswordHasher(user.Password);
+                user.Password = passwordHasher.GetHashWithSalt();
+
                 _contextUser.Add(_dalMapper.DalUserMap(user));
                 return RedirectToAction(nameof(Index));
             }

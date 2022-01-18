@@ -143,7 +143,8 @@ namespace Furlough.DAL
                         Username = reader.GetString("Username"),
                         RoleId = reader.GetInt32("RoleId"),
                         UpdateBy = reader["UpdateBy"] == DBNull.Value ? null : reader.GetInt32("UpdateBy"),
-                        UpdateDate = reader["UpdateDate"] == DBNull.Value ? null : reader.GetDateTime("UpdateDate")
+                        UpdateDate = reader["UpdateDate"] == DBNull.Value ? null : reader.GetDateTime("UpdateDate"),
+                        Password = reader.GetString("Password"),
                     });
                 }
                 return objList;

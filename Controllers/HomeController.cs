@@ -70,6 +70,13 @@ namespace Furlough.Controllers
                 var employee = _contextEmployee.GetByUserId(dbUser.Id);
                 if (employee == null) return NotFound("Employee not found.");
 
+                //verify password
+                var passwordHasher = new PasswordHasher(user.Password);
+                if (!passwordHasher.VerifyPassword(dbUser.Password))
+                {
+                    return BadRequest();
+                }
+
                 //checking user role
                 var role = "Employee";
                 switch (dbUser.RoleId)
