@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Furlough.DAL;
 using Furlough.DAL.Models;
 using System.Globalization;
 using Furlough.Models.Mapper;
@@ -23,9 +22,13 @@ namespace Furlough.Areas.Manager.Controllers
         private readonly DAL.User _contextUsers;
         private readonly DAL.Department _contextDepartments;
         private readonly DAL.DepartmentPositions _contextDepartmentPosition;
-        private readonly FurloughContext _context;
+        private readonly DAL.AvailableDays _contextAvailableDays;
+        private readonly DAL.FurloughContext _context;
 
-        public EmployeeController(ViewModelMapper vmMapper, DAL.Employee contextEmployee, DAL.Position contextPosition, DAL.User contextUsers, DAL.Department contextDepartments, DAL.DepartmentPositions contextDepartmentPosition, FurloughContext context)
+        public EmployeeController(ViewModelMapper vmMapper,
+            DAL.Employee contextEmployee, DAL.Position contextPosition, DAL.User contextUsers,
+            DAL.Department contextDepartments, DAL.DepartmentPositions contextDepartmentPosition,
+            DAL.AvailableDays contextAvailableDays, DAL.FurloughContext context)
         {
             _vmMapper = vmMapper;
 
@@ -34,6 +37,7 @@ namespace Furlough.Areas.Manager.Controllers
             _contextUsers = contextUsers;
             _contextDepartments = contextDepartments;
             _contextDepartmentPosition = contextDepartmentPosition;
+            _contextAvailableDays = contextAvailableDays;
 
             _context = context;
         }
@@ -55,6 +59,8 @@ namespace Furlough.Areas.Manager.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["EmployeeDays"] = _contextAvailableDays.GetByEmployeeId(employee.Id);
 
             return View(employee);
         }
