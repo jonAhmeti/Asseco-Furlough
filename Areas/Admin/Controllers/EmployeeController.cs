@@ -188,8 +188,8 @@ namespace Furlough.Areas.Admin.Controllers
             if (employee == null) 
                 return NotFound("Employee not found.");
 
-            /*  Reset logic based on employee's work start date */
-            CalculateYearlyDays(employee.WorkStartDate);
+            //  Reset employee available days to default and yearlyDays to the given value from method
+            var result = _contextAvailableDays.SetAllDays(employee.Id, CalculateYearlyDaysTest(employee.WorkStartDate));
             return Ok(); //Added temporarily
         }
 
@@ -254,21 +254,57 @@ namespace Furlough.Areas.Admin.Controllers
                                                                             //the "for loop" is also supposed to manage leap years
         }
 
-        public int[] CalculateYearlyDaysTest(DateTime workStartDate)
+        public int CalculateYearlyDaysTest(DateTime workStartDate)
         {
             var presentEOY = new DateTime(DateTime.Now.Year, 12, 31);
             var yearsWorking = presentEOY.Year - workStartDate.Year;
 
             var availableDays = 0;
-            for (int workYear = workStartDate.Year; workYear < presentEOY.Year; workYear++)
+            double availableDaysByMonth = 0;
+            for (int workYear = 0; workYear <= yearsWorking; workYear++)
             {
                 if (workYear == 0) //1.5 monthly
                 {
+                    availableDays = 18;
 
+                    const double coefficient = 1.5;
+                    for (int workMonth = 1; workMonth <= 12; workMonth++)
+                    {
+                        if (workMonth > workStartDate.Month && workMonth <= DateTime.Now.Month)
+                        {
+                            availableDaysByMonth = workMonth * coefficient;
+                        }
+                    }
+                }
+                else if (workYear == 1)
+                {
+                    availableDays = 20;
+
+                    const double coefficient = 1.66;
+                    for (int workMonth = 1; workMonth <= 12; workMonth++)
+                    {
+                        if (workMonth > workStartDate.Month && workMonth <= DateTime.Now.Month)
+                        {
+                            availableDaysByMonth = workMonth * coefficient;
+                        }
+                        else
+                        {
+                            availableDaysByMonth = workMonth * 1.5;
+                        }
+                    }
+                }
+                else if (workYear == 6)
+                {
+                    availableDays = 21;
+                    const double coefficient = 1.75;
+                }
+                else if (workYear % 5 == 0)
+                {
+                    availableDays++;
                 }
             }
            
-            return new int[] { }; //at this point in the code
+            return availableDays; //at this point in the code
                                                                             //yearCounter = years working
                                                                             //span.Days = days so far not counted into yearly leave
                                                                             //yearlyDaysAllowed = the amount of yearly leave days available for this employee

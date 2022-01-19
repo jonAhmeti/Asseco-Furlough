@@ -35,6 +35,29 @@ namespace Furlough.DAL
             connection.Open();
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
+        public bool SetAllDays(int employeeId, int yearlyDays)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_availableDaysSetAll", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@EmployeeId", employeeId);
+                command.Parameters.AddWithValue("@YearlyDays", yearlyDays);
+
+                connection.Open();
+                var res = command.ExecuteNonQuery();
+                return res > 0;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
         public bool SetDays(int employeeId, string requestType, int daysAmount)
         {

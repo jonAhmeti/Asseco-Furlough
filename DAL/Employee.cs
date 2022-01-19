@@ -23,7 +23,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@DepartmentId", obj.DepartmentId);
             command.Parameters.AddWithValue("@Email", obj.Email);
             command.Parameters.AddWithValue("@Name", obj.Name);
-            command.Parameters.AddWithValue("@JoinDate", obj.JoinDate <= DateTime.MinValue ? DateTime.Now : obj.JoinDate);
+            command.Parameters.AddWithValue("@WorkStartDate", obj.WorkStartDate <= DateTime.MinValue ? DateTime.Now : obj.WorkStartDate);
             command.Parameters.AddWithValue("@Phone", obj.Phone);
 
             connection.Open();
@@ -44,6 +44,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Email", obj.Email);
             command.Parameters.AddWithValue("@Name", obj.Name);
             command.Parameters.AddWithValue("@Phone", obj.Phone);
+            command.Parameters.AddWithValue("@WorkStartDate", obj.WorkStartDate);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
