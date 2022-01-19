@@ -8,7 +8,7 @@
             {
                 Id = obj.Id,
                 Username = obj.Username,
-                Password = obj.Password,
+                Password = "", //reset password
                 InsertDate = obj.InsertDate,
                 RoleId = obj.RoleId,
                 UpdateDate = obj.UpdateDate,
@@ -88,7 +88,9 @@
                 RequestTypeId = obj.RequestTypeId,
                 RequestedOn = obj.RequestedOn,
                 RequestStatusId = obj.RequestStatusId,
-                Reason = obj.Reason
+                Reason = obj.Reason,
+                LUD = obj.LUD,
+                LUN = obj.LUN
             };
         }
     }

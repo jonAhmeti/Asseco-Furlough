@@ -77,6 +77,7 @@ namespace Furlough.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
                 //Password validation
                 var regexPassword = new Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-]).{8,32}$");
                 if (!regexPassword.IsMatch(user.Password.Trim()))
@@ -88,6 +89,7 @@ namespace Furlough.Areas.Admin.Controllers
                 var passwordHasher = new SecurityHandlers.PasswordHasher(user.Password);
                 user.Password = passwordHasher.GetHashWithSalt();
 
+                user.UpdateBy = loggedinUser;
                 _contextUser.Add(_dalMapper.DalUserMap(user));
                 return RedirectToAction(nameof(Index));
             }
@@ -153,6 +155,24 @@ namespace Furlough.Areas.Admin.Controllers
             }
             var result = _contextUser.Delete(user.Id);
             return View(user);
+        }
+
+        //POST: Admin/User/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            try
+            {
+                var result = _contextUser.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+                return RedirectToAction(nameof(Delete), id);
+            }
         }
     }
 }

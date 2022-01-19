@@ -109,27 +109,6 @@ namespace Furlough.DAL
                     .HasDefaultValueSql("(getdate())");
             });
 
-            modelBuilder.Entity<Models.RequestHistory>(entity =>
-            {
-                entity.ToTable("RequestHistory");
-
-                entity.Property(e => e.AlteredOn)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.AlteredByNavigation)
-                    .WithMany(p => p.RequestHistories)
-                    .HasForeignKey(d => d.AlteredBy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RequestHi__Alter__5DCAEF64");
-
-                entity.HasOne(d => d.AlteredToNavigation)
-                    .WithMany(p => p.RequestHistories)
-                    .HasForeignKey(d => d.AlteredTo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RequestHi__Alter__5FB337D6");
-            });
-
             modelBuilder.Entity<Models.RequestStatus>(entity =>
             {
                 entity.ToTable("RequestStatus");
@@ -163,16 +142,6 @@ namespace Furlough.DAL
                 entity.Property(e => e.Title)
                     .HasMaxLength(100)
                     .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Models.SpentDaysHistory>(entity =>
-            {
-                entity.ToTable("SpentDaysHistory");
-
-                entity.HasOne(d => d.RequestHistory)
-                    .WithMany(p => p.SpentDaysHistories)
-                    .HasForeignKey(d => d.RequestHistoryId)
-                    .HasConstraintName("FK__SpentDays__Reque__17036CC0");
             });
 
             modelBuilder.Entity<Models.User>(entity =>

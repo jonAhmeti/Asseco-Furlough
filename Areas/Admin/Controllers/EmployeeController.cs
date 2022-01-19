@@ -163,10 +163,27 @@ namespace Furlough.Areas.Admin.Controllers
             return View(employee);
         }
 
+        //POST: Admin/Employee/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            try
+            {
+                var result = _contextEmployee.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+                return RedirectToAction(nameof(Delete), id);
+            }
+        }
+
         // POST: Admin/Employee/Reset/5
         public async Task<IActionResult> Reset(int id)
         {
-            id = 11; //hardcoded - change later
             var employee = _contextEmployee.GetById(id);
             if (employee == null) 
                 return NotFound("Employee not found.");
@@ -176,43 +193,79 @@ namespace Furlough.Areas.Admin.Controllers
             return Ok(); //Added temporarily
         }
 
+
         //Calculates yearly days available starting from workStartDate
+        #region yearlyDaysCalculation
+        //recently added allowedDays variable for testing, testing will be done in the Test method below other times
         public int[] CalculateYearlyDays(DateTime workStartDate)
         {
-            //Shieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet maybe convert 1.5 monthly rate to daily : 365 | 366 then for every day of the month raise
             var endOfYear = new DateTime(DateTime.Now.Year, 12, 31);
             var span = endOfYear.Subtract(workStartDate);
+            int yearlyDaysAllowed = 18;
+            float allowedDays = 0; //test
 
-            double daysAvailable = 0;
-            int yearCounter = 0;
-
-            for (int i = workStartDate.Year; i < DateTime.Now.Year; i++)
+            var yearCounter = 0;
+            for (int i = 0; i <= endOfYear.Year - workStartDate.Year; i++)
             {
-                var tempYearStart = new DateTime(i, 1, 1);
-                var tempYearEnd = new DateTime(i, 12, 31);
+                if (span.Days <= 0)
+                    return new int[] { yearCounter, span.Days, yearlyDaysAllowed };
 
-                if (i == workStartDate.Year)
+                var date = new DateTime(workStartDate.Year + i, workStartDate.Month, 1); //workStartDate anniversary
+                var thisDateEndOfYear = new DateTime(workStartDate.Year + i, 12, 31); //test
+                var nextDate = new DateTime(workStartDate.Year + i + 1, workStartDate.Month, 1);
+
+                var thatYearsWorkDays = thisDateEndOfYear - date;   //test
+
+                span = span.Subtract(new TimeSpan(days: thatYearsWorkDays.Days, 0, 0, 0));
+
+                if (yearCounter == 0) //this if might be obsolete bc of the for loop's condition
                 {
-                    var yearSpan = tempYearEnd - workStartDate;
-                    var aproxWorkMonths = Math.Floor(yearSpan.Days / (float)tempYearEnd.DayOfYear * 12);
-                    daysAvailable = aproxWorkMonths * 1.5;
+                    yearlyDaysAllowed = 18;
+                    allowedDays = (float)(thatYearsWorkDays.TotalDays / (thisDateEndOfYear.DayOfYear / 12) * 1.5);
+                    Console.WriteLine(allowedDays);
                 }
-                else
+                else if (yearCounter == 1)
                 {
-                    var beforeAnniversary = new DateTime(i, workStartDate.Month, workStartDate.Day) - tempYearStart;
-                    var afterAnniversary = tempYearEnd - new DateTime(i, workStartDate.Month, workStartDate.Day);
-                    var prevYearEnd = new DateTime(i - 1, 12, 31);
-
-                    if (yearCounter == 1)
-                    {
-                        var aproxWorkMonthsBefore = Math.Floor(beforeAnniversary.Days / (float)prevYearEnd.DayOfYear * 12);
-                        var aproxWorkMonthsAfter = Math.Floor(afterAnniversary.Days / (float)tempYearEnd.DayOfYear * 12);
-                        daysAvailable += aproxWorkMonthsBefore * 1.5;
-                        daysAvailable += aproxWorkMonthsAfter * (float)1.66;
-                    }
+                    yearlyDaysAllowed = 20;
+                    allowedDays = (float)(thatYearsWorkDays.TotalDays / (thisDateEndOfYear.DayOfYear / 12) * 1.66);
+                    Console.WriteLine(allowedDays);
+                }
+                else if (yearCounter == 6)
+                {
+                    yearlyDaysAllowed = 21;
+                    allowedDays = (float)(thatYearsWorkDays.TotalDays / (thisDateEndOfYear.DayOfYear / 12) * 1.75);
+                    Console.WriteLine(allowedDays);
+                }
+                else if (yearCounter % 5 == 0)
+                {
+                    yearlyDaysAllowed++;
+                    allowedDays = (float)((thatYearsWorkDays.TotalDays / (thisDateEndOfYear.DayOfYear / 12) * 1.75)) + i;
+                    allowedDays += (float)((thisDateEndOfYear.DayOfYear - thatYearsWorkDays.TotalDays) / (thisDateEndOfYear.DayOfYear / 12) * 1.75) + i - 1;
+                    Console.WriteLine(allowedDays);
                 }
 
                 yearCounter++;
+            }
+
+            return new int[] { yearCounter, span.Days, yearlyDaysAllowed }; //at this point in the code
+                                                                            //yearCounter = years working
+                                                                            //span.Days = days so far not counted into yearly leave
+                                                                            //yearlyDaysAllowed = the amount of yearly leave days available for this employee
+                                                                            //the "for loop" is also supposed to manage leap years
+        }
+
+        public int[] CalculateYearlyDaysTest(DateTime workStartDate)
+        {
+            var presentEOY = new DateTime(DateTime.Now.Year, 12, 31);
+            var yearsWorking = presentEOY.Year - workStartDate.Year;
+
+            var availableDays = 0;
+            for (int workYear = workStartDate.Year; workYear < presentEOY.Year; workYear++)
+            {
+                if (workYear == 0) //1.5 monthly
+                {
+
+                }
             }
            
             return new int[] { }; //at this point in the code
@@ -221,5 +274,6 @@ namespace Furlough.Areas.Admin.Controllers
                                                                             //yearlyDaysAllowed = the amount of yearly leave days available for this employee
                                                                             //the "for loop" is also supposed to manage leap years
         }
+        #endregion
     }
 }

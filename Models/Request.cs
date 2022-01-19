@@ -12,6 +12,8 @@ namespace Furlough.Models
         public byte RequestStatusId { get; set; }
         public int DaysAmount { get; set; }
         public int RequestTypeId { get; set; }
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
+        public DateTime LUD { get; set; }
+        public int LUN { get; set; }
     }
 }

@@ -23,6 +23,8 @@ namespace Furlough.DAL
                 };
                 command.Parameters.AddWithValue("@Username", obj.Username);
                 command.Parameters.AddWithValue("@Password", obj.Password);
+                command.Parameters.AddWithValue("@RoleId", obj.RoleId);
+                command.Parameters.AddWithValue("@UpdateBy", obj.UpdateBy);
                 connection.Open();
                 return (int)command.ExecuteScalar();
             }
@@ -113,7 +115,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Username", username);
             connection.Open();
 
-            return Mapper(command.ExecuteReader()).FirstOrDefault();
+            return Mapper(command.ExecuteReader(), true).FirstOrDefault();
         }
 
         public IEnumerable<Models.User> GetAll()
@@ -129,7 +131,7 @@ namespace Furlough.DAL
         }
 
         //Object mapper; reader to model
-        public IEnumerable<Models.User> Mapper(SqlDataReader reader)
+        public IEnumerable<Models.User> Mapper(SqlDataReader reader, bool getPassword = false)
         {
             var objList = new List<Models.User>();
             try
@@ -144,7 +146,7 @@ namespace Furlough.DAL
                         RoleId = reader.GetInt32("RoleId"),
                         UpdateBy = reader["UpdateBy"] == DBNull.Value ? null : reader.GetInt32("UpdateBy"),
                         UpdateDate = reader["UpdateDate"] == DBNull.Value ? null : reader.GetDateTime("UpdateDate"),
-                        Password = reader.GetString("Password"),
+                        Password = getPassword ? reader.GetString("Password") : "",
                     });
                 }
                 return objList;

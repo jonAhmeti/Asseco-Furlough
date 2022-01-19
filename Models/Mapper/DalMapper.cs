@@ -97,7 +97,9 @@ namespace Furlough.Models.Mapper
                 RequestStatusId = obj.RequestStatusId == 0 ? (byte)1 : obj.RequestStatusId,
                 RequestTypeId = obj.RequestTypeId,
                 Dates = datesString,
-                Reason = obj.Reason
+                Reason = obj.Reason,
+                LUD = obj.LUD,
+                LUN = obj.LUN
             };
         }
 

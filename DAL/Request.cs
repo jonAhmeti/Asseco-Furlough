@@ -144,7 +144,9 @@ namespace Furlough.DAL
                         RequestedOn = reader.GetDateTime("RequestedOn"),
                         RequestStatusId = reader.GetByte("RequestStatusId"),
                         RequestTypeId = reader.GetInt32("RequestTypeId"),
-                        Reason = reader["Reason"] == DBNull.Value ? "" : reader.GetString("Reason")
+                        Reason = reader["Reason"] == DBNull.Value ? "" : reader.GetString("Reason"),
+                        LUD = reader.GetDateTime("LUD"),
+                        LUN = reader.GetInt32("LUN")
                     });
                 }
                 return listObj;
@@ -173,7 +175,7 @@ namespace Furlough.DAL
                         EmployeeId = reader.GetInt32("EmployeeId"),
                         EmployeePositionId = reader.GetInt32("EmployeePositionId"),
                         RequestStatusId = reader.GetByte("RequestStatusId"),
-                        RequestDaysAmount = reader.GetInt32("RequestDaysAmount")
+                        RequestDaysAmount = reader.GetInt32("RequestDaysAmount"),
                     });
                 }
                 return listObj;

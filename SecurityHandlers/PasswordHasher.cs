@@ -69,7 +69,7 @@ namespace Furlough.SecurityHandlers
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message + extraMessage);
                 Console.ResetColor();
-                throw;
+                return false;
             }
         }
     }
