@@ -74,9 +74,10 @@ namespace Furlough.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_context.Add(employee);
+                var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+                employee.LUBUserId = loggedinUser;
+
                 _contextEmployee.Add(_dalMapper.DalEmployeeMap(employee));
-                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
@@ -128,8 +129,8 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
-                    //_context.Update(employee);
-                    //await _context.SaveChangesAsync();
+                    var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+                    employee.LUBUserId = loggedinUser;
                     var result = _contextEmployee.Edit(_dalMapper.DalEmployeeMap(employee));
                 }
                 catch (DbUpdateConcurrencyException)
