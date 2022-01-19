@@ -21,14 +21,15 @@ namespace Furlough.Models
 
         [Display(Name = "Insert date")]
         public DateTime InsertDate { get; set; }
-
-        [Display(Name = "Update date")]
-        public DateTime? UpdateDate { get; set; }
         public string Username { get; set; } = null!;
         public string Password { get; set; } = null!;
 
         [Display(Name = "Last updated by")]
-        public int? UpdateBy { get; set; }
+        public int LUBUserId { get; set; }
+        [Display(Name = "Update date")]
+        public DateTime LUD { get; set; }
+        [Display(Name = "Total no. of updates")]
+        public int LUN { get; set; }
 
         //    public virtual Role Role { get; set; } = null!;
         //    public virtual User? UpdateByNavigation { get; set; }

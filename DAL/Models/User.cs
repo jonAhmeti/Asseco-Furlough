@@ -16,10 +16,11 @@ namespace Furlough.DAL.Models
         public int Id { get; set; }
         public int RoleId { get; set; }
         public DateTime InsertDate { get; set; }
-        public DateTime? UpdateDate { get; set; }
         public string Username { get; set; } = null!;
         public string Password { get; set; } = null!;
-        public int? UpdateBy { get; set; }
+        public DateTime LUD { get; set; }
+        public int LUN { get; set; }
+        public int LUBUserId { get; set; }
 
         public virtual Role Role { get; set; } = null!;
         public virtual User? UpdateByNavigation { get; set; }

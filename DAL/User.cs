@@ -24,7 +24,7 @@ namespace Furlough.DAL
                 command.Parameters.AddWithValue("@Username", obj.Username);
                 command.Parameters.AddWithValue("@Password", obj.Password);
                 command.Parameters.AddWithValue("@RoleId", obj.RoleId);
-                command.Parameters.AddWithValue("@UpdateBy", obj.UpdateBy);
+                command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
                 connection.Open();
                 return (int)command.ExecuteScalar();
             }
@@ -46,7 +46,7 @@ namespace Furlough.DAL
 
             command.Parameters.AddWithValue("@UserId", obj.Id);
             command.Parameters.AddWithValue("@RoleId", obj.RoleId);
-            command.Parameters.AddWithValue("@UpdateBy", obj.UpdateBy);
+            command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
             command.Parameters.AddWithValue("@Username", obj.Username);
             command.Parameters.AddWithValue("@Password", obj.Password);
             connection.Open();
@@ -144,9 +144,10 @@ namespace Furlough.DAL
                         InsertDate = reader.GetDateTime("InsertDate"),
                         Username = reader.GetString("Username"),
                         RoleId = reader.GetInt32("RoleId"),
-                        UpdateBy = reader["UpdateBy"] == DBNull.Value ? null : reader.GetInt32("UpdateBy"),
-                        UpdateDate = reader["UpdateDate"] == DBNull.Value ? null : reader.GetDateTime("UpdateDate"),
                         Password = getPassword ? reader.GetString("Password") : "",
+                        LUD = reader.GetDateTime("LUD"),
+                        LUN = reader.GetInt32("LUN"),
+                        LUBUserId = reader.GetInt32("LUBUserId")
                     });
                 }
                 return objList;

@@ -25,6 +25,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Name", obj.Name);
             command.Parameters.AddWithValue("@WorkStartDate", obj.WorkStartDate <= DateTime.MinValue ? DateTime.Now : obj.WorkStartDate);
             command.Parameters.AddWithValue("@Phone", obj.Phone);
+            command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
@@ -45,6 +46,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Name", obj.Name);
             command.Parameters.AddWithValue("@Phone", obj.Phone);
             command.Parameters.AddWithValue("@WorkStartDate", obj.WorkStartDate);
+            command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
@@ -149,7 +151,10 @@ namespace Furlough.DAL
                         Email = reader.GetString("Email"),
                         JoinDate = reader.GetDateTime("JoinDate"),
                         Phone = reader["Phone"] == DBNull.Value ? null : reader.GetString("Phone"),
-                        WorkStartDate = reader["WorkStartDate"] == DBNull.Value ? DateTime.MinValue : reader.GetDateTime("WorkStartDate")
+                        WorkStartDate = reader["WorkStartDate"] == DBNull.Value ? DateTime.MinValue : reader.GetDateTime("WorkStartDate"),
+                        LUBUserId = reader.GetInt32("LUBUserId"),
+                        LUN = reader.GetInt32("LUN"),
+                        LUD = reader.GetDateTime("LUD")
                     });
                 }
                 return listObj;

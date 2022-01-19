@@ -11,8 +11,9 @@
                 Password = "", //reset password
                 InsertDate = obj.InsertDate,
                 RoleId = obj.RoleId,
-                UpdateDate = obj.UpdateDate,
-                UpdateBy = obj.UpdateBy,
+                LUD = obj.LUD,
+                LUN = obj.LUN,
+                LUBUserId = obj.LUBUserId,
             };
         }
 

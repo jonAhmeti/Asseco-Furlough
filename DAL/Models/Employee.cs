@@ -14,6 +14,9 @@ namespace Furlough.DAL.Models
         public string Name { get; set; } = null!;
         public string? Phone { get; set; }
         public DateTime WorkStartDate { get; set; }
+        public DateTime LUD { get; set; }
+        public int LUN { get; set; }
+        public int LUBUserId { get; set; }
 
         public virtual Department Department { get; set; } = null!;
         public virtual Position Position { get; set; } = null!;

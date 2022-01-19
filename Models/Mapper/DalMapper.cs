@@ -13,8 +13,9 @@ namespace Furlough.Models.Mapper
                 Password = obj.Password,
                 InsertDate = obj.InsertDate,
                 RoleId = obj.RoleId,
-                UpdateDate = obj.UpdateDate,
-                UpdateBy = obj.UpdateBy,
+                LUD = obj.LUD,
+                LUBUserId = obj.LUBUserId,
+                LUN = obj.LUN,
             };
         }
 

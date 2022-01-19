@@ -89,12 +89,12 @@ namespace Furlough.Areas.Admin.Controllers
                 var passwordHasher = new SecurityHandlers.PasswordHasher(user.Password);
                 user.Password = passwordHasher.GetHashWithSalt();
 
-                user.UpdateBy = loggedinUser;
+                user.LUBUserId = loggedinUser;
                 _contextUser.Add(_dalMapper.DalUserMap(user));
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RoleId"] = new SelectList(_contextRole.GetAll(), "Id", "Title", user.RoleId);
-            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.UpdateBy);
+            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.LUBUserId);
             return View(user);
         }
 
@@ -108,7 +108,7 @@ namespace Furlough.Areas.Admin.Controllers
             }
 
             ViewData["Roles"] = new SelectList(_contextRole.GetAll(), "Id", "Title", user.RoleId);
-            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.UpdateBy);
+            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.LUBUserId);
             return View(user);
         }
 
@@ -128,8 +128,12 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
-                    //_context.Update(user);
-                    //await _context.SaveChangesAsync();
+                    var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+                    //Re-set user password to the hashed value
+                    var passwordHasher = new SecurityHandlers.PasswordHasher(user.Password);
+                    user.Password = passwordHasher.GetHashWithSalt();
+
+                    user.LUBUserId = loggedinUser;
                     var result = _contextUser.Edit(_dalMapper.DalUserMap(user));
                 }
                 catch (DbUpdateConcurrencyException e)
@@ -141,7 +145,7 @@ namespace Furlough.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Roles"] = new SelectList(_contextRole.GetAll(), "Id", "Title", user.RoleId);
-            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.UpdateBy);
+            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.LUBUserId);
             return View(user);
         }
 
