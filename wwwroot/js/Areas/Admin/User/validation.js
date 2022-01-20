@@ -1,30 +1,4 @@
-$(function() {
-    function passwordCheck(password) {
-      if (password.length == 0) {
-        strength = 0;
-      }
-      else if (password.length != 0) {
-        if (password.match(/^(?=.*[a-z])(?=.*[A-Z])/) || password.match(/^(?=.*[a-z])(?=.*[0-9])/)) {
-          if (password.match(/^(?=.*[A-Z])(?=.*[0-9])/)) {
-            if (password.match(/^.{8,32}$/)) {
-              if (password.match(/^(?=.*[#?!@$%^&*-])/)) {
-                strength = 5;
-              } else {
-                strength = 4;
-              }
-            } else {
-              strength = 3;
-            }
-          } else {
-            strength = 2;
-          }
-        } else {
-          strength = 1;
-        }
-      }
-      displayBar(strength);
-    }
-  
+$(function() {  
     function displayBar(strength, missingTypes) {
         var statusColor = ["#de1616", "#B7410E", "#FFA200", "#06bf06", "#663399", "#000"];
         var statusText = ["Password is Very Weak", "Password is Weak", "Password is Moderate", "Password is Strong", "Password is Epic", "Password"];
@@ -94,6 +68,7 @@ $(function() {
                 }).text(statusText[5]);
         }
     }
+
     $("[data-strength]").after("<div id=\"password-strength\" class=\"strength\"><span></span></div>");
     $("[data-strength]").focus(function() {
       $("#password-strength").css({
@@ -117,9 +92,7 @@ $(function() {
       }
     });
     $("[data-strength]").keyup(function() {
-      strength = 0;
       var password = $(this).val();
-        //passwordCheck(password);
         var strength = getStrength(password);
         displayBar(strength.strength, strength.missingTypes);
     });
