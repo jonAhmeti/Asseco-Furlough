@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" data-strength asp-for="Password" class="form-control" placeholder='@localizer["password"]'/>
-                        <label asp-for="Password" class="control-label">@localizer["password"]</label>
+                        <label asp-for="Password" pass-label class="control-label">@localizer["password"]</label>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-2">

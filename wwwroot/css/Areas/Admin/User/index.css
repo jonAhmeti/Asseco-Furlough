@@ -7,11 +7,6 @@
     overflow: hidden;
     transition: all 0.3s;
 }
-#userCreateForm #password-strength-status {
-    color: #de1616;
-    transition: all 0.3s;
-    display: none;
-}
 #userCreateForm .strength span {
     width: 0px;
     height: 4px;
