@@ -77,7 +77,13 @@ namespace Furlough.Areas.Admin.Controllers
                 var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
                 employee.LUBUserId = loggedinUser;
 
-                _contextEmployee.Add(_dalMapper.DalEmployeeMap(employee));
+                var employeeId = _contextEmployee.Add(_dalMapper.DalEmployeeMap(employee));
+                if (employeeId == null)
+                {
+                    return StatusCode(500, "Something went wrong adding a new employee.");
+                }
+
+                var result = _contextAvailableDays.SetAllDays(employeeId.Value, CalculateYearlyDays(employee.WorkStartDate));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -186,19 +192,19 @@ namespace Furlough.Areas.Admin.Controllers
         public async Task<IActionResult> Reset(int id)
         {
             var employee = _contextEmployee.GetById(id);
-            if (employee == null) 
+            if (employee == null)
                 return NotFound("Employee not found.");
 
             //  Reset employee available days to default and yearlyDays to the given value from method
-            var result = _contextAvailableDays.SetAllDays(employee.Id, CalculateYearlyDaysTest(employee.WorkStartDate));
-            return Ok(); //Added temporarily
+            var result = _contextAvailableDays.SetAllDays(employee.Id, CalculateYearlyDays(employee.WorkStartDate));
+            return result ? Ok() : StatusCode(500);
         }
 
 
         //Calculates yearly days available starting from workStartDate
         #region yearlyDaysCalculation
         //recently added allowedDays variable for testing, testing will be done in the Test method below other times
-        public int[] CalculateYearlyDays(DateTime workStartDate)
+        public int[] CalculateYearlyDaysTest(DateTime workStartDate)
         {
             var endOfYear = new DateTime(DateTime.Now.Year, 12, 31);
             var span = endOfYear.Subtract(workStartDate);
@@ -255,7 +261,7 @@ namespace Furlough.Areas.Admin.Controllers
                                                                             //the "for loop" is also supposed to manage leap years
         }
 
-        public int CalculateYearlyDaysTest(DateTime workStartDate)
+        public int CalculateYearlyDays(DateTime workStartDate)
         {
             var presentEOY = new DateTime(DateTime.Now.Year, 12, 31);
             var yearsWorking = presentEOY.Year - workStartDate.Year;

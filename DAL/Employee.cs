@@ -11,24 +11,31 @@ namespace Furlough.DAL
         {
             _context = context;
         }
-        public bool Add(Models.Employee obj)
+        public int? Add(Models.Employee obj)
         {
-            using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_employeeAdd", connection)
+            try
             {
-                CommandType = CommandType.StoredProcedure
-            };
-            command.Parameters.AddWithValue("@UserId", obj.UserId);
-            command.Parameters.AddWithValue("@PositionId", obj.PositionId);
-            command.Parameters.AddWithValue("@DepartmentId", obj.DepartmentId);
-            command.Parameters.AddWithValue("@Email", obj.Email);
-            command.Parameters.AddWithValue("@Name", obj.Name);
-            command.Parameters.AddWithValue("@WorkStartDate", obj.WorkStartDate <= DateTime.MinValue ? DateTime.Now : obj.WorkStartDate);
-            command.Parameters.AddWithValue("@Phone", obj.Phone);
-            command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_employeeAdd", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@UserId", obj.UserId);
+                command.Parameters.AddWithValue("@PositionId", obj.PositionId);
+                command.Parameters.AddWithValue("@DepartmentId", obj.DepartmentId);
+                command.Parameters.AddWithValue("@Email", obj.Email);
+                command.Parameters.AddWithValue("@Name", obj.Name);
+                command.Parameters.AddWithValue("@WorkStartDate", obj.WorkStartDate <= DateTime.MinValue ? DateTime.Now : obj.WorkStartDate);
+                command.Parameters.AddWithValue("@Phone", obj.Phone);
+                command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
 
-            connection.Open();
-            return command.ExecuteNonQuery() > 0;
+                connection.Open();
+                return (int?)command.ExecuteScalar();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public bool Edit(Models.Employee obj)
