@@ -73,17 +73,17 @@
 
         public Models.Request RequestMap(DAL.Models.Request obj)
         {
-            var datesStringArray = obj.Dates.Split(",");
-            var datesArray = new DateTime[datesStringArray.Length];
-            for (int i = 0; i < datesStringArray.Length; i++)
-            {
-                var YYYYMMDD = datesStringArray[i].Split('/');
-                datesArray[i] = (new DateTime(int.Parse(YYYYMMDD[0]), int.Parse(YYYYMMDD[1]), int.Parse(YYYYMMDD[2])));
-            }
+            //var datesStringArray = obj.Dates.Split(",");
+            //var datesArray = new DateTime[datesStringArray.Length];
+            //for (int i = 0; i < datesStringArray.Length; i++)
+            //{
+            //    var YYYYMMDD = datesStringArray[i].Split('/');
+            //    datesArray[i] = (new DateTime(int.Parse(YYYYMMDD[0]), int.Parse(YYYYMMDD[1]), int.Parse(YYYYMMDD[2])));
+            //}
             return new Models.Request
             {
                 Id = obj.Id,
-                Dates = datesArray,
+                Dates = obj.Dates,
                 DaysAmount = obj.DaysAmount,
                 RequestedByUserId = obj.RequestedByUserId,
                 RequestTypeId = obj.RequestTypeId,

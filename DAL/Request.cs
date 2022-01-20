@@ -35,8 +35,8 @@ namespace Furlough.DAL
             {
                 CommandType = CommandType.StoredProcedure
             };
+            command.Parameters.AddWithValue("@Id", obj.Id);
             command.Parameters.AddWithValue("@Dates", obj.Dates);
-            command.Parameters.AddWithValue("@RequestedByUserId", obj.RequestedByUserId);
             command.Parameters.AddWithValue("@RequestStatusId", obj.RequestStatusId);
             command.Parameters.AddWithValue("@DaysAmount", obj.DaysAmount);
             command.Parameters.AddWithValue("@RequestTypeId", obj.RequestTypeId);

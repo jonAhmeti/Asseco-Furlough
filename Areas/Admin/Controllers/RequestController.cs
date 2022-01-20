@@ -18,18 +18,20 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly DAL.Request _contextRequest;
         private readonly DAL.RequestType _contextRequestType;
         private readonly DAL.RequestStatus _contextRequestStatus;
+        private readonly DAL.RequestHistory _contextRequestHistory;
         private readonly DAL.Employee _contextEmployee;
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
 
         public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.User contextUser,
-            DAL.Employee contextEmployee, DAL.RequestStatus contextRequestStatus,
+            DAL.Employee contextEmployee, DAL.RequestStatus contextRequestStatus, DAL.RequestHistory contextRequestHistory,
             ViewModelMapper vmMapper, DalMapper dalMapper)
         {
             _contextUser = contextUser;
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
             _contextRequestStatus = contextRequestStatus;
+            _contextRequestHistory = contextRequestHistory;
             _contextEmployee = contextEmployee;
 
             _vmMapper = vmMapper;
@@ -107,7 +109,7 @@ namespace Furlough.Areas.Admin.Controllers
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
             ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
             ViewData["Employee"] = employee;
-            return View(request);
+            return View(_vmMapper.RequestMap(request));
         }
 
         // POST: Admin/Request/Edit/5
@@ -115,7 +117,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateFrom,DateUntil,RequestedByUserId,RequestedOn,RequestStatusId,PaidDays,RequestTypeId")] Models.Request request)
+        public async Task<IActionResult> Edit(int id, Models.Request request)
         {
             if (id != request.Id)
             {
@@ -126,7 +128,24 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
+                    var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+
+                    //this might need to be put in BLL later on
+                    //save history before editing
+                    var prevRequest = _contextRequest.GetById(id);
+                    _contextRequestHistory.Add(new DAL.Models.RequestHistory
+                    {
+                        AlteredByUserId = loggedinUser,
+                        RequestId = request.Id,
+                        PreviousDates = prevRequest.Dates,
+                        PreviousRequestStatusId = request.RequestStatusId,
+                        PreviousRequestTypeId = request.RequestTypeId,
+                    });
+
+                    //make edit
                     var result = _contextRequest.Edit(_dalMapper.DalRequestMap(request));
+                    
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {

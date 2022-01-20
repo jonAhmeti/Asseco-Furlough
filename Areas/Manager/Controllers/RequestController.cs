@@ -15,14 +15,16 @@ namespace Furlough.Areas.Manager.Controllers
         private readonly DAL.Request _contextRequest;
         private readonly DAL.RequestType _contextRequestType;
         private readonly DAL.RequestStatus _contextRequestStatus;
+        private readonly DAL.RequestHistory _contextRequestHistory;
 
         public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType,
-            DAL.RequestStatus contextRequestStatus, DAL.User contextUser)
+            DAL.RequestStatus contextRequestStatus, DAL.RequestHistory contextRequestHistory, DAL.User contextUser)
         {
             _contextUser = contextUser;
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
             _contextRequestStatus = contextRequestStatus;
+            _contextRequestHistory = contextRequestHistory;
         }
 
         // GET: Manager/Request
@@ -103,6 +105,21 @@ namespace Furlough.Areas.Manager.Controllers
             {
                 try
                 {
+                    var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+
+                    //this might need to be put in BLL later on
+                    //save history before editing
+                    var prevRequest = _contextRequest.GetById(id);
+                    _contextRequestHistory.Add(new DAL.Models.RequestHistory
+                    {
+                        AlteredByUserId = loggedinUser,
+                        RequestId = request.Id,
+                        PreviousDates = prevRequest.Dates,
+                        PreviousRequestStatusId = request.RequestStatusId,
+                        PreviousRequestTypeId = request.RequestTypeId,
+                    });
+
+                    //make edit
                     var result = _contextRequest.Edit(request);
                 }
                 catch (DbUpdateConcurrencyException)

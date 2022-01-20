@@ -12,7 +12,8 @@
 
     const datepickers = $('.datepicker');
 
-    for (var i = 0; i < datepickers.length; i++) {
-        console.log(datepickers.length);
-    }
+    //idk what I was planning here
+    //for (var i = 0; i < datepickers.length; i++) {
+    //    console.log(datepickers.length);
+    //}
 });
