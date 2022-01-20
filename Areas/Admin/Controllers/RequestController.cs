@@ -39,19 +39,13 @@ namespace Furlough.Areas.Admin.Controllers
         // GET: Admin/Request
         public async Task<IActionResult> Index()
         {
-            var userDepartment = "";
             try
             {
-                userDepartment = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value;
-                var departmentRequests = _contextRequest.GetByDepartment(int.Parse(userDepartment));
-                return View(departmentRequests);
+                var requests = _contextRequest.GetAll();
+                return View(requests);
             }
             catch (Exception e)
             {
-                if (userDepartment == "")
-                    return RedirectToAction("Index", "Home", new { Area = "" });
-                  //return BadRequest("Not logged in, or this user doesn't belong to a department.");
-
                 Console.WriteLine(e.Message);
             }
             return RedirectToAction("Index", "Home", new { Area = "" });
