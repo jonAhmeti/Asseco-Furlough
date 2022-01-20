@@ -157,10 +157,6 @@ namespace Furlough.DAL
 
                 entity.Property(e => e.Password).IsUnicode(false);
 
-                entity.Property(e => e.UpdateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
                 entity.Property(e => e.Username)
                     .HasMaxLength(320)
                     .IsUnicode(false);
@@ -171,10 +167,6 @@ namespace Furlough.DAL
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__User__RoleId__3D5E1FD2");
 
-                entity.HasOne(d => d.UpdateByNavigation)
-                    .WithMany(p => p.InverseUpdateByNavigation)
-                    .HasForeignKey(d => d.UpdateBy)
-                    .HasConstraintName("FK__User__UpdateBy__43D61337");
             });
 
             OnModelCreatingPartial(modelBuilder);
