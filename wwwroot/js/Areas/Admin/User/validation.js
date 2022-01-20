@@ -1,33 +1,33 @@
 $(function() {
-    function passwordCheck(password) {
-      if (password.length == 0) {
-        strength = 0;
-      }
-      else if (password.length != 0) {
-        if (password.match(/^(?=.*[a-z])(?=.*[A-Z])/) || password.match(/^(?=.*[a-z])(?=.*[0-9])/)) {
-          if (password.match(/^(?=.*[A-Z])(?=.*[0-9])/)) {
-            if (password.match(/^.{8,32}$/)) {
-              if (password.match(/^(?=.*[#?!@$%^&*-])/)) {
-                strength = 5;
-              } else {
-                strength = 4;
-              }
-            } else {
-              strength = 3;
-            }
-          } else {
-            strength = 2;
-          }
-        } else {
-          strength = 1;
-        }
-      }
-      displayBar(strength);
-    }
+    // function passwordCheck(password) {
+    //   if (password.length == 0) {
+    //     strength = 0;
+    //   }
+    //   else if (password.length != 0) {
+    //     if (password.match(/^(?=.*[a-z])(?=.*[A-Z])/) || password.match(/^(?=.*[a-z])(?=.*[0-9])/)) {
+    //       if (password.match(/^(?=.*[A-Z])(?=.*[0-9])/)) {
+    //         if (password.match(/^.{8,32}$/)) {
+    //           if (password.match(/^(?=.*[#?!@$%^&*-])/)) {
+    //             strength = 5;
+    //           } else {
+    //             strength = 4;
+    //           }
+    //         } else {
+    //           strength = 3;
+    //         }
+    //       } else {
+    //         strength = 2;
+    //       }
+    //     } else {
+    //       strength = 1;
+    //     }
+    //   }
+    //   displayBar(strength);
+    // }
   
     function displayBar(strength, missingTypes) {
-        var statusColor = ["#de1616", "#B7410E", "#FFA200", "#06bf06", "#663399", "#000"];
-        var statusText = ["Password is Very Weak", "Password is Weak", "Password is Moderate", "Password is Strong", "Password is Epic", "Password"];
+        var statusColor = ["#8ACBDE", "#3CB043", "#663399", "#B90E0A", "#FFD700", "#000"];
+        var statusText = ["Password is Common", "Password is Rare", "Password is Epic", "Password is Mythic", "Password is Legendary", "Password"];
         if (strength == 5) {
             $("[confirm-pass]").removeAttr("disabled");
         } else if (strength < 5) {
@@ -111,18 +111,19 @@ $(function() {
         });
       }
     });
+
     $("[confirm-pass]").parent().on("click", function() {
       if($("[confirm-pass]").prop("disabled")) {
         alert("baka");
       }
     });
+
     $("[data-strength]").keyup(function() {
-      strength = 0;
       var password = $(this).val();
-        //passwordCheck(password);
-        var strength = getStrength(password);
-        displayBar(strength.strength, strength.missingTypes);
+      var getStrength = setStrength(password);
+      displayBar(getStrength.strength, getStrength.missingTypes);
     });
+    
     $("[confirm-pass]").keyup(function() {
       var confirmPass = $(this).val();
       confirmPassword(confirmPass);
@@ -138,13 +139,13 @@ $(function() {
     }
 });
 
-function getStrength(password) {
+function setStrength(password) {
     let strength = 0;
     let hasUpper = 0;
     let hasLower = 0;
     let hasNumeric = 0;
     let hasSymbol = 0;
-    let minLength = 0;
+    let passLength = 0;
 
     let missingTypes = "";
 
@@ -161,8 +162,8 @@ function getStrength(password) {
         if (password.match(/^(?=.*[#?!@$%^&*-])/)) {
             hasSymbol = 1;
         }
-        if (password.length >= 8) {
-            minLength = 1;
+        if (password.length >= 8 && password.length <= 32) {
+            passLength = 1;
         }
     }
 
@@ -174,7 +175,7 @@ function getStrength(password) {
             (!password.match(/^(?=.*[#?!@$%^&*-])/) ? "a symbol " : "");
     }
 
-    strength = hasUpper + hasLower + hasNumeric + hasSymbol + minLength;
+    strength = hasUpper + hasLower + hasNumeric + hasSymbol + passLength;
     return { strength: strength, missingTypes: missingTypes };
 }
 
