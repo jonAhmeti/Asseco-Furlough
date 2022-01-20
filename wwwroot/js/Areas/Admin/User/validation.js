@@ -137,15 +137,18 @@ function setStrength(password) {
     let missingTypes = "";
 
     for (var i = 0; i < password.length; i++) {
-        if (password[i] == password[i].toUpperCase()) {
-            hasUpper = 1;
-        }
-        if (password[i] == password[i].toLowerCase()) {
-            hasLower = 1;
-        }
         if (isNumeric(password[i])) {
             hasNumeric = 1;
         }
+        else {
+            if (password[i] == password[i].toUpperCase()) {
+                hasUpper = 1;
+            }
+            if (password[i] == password[i].toLowerCase()) {
+                hasLower = 1;
+            }
+        }//this is done because a number might return true for upperCase and lowerCase scenarios
+        
         if (password.match(/^(?=.*[#?!@$%^&*-])/)) {
             hasSymbol = 1;
         }
