@@ -83,12 +83,6 @@ namespace Furlough.DAL
                     .HasForeignKey(d => d.PositionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__EMPLOYEE__Positi__412EB0B6");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Employees)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EMPLOYEE__UserId__403A8C7D");
             });
 
             modelBuilder.Entity<Models.Position>(entity =>
@@ -160,12 +154,6 @@ namespace Furlough.DAL
                 entity.Property(e => e.Username)
                     .HasMaxLength(320)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__User__RoleId__3D5E1FD2");
 
             });
 
