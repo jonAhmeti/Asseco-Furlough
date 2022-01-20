@@ -94,6 +94,7 @@ $(function() {
                 }).text(statusText[5]);
         }
     }
+
     $("[data-strength]").after("<div id=\"password-strength\" class=\"strength\"><span></span></div>");
     $("[data-strength]").focus(function() {
       $("#password-strength").css({
