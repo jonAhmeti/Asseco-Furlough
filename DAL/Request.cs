@@ -101,7 +101,7 @@ namespace Furlough.DAL
             return RequestByDepartmentMapper(command.ExecuteReader());
         }
 
-        public IEnumerable<Models.Request> GetAll()
+        public IEnumerable<Models.RequestByDepartment> GetAll()
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_requestGetAll", connection)
@@ -110,7 +110,7 @@ namespace Furlough.DAL
             };
 
             connection.Open();
-            return Mapper(command.ExecuteReader());
+            return RequestByDepartmentMapper(command.ExecuteReader());
         }
 
         public Models.Request GetById(int id)

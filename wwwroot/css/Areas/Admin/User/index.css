@@ -13,3 +13,16 @@
     display: block;
     transition: width 0.3s;
 }
+
+.endOfInput {
+    position: absolute;
+    right: 0;
+    top: calc(1rem + 2px);
+    margin: 0 0.7rem 0 0.7rem;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#Password {
+    padding-right: 40px;
+}

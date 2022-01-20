@@ -1,30 +1,4 @@
 $(function() {
-    // function passwordCheck(password) {
-    //   if (password.length == 0) {
-    //     strength = 0;
-    //   }
-    //   else if (password.length != 0) {
-    //     if (password.match(/^(?=.*[a-z])(?=.*[A-Z])/) || password.match(/^(?=.*[a-z])(?=.*[0-9])/)) {
-    //       if (password.match(/^(?=.*[A-Z])(?=.*[0-9])/)) {
-    //         if (password.match(/^.{8,32}$/)) {
-    //           if (password.match(/^(?=.*[#?!@$%^&*-])/)) {
-    //             strength = 5;
-    //           } else {
-    //             strength = 4;
-    //           }
-    //         } else {
-    //           strength = 3;
-    //         }
-    //       } else {
-    //         strength = 2;
-    //       }
-    //     } else {
-    //       strength = 1;
-    //     }
-    //   }
-    //   displayBar(strength);
-    // }
-  
     function displayBar(strength, missingTypes) {
         var statusColor = ["#8ACBDE", "#3CB043", "#663399", "#B90E0A", "#FFD700", "#000"];
         var statusText = ["Password is Common", "Password is Rare", "Password is Epic", "Password is Mythic", "Password is Legendary", "Password"];
@@ -138,6 +112,18 @@ $(function() {
         $("#userCreateForm").find("input[type=submit]").attr("disabled", "true")
       }
     }
+
+    //password visibility functionality
+    const passwordInput = $("#Password");
+
+    const showPassword = $("#showPassword");
+    $(showPassword).on('click', function () {
+        let visibility = $(this).text();
+        $(this).text(visibility == 'visibility' ? 'visibility_off' : 'visibility');
+        $(passwordInput).attr('type', visibility == 'visibility' ? 'text' : 'password');
+    });
+
+
 });
 
 function setStrength(password) {
