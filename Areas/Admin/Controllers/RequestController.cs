@@ -138,8 +138,8 @@ namespace Furlough.Areas.Admin.Controllers
                         AlteredByUserId = loggedinUser,
                         RequestId = request.Id,
                         PreviousDates = prevRequest.Dates,
-                        PreviousRequestStatusId = request.RequestStatusId,
-                        PreviousRequestTypeId = request.RequestTypeId,
+                        PreviousRequestStatusId = prevRequest.RequestStatusId,
+                        PreviousRequestTypeId = prevRequest.RequestTypeId,
                     });
 
                     //make edit
