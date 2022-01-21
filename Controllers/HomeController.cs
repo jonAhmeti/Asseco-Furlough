@@ -46,6 +46,13 @@ namespace Furlough.Controllers
                 return RedirectToAction("Index", "Home", new { 
                     Area = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Role").Value });
 
+            ViewData["hasMessage"] = false;
+            if (message != null)
+            {
+                ViewData["hasMessage"] = true;
+
+                ViewData["invalidLogin"] = message;
+            }
             return View();
         }
 
@@ -74,7 +81,8 @@ namespace Furlough.Controllers
                 var passwordHasher = new PasswordHasher(user.Password);
                 if (!passwordHasher.VerifyPassword(dbUser.Password))
                 {
-                    return BadRequest();
+                    string? message = "Username or password was invalid.";
+                    return RedirectToAction("Index", new { message });
                 }
 
                 //checking user role

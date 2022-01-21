@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<link rel="stylesheet" href="~/css/Home/index.css"/>
 
 <div id="modalWrapper" class="d-flex flex-column mx-auto">
     <div class="d-flex flex-row mb-3 rounded-top bg-white position-relative shadow-sm">
@@ -12,4 +13,13 @@
     <div id="formWrapper" class="d-flex flex-row bg-white rounded-bottom shadow-sm">
         <partial name="./Partial/Login"/>
     </div>
+    @if (@ViewBag.hasMessage)
+    {
+        <div id="messageContainer" class="d-flex rounded mt-3 text-white text-center">
+            <div id="messageContainerDismiss">&#10006;</div>
+            <div>
+                <span>@ViewBag.invalidLogin</span>
+            </div>
+        </div>
+    }
 </div>

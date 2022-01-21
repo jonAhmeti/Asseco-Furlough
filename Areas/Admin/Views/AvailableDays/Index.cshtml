@@ -37,7 +37,7 @@
                 {
                     <tr rowId="@counter">
                         <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.EmployeeId">
+                            <a class="rowLink" asp-controller="Employee" asp-action="Details" asp-route-id="@item.EmployeeId">
                                 @Html.DisplayFor(modelItem => item.EmployeeName)
                             </a>
                         </td>
