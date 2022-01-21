@@ -138,18 +138,19 @@ function setStrength(password) {
 
     for (var i = 0; i < password.length; i++) {
         if (isNumeric(password[i])) {
-            hasNumeric = 1;
-        }
-        else {
+          hasNumeric = 1;
+        } else {
+          if (!password[i].match(/^(?=.*[#?!@$%^&*-])/)) {
             if (password[i] == password[i].toUpperCase()) {
-                hasUpper = 1;
+              hasUpper = 1;
             }
             if (password[i] == password[i].toLowerCase()) {
-                hasLower = 1;
+              hasLower = 1;
             }
+          }
         }//this is done because a number might return true for upperCase and lowerCase scenarios
         
-        if (password.match(/^(?=.*[#?!@$%^&*-])/)) {
+        if (password[i].match(/^(?=.*[#?!@$%^&*-])/)) {
             hasSymbol = 1;
         }
         if (password.length >= 8 && password.length <= 32) {
