@@ -32,6 +32,7 @@ namespace Furlough.Models.Mapper
                 JoinDate = obj.JoinDate,
                 Phone = obj.Phone,
                 WorkStartDate = obj.WorkStartDate,
+                LUBUserId = obj.LUBUserId
             };
         }
 

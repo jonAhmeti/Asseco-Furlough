@@ -3,6 +3,13 @@ $(document).ready(function () {
     const signup = $("#signup");
     const formWrapper = $("#formWrapper");
     const activeIndicator = $("#activeIndicator");
+    const messageDismiss = $("#messageContainerDismiss");
+
+    $(messageDismiss).on('click', function () {
+        $('#messageContainer').css('transform', 'scale(1.1)');
+        $('#messageContainer').css('transform', 'scale(1.)');
+        .animate({ opacity: 0 }, 300);
+    });
 
     $(login).on("click", function () {
         $(signup).attr("active", "false").addClass("text-muted");

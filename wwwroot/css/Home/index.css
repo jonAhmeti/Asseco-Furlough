@@ -44,14 +44,15 @@
 
 #messageContainer {
     padding: 1rem 3rem 1rem 1rem;
-    background-color: rgba(186,31,51, 0.7);
+    background-color: rgba(241, 0, 31, 0.7);
     border: 2px solid rgba(186,31,51, 1);
     position: relative;
+    transition: ease-in-out 0.3s;
 }
 
 #messageContainerDismiss {
     margin-right: 1rem;
-    line-height: 1;
+    line-height: 0.8rem;
     position: absolute;
     right: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
