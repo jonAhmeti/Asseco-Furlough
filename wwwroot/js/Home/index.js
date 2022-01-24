@@ -3,13 +3,11 @@ $(document).ready(function () {
     const signup = $("#signup");
     const formWrapper = $("#formWrapper");
     const activeIndicator = $("#activeIndicator");
+    const messageContainer = $('#messageContainer');
     const messageDismiss = $("#messageContainerDismiss");
 
-    $(messageDismiss).on('click', function () {
-        $('#messageContainer').css('transform', 'scale(1.1)').delay(100).css('transform', 'scale(1.0)');
-
-        //$('#messageContainer')
-        //.animate({ opacity: 0 }, 300);
+    $(messageDismiss).one('click', function () {
+        $(messageContainer).css('animation-name', 'zoomOut').delay(1000).css('display', 'none');
     });
 
     $(login).on("click", function () {
