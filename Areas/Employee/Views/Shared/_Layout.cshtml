@@ -1,9 +1,11 @@
 ﻿@{
     var username = Context.User.Identity.Name;
-    var action = "";
+    string[] action = Array.Empty<string>();
+    bool inRequest = false;
     try
     {
-        action = Context.Request.Path.ToString().Split("/")[2];
+        action = Context.Request.Path.ToString().Split("/");
+        inRequest = action[2] == "Request" ? true : false;
     }
     catch (Exception e)
     {
@@ -80,12 +82,12 @@
         <aside id="sidenav" class="h-100 col-auto bg-white shadow">
             <div class="w-100">
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                    <a id="dashboardLink" class="sidenavLinks nav-link d-flex align-items-center @(action=="" ? "active" : "")" href="/">
+                    <a id="dashboardLink" class="sidenavLinks nav-link d-flex align-items-center @(!inRequest ? "active" : "")" href="/">
                         <span class="material-icons-round align-middle">dashboard</span> @Resources.Shared._Layout.dashTitle
                     </a>
                 </div>
                 <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                    <a class="sidenavLinks nav-link @(action=="Request" ? "active" : "")" asp-area="Employee"
+                    <a class="sidenavLinks nav-link @(inRequest ? "active" : "")" asp-area="Employee"
                         asp-controller="Request" asp-action="Index">
                         <i class="fa-solid fa-bars-staggered"></i> @Resources.Shared._Layout.reqTitle
                     </a>
