@@ -463,7 +463,7 @@ section::after
     font-size: 1.5rem;
     font-weight: 600;
 }
-h3,a{
+#calendar h3, #calendar a{
     padding-top: 50px;
     color: rgb(16, 191, 235);
     text-align: center;

@@ -24,7 +24,7 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="UserId" asp-items="ViewBag.UserId"></select>
+                        <select class="form-control" disabled asp-for="UserId" asp-items="ViewBag.UserId"></select>
                         <label asp-for="UserId">@localizer["userId"]</label>
                         <span asp-validation-for="UserId" class="text-danger"></span>
                     </div>
