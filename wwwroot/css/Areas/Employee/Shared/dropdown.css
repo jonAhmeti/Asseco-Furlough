@@ -1,0 +1,10 @@
+#requestDropdown {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  height: 0px;
+  transition: all 0.3s ease-in-out;
+}
+#requestDropdownToggle {
+  cursor: pointer;
+}
