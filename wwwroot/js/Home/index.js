@@ -6,9 +6,10 @@ $(document).ready(function () {
     const messageDismiss = $("#messageContainerDismiss");
 
     $(messageDismiss).on('click', function () {
-        $('#messageContainer').css('transform', 'scale(1.1)');
-        $('#messageContainer').css('transform', 'scale(1.)');
-        .animate({ opacity: 0 }, 300);
+        $('#messageContainer').css('transform', 'scale(1.1)').delay(100).css('transform', 'scale(1.0)');
+
+        //$('#messageContainer')
+        //.animate({ opacity: 0 }, 300);
     });
 
     $(login).on("click", function () {

@@ -72,10 +72,18 @@ namespace Furlough.Controllers
             try
             {
                 var dbUser = _contextUser.GetByUsername(user.Username);
-                if (dbUser == null) return NotFound("User not found.");
+                if (dbUser == null)
+                {
+                    string? message = "User not found.";
+                    return RedirectToAction("Index", new { message });
+                }
 
                 var employee = _contextEmployee.GetByUserId(dbUser.Id);
-                if (employee == null) return NotFound("Employee not found.");
+                if (employee == null)
+                {
+                    string? message = "Employee not found.";
+                    return RedirectToAction("Index", new { message });
+                }
 
                 //verify password
                 var passwordHasher = new PasswordHasher(user.Password);

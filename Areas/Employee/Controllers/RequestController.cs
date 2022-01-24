@@ -44,6 +44,16 @@ namespace Furlough.Areas.Employee.Controllers
             }
         }
 
+        public IActionResult Approved()
+        {
+            return View();
+        }
+
+        public IActionResult Rejected()
+        {
+            return View();
+        }
+
 
 
         // POST: RequestController/Cancel/5
