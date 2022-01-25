@@ -210,14 +210,19 @@ namespace Furlough.Controllers
         //     return RedirectToAction("Index");
         // }
 
-        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Models.Position>? GetPositions(string departmentId)
         {
-            if (Request.Headers.ContainsKey("X-Requested-With")
-                && Request.Headers["X-Requested-With"][0] == "XMLHttpRequest")
+            if (!Request.Headers.ContainsKey("X-Requested-With")
+                || Request.Headers["X-Requested-With"][0] != "XMLHttpRequest")
+                return null;
+
+            try
             {
                 var departmentPositions = _contextDepartmentPositions.GetPositionsByDepartmentId(int.Parse(departmentId));
+                if (departmentPositions.Count() < 1)
+                    return null;
+
                 var positions = new List<Models.Position>();
                 foreach (var item in departmentPositions)
                 {
@@ -226,7 +231,12 @@ namespace Furlough.Controllers
 
                 return positions;
             }
-            return null;
+            catch (Exception e)
+            {
+
+                return null;
+            }
+                
         }
 
         [AllowAnonymous]

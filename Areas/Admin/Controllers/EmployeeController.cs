@@ -15,19 +15,19 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly DAL.Employee _contextEmployee;
         private readonly DAL.Department _contextDepartment;
         private readonly DAL.User _contextUsers;
-        private readonly DAL.Position _contextPositions;
+        private readonly DAL.DepartmentPositions _contextDepartmentPositions;
         private readonly DAL.AvailableDays _contextAvailableDays;
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
 
         public EmployeeController(DAL.Employee contextEmployee, DAL.Department contextDepartment, DAL.User contextUsers,
-            DAL.Position contextPositions, DAL.AvailableDays contextAvailableDays,
+            DAL.AvailableDays contextAvailableDays, DAL.DepartmentPositions contextDepartmentPositions,
             ViewModelMapper vmMapper, DalMapper dalMapper)
         {
             _contextEmployee = contextEmployee;
             _contextDepartment = contextDepartment;
             _contextUsers = contextUsers;
-            _contextPositions = contextPositions;
+            _contextDepartmentPositions = contextDepartmentPositions;
             _contextAvailableDays = contextAvailableDays;
 
             _vmMapper = vmMapper;
@@ -58,7 +58,7 @@ namespace Furlough.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name");
-            ViewData["PositionId"] = new SelectList(_contextPositions.GetAll(), "Id", "Id");
+            //get positions by department on ajax
 
             var unattachedUsers = _contextUsers.GetUnattachedToEmployees();
             ViewData["Users"] = unattachedUsers.Count() == 0 ? null : new SelectList(unattachedUsers, "Id", "Username");
@@ -88,7 +88,7 @@ namespace Furlough.Areas.Admin.Controllers
             }
 
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
-            ViewData["PositionId"] = new SelectList(_contextPositions.GetAll(), "Id", "Id", employee.PositionId);
+            //get positions by department on ajax
             ViewData["Users"] = new SelectList(_contextUsers.GetUnattachedToEmployees(), "Id", "Username");
             return View(employee);
         }
@@ -105,8 +105,7 @@ namespace Furlough.Areas.Admin.Controllers
                 }
 
                 ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
-                ViewData["Positions"] = new SelectList(_contextPositions.GetAll(), "Id", "Title", employee.PositionId);
-                ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
+                //get positions by department on ajax
                 return View(_vmMapper.EmployeeMap(employee));
             }
             catch (Exception e)
@@ -139,22 +138,29 @@ namespace Furlough.Areas.Admin.Controllers
                     employee.LUBUserId = loggedinUser;
                     var result = _contextEmployee.Edit(_dalMapper.DalEmployeeMap(employee));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception e)
                 {
+                    if (e.Message.Contains("UNIQUE KEY"))
+                    {
+                        return BadRequest("Email is already in use.");
+                    }
                     if (_contextEmployee.GetById(id) == null)
                     {
                         return NotFound();
                     }
                     else
                     {
-                        throw;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(e.Message);
+                        Console.ResetColor();
+                        return StatusCode(500, "Something went wrong.");
                     }
+
                 }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
-            ViewData["Positions"] = new SelectList(_contextPositions.GetAll(), "Id", "Title", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
+            //get positions by department on ajax
             return View(employee);
         }
 

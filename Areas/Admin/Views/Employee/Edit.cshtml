@@ -13,65 +13,87 @@
             </div>
             <div class="d-flex align-items-center">
                 <a class="ms-1 text-danger paddingXBtn rounded border border-danger" asp-action="Delete"
-                    asp-route-id="@Model.Id">@Resources.Shared._Table.delete</a>
+                   asp-route-id="@Model.Id">@Resources.Shared._Table.delete</a>
             </div>
         </div>
     </div>
     <div id="detailsWrapper" class="w-100 ms-4">
         <div class="row">
             <div class="px-0 col-lg-6 col-md-8 col-sm-10 col-12">
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
-                    <div class="form-floating mb-3">
-                        <select class="form-control" disabled asp-for="UserId" asp-items="ViewBag.UserId"></select>
-                        <label asp-for="UserId">@localizer["userId"]</label>
-                        <span asp-validation-for="UserId" class="text-danger"></span>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <div class="form-floating mb-3">
+                    <input class="form-control" disabled asp-for="UserId" />
+                    <label asp-for="UserId">@localizer["userId"]</label>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="date" asp-for="WorkStartDate" min="1991-01-01" max="@string.Format("{0}-{1}-{2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)" />
+                    <label>@localizer["workingSince"]</label>
+                    <span asp-validation-for="WorkStartDate" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <select disabled class="form-control" asp-for="PositionId" asp-items="ViewBag.Positions"></select>
+                    <label asp-for="PositionId">@localizer["position"]</label>
+                    <span asp-validation-for="PositionId" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.Departments"></select>
+                    <label asp-for="DepartmentId">@localizer["department"]</label>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" asp-for="Email" placeholder="Email" />
+                    <label asp-for="Email"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-2">
+                    <input class="form-control" asp-for="Name" placeholder='@localizer["fullname"]' />
+                    <label asp-for="Name">@localizer["fullname"]</label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex align-items-center mt-2">
+                        <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Reset" asp-route-id="@Model.Id">
+                            @Resources.Shared._Table.reset
+                        </a>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="date" asp-for="WorkStartDate" min="1991-01-01" max="@string.Format("{0}-{1}-{2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)"/>
-                        <label>@localizer["workingSince"]</label>
-                        <span asp-validation-for="WorkStartDate" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="PositionId" asp-items="ViewBag.Positions"></select>
-                        <label asp-for="PositionId">@localizer["position"]</label>
-                        <span asp-validation-for="PositionId" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.Departments"></select>
-                        <label asp-for="DepartmentId">@localizer["department"]</label>
-                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" asp-for="Email" placeholder="Email"/>
-                        <label asp-for="Email"></label>
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input class="form-control" asp-for="Name" placeholder='@localizer["fullname"]'/>
-                        <label asp-for="Name">@localizer["fullname"]</label>
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div class="d-flex align-items-center mt-2">
-                            <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Reset" asp-route-id="@Model.Id">
-                                @Resources.Shared._Table.reset</a>
+                    <div class="d-flex justify-content-center mt-2">
+                        <div class="form-group">
+                            <input disabled id="submitBtn" type="submit" value="@Resources.Shared._Table.save"
+                                   class="btn btn-primary" />
                         </div>
-                        <div class="d-flex justify-content-center mt-2">
-                            <div class="form-group">
-                                <input type="submit" value="@Resources.Shared._Table.save"
-                                    class="btn btn-primary" />
-                            </div>
-                            <div class="w-auto">
-                                <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
-                                    @Resources.Shared._Table.backToList
-                                </a>
-                            </div>
+                        <div class="w-auto">
+                            <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
+                                @Resources.Shared._Table.backToList
+                            </a>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<!--Toast Message-->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1111">
+    <div id="toastMsg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Confirm</strong>
+        </div>
+        <div class="toast-body" id="toastBody">
+            <p>
+                Are you sure you want to save changes?
+            </p>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-outline-primary">Confirm</button>
+                <button class="btn btn-outline-secondary" data-bs-dismiss="toast" aria-label="Close">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Areas/Shared/getPositions.js"></script>
+<script src="~/js/Areas/Admin/Employee/edit.js"></script>

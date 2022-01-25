@@ -51,6 +51,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.ReturnUrlParameter = "";
     options.Cookie.Name = "DaddyCookie";
 });
+//AntiFrogeryToken Header
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "X-AFTAsseco";
+});
 
 //Mapper services
 builder.Services.AddScoped<Furlough.Models.Mapper.DalMapper>();
