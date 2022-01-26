@@ -10,9 +10,10 @@
         language: 'EN'
     });
 
-    const datepickers = $('.datepicker');
-
-    for (var i = 0; i < datepickers.length; i++) {
-        console.log(datepickers.length);
-    }
+    const totalDaysInput = $('input[name="DaysAmount"]');
+    const datesInput = $('input[name="Dates"]');
+    datesInput.on('change', function () {
+        let datesCount = $(this).val().split(',');
+        totalDaysInput.val(datesCount[0] == '' ? 0 : datesCount.length);
+    });
 });

@@ -61,9 +61,11 @@ namespace Furlough.Areas.Manager.Controllers
         // GET: Manager/Request/Create
         public IActionResult Create()
         {
+            var loggedinDepartment = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
+
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type");
             ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type");
-            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username");
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetByDepartmentId(loggedinDepartment), "Id", "Username");
             return View();
         }
 
@@ -76,13 +78,17 @@ namespace Furlough.Areas.Manager.Controllers
         {
             if (ModelState.IsValid)
             {
+                var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+                request.LUBUserId = loggedinUser;
+
                 var result =  _contextRequest.Add(_dalMapper.DalRequestMap(request));
                 return RedirectToAction(nameof(Index));
             }
+            var loggedinDepartment = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
 
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
             ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetByDepartmentId(loggedinDepartment), "Id", "Username", request.RequestedByUserId);
             return View(request);
         }
 
@@ -103,7 +109,7 @@ namespace Furlough.Areas.Manager.Controllers
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
             ViewData["RequestType"] = _contextRequestType.GetById(request.RequestTypeId);
             ViewData["Employee"] = employee;
-            return View(request);
+            return View(_vmMapper.RequestMap(request));
         }
 
         // POST: Manager/Request/Edit/5

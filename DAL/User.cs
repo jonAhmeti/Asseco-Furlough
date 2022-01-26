@@ -103,6 +103,19 @@ namespace Furlough.DAL
 
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
+        public IEnumerable<Models.User> GetByDepartmentId(int id)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_userGetByDepartmentId", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@DepartmentId", id);
+            connection.Open();
+
+            return Mapper(command.ExecuteReader());
+        }
 
         public Models.User GetByUsername(string username)
         {

@@ -12,9 +12,9 @@
 
     const datepickers = $('.datepicker');
 
-    for (var i = 0; i < datepickers.length; i++) {
-        console.log(datepickers.length);
-    }
+    //for (var i = 0; i < datepickers.length; i++) {
+    //    console.log(datepickers.length);
+    //}
 
     let cancelBtns = $('button[name="cancel"]');
     for (var i = 0; i < cancelBtns.length; i++) {
