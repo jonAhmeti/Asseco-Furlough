@@ -126,6 +126,9 @@
   <data name="deleteConfirmation" xml:space="preserve">
     <value>A jeni i sigurt që dëshironi ta fshini këtë?</value>
   </data>
+  <data name="FkError" xml:space="preserve">
+    <value>Kjo kërkesë nuk mund të fshihet pasi që ka një histori të ndryshimeve të mëhershme.</value>
+  </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Fshijë Kërkesën</value>
   </data>

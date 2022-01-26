@@ -15,5 +15,6 @@ namespace Furlough.DAL.Models
         public string? Reason { get; set; }
         public DateTime LUD { get; set; }
         public int LUN { get; set; }
+        public int LUBUserId { get; set; }
     }
 }

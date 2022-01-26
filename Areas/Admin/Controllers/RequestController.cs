@@ -109,7 +109,7 @@ namespace Furlough.Areas.Admin.Controllers
             }
 
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
+            ViewData["RequestType"] = _contextRequestType.GetById(request.RequestTypeId);
             ViewData["Employee"] = employee;
             return View(_vmMapper.RequestMap(request));
         }
@@ -124,6 +124,11 @@ namespace Furlough.Areas.Admin.Controllers
             if (id != request.Id)
             {
                 return NotFound();
+            }
+            var employee = _vmMapper.EmployeeMap(_contextEmployee.GetByUserId(request.RequestedByUserId));
+            if (employee == null)
+            {
+                return NotFound($"Employee with user id {request.RequestedByUserId} not found.");
             }
 
             if (ModelState.IsValid)
@@ -144,10 +149,13 @@ namespace Furlough.Areas.Admin.Controllers
                         PreviousRequestTypeId = prevRequest.RequestTypeId,
                     });
 
+                    request.LUBUserId = loggedinUser;
+                    if (request.RequestTypeId != prevRequest.RequestTypeId)
+                    {
+                        request.RequestTypeId = prevRequest.RequestTypeId;
+                    }
                     //make edit
                     var result = _contextRequest.Edit(_dalMapper.DalRequestMap(request));
-                    
-                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -163,13 +171,13 @@ namespace Furlough.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
+            ViewData["RequestType"] = _contextRequestType.GetById(request.RequestTypeId);
+            ViewData["Employee"] = employee;
             return View(request);
         }
 
         // GET: Admin/Request/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, bool fkError = false)
         {
             var request = _contextRequest.GetById(id);
             if (request == null)
@@ -177,6 +185,7 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            ViewBag.FkError = fkError;
             return View(request);
         }
 
@@ -185,8 +194,16 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var request = _contextRequest.DeleteById(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var request = _contextRequest.DeleteById(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                //most likely this request already has history of being changed/edited
+                return RedirectToAction(nameof(Delete), new { fkError = true });
+            }
         }
     }
 }

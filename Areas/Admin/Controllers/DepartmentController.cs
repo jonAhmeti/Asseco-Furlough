@@ -159,7 +159,7 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/Department/Delete/5
-        public async Task<IActionResult> Delete(int id, string message = null)
+        public async Task<IActionResult> Delete(int id, bool fkError = false)
         {
             var department = _contextDepartment.GetById(id);
             if (department == null)
@@ -167,7 +167,7 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ViewBag.FkError = message != null && message.Contains("FK__EMPLOYEE__Depart__4222D4EF");
+            ViewBag.FkError = fkError;
 
             return View(_vmMapper.DepartmentMap(department));
         }
@@ -186,7 +186,7 @@ namespace Furlough.Areas.Admin.Controllers
             catch (Exception e)
             {
                 var message = e.Message;
-                return RedirectToAction(nameof(Delete), new { message });
+                return RedirectToAction(nameof(Delete), new { fkError = true });
                 throw;
             }
         }

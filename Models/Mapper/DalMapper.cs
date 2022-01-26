@@ -101,7 +101,8 @@ namespace Furlough.Models.Mapper
                 Dates = obj.Dates,
                 Reason = obj.Reason,
                 LUD = obj.LUD,
-                LUN = obj.LUN
+                LUN = obj.LUN,
+                LUBUserId = obj.LUBUserId
             };
         }
 

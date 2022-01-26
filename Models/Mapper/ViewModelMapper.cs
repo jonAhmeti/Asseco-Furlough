@@ -91,7 +91,8 @@
                 RequestStatusId = obj.RequestStatusId,
                 Reason = obj.Reason,
                 LUD = obj.LUD,
-                LUN = obj.LUN
+                LUN = obj.LUN,
+                LUBUserId = obj.LUBUserId
             };
         }
     }

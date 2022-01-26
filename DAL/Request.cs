@@ -40,6 +40,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@RequestStatusId", obj.RequestStatusId);
             command.Parameters.AddWithValue("@DaysAmount", obj.DaysAmount);
             command.Parameters.AddWithValue("@RequestTypeId", obj.RequestTypeId);
+            command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
@@ -158,7 +159,8 @@ namespace Furlough.DAL
                         RequestTypeId = reader.GetInt32("RequestTypeId"),
                         Reason = reader["Reason"] == DBNull.Value ? "" : reader.GetString("Reason"),
                         LUD = reader.GetDateTime("LUD"),
-                        LUN = reader.GetInt32("LUN")
+                        LUN = reader.GetInt32("LUN"),
+                        LUBUserId = reader.GetInt32("LUBUserId")
                     });
                 }
                 return listObj;

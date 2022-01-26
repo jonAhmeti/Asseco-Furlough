@@ -130,7 +130,7 @@
     <value>Request Create</value>
   </data>
   <data name="requestDaysAmount" xml:space="preserve">
-    <value>Leave days</value>
+    <value>Total buisness days</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
     <value>Status</value>

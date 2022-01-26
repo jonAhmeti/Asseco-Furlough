@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using Furlough.Models.Mapper;
 
 namespace Furlough.Areas.Manager.Controllers
 {
@@ -16,15 +17,19 @@ namespace Furlough.Areas.Manager.Controllers
         private readonly DAL.RequestType _contextRequestType;
         private readonly DAL.RequestStatus _contextRequestStatus;
         private readonly DAL.RequestHistory _contextRequestHistory;
+        private readonly DalMapper _dalMapper;
 
         public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType,
-            DAL.RequestStatus contextRequestStatus, DAL.RequestHistory contextRequestHistory, DAL.User contextUser)
+            DAL.RequestStatus contextRequestStatus, DAL.RequestHistory contextRequestHistory, DAL.User contextUser,
+            DalMapper dalMapper)
         {
             _contextUser = contextUser;
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
             _contextRequestStatus = contextRequestStatus;
             _contextRequestHistory = contextRequestHistory;
+
+            _dalMapper = dalMapper;
         }
 
         // GET: Manager/Request
@@ -94,7 +99,7 @@ namespace Furlough.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateFrom,DateUntil,RequestedByUserId,RequestedOn,RequestStatusId,PaidDays,RequestTypeId")] DAL.Models.Request request)
+        public async Task<IActionResult> Edit(int id, Models.Request request)
         {
             if (id != request.Id)
             {
@@ -119,8 +124,13 @@ namespace Furlough.Areas.Manager.Controllers
                         PreviousRequestTypeId = prevRequest.RequestTypeId,
                     });
 
+                    request.LUBUserId = loggedinUser;
+                    if (request.RequestTypeId != prevRequest.RequestTypeId)
+                    {
+                        request.RequestTypeId = prevRequest.RequestTypeId;
+                    }
                     //make edit
-                    var result = _contextRequest.Edit(request);
+                    var result = _contextRequest.Edit(_dalMapper.DalRequestMap(request));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -136,7 +146,7 @@ namespace Furlough.Areas.Manager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
+            ViewData["RequestType"] = _contextRequestType.GetById(request.RequestTypeId);
             ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
             return View(request);
         }

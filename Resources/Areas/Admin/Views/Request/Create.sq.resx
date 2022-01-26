@@ -130,7 +130,7 @@
     <value>Krijo kërkesë</value>
   </data>
   <data name="requestDaysAmount" xml:space="preserve">
-    <value>Ditët e pushimit</value>
+    <value>Ditët totale të punës</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
     <value>Statusi</value>

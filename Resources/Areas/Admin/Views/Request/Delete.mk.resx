@@ -126,6 +126,9 @@
   <data name="deleteConfirmation" xml:space="preserve">
     <value>Дали сте сигурни дека сакате да го избришете ова?</value>
   </data>
+  <data name="FkError" xml:space="preserve">
+    <value>This request can't be deleted since it already has a history of editing.</value>
+  </data>
   <data name="pageTitle" xml:space="preserve">
     <value>Барај Избриши</value>
   </data>
