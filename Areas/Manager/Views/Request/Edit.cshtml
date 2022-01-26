@@ -1,9 +1,10 @@
-﻿@model Furlough.DAL.Models.Request
+﻿@model Furlough.Models.Request
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Edit";
 }
+
 
 <div class="container subPageContainer">
     <div class="w-100">
@@ -23,10 +24,17 @@
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="RequestedByUserId" />
+                    <input type="hidden" asp-for="RequestTypeId" />
                     <div class="form-floating mb-3">
-                        <input value="@Model.RequestedByUserId" disabled class="form-control"/>
-                        <label asp-for="RequestedByUserId">@localizer["userId"]</label>
+                        <input class="form-control" value="@ViewBag.Employee.Name" disabled />
+                        <label asp-for="RequestedByUserId">@localizer["employeeName"]</label>
                         <span asp-validation-for="RequestedByUserId" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input class="form-control" value="@ViewBag.RequestType.Type" disabled />
+                        <label asp-for="RequestTypeId">@localizer["requestType"]</label>
+                        <span asp-validation-for="RequestTypeId" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-control" asp-for="RequestStatusId"
@@ -34,23 +42,18 @@
                         <label asp-for="RequestStatusId">@localizer["requestStatus"]</label>
                         <span asp-validation-for="RequestStatusId" class="text-danger"></span>
                     </div>
-                    <div class="form-floating mb-2">
-                        <select class="form-control" asp-for="RequestTypeId" asp-items="ViewBag.RequestTypeId"></select>
-                        <label asp-for="RequestTypeId">@localizer["requestType"]</label>
-                        <span asp-validation-for="RequestTypeId" class="text-danger"></span>
-                    </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="RequestedOn" />
                         <label asp-for="RequestedOn">@localizer["requestedTime"]</label>
                         <span asp-validation-for="RequestedOn" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input readonly class="form-control bg-white datepicker" asp-for="Dates" />
+                        <input class="form-control" asp-for="Dates" />
                         <label asp-for="Dates">@localizer["dates"]</label>
                         <span asp-validation-for="Dates" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input disabled class="form-control" asp-for="DaysAmount" />
+                        <input class="form-control" asp-for="DaysAmount" readonly />
                         <label asp-for="DaysAmount">@localizer["requestDaysAmount"]</label>
                         <span asp-validation-for="DaysAmount" class="text-danger"></span>
                     </div>
@@ -71,4 +74,4 @@
     </div>
 </div>
 
-<script src="~/js/Areas/Manager/Request/edit.js"></script>
+<script src="~/js/Areas/Admin/Request/edit.js"></script>

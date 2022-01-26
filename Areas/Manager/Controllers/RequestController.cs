@@ -13,23 +13,28 @@ namespace Furlough.Areas.Manager.Controllers
     public class RequestController : Controller
     {
         private readonly DAL.User _contextUser;
+        private readonly DAL.Employee _contextEmployee;
         private readonly DAL.Request _contextRequest;
         private readonly DAL.RequestType _contextRequestType;
         private readonly DAL.RequestStatus _contextRequestStatus;
         private readonly DAL.RequestHistory _contextRequestHistory;
         private readonly DalMapper _dalMapper;
+        private readonly ViewModelMapper _vmMapper;
 
         public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType,
             DAL.RequestStatus contextRequestStatus, DAL.RequestHistory contextRequestHistory, DAL.User contextUser,
-            DalMapper dalMapper)
+            DAL.Employee contextEmployee,
+            DalMapper dalMapper, ViewModelMapper vmMapper)
         {
             _contextUser = contextUser;
+            _contextEmployee = contextEmployee;
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
             _contextRequestStatus = contextRequestStatus;
             _contextRequestHistory = contextRequestHistory;
 
             _dalMapper = dalMapper;
+            _vmMapper = vmMapper;
         }
 
         // GET: Manager/Request
@@ -67,11 +72,11 @@ namespace Furlough.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateFrom,DateUntil,RequestedByUserId,RequestedOn,RequestStatusId,PaidDays,RequestTypeId")] DAL.Models.Request request)
+        public async Task<IActionResult> Create(Models.Request request)
         {
             if (ModelState.IsValid)
             {
-                var result =  _contextRequest.Add(request);
+                var result =  _contextRequest.Add(_dalMapper.DalRequestMap(request));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -89,8 +94,15 @@ namespace Furlough.Areas.Manager.Controllers
             {
                 return NotFound();
             }
+            var employee = _vmMapper.EmployeeMap(_contextEmployee.GetByUserId(request.RequestedByUserId));
+            if (employee == null)
+            {
+                return NotFound($"Employee with user id {request.RequestedByUserId} not found.");
+            }
+
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
-            ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
+            ViewData["RequestType"] = _contextRequestType.GetById(request.RequestTypeId);
+            ViewData["Employee"] = employee;
             return View(request);
         }
 
@@ -104,6 +116,11 @@ namespace Furlough.Areas.Manager.Controllers
             if (id != request.Id)
             {
                 return NotFound();
+            }
+            var employee = _vmMapper.EmployeeMap(_contextEmployee.GetByUserId(request.RequestedByUserId));
+            if (employee == null)
+            {
+                return NotFound($"Employee with user id {request.RequestedByUserId} not found.");
             }
 
             if (ModelState.IsValid)
@@ -147,7 +164,7 @@ namespace Furlough.Areas.Manager.Controllers
             }
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
             ViewData["RequestType"] = _contextRequestType.GetById(request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
+            ViewData["Employee"] = employee;
             return View(request);
         }
 
