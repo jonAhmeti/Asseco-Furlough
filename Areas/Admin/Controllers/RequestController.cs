@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Furlough.DAL;
 using Furlough.DAL.Models;
 using Furlough.Models.Mapper;
 
@@ -20,11 +19,13 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly DAL.RequestStatus _contextRequestStatus;
         private readonly DAL.RequestHistory _contextRequestHistory;
         private readonly DAL.Employee _contextEmployee;
+        private readonly DAL.AvailableDays _contextAvailableDays;
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
 
         public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.User contextUser,
             DAL.Employee contextEmployee, DAL.RequestStatus contextRequestStatus, DAL.RequestHistory contextRequestHistory,
+            DAL.AvailableDays contextAvailableDays,
             ViewModelMapper vmMapper, DalMapper dalMapper)
         {
             _contextUser = contextUser;
@@ -33,6 +34,7 @@ namespace Furlough.Areas.Admin.Controllers
             _contextRequestStatus = contextRequestStatus;
             _contextRequestHistory = contextRequestHistory;
             _contextEmployee = contextEmployee;
+            _contextAvailableDays = contextAvailableDays;
 
             _vmMapper = vmMapper;
             _dalMapper = dalMapper;
