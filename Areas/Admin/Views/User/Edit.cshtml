@@ -20,7 +20,7 @@
     <div id="detailsWrapper" class="w-100 ms-4">
         <div class="row">
             <div class="px-0 col-lg-6 col-md-8 col-sm-10 col-12">
-                <form asp-action="Edit">
+                <form id="userForm" asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-floating mb-3">
@@ -39,13 +39,19 @@
                         <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input asp-for="Password" class="form-control" placeholder='@localizer["password"]'/>
-                        <label asp-for="Password" class="control-label">@localizer["password"]</label>
+                        <input type="password" data-strength asp-for="Password" class="form-control" placeholder='@localizer["password"]' maxlength="32" />
+                        <label asp-for="Password" pass-label class="control-label">@localizer["password"]</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <span class="material-icons-round text-muted endOfInput noselect" id="showPassword">visibility</span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="password" confirm-pass disabled class="form-control" placeholder='@localizer["confirmPassword"]' />
+                        <label class="control-label">@localizer["confirmPassword"]</label>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <div class="form-group">
-                            <input type="submit" value="@Resources.Shared._Table.save" class="btn btn-primary" />
+                            <input type="submit" disabled value="@Resources.Shared._Table.save" class="btn btn-primary" />
                         </div>
                         <div class="w-auto">
                             <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
@@ -58,3 +64,6 @@
         </div>
     </div>
 </div>
+
+<link rel="stylesheet" href="~/css/Areas/Admin/User/index.css">
+<script src="~/js/Areas/Admin/User/validation.js"></script>

@@ -16,7 +16,7 @@
     <div id="detailsWrapper" class="w-100 ms-4">
         <div class="row">
             <div class="px-0 col-lg-6 col-md-8 col-sm-10 col-12">
-                <form id="userCreateForm" asp-action="Create" onsubmit="return validation(event)">
+                <form id="userForm" asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-floating mb-3">
                         <select asp-for="RoleId" class="form-control" asp-items="ViewBag.Roles"></select>
@@ -27,14 +27,12 @@
                         <label asp-for="Username" class="control-label">@localizer["username"]</label>
                         <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
-
-                        <div class="form-floating mb-3">
-                            <input type="password" data-strength asp-for="Password" class="form-control" placeholder='@localizer["password"]' maxlength="32" />
-                            <label asp-for="Password" pass-label class="control-label">@localizer["password"]</label>
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                            <span class="material-icons-round text-muted endOfInput noselect" id="showPassword">visibility</span>
-                        </div>
-
+                    <div class="form-floating mb-3">
+                        <input type="password" data-strength asp-for="Password" class="form-control" placeholder='@localizer["password"]' maxlength="32" />
+                        <label asp-for="Password" pass-label class="control-label">@localizer["password"]</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <span class="material-icons-round text-muted endOfInput noselect" id="showPassword">visibility</span>
+                    </div>
                     <div class="form-floating mb-2">
                         <input type="password" confirm-pass disabled class="form-control" placeholder='@localizer["confirmPassword"]' />
                         <label class="control-label">@localizer["confirmPassword"]</label>

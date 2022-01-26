@@ -107,9 +107,9 @@ $(function() {
     function confirmPassword(confirmPass) {
       var password = $("[data-strength]").val();
       if (confirmPass == password) {
-        $("#userCreateForm").find("input[type=submit]").removeAttr("disabled")
+        $("#userForm").find("input[type=submit]").removeAttr("disabled")
       } else {
-        $("#userCreateForm").find("input[type=submit]").attr("disabled", "true")
+        $("#userForm").find("input[type=submit]").attr("disabled", "true")
       }
     }
 
