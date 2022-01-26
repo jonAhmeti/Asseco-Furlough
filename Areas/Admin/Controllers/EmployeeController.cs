@@ -89,7 +89,8 @@ namespace Furlough.Areas.Admin.Controllers
 
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
             //get positions by department on ajax
-            ViewData["Users"] = new SelectList(_contextUsers.GetUnattachedToEmployees(), "Id", "Username");
+            var unattachedUsers = _contextUsers.GetUnattachedToEmployees();
+            ViewData["Users"] = unattachedUsers.Count() == 0 ? null : new SelectList(unattachedUsers, "Id", "Username");
             return View(employee);
         }
 
