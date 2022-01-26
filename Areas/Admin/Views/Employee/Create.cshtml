@@ -22,7 +22,7 @@
                         @{
                             if (ViewBag.Users == null)
                             {
-                                <input class="form-control text-primary" readonly value="@localizer["createNewUser"]"/>
+                                <input class="form-control text-primary" disabled name="UserId" value="@localizer["createNewUser"]"/>
                                 <label asp-for="UserId">@localizer["userId"]</label>
                             }
                             else
@@ -72,4 +72,7 @@
     </div>
 </div>
 
+<script>
+    let hasUsers = @(ViewBag.Users == null ? false.ToString().ToLower() : true.ToString().ToLower());
+</script>
 <script src="~/js/Areas/Shared/getPositions.js"></script>

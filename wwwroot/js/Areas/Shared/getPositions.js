@@ -10,7 +10,10 @@
         data: { departmentId: $(selectDepartment).find(":selected").val() },
         success: function (result) {
             if (result != undefined && result != null) {
-                $(submitBtn).removeAttr('disabled');
+
+                if (hasUsers)
+                    $(submitBtn).removeAttr('disabled');
+
                 $(selectPosition).removeAttr('disabled');
 
                 $(selectPosition).html(result.map((item) => {
@@ -36,7 +39,9 @@
             data: { departmentId: $(this).find(":selected").val() },
             success: function (result) {
                 if (result != undefined && result != null) {
-                    $(submitBtn).removeAttr('disabled');
+
+                    if (hasUsers)
+                        $(submitBtn).removeAttr('disabled');
                     $(selectPosition).removeAttr('disabled');
 
                     $(selectPosition).html(result.map((item) => {
