@@ -1,4 +1,4 @@
-#userCreateForm .strength {
+#userForm .strength {
     height: 0px;
     width: 100%;
     background: #ccc;
@@ -7,7 +7,7 @@
     overflow: hidden;
     transition: all 0.3s;
 }
-#userCreateForm .strength span {
+#userForm .strength span {
     width: 0px;
     height: 4px;
     display: block;
