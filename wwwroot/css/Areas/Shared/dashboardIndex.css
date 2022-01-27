@@ -56,6 +56,10 @@
   display: block;
   font-weight: 600;
   letter-spacing: 0.2em;
+  font-size: 14px;
+}
+.recentRequestHeader:hover {
+  color: #fff;
 }
 .listHeader li {
   padding: 0.5rem 0;
@@ -68,13 +72,16 @@
   font-size: 14px;
 }
 .listItem li {
-  padding: 0.5rem 0;
+  padding: 0;
   text-decoration: none;
   color: #000;
   text-transform: capitalize;
   display: block;
   font-weight: 600;
   font-size: 14px;
+}
+.listItem li a {
+  padding: 0.6rem 0;
 }
 
 .prov{

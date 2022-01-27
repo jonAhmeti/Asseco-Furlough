@@ -1,19 +1,20 @@
 ﻿@{
     ViewData["Title"] = "Index";
+    int counter = 0;
 }
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 
-<div class="container w-100 h-50 d-flex justify-content-center p-2 p-sm-3 p-md-4 p-lg-5">
-    <div class="row row-cols-1 row-cols-lg-2 w-100 h-100">
-        <div class="col my-lg-0 my-2">
-            <div class="d-flex flex-column w-100 h-50 mb-2 rounded border ">
+<div class="container w-100 h-100 d-flex flex-column justify-content-center p-2 p-sm-3 p-md-4 p-lg-5">
+    <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
+        <div class="col my-lg-0 my-2 h-100">
+            <div class="d-flex flex-column w-100 h-100 mb-2 rounded border ">
                 <div class="tabBar">
                     <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded-top">
                         @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
                         {
                             <div class="tabBarItem col rounded-top" departmentId="@item.Id">
-                                <a href="">@item.Name</a>
+                                <a style="white-space: nowrap;" href="">@item.Name</a>
                             </div>
                         }
                     </div>
@@ -26,51 +27,77 @@
                         <li class="col">@localizer["department"]</li>
                         <li class="col">@localizer["position"]</li>
                     </ul>
-                    <div class="w-100 flex-grow-1 overflow-auto" style="height: 500px;">
+                    <div class="w-100 flex-grow-1 overflow-auto" style="height: 1px;">
                         @foreach (Furlough.DAL.Models.Employee item in ViewBag.employees)
                         {
-                            <ul class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
-                                <li class="col">@item.UserId</li>
-                                <li class="col">@item.Name</li>
-                                <li class="col">@item.DepartmentId</li>
-                                <li class="col">@item.PositionId</li>
+                            <ul rowId="@counter" class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
+                                <li class="col">
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" 
+                                    asp-action="Details" asp-route-id="@item.Id">@item.UserId</a>
+                                </li>
+                                <li class="col">
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" 
+                                    asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                                </li>
+                                <li class="col">
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" 
+                                    asp-action="Details" asp-route-id="@item.Id">@item.DepartmentId</a>
+                                </li>
+                                <li class="col">
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" 
+                                    asp-action="Details" asp-route-id="@item.Id">@item.PositionId</a>
+                                </li>
                             </ul>
+                            //Counter Incremental
+                            counter++;
                         }
                     </div>
                 </div>
            </div>
         </div>
-        <div class="col my-lg-0 my-2">
-            <a asp-area="Admin" asp-controller="Request" asp-action="Index">
-                <div class="w-100 h-50 d-flex flex-column align-items-center text-center rounded border border">
-                    <div class="w-100 h-50">
-                        <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded-top ">
-                        <div class="recentRequestHeader py-2 listHeader w-100 row mx-0 mb-0 list-unstyled ">@localizer["recentRequests"] </div>
-                        </div>
-                        <ul class="listHeader w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
-                            <li class="col">@localizer["name"]</li>
-                            <li class="col">@localizer["requestedTime"]</li>
-                            <li class="col">@localizer["type"]</li>
-                        </ul>
-                        @foreach (Furlough.DAL.Models.RequestByDepartment item in ViewBag.requests)
-                        {
-                            <ul class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
-                                <li class="col-4">@item.EmployeeName</li>
-                                <li class="col-4">@item.RequestedOn</li>
-                                <li class="col-4">@item.RequestStatusId</li>
-                            </ul>
-                        }
+        <div class="col my-lg-0 my-2 h-100">
+            <div class="w-100 h-100 d-flex flex-column align-items-center text-center rounded border border">
+                <div class="w-100 h-100">
+                    <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded-top ">
+                        <a asp-area="Admin" asp-controller="Request" asp-action="Index" 
+                            class="recentRequestHeader py-2 listHeader w-100 row mx-0 mb-0 list-unstyled ">
+                            @localizer["recentRequests"] 
+                        </a>
                     </div>
+                    <ul class="listHeader w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
+                        <li class="col">@localizer["name"]</li>
+                        <li class="col">@localizer["requestedTime"]</li>
+                        <li class="col">@localizer["type"]</li>
+                    </ul>
+                @foreach (Furlough.DAL.Models.RequestByDepartment item in ViewBag.requests)
+                {
+                    <ul rowId="@counter" class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
+                        <li class="col-4">
+                            <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" 
+                            asp-action="Details" asp-route-id="@item.RequestId">@item.EmployeeName</a>
+                        </li>
+                        <li class="col-4">
+                            <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" 
+                            asp-action="Details" asp-route-id="@item.RequestId">@item.RequestedOn</a>
+                        </li>
+                        <li class="col-4">
+                            <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" 
+                            asp-action="Details" asp-route-id="@item.RequestId">@item.RequestStatusId</a>
+                        </li>
+                    </ul>
+                    //Counter Incremental
+                    counter++;
+                }
                 </div>
-            </a>
+            </div>
         </div>
     </div>
+    <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mt-2">
+        <table class="charts-css column">
+        </table>
+    </div>
 </div>
-<div>
-    <table class="charts-css column">
-  ...
-</table>
-</div>
+
        
 
 

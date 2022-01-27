@@ -9,11 +9,21 @@ $(function () {
           $(`tr[rowId=${i}]`).find("a.rowLink").css("color", "var(--bs-dark)");
         }
     );
+    $(`ul[rowId=${i}]`).find("a.dashboardRowLink").hover(
+      function () {
+        $(`ul[rowId=${i}]`).find("a.dashboardRowLink").css("color", "var(--bs-primary)");
+      },
+      function () {
+        $(`ul[rowId=${i}]`).find("a.dashboardRowLink").css("color", "var(--bs-dark)");
+      }
+    );
   }
+
   var pdTableDiv = $(".positionDepartmentTableDiv");
   var roleTableDiv = $(".roleTableDiv");
   var erTableDiv = $(".employeeRequestTableDiv");
   var detailsWrapper = $("#detailsWrapper");
+
   $(window).on("load resize", function(){
     if ($(window).width() < 525) {
       $(erTableDiv).removeClass("d-flex justify-content-center");
