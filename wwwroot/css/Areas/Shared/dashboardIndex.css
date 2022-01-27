@@ -9,18 +9,21 @@
   background: #000;
 }
 .tabBarList {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px;
 }
 .tabBarItem {
   padding: 0;
-  opacity: 0.4;
   transition: all 0.4s ease;
 }
-.tabBarItem:hover {
-  opacity: 0.7;
+.tabBarItem:hover a {
+  color: #aaa;
+}
+.tabBarItem.activeBar a {
+  color: #000;
 }
 .tabBarItem.activeBar {
   background: white;
@@ -32,7 +35,7 @@
 .tabBarItem a {
   padding: 0.5rem 0;
   text-decoration: none;
-  color: #000;
+  color: #fff;
   text-transform: uppercase;
   height: 100%;
   display: flex;
@@ -72,4 +75,9 @@
   display: block;
   font-weight: 600;
   font-size: 14px;
+}
+
+.prov{
+    background-color:red;
+
 }
