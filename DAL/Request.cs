@@ -42,6 +42,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@DaysAmount", obj.DaysAmount);
             command.Parameters.AddWithValue("@RequestTypeId", obj.RequestTypeId);
             command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
+            command.Parameters.AddWithValue("@PrevRequestStatusId", prevRequestStatusId);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;
