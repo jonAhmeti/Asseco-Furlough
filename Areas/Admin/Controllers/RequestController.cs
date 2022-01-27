@@ -55,6 +55,20 @@ namespace Furlough.Areas.Admin.Controllers
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
 
+        public async Task<IActionResult> Approved()
+        {
+            // 1 - Pending, 2 - Approved, 3 - Rejected
+            var requests = _contextRequest.GetByStatusId(2);
+            return View(requests);
+        }
+
+        public async Task<IActionResult> Rejected()
+        {
+            // 1 - Pending, 2 - Approved, 3 - Rejected
+            var requests = _contextRequest.GetByStatusId(3);
+            return View(requests);
+        }
+
         // GET: Admin/Request/Details/5
         public async Task<IActionResult> Details(int id)
         {
