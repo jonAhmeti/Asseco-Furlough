@@ -29,7 +29,7 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
-        public bool Edit(Models.Request obj)
+        public bool Edit(Models.Request obj, int prevRequestStatusId)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_requestEdit", connection)
@@ -90,7 +90,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@UserId", statusId);
 
             connection.Open();
-            return RequestByDepartmentMapper(command.ExecuteReader());
+            return Mapper(command.ExecuteReader());
         }
 
         public IEnumerable<Models.Request> GetByUser(int userId, int requestStatusId = 0)

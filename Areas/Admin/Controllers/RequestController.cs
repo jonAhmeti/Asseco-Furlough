@@ -169,7 +169,7 @@ namespace Furlough.Areas.Admin.Controllers
                         request.RequestTypeId = prevRequest.RequestTypeId;
                     }
                     //make edit
-                    var result = _contextRequest.Edit(_dalMapper.DalRequestMap(request));
+                    var result = _contextRequest.Edit(_dalMapper.DalRequestMap(request), prevRequest.RequestStatusId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

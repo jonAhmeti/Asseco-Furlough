@@ -21,7 +21,7 @@ namespace Furlough.BLL
             try
             {
                 var result = _dalRequestHistory.Add(requestHistory);
-                return _dalRequest.Edit(_dalMapper.DalRequestMap(request));
+                return _dalRequest.Edit(_dalMapper.DalRequestMap(request), requestHistory.PreviousRequestStatusId);
 
             }
             catch (Exception e)
