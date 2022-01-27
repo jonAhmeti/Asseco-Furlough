@@ -46,12 +46,18 @@ namespace Furlough.Areas.Employee.Controllers
 
         public IActionResult Approved()
         {
-            return View();
+            // 1 - Pending, 2 - Approved, 3 - Rejected
+            var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+            var requests = _contextRequest.GetByUserStatusId(2, loggedinUser);
+            return View(requests);
         }
 
         public IActionResult Rejected()
         {
-            return View();
+            // 1 - Pending, 2 - Approved, 3 - Rejected
+            var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+            var requests = _contextRequest.GetByUserStatusId(3, loggedinUser);
+            return View(requests);
         }
 
 
