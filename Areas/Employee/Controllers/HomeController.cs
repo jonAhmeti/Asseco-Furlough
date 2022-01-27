@@ -36,6 +36,7 @@ namespace Furlough.Areas.Employee.Controllers
 
             try
             {
+                var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
                 var employeeId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
                 var availableDays = _contextAvailableDays.GetByEmployeeId(employeeId);
 
@@ -51,8 +52,8 @@ namespace Furlough.Areas.Employee.Controllers
                     return result;
                 }
 
-                request.RequestedByUserId = int.Parse(
-                    HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+                request.RequestedByUserId = loggedinUser;
+                request.LUBUserId = loggedinUser;
 
 
                 //new value of days, adds instead of deducting if request type is unpaid (meaning unpaid leave days only increase, others decrease)
