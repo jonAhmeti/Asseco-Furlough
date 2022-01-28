@@ -20,6 +20,18 @@
   font-weight: 600;
   color: white !important;
   padding: 0.75rem 1.5rem !important;
+  
+}
+.redLogOutSidenav {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: red !important;
+  padding: 0.75rem 1.5rem !important;
+  border: red solid 2px;
+}
+.redLogOutSidenav:hover {
+  color: black !important;
+  background-color: red !important;
 }
 aside {
   background: linear-gradient(40deg, #45cafc, #303f9f) !important;

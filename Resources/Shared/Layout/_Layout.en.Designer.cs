@@ -84,6 +84,15 @@ namespace Resources.Shared {
                 return ResourceManager.GetString("empTitle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Log Out.
+        /// </summary>
+        public static string logOut {
+            get {
+                return ResourceManager.GetString("logOut", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Position.
