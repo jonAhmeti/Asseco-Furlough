@@ -48,6 +48,20 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
+        public bool EditDates(int requestId, string dates)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_requestEditDates", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@Id", requestId);
+            command.Parameters.AddWithValue("@Dates", dates);
+
+            connection.Open();
+            return command.ExecuteNonQuery() > 0;
+        }
+
         public IEnumerable<Models.RequestByDepartment> GetAllByRowCount(int rowCount, int departmentId = -1)
         {
             using var connection = new SqlConnection(_context.GetConnection());
