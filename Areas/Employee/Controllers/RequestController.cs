@@ -1,21 +1,25 @@
 ﻿using Furlough.Models.Mapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Furlough.Areas.Employee.Controllers
 {
     [Area("Employee")]
     public class RequestController : Controller
     {
+        private readonly IStringLocalizer _localizer;
         private DalMapper _dalMapper;
         private ViewModelMapper _vmMapper;
         private readonly DAL.Request _contextRequest;
         private readonly DAL.RequestType _contextRequestType;
         private readonly DAL.AvailableDays _contextAvailableDay;
 
-        public RequestController(DalMapper dalMapper, ViewModelMapper vmMapper,
+        public RequestController(DalMapper dalMapper, ViewModelMapper vmMapper, IStringLocalizerFactory localizer,
             DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.AvailableDays contextAvailableDay )
         {
+            _localizer = localizer.Create(typeof(Resources.Areas.Employee.Views.Request.Index));
+
             _dalMapper = dalMapper;
             _vmMapper = vmMapper;
 
@@ -90,7 +94,9 @@ namespace Furlough.Areas.Employee.Controllers
                     var res = _contextAvailableDay.SetDays(loggedinEmployee, requestType.Type, availableRequestDays + request.DaysAmount);
                 }
 
+                var x = _localizer.GetAllStrings();
                 return result ? Ok() : StatusCode(500, "Something went wrong cancelling your request.");
+                //will return Error 500 most likely if Request status was previously changed by Admin and back to Pending
             }
             catch (Exception e)
             {

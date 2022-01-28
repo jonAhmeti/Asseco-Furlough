@@ -10,12 +10,16 @@
         language: 'ES'
     });
 
-    const datepickers = $('.datepicker');
+    //Toast
+    const toastMsg = $('#toastMsg');
+    const toastBody = $('#toastBody');
+    const toastClose = $('#toastMsg button.btn-close');
 
-    //for (var i = 0; i < datepickers.length; i++) {
-    //    console.log(datepickers.length);
-    //}
+    $(toastClose).on('click', function () {
+        $(toastMsg).hide();
+    });
 
+    //Request Cancel Buttons
     let cancelBtns = $('button[name="cancel"]');
     for (var i = 0; i < cancelBtns.length; i++) {
         $(cancelBtns[i]).on('click', function () {
@@ -30,10 +34,12 @@
                     $(requestCount).text(parseInt($(requestCount).text()) - 1);
                 },
                 error: function (error) {
-
+                    $(toastBody).html(`<p>${error.responseText}</p>`);
+                    $(toastMsg).show();
                 }
             });
             console.log(this.getAttribute("requestId"));
         });
     }
+
 });

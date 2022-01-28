@@ -160,15 +160,27 @@ namespace Furlough.DAL
 
         public bool DeleteById(int id)
         {
-            using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_requestDeleteById", connection)
+            try
             {
-                CommandType = CommandType.StoredProcedure
-            };
-            command.Parameters.AddWithValue("@Id", id);
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_requestDeleteById", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Id", id);
 
-            connection.Open();
-            return command.ExecuteNonQuery() > 0;
+                connection.Open();
+                return command.ExecuteNonQuery() > 0;
+
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+                return false;
+            }
+            
         }
 
         //Object mapper; reader to model

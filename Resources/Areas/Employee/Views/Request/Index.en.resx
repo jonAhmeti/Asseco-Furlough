@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="businessDays" xml:space="preserve">
-    <value>business days</value>
+    <value>Business days</value>
   </data>
   <data name="cancelRequest" xml:space="preserve">
     <value>Cancel request</value>
   </data>
   <data name="editDates" xml:space="preserve">
-    <value>Edit dates</value>
+    <value>Change dates</value>
   </data>
   <data name="leaveType" xml:space="preserve">
-    <value>Leave type</value>
+    <value>Request type</value>
   </data>
   <data name="paidDays" xml:space="preserve">
     <value>Paid days</value>
   </data>
   <data name="pendingRequests" xml:space="preserve">
-    <value>My Pending Requests</value>
+    <value>Pending requests</value>
   </data>
   <data name="requestedOn" xml:space="preserve">
-    <value>Requested on</value>
+    <value>Requested on:</value>
   </data>
 </root>
