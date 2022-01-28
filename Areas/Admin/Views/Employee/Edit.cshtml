@@ -94,6 +94,8 @@
         </div>
     </div>
 </div>
-
+<script>
+    let hasUsers = @(ViewBag.Users == null ? false.ToString().ToLower() : true.ToString().ToLower());
+</script>
 <script src="~/js/Areas/Shared/getPositions.js"></script>
 <script src="~/js/Areas/Admin/Employee/edit.js"></script>
