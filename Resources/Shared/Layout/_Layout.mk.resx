@@ -129,6 +129,9 @@
   <data name="empTitle" xml:space="preserve">
     <value>Вработен</value>
   </data>
+  <data name="logOut" xml:space="preserve">
+    <value>Отклучи</value>
+  </data>
   <data name="posTitle" xml:space="preserve">
     <value>Позиција</value>
   </data>
