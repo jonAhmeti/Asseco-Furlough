@@ -18,6 +18,7 @@ namespace Furlough.Areas.Employee.Controllers
         public RequestController(DalMapper dalMapper, ViewModelMapper vmMapper, IStringLocalizerFactory localizer,
             DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.AvailableDays contextAvailableDay )
         {
+            //Check this again
             _localizer = localizer.Create(typeof(Resources.Areas.Employee.Views.Request.Index));
 
             _dalMapper = dalMapper;

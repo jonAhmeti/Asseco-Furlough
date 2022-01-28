@@ -69,6 +69,12 @@ namespace Furlough.Areas.Admin.Controllers
             return View(requests);
         }
 
+        public async Task<IActionResult> Cancelled()
+        {
+            // 1 - Pending, 2 - Approved, 3 - Rejected, 4 - Cancelled
+            var requests = _contextRequest.GetByStatusId(4);
+            return View(requests);
+        }
         // GET: Admin/Request/Details/5
         public async Task<IActionResult> Details(int id)
         {

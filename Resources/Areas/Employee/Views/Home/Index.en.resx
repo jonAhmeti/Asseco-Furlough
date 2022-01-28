@@ -121,7 +121,7 @@
     <value>Birth days</value>
   </data>
   <data name="BirthMessage" xml:space="preserve">
-    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Push through it! Literally</value>
   </data>
   <data name="BloodDonation" xml:space="preserve">
     <value>Blood donor days</value>

@@ -121,28 +121,22 @@
     <value>Birth days</value>
   </data>
   <data name="BirthMessage" xml:space="preserve">
-    <value>You have {0} birth leave days left.</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Push</value>
   </data>
   <data name="BloodDonation" xml:space="preserve">
     <value>Blood donor days</value>
   </data>
   <data name="BloodDonationMessage" xml:space="preserve">
-    <value>Blood donation message.</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Ct. Dracula</value>
   </data>
   <data name="Child" xml:space="preserve">
     <value>Child days</value>
   </data>
   <data name="ChildMessage" xml:space="preserve">
-    <value>Child days left message.</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;You're allowed to spend 3 days if you have a child younger than 3 years old.</value>
   </data>
   <data name="chooseType" xml:space="preserve">
-    <value>Изберете го типот</value>
-  </data>
-  <data name="Confinement" xml:space="preserve">
-    <value>Confinement days</value>
-  </data>
-  <data name="ConfinementMessage" xml:space="preserve">
-    <value>Confinement days taken so far</value>
+    <value>Choose type</value>
   </data>
   <data name="DeathOfRelative" xml:space="preserve">
     <value>Days for a relative's death</value>
@@ -154,34 +148,40 @@
     <value>Marriage days</value>
   </data>
   <data name="MarriageMessage" xml:space="preserve">
-    <value>Marriage days left message.</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;You can take marriage leave days for, well... marrying reasons</value>
+  </data>
+  <data name="Maternity" xml:space="preserve">
+    <value>Maternity days</value>
+  </data>
+  <data name="MaternityMessage" xml:space="preserve">
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Allows 6 months at 70% of your wage. Other 3 months are paid from the ministry and the last 3 are unpaid.</value>
   </data>
   <data name="Medical" xml:space="preserve">
     <value>Medical days</value>
   </data>
   <data name="MedicalMessage" xml:space="preserve">
-    <value>You have {0} medical leave days left.</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;You can take medical leave for health reasons. Requirements: Doctor's prescription.</value>
   </data>
   <data name="noDaysSelected" xml:space="preserve">
-    <value>Вкупно избрани денови</value>
+    <value>No. of days selected</value>
   </data>
   <data name="Overtime" xml:space="preserve">
     <value>Bonus overtime days</value>
   </data>
   <data name="OvertimeMessage" xml:space="preserve">
-    <value>Overtime days left message.</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Here are the days you've earned from working overtime so far.</value>
   </data>
   <data name="reason" xml:space="preserve">
-    <value>Причина</value>
+    <value>Reason</value>
   </data>
   <data name="reasonValidate" xml:space="preserve">
-    <value>Ве молиме наведете ја причината за барањето бесплатен одмор. Мора да биде подолг од 10 знаци.</value>
+    <value>Please specify a reason for requesting unpaid leave. Must be longer than 10 characters.</value>
   </data>
   <data name="requestType" xml:space="preserve">
-    <value>Вид на барање</value>
+    <value>Type of leave</value>
   </data>
   <data name="requestTypeValidate" xml:space="preserve">
-    <value>Ве молиме изберете го типот на одмор.</value>
+    <value>Please specify the type of your request.</value>
   </data>
   <data name="selectedDaysHeader" xml:space="preserve">
     <value>Selected days</value>
@@ -190,18 +190,18 @@
     <value>Spent days</value>
   </data>
   <data name="spentDaysMessage" xml:space="preserve">
-    <value>Spent days message in resource file.</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;</value>
   </data>
   <data name="Unpaid" xml:space="preserve">
     <value>Unpaid days spent</value>
   </data>
   <data name="UnpaidMessage" xml:space="preserve">
-    <value>Unpaid days taken so far</value>
+    <value>Spent days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Displays how many unpaid days you have taken so far.</value>
   </data>
   <data name="Yearly" xml:space="preserve">
     <value>Base year days</value>
   </data>
   <data name="YearlyMessage" xml:space="preserve">
-    <value>You have {0} yearly leave days left.</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;This is your yearly leave days. You have 20 days after a year of working, which increases by 1 day for every 5 years.</value>
   </data>
 </root>
