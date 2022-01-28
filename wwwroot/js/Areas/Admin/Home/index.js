@@ -21,7 +21,7 @@
                 var tabText = $(this).find("a").text().toUpperCase();
                 for (let i = 0; i < employeeDep.length; i++) {
                     var listDepText = employeeDep[i].getElementsByTagName("li");
-                    if (lookup[tabText] == $(listDepText[2]).text()) {
+                    if (lookup[tabText] == $(listDepText[2]).find("a").text()) {
                         $(listDepText).parent().removeClass("d-none");
                     } else {
                         $(listDepText).parent().addClass("d-none");
