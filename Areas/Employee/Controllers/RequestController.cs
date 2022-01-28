@@ -65,7 +65,28 @@ namespace Furlough.Areas.Employee.Controllers
             return View(requests);
         }
 
+        //PUT: RequestController/Edit/5
+        [HttpPut]
+        public IActionResult Edit(int id, Models.Request obj)
+        {
+            try
+            {
+                var prevRequest = _contextRequest.GetById(id);
+                if (prevRequest == null)
+                    return NotFound("Request wasn't found");
 
+                if (prevRequest.Dates == obj.Dates)
+                    return Ok("Nothing changed successfully");
+
+                var result = _contextRequest.EditDates(id, obj.Dates);
+                return result ? Ok("Request changed successfully") : StatusCode(500, "Something went wrong editing your request");
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500, "Something went wrong editting your request.");
+            }
+        }
 
         // POST: RequestController/Cancel/5
         [HttpDelete, ActionName("Cancel")]

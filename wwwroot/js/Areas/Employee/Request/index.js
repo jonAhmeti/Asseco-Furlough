@@ -24,7 +24,6 @@
     for (var i = 0; i < cancelBtns.length; i++) {
         $(cancelBtns[i]).on('click', function () {
             $.ajax({
-                requestId: this.getAttribute("requestId"),
                 method: 'DELETE',
                 url: `Request/Cancel/${this.getAttribute("requestId")}`,
                 success: function (result) {
@@ -38,7 +37,26 @@
                     $(toastMsg).show();
                 }
             });
-            console.log(this.getAttribute("requestId"));
+            //console.log(this.getAttribute("requestId"));
+        });
+    }
+
+    //Request Edit Buttons
+    let editBtns = $('button[name="edit"]');
+    for (var i = 0; i < editBtns.length; i++) {
+        $(editBtns[i]).on('click', function () {
+            $.ajax({
+                method: 'PUT',
+                url: `Request/Edit/${this.getAttribute("requestId")}`,
+                data: {Dates: $(`input[requestId="${this.getAttribute("requestId")}"]`).val()},
+                success: function (result) {
+
+                },
+                error: function (error) {
+                    $(toastBody).html(`<p>${error.responseText}</p>`);
+                    $(toastMsg).show();
+                }
+            });
         });
     }
 
