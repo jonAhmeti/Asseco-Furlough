@@ -1,10 +1,7 @@
-#requestDropdown, #staffDropdown, #compDropdown {
+.layoutDropdown {
   position: relative;
   overflow: hidden;
-  display: block;
-  height: 0px;
-  transition: all 0.3s cubic-bezier(0, 0, 0.25, 1);
 }
-#requestDropdownToggle, #staffDropdownToggle, #compDropdownToggle {
+.dropdownToggle {
   cursor: pointer;
 }
