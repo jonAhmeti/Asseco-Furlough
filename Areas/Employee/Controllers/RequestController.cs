@@ -91,7 +91,22 @@ namespace Furlough.Areas.Employee.Controllers
                 if (string.IsNullOrWhiteSpace(obj.Dates))
                     return BadRequest("Request dates can't be empty");
 
+                obj.DaysAmount = obj.Dates.Split(",").Length;
+
                 var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+                var loggedinEmployee = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
+
+                //this should be moved to BLL
+                //check if user has available days
+                var availableDays = _contextAvailableDay.GetByEmployeeId(loggedinEmployee);
+                var daysOfType = (int?)typeof(DAL.Models.AvailableDay).GetProperty(
+                    Enum.GetName(typeof(Models.Enums.RequestType), obj.RequestTypeId)).GetValue(availableDays);
+
+                if (daysOfType < obj.DaysAmount)
+                    return BadRequest("Not enough days left in this category");
+
+                var daysDifference = prevRequest.DaysAmount - obj.DaysAmount;
+
                 var result = _contextRequest.EditDates(id, obj.Dates, loggedinUser);
                 return result ? Ok("Request changed successfully") : StatusCode(500, "Something went wrong editing your request");
             }

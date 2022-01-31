@@ -7,11 +7,13 @@ namespace Furlough.Areas.Manager.Controllers
     {
         private readonly DAL.Request _contextRequest;
         private readonly DAL.Employee _contextEmployee;
+        private readonly DAL.Department _contextDepartment;
 
-        public HomeController(DAL.Request contextRequest, DAL.Employee contextEmployee)
+        public HomeController(DAL.Request contextRequest, DAL.Employee contextEmployee, DAL.Department contextDepartment)
         {
             _contextRequest = contextRequest;
             _contextEmployee = contextEmployee;
+            _contextDepartment = contextDepartment;
         }
         public IActionResult Index()
         {
@@ -19,6 +21,7 @@ namespace Furlough.Areas.Manager.Controllers
             
             ViewBag.requests = _contextRequest.GetAllByRowCount(5, managerDepartmentId);
             ViewBag.employees = _contextEmployee.GetByDepartmentId(managerDepartmentId);
+            ViewBag.Department = _contextDepartment.GetById(managerDepartmentId);
             return View();
         }
     }
