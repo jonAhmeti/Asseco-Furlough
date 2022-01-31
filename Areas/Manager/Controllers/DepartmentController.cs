@@ -14,11 +14,12 @@ namespace Furlough.Areas.Manager.Controllers
         private readonly DAL.Position _contextPosition;
         private readonly DAL.PositionHistory _contextPositionHisotry;
         private readonly DAL.Employee _contextEmployee;
+        private readonly DAL.Department _contextDepartment;
         private readonly DalMapper _dalMapper;
         private readonly ViewModelMapper _vmMapper;
 
         public DepartmentController(DAL.DepartmentPositions contextDepartmentPositions, DAL.Role contextRole, DAL.Position contextPosition, DAL.Employee contextEmployee,
-            DAL.PositionHistory contextPositionHistory,
+            DAL.PositionHistory contextPositionHistory, DAL.Department contextDepartment,
             DalMapper dalMapper, ViewModelMapper vmMapper)
         {
             _contextRole = contextRole;
@@ -26,6 +27,7 @@ namespace Furlough.Areas.Manager.Controllers
             _contextPosition = contextPosition;
             _contextPositionHisotry = contextPositionHistory;
             _contextEmployee = contextEmployee;
+            _contextDepartment = contextDepartment;
 
             _dalMapper = dalMapper;
             _vmMapper = vmMapper;
@@ -59,6 +61,7 @@ namespace Furlough.Areas.Manager.Controllers
             ViewBag.employees = employees;
             ViewBag.positions = positions;
             ViewBag.unaddedPositions = unaddedPositions;
+            ViewBag.Department = _contextDepartment.GetById(departmentId).Name;
             return View();
         }
 
