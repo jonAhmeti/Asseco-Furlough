@@ -99,18 +99,18 @@ namespace Furlough.Areas.Employee.Controllers
                 //this should be moved to BLL
                 //check if user has available days
                 var availableDays = _contextAvailableDay.GetByEmployeeId(loggedinEmployee);
-                var daysOfType = (int?)typeof(DAL.Models.AvailableDay).GetProperty(
-                    Enum.GetName(typeof(Models.Enums.RequestType), obj.RequestTypeId)).GetValue(availableDays);
+                var leaveType = Enum.GetName(typeof(Models.Enums.RequestType), prevRequest.RequestTypeId);
+                var daysOfType = (int?)typeof(DAL.Models.AvailableDay).GetProperty(leaveType).GetValue(availableDays);
 
                 if (daysOfType < obj.DaysAmount)
                     return BadRequest("Not enough days left in this category");
 
                 var daysDifference = prevRequest.DaysAmount - obj.DaysAmount;
 
-                var result = _contextRequest.EditDates(id, obj.Dates, loggedinUser);
+                var result = _contextRequest.EditDates(id, obj.Dates, loggedinUser, daysDifference, leaveType);
                 return result ? Ok("Request changed successfully") : StatusCode(500, "Something went wrong editing your request");
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 return StatusCode(500, "Something went wrong editting your request.");
