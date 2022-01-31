@@ -44,10 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Areas\Employee\Shared\Requests\Requests.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>Resources.Areas.Employee.Shared.Requests</CustomToolNamespace>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Areas\Employee\Views\Request\Index.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace></CustomToolNamespace>

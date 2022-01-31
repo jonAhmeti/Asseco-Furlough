@@ -48,7 +48,7 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
-        public bool EditDates(int requestId, string dates)
+        public bool EditDates(int requestId, string dates, int userId)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_requestEditDates", connection)
@@ -57,6 +57,7 @@ namespace Furlough.DAL
             };
             command.Parameters.AddWithValue("@Id", requestId);
             command.Parameters.AddWithValue("@Dates", dates);
+            command.Parameters.AddWithValue("@LUBUserId", userId);
 
             connection.Open();
             return command.ExecuteNonQuery() > 0;

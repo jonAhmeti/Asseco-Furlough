@@ -88,7 +88,11 @@ namespace Furlough.Areas.Employee.Controllers
                 if (prevRequest.Dates == obj.Dates)
                     return Ok("Nothing changed successfully");
 
-                var result = _contextRequest.EditDates(id, obj.Dates);
+                if (string.IsNullOrWhiteSpace(obj.Dates))
+                    return BadRequest("Request dates can't be empty");
+
+                var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+                var result = _contextRequest.EditDates(id, obj.Dates, loggedinUser);
                 return result ? Ok("Request changed successfully") : StatusCode(500, "Something went wrong editing your request");
             }
             catch (Exception)

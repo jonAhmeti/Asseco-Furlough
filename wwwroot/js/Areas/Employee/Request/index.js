@@ -50,7 +50,8 @@
                 url: `Request/Edit/${this.getAttribute("requestId")}`,
                 data: {Dates: $(`input[requestId="${this.getAttribute("requestId")}"]`).val()},
                 success: function (result) {
-
+                    $(toastBody).html(`<p>${result}</p>`);
+                    $(toastMsg).show();
                 },
                 error: function (error) {
                     $(toastBody).html(`<p>${error.responseText}</p>`);
