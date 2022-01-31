@@ -8,12 +8,12 @@
 <div class="container w-100 h-100 d-flex flex-column justify-content-center p-2 p-sm-3 p-md-4 p-lg-5">
     <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
         <div class="col my-lg-0 my-2 h-100">
-            <div class="d-flex flex-column w-100 h-100 mb-2 rounded border ">
+            <div class="d-flex flex-column w-100 h-100 mb-2 rounded border">
                 <div class="tabBar">
                     <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded-top">
                         @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
                         {
-                            <div class="tabBarItem col rounded-top px-2" departmentId="@item.Id">
+                            <div class="tabBarItem col rounded-top" departmentId="@item.Id">
                                 <a style="white-space: nowrap;" href="">@item.Name</a>
                             </div>
                         }
@@ -97,9 +97,6 @@
         </table>
     </div>
 </div>
-
-       
-
 
 <link href="~/css/Areas/Shared/dashboardIndex.css" rel="stylesheet" />
 <script src="~/js/Areas/Admin/Home/tabBar.js"></script>
