@@ -53,7 +53,12 @@ namespace Furlough.Areas.Employee.Controllers
         {
             // 1 - Pending, 2 - Approved, 3 - Rejected
             var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
-            var requests = _contextRequest.GetByUserStatusId(2, loggedinUser);
+            var requests = new List<Models.Request>();
+            foreach (var item in _contextRequest.GetOfEmployee(2, loggedinUser))
+            {
+                requests.Add(_vmMapper.RequestMap(item));
+            }
+            ViewBag.RequestTypes = _contextRequestType.GetAll();
             return View(requests);
         }
 
@@ -61,7 +66,12 @@ namespace Furlough.Areas.Employee.Controllers
         {
             // 1 - Pending, 2 - Approved, 3 - Rejected
             var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
-            var requests = _contextRequest.GetByUserStatusId(3, loggedinUser);
+            var requests = new List<Models.Request>();
+            foreach (var item in _contextRequest.GetOfEmployee(3, loggedinUser))
+            {
+                requests.Add(_vmMapper.RequestMap(item));
+            }
+            ViewBag.RequestTypes = _contextRequestType.GetAll();
             return View(requests);
         }
 

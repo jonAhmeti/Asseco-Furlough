@@ -93,16 +93,16 @@ namespace Furlough.DAL
             return RequestByDepartmentMapper(command.ExecuteReader());
         }
 
-        public IEnumerable<Models.Request> GetByUserStatusId(int statusId, int userId)
+        public IEnumerable<Models.Request> GetOfEmployee(int statusId, int userId)
         {
             using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_requestGetByStatusId", connection)
+            using var command = new SqlCommand("sp_requestGetOfEmployee", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            command.Parameters.AddWithValue("@StatusId", statusId);
-            command.Parameters.AddWithValue("@UserId", statusId);
+            command.Parameters.AddWithValue("@RequestStatusId", statusId);
+            command.Parameters.AddWithValue("@UserId", userId);
 
             connection.Open();
             return Mapper(command.ExecuteReader());

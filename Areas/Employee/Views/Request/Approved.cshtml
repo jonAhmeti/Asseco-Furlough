@@ -1,5 +1,81 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Furlough.Models.Request>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+@inject Furlough.Resources.Areas.Employee.Shared.requests requestLocalizer
 @{
+    ViewBag.Title = "Approved Requests";
 }
+<link rel="stylesheet" href="~/css/Areas/Employee/Request/index.css" />
+
+<div class="h-100 w-100 p-5">
+    <div class="text-muted fs-3 d-flex">@localizer["approvedRequests"] <span id="requestCount" class="ms-3 rounded-circle border border-primary shadow-sm text-center fs-4" style="min-height:40px; min-width:40px;">@Model.Count()</span></div>
+    <div class="p-5 row row-cols-1 row-cols-md-3 row-cols-lg-5">
+        @foreach (var item in Model)
+        {
+            string icon = "";
+            string backgroundCircle = "#000";
+            string requestType = ViewBag.RequestTypes[--item.RequestTypeId].Type;
+            switch (requestType)
+            {
+                case "Medical":
+                    { icon = "<i class=\"fa-solid fa-stethoscope\"></i>"; backgroundCircle = "#A0CED9"; break; }
+                case "BloodDonation":
+                    { icon = "<span class=\"material-icons-round\">bloodtype</span>"; backgroundCircle = "#DE3C4B"; break; }
+                case "Yearly":
+                    { icon = "<i class=\"fa-solid fa-calendar-days\"></i>"; backgroundCircle = "#FFC09F"; break; }
+                case "Overtime":
+                    { icon = "<i class=\"fa-solid fa-business-time\"></i>"; backgroundCircle = "#3bc199"; break; }
+                case "Child":
+                    { icon = "<span class=\"material-icons-round\">family_restroom</span>"; backgroundCircle = "#f9ad3b"; break; }
+                case "Marriage":
+                    { icon = "<i class=\"fa-solid fa-martini-glass-citrus\"></i>"; backgroundCircle = "#917bbf"; break; }
+                case "Unpaid":
+                    { icon = "<span class=\"material-icons-round\">money_off</span>"; backgroundCircle = "#A0CED9"; break; }
+                case "Maternity":
+                    { icon = "<span class=\"material-icons-round\">chair</span>"; backgroundCircle = "#F7B801"; break; }
+                case "Birth":
+                    { icon = "<span class=\"material-icons-round\">pregnant_woman</span>"; backgroundCircle = "#D33F49"; break; }
+                case "DeathOfRelative":
+                    { icon = "<i class=\"fa-solid fa-heart\"></i>"; backgroundCircle = "#DF1B48"; break; }
+            }
+
+            <div requestId="@item.Id" class="card col m-2 requestCard">
+                <div class="card-body">
+                    <!-- decrease by 1 since arrays start at 0 -->
+                <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-1 text-center roundIcon" style="background-color:@backgroundCircle;">@Html.Raw(icon)</div>
+                        <div class="ms-3 d-flex flex-column fw-bold">
+                            @localizer["leaveType"]
+                            <div class="card-subtitle text-black-50">@requestType</div>
+                        </div>
+                    </div>
+                    <!-- requested-on row -->
+                <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-1 text-center roundIcon" style="background-color:#FFB800;"><i class="fa-solid fa-calendar"></i></div>
+                        <div class="ms-3 d-flex flex-column fw-bold">
+                            @localizer["requestedOn"]
+                            <div class="card-subtitle text-black-50">@item.RequestedOn.ToLongDateString()</div>
+                        </div>
+                    </div>
+                    <!-- paid days row -->
+                <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-1 text-center roundIcon" style="background-color:#6EEB83;min-width:30px; min-height:30px;"><i class="fa-solid fa-coins"></i></div>
+                        <div class="card-text ms-3 d-flex flex-column fw-bold">
+                            @localizer["paidDays"]
+                            <div class="text-black-50" style="margin-top:-0.2rem;">@item.DaysAmount @localizer["businessDays"]</div>
+                        </div>
+                    </div>
+                    <!-- datepicker -->
+                <div class="input-group date">
+                        <input readonly class="form-control datepicker" placeholder="Dates" requestId="@item.Id" value="@item.Dates">
+                        <div class="input-group-text">
+                            <i class="fa-solid fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/js/Areas/Shared/Request/datepicker.js"></script>
