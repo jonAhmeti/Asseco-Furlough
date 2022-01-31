@@ -14,9 +14,11 @@ namespace Furlough.Areas.Employee.Controllers
         private readonly DAL.Request _contextRequest;
         private readonly DAL.RequestType _contextRequestType;
         private readonly DAL.AvailableDays _contextAvailableDay;
+        private readonly DAL.RequestHistory _contextRequestHistory;
 
         public RequestController(DalMapper dalMapper, ViewModelMapper vmMapper, IStringLocalizerFactory localizer,
-            DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.AvailableDays contextAvailableDay )
+            DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.AvailableDays contextAvailableDay,
+            DAL.RequestHistory contextRequestHistory)
         {
             //Check this again
             _localizer = localizer.Create(typeof(Resources.Areas.Employee.Views.Request.Index));
@@ -27,6 +29,7 @@ namespace Furlough.Areas.Employee.Controllers
             _contextRequest = contextRequest;
             _contextRequestType = contextRequestType;
             _contextAvailableDay = contextAvailableDay;
+            _contextRequestHistory = contextRequestHistory;
         }
         // GET: RequestController
         public ActionResult Index()
@@ -108,11 +111,21 @@ namespace Furlough.Areas.Employee.Controllers
                 var daysDifference = prevRequest.DaysAmount - obj.DaysAmount;
 
                 var result = _contextRequest.EditDates(id, obj.Dates, loggedinUser, daysDifference, leaveType);
+                if (result) //add to RequestHistory
+                {
+                    var historyResult = _contextRequestHistory.Add(new DAL.Models.RequestHistory
+                    {
+                        AlteredByUserId = loggedinUser,
+                        RequestId = id,
+                        PreviousDates = prevRequest.Dates,
+                        PreviousRequestStatusId = prevRequest.RequestStatusId,
+                        PreviousRequestTypeId = prevRequest.RequestTypeId,
+                    });
+                }
                 return result ? Ok("Request changed successfully") : StatusCode(500, "Something went wrong editing your request");
             }
             catch (Exception e)
             {
-
                 return StatusCode(500, "Something went wrong editting your request.");
             }
         }
