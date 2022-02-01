@@ -32,5 +32,4 @@ $(function () {
   }, function () {
     $(logOutButton).removeClass('logOutGradientOnHover').addClass('logOutGradientOutHover');
   });
-  
 });
