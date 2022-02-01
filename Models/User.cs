@@ -6,37 +6,21 @@ namespace Furlough.Models
 {
     public partial class User
     {
-        //public User()
-        //{
-        //    Employees = new HashSet<Employee>();
-        //    InverseUpdateByNavigation = new HashSet<User>();
-        //    RequestHistories = new HashSet<RequestHistory>();
-        //    Requests = new HashSet<Request>();
-        //}
-
+        [Display(Name = "id", ResourceType = typeof(Resources.Models.User.Display))]
         public int Id { get; set; }
-        
-        [Display(Name = "Role")]
+        [Display(Name = "roleId", ResourceType = typeof(Resources.Models.User.Display))]
         public int RoleId { get; set; }
-
-        [Display(Name = "Insert date")]
+        [Display(Name = "insertDate", ResourceType = typeof(Resources.Models.User.Display))]
         public DateTime InsertDate { get; set; }
+        [Display(Name = "username", ResourceType = typeof(Resources.Models.User.Display))]
         public string Username { get; set; } = null!;
+        [Display(Name = "password", ResourceType = typeof(Resources.Models.User.Display))]
         public string Password { get; set; } = null!;
-
-        [Display(Name = "Last updated by")]
+        [Display(Name = "lubUserId", ResourceType = typeof(Resources.Models.User.Display))]
         public int LUBUserId { get; set; }
-        [Display(Name = "Update date")]
+        [Display(Name = "lud", ResourceType = typeof(Resources.Models.User.Display))]
         public DateTime LUD { get; set; }
-        [Display(Name = "Total no. of updates")]
+        [Display(Name = "lun", ResourceType = typeof(Resources.Models.User.Display))]
         public int LUN { get; set; }
-
-        //    public virtual Role Role { get; set; } = null!;
-        //    public virtual User? UpdateByNavigation { get; set; }
-        //    public virtual ICollection<Employee> Employees { get; set; }
-        //    public virtual ICollection<User> InverseUpdateByNavigation { get; set; }
-        //    public virtual ICollection<RequestHistory> RequestHistories { get; set; }
-        //    public virtual ICollection<Request> Requests { get; set; }
-        //}
     }
 }

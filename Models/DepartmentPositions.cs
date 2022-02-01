@@ -6,10 +6,10 @@ namespace Furlough.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Department")]
+        [Display(Name = "department", ResourceType = typeof(Resources.Models.DepartmentPositions.Display))]
         public int DepartmentId { get; set; }
 
-        [Display(Name = "Position")]
+        [Display(Name = "position", ResourceType = typeof(Resources.Models.DepartmentPositions.Display))]
         public int PositionId { get; set; }
     }
 }

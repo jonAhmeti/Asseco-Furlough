@@ -24,24 +24,14 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="UserId" asp-items="ViewBag.UserId"></select>
-                        <label asp-for="UserId">@localizer["userId"]</label>
-                        <span asp-validation-for="UserId" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3">
                         <input class="form-control" asp-for="JoinDate"/>
                         <label asp-for="JoinDate">@localizer["joinDate"]</label>
                         <span asp-validation-for="JoinDate" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="PositionId" asp-items="ViewBag.PositionId"></select>
+                        <select class="form-control" asp-for="PositionId" asp-items="ViewBag.DepartmentPositions"></select>
                         <label asp-for="PositionId">@localizer["position"]</label>
                         <span asp-validation-for="PositionId" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentId"></select>
-                        <label asp-for="DepartmentId">@localizer["department"]</label>
-                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="Email" placeholder="Email"/>

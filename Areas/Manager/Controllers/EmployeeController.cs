@@ -74,7 +74,9 @@ namespace Furlough.Areas.Manager.Controllers
             {
                 departmentPositions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
             }
-            
+
+            var unattachedUsers = _contextUsers.GetUnattachedToEmployees();
+            ViewData["Users"] = unattachedUsers.Count() == 0 ? null : new SelectList(unattachedUsers, "Id", "Username");
             ViewBag.DepartmentPositions = new SelectList(departmentPositions, "Id", "Title");
             return View();
         }
@@ -92,9 +94,16 @@ namespace Furlough.Areas.Manager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartmentId"] = new SelectList(_contextDepartments.GetAll(), "Id", "Name", employee.DepartmentId);
-            ViewData["PositionId"] = new SelectList(_contextPosition.GetAll(), "Id", "Title", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
+
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
+            var departmentPositions = new List<Models.Position>();
+            foreach (var item in _contextDepartmentPosition.GetPositionsByDepartmentId(departmentId))
+            {
+                departmentPositions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
+            }
+            var unattachedUsers = _contextUsers.GetUnattachedToEmployees();
+            ViewData["Users"] = unattachedUsers.Count() == 0 ? null : new SelectList(unattachedUsers, "Id", "Username");
+            ViewBag.DepartmentPositions = new SelectList(departmentPositions, "Id", "Title");
             return View(employee);
         }
 
@@ -106,9 +115,14 @@ namespace Furlough.Areas.Manager.Controllers
             {
                 return NotFound();
             }
-            ViewData["DepartmentId"] = new SelectList(_contextDepartments.GetAll(), "Id", "Name", employee.DepartmentId);
-            ViewData["PositionId"] = new SelectList(_contextPosition.GetAll(), "Id", "Title", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
+
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
+            var departmentPositions = new List<Models.Position>();
+            foreach (var item in _contextDepartmentPosition.GetPositionsByDepartmentId(departmentId))
+            {
+                departmentPositions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
+            }
+            ViewBag.DepartmentPositions = new SelectList(departmentPositions, "Id", "Title");
             return View(employee);
         }
 
@@ -131,44 +145,46 @@ namespace Furlough.Areas.Manager.Controllers
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception e)
                 {
+                    if (e.Message.Contains("UNIQUE KEY"))
+                    {
+                        return BadRequest("Email is already in use.");
+                    }
                     if (_contextEmployee.GetById(id) == null)
                     {
                         return NotFound();
                     }
                     else
                     {
-                        throw;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(e.Message);
+                        Console.ResetColor();
+                        return StatusCode(500, "Something went wrong.");
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartmentId"] = new SelectList(_contextDepartments.GetAll(), "Id", "Name", employee.DepartmentId);
-            ViewData["PositionId"] = new SelectList(_contextPosition.GetAll(), "Id", "Title", employee.PositionId);
-            ViewData["UserId"] = new SelectList(_contextUsers.GetAll(), "Id", "Id", employee.UserId);
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
+            var departmentPositions = new List<Models.Position>();
+            foreach (var item in _contextDepartmentPosition.GetPositionsByDepartmentId(departmentId))
+            {
+                departmentPositions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
+            }
+            ViewBag.DepartmentPositions = new SelectList(departmentPositions, "Id", "Title");
             return View(employee);
         }
 
         // GET: Manager/Employee/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = await _context.Employees
-                .Include(e => e.Department)
-                .Include(e => e.Position)
-                .Include(e => e.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var employee = _contextEmployee.GetById(id);
             if (employee == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(_vmMapper.EmployeeMap(employee));
         }
 
         // POST: Manager/Employee/Delete/5
@@ -176,10 +192,18 @@ namespace Furlough.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var result = _contextEmployee.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+                return RedirectToAction(nameof(Delete), id);
+            }
         }
     }
 }

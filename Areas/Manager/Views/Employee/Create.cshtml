@@ -19,7 +19,9 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" />
+                        <select asp-for="UserId" asp-items="ViewBag.Users" class="form-control">
+                            <option selected disabled value="0">@(ViewBag.Users == null ? "No users exist to link to an employee." : "--Choose a user--")</option>
+                        </select>
                         <label asp-for="UserId">@localizer["userId"]</label>
                     </div>
                     <div class="form-floating mb-3">

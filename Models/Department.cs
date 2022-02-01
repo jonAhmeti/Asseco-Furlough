@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Furlough.Models
 {
     public partial class Department
     {
-        //public Department()
-        //{
-        //    Employees = new HashSet<Employee>();
-        //}
-
+        [Display(Name = "id", ResourceType = typeof(Resources.Models.Department.Display))]
         public int Id { get; set; }
+        [Display(Name = "name", ResourceType = typeof(Resources.Models.Department.Display))]
         public string Name { get; set; } = null!;
 
-        //public virtual ICollection<Employee> Employees { get; set; }
     }
 }
