@@ -24,4 +24,13 @@ $(function () {
       sideNav.next().css({"display": "none"});
     }
   });
+
+  var logOutButton = $(".logOutSidenav");
+  $(logOutButton).hover( 
+    function () {
+    $(logOutButton).removeClass('logOutGradientOutHover').addClass('logOutGradientOnHover');
+  }, function () {
+    $(logOutButton).removeClass('logOutGradientOnHover').addClass('logOutGradientOutHover');
+  });
+  
 });
