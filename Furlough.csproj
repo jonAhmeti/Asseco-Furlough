@@ -31,7 +31,37 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Index.en.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Models\AvailableDay\Display.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Display.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\DepartmentPositions\Display.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Display.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\Department\Display.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Display.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Models\Employee\Display.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Display.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\Position\Display.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Display.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\Request\Display.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Display.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\User\Display.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Display.resx</DependentUpon>
@@ -62,7 +92,31 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\AvailableDay\Display.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Display.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\DepartmentPositions\Display.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Display.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\Department\Display.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Display.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\Employee\Display.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Display.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\Position\Display.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Display.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\Request\Display.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Display.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\User\Display.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Display.Designer.cs</LastGenOutput>
     </EmbeddedResource>

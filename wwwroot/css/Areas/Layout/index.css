@@ -23,18 +23,17 @@
   white-space: nowrap;
 }
 .logOutSidenav {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: black !important;
-  padding: 0.75rem 1.5rem !important;
-  background-color: white !important;
-  border: black solid 2px;
-  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.75);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: black !important;
+    padding: 0.75rem 1.5rem !important;
+    background-color: white !important;
+    box-shadow: inset 0 0 6px 3px rgb(39 102 138 / 65%)
 }
-.redLogOutSidenav:hover {
-  color: white !important;
-  background-color: rgb(53, 95, 180) !important;
-}
+    .logOutSidenav:hover {
+        color: white !important;
+        background-color: rgb(53, 95, 180) !important;
+    }
 aside {
   background: linear-gradient(40deg, #45cafc, #303f9f) !important;
 }
