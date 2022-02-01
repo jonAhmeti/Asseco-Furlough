@@ -2,6 +2,10 @@
   position: relative;
   overflow: hidden;
 }
+.hideDropdown {
+  visibility: hidden;
+  position: absolute;
+}
 .dropdownToggle {
   cursor: pointer;
 }

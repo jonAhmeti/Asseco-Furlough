@@ -58,9 +58,9 @@
         <div class="col my-lg-0 my-2 h-100">
             <div class="w-100 h-100 d-flex flex-column align-items-center text-center rounded border border">
                 <div class="w-100 h-100">
-                    <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded-top ">
+                    <div class="w-100 m-0 row text-center blue-gradient rounded-top ">
                         <a asp-area="Admin" asp-controller="Request" asp-action="Index" 
-                            class="recentRequestHeader py-2 listHeader w-100 row mx-0 mb-0 list-unstyled ">
+                            class="dashboardTableHeader py-2 w-100 row mx-0 mb-0 list-unstyled ">
                             @localizer["recentRequests"] 
                         </a>
                     </div>
@@ -92,9 +92,23 @@
             </div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mt-2">
-        <table class="charts-css column">
-        </table>
+    <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
+        <div class="col my-lg-0 my-2 h-100">
+            <div class="d-flex flex-column w-100 h-100 mb-2 rounded border">
+                <div class="w-100 m-0 row text-center blue-gradient rounded-top ">
+                        <a class="dashboardTableHeader py-2 w-100 row mx-0 mb-0 list-unstyled ">
+                            Upcoming Holidays
+                        </a>
+                    </div>
+                <div class="d-flex flex-column w-100 h-100 text-center">
+                    <div class="w-100 flex-grow-1 overflow-auto" style="height: 1px;"></div>
+                </div>
+           </div>
+        </div>
+        <div class="col my-lg-0 my-2 h-100">
+            <table class="charts-css column">
+            </table>
+        </div>
     </div>
 </div>
 

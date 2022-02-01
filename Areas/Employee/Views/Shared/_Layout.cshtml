@@ -120,12 +120,7 @@
                 </a>
             </div>
             <div class="position-absolute w-100" style="bottom: 0;">
-                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                    <a class="redLogOutSidenav rounded-pill nav-link" asp-action="Logout" asp-controller="Home"
-                        asp-area="">
-                        <i class="fas fa-sign-out-alt"></i> @Resources.Shared._Layout.logOut
-                    </a>
-                </div>
+                <partial name="~/Views/Shared/_logOut.cshtml" />
             </div>
         </aside>
         <div class="w-100 h-100 flex-grow-1" style="overflow-y: auto; overflow-x: hidden; z-index: 0;">
