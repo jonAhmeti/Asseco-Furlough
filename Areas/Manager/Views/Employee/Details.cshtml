@@ -92,7 +92,8 @@
                             <div class="d-flex align-items-center">
                                 <span class="roundIcon text-black-50" style="background-color: @backgroundCircle;">@Html.Raw(icon)</span>
                                 <span class="mx-2">@item.Name</span>
-                                <span class="roundIcon" style="border:2px solid @backgroundCircle; border-width:0 2px 2px 0;">@item.GetValue(ViewBag.EmployeeDays)</span>
+                                <!--NaN when that employee is not present in AvailableDays table-->
+                                <span class="roundIcon" style="border:2px solid @backgroundCircle; border-width:0 2px 2px 0;">@(ViewBag.EmployeeDays != null ? item.GetValue(ViewBag.EmployeeDays) : "NaN")</span>
                             </div>
                         </div>
                     }
