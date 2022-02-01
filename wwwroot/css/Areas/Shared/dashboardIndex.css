@@ -49,17 +49,17 @@
   text-decoration: none;
   color: #000;
 }
-.recentRequestHeader {
+.dashboardTableHeader {
   text-decoration: none;
-  color: #000;
+  color: #fff;
   text-transform: uppercase;
   display: block;
   font-weight: 600;
   letter-spacing: 0.2em;
   font-size: 14px;
 }
-.recentRequestHeader:hover {
-  color: #fff;
+.dashboardTableHeader:hover {
+  color: #aaa;
 }
 .listHeader li {
   padding: 0.5rem 0;

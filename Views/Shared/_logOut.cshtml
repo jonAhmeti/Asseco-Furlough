@@ -1,0 +1,8 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+<div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+  <a class="logOutSidenav rounded-pill nav-link" asp-action="Logout" asp-controller="Home" asp-area="">
+    <i class="fas fa-sign-out-alt"></i> @Resources.Shared._Layout.logOut
+  </a>
+</div>
