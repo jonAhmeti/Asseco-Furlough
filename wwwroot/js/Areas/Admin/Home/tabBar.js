@@ -21,7 +21,7 @@ $(function () {
   tab.find(".tabBarItem a").click(function (e) {
     e.preventDefault();
     if (!$(this).parent().hasClass("activeBar") && !tab.hasClass("animate")) {
-        tab.addClass("animate");
+      tab.addClass("animate");
 
       var _this = $(this);
 
