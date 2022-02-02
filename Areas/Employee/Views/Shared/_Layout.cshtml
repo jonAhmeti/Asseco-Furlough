@@ -94,20 +94,20 @@
                         style="font-size: 1rem;" class="fas fa-caret-down"></i>
                 </a>
             </div>
-            <div class="layoutDropdown hideDropdown">
-                <div class="md-ripples ripples-light mx-4 mb-3 rounded-pill">
+            <div class="layoutDropdown hideDropdown px-4">
+                <div class="md-ripples ripples-light mb-3 rounded-pill">
                     <a class="sidenavLinks rounded-pill nav-link @(action.Length == 3 && action[2]=="Request" ? "active" : "")"
                         asp-area="Employee" asp-controller="Request" asp-action="Index">
                         <i class="far fa-clock"></i> Pending
                     </a>
                 </div>
-                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                <div class="md-ripples ripples-light my-3 rounded-pill">
                     <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Approved" ? "active" : "")"
                         asp-area="Employee" asp-controller="Request" asp-action="Approved">
                         <i class="fas fa-check"></i> Approved
                     </a>
                 </div>
-                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                <div class="md-ripples ripples-light my-3 rounded-pill">
                     <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Rejected" ? "active" : "")"
                         asp-area="Employee" asp-controller="Request" asp-action="Rejected">
                         <i class="fas fa-minus"></i> Rejected

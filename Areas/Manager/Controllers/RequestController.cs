@@ -41,9 +41,22 @@ namespace Furlough.Areas.Manager.Controllers
         public async Task<IActionResult> Index()
         {
             //Get DepartmentId by HttpContext
-            var departmentId = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value; 
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value); 
 
-            return View(_contextRequest.GetByDepartment(int.Parse(departmentId)));
+            return View(_contextRequest.GetByDepartment(departmentId, 1));
+        }
+
+        public async Task<IActionResult> Approved()
+        {
+            // 1 - Pending, 2 - Approved, 3 - Rejected
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
+            return View(_contextRequest.GetByDepartment(departmentId, 2));
+        }
+        public async Task<IActionResult> Rejected()
+        {
+            // 1 - Pending, 2 - Approved, 3 - Rejected
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
+            return View(_contextRequest.GetByDepartment(departmentId, 3));
         }
 
         // GET: Manager/Request/Details/5

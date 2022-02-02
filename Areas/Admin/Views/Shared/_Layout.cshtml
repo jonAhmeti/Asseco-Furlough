@@ -114,20 +114,20 @@
                     <i class="fas fa-users"></i> STAFF <i style="font-size: 1rem;" class="fas fa-caret-down"></i>
                 </a>
             </div>
-            <div class="layoutDropdown hideDropdown">
-                <div class="md-ripples ripples-light mx-4 mb-3 rounded-pill">
+            <div class="layoutDropdown hideDropdown px-4">
+                <div class="md-ripples ripples-light mb-3 rounded-pill">
                     <a class="sidenavLinks rounded-pill nav-link @(action.Length > 2 && action[2]=="User" ? "active" : "")"
                         asp-area="Admin" asp-controller="User" asp-action="Index">
                         <i class="fas fa-user-friends"></i> @Resources.Shared._Layout.userTitle
                     </a>
                 </div>
-                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                <div class="md-ripples ripples-light my-3 rounded-pill">
                     <a class="sidenavLinks rounded-pill nav-link @(action.Length > 2 && action[2]=="Employee" ? "active" : "")"
                         asp-area="Admin" asp-controller="Employee" asp-action="Index">
                         <i class="fas fa-user-tie"></i> @Resources.Shared._Layout.empTitle
                     </a>
                 </div>
-                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                <div class="md-ripples ripples-light my-3 rounded-pill">
                     <a id="daysLink"
                         class="sidenavLinks rounded-pill nav-link d-flex align-items-center @(action.Length > 2 && action[2]=="AvailableDays" ? "active" : "")"
                         asp-area="Admin" asp-controller="AvailableDays" asp-action="Index">

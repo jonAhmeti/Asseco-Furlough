@@ -2,7 +2,7 @@
 @inject IViewLocalizer localizer
 @model IEnumerable<Furlough.DAL.Models.RequestByDepartment>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pending Requests";
     int counter = 0;
 }
 
@@ -13,13 +13,13 @@
         </div>
     </div>
     <div class="w-75 m-auto overflow-auto shadow border rounded" style="margin-top:-2rem !important;">
-        <table class="table indexTable rounded">
+        <table class="table indexTable rounded text-center">
             <thead>
                 <tr>
                     <th>@localizer["requestedBy"]</th>
                     <th>@localizer["requestedTime"]</th>
-                    <th>@localizer["requestStatus"]</th>
-                    <th class="text-center">
+                    <th>@localizer["requestedDaysAmount"]</th>
+                    <th>
                         <a class="mx-1 text-primary px-4 rounded border border-primary"
                             asp-action="Create">@Resources.Shared._Table.create</a>
                     </th>
@@ -41,10 +41,10 @@
                         </td>
                         <td>
                             <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
-                                @item.RequestStatusId
+                                @item.RequestDaysAmount
                             </a>
                         </td>
-                        <td class="text-center align-middle">
+                        <td class="align-middle">
                             <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
                             asp-route-id="@item.RequestId">
                                 @Resources.Shared._Table.edit

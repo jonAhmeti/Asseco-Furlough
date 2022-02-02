@@ -45,7 +45,7 @@ namespace Furlough.Areas.Admin.Controllers
         {
             try
             {
-                var requests = _contextRequest.GetAll();
+                var requests = _contextRequest.GetByStatusId(1);
                 return View(requests);
             }
             catch (Exception e)

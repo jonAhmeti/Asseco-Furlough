@@ -10,10 +10,10 @@ $(function () {
     
     var layoutDropdown = $(this).next();
     if (!layoutDropdown.hasClass("activeDropdown")) {
-      dropDownToggle.next().slideUp(500).removeClass("activeDropdown");
-      layoutDropdown.slideDown(500).addClass("activeDropdown");
+      dropDownToggle.next().slideUp(300).removeClass("activeDropdown");
+      layoutDropdown.slideDown(300).addClass("activeDropdown");
     } else {
-      layoutDropdown.slideUp(500).removeClass("activeDropdown");
+      layoutDropdown.slideUp(300).removeClass("activeDropdown");
     }
   });
 });

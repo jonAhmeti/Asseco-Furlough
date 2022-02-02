@@ -1,9 +1,8 @@
-﻿@model IEnumerable<Furlough.DAL.Models.RequestByDepartment>
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
-
+@model IEnumerable<Furlough.DAL.Models.RequestByDepartment>
 @{
-    ViewData["Title"] = "Pending Requests";
+    ViewData["Title"] = "Rejected Requests";
     int counter = 0;
 }
 
@@ -17,13 +16,12 @@
         <table class="table indexTable rounded text-center">
             <thead>
                 <tr>
-                    <th>@localizer["employeeName"]</th>
+                    <th>@localizer["requestedBy"]</th>
                     <th>@localizer["requestedTime"]</th>
-                    <th>@localizer["requestStatus"]</th>
-                    <th>@localizer["requestDaysAmount"]</th>
+                    <th>@localizer["requestedDaysAmount"]</th>
                     <th>
                         <a class="mx-1 text-primary px-4 rounded border border-primary"
-                           asp-action="Create">@Resources.Shared._Table.create</a>
+                            asp-action="Create">@Resources.Shared._Table.create</a>
                     </th>
                 </tr>
             </thead>
@@ -38,26 +36,21 @@
                         </td>
                         <td>
                             <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
-                                @Html.DisplayFor(modelItem => item.RequestedOn)
+                                @item.RequestedOn
                             </a>
                         </td>
                         <td>
                             <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
-                                @Html.DisplayFor(modelItem => item.RequestStatusId)
-                            </a>
-                        </td>
-                        <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
-                                @Html.DisplayFor(modelItem => item.RequestDaysAmount)
+                                @item.RequestDaysAmount
                             </a>
                         </td>
                         <td class="align-middle">
                             <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
-                           asp-route-id="@item.RequestId">
+                            asp-route-id="@item.RequestId">
                                 @Resources.Shared._Table.edit
                             </a>
                             <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
-                           asp-route-id="@item.RequestId">
+                            asp-route-id="@item.RequestId">
                                 @Resources.Shared._Table.delete
                             </a>
                         </td>
@@ -70,6 +63,6 @@
     </div>
 </div>
 
+
 <!--DataTables-->
-<link rel="stylesheet" href="~/css/Areas/Admin/Shared/dataTables.css" />
-<script src="~/js/Areas/Admin/Request/dataTables.js"></script>
+<script src="~/js/Areas/Manager/Request/dataTables.js"></script>

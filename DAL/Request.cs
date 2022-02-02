@@ -137,7 +137,7 @@ namespace Furlough.DAL
             
         }
         //Change Model to reflect the actual db model
-        public IEnumerable<Models.RequestByDepartment> GetByDepartment(int departmentId)
+        public IEnumerable<Models.RequestByDepartment> GetByDepartment(int departmentId, int statusId = 0)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_requestGetByDepartment", connection)
@@ -145,6 +145,8 @@ namespace Furlough.DAL
                 CommandType = CommandType.StoredProcedure
             };
             command.Parameters.AddWithValue("@DepartmentId", departmentId);
+            if (statusId != 0)
+                command.Parameters.AddWithValue("@StatusId", statusId);
 
             connection.Open();
             return RequestByDepartmentMapper(command.ExecuteReader());

@@ -1,1 +1,75 @@
 ﻿@model IEnumerable<Furlough.DAL.Models.RequestByDepartment>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = "Rejected Requests";
+    int counter = 0;
+}
+
+<div class="container-fluid p-0 mt-4">
+    <div class="w-100 d-flex justify-content-center">
+        <div class="blue-gradient-div shadow rounded-pill py-2 mx-4 d-flex justify-content-center align-items-center">
+            <h2 class="text-white mx-3">@Resources.Shared._Layout.reqTitle</h2>
+        </div>
+    </div>
+    <div class="w-75 m-auto overflow-auto shadow border rounded" style="margin-top:-2rem !important;">
+        <table class="table indexTable rounded text-center">
+            <thead>
+                <tr>
+                    <th>@localizer["employeeName"]</th>
+                    <th>@localizer["requestedTime"]</th>
+                    <th>@localizer["requestStatus"]</th>
+                    <th>@localizer["requestDaysAmount"]</th>
+                    <th>
+                        <a class="mx-1 text-primary px-4 rounded border border-primary"
+                           asp-action="Create">@Resources.Shared._Table.create</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr rowId="@counter">
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
+                                @Html.DisplayFor(modelItem => item.EmployeeName)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
+                                @Html.DisplayFor(modelItem => item.RequestedOn)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
+                                @Html.DisplayFor(modelItem => item.RequestStatusId)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="rowLink" asp-action="Details" asp-route-id="@item.RequestId">
+                                @Html.DisplayFor(modelItem => item.RequestDaysAmount)
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
+                           asp-route-id="@item.RequestId">
+                                @Resources.Shared._Table.edit
+                            </a>
+                            <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
+                           asp-route-id="@item.RequestId">
+                                @Resources.Shared._Table.delete
+                            </a>
+                        </td>
+                    </tr>
+                    //Counter Incremental
+                    counter++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--DataTables-->
+<link rel="stylesheet" href="~/css/Areas/Admin/Shared/dataTables.css" />
+<script src="~/js/Areas/Admin/Request/dataTables.js"></script>
