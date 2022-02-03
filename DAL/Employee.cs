@@ -59,6 +59,22 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
+        public bool PositionChange(int employeeId, int positionId, int lubUserId)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_employeePositionChange", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            command.Parameters.AddWithValue("@EmployeeId", employeeId);
+            command.Parameters.AddWithValue("@positionId", positionId);
+            command.Parameters.AddWithValue("@LUBUserId", lubUserId);
+
+            connection.Open();
+            return command.ExecuteNonQuery() > 0;
+        }
+
         public bool Delete(int id)
         {
             using var connection = new SqlConnection(_context.GetConnection());

@@ -101,17 +101,18 @@ namespace Furlough.Areas.Manager.Controllers
         {
             try
             {
+                var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
                 var historyResult = _contextPositionHisotry.Add(new DAL.Models.PositionHistory
                 {
                     EmployeeId = employeeId,
                     PositionId = positionId,
-                    SetByUserId = 1 //SET USER ID HERE
+                    SetByUserId = loggedinUser
                 });
                 var dbEmployee = _contextEmployee.GetById(employeeId);
                 if (dbEmployee == null) return false;
 
                 dbEmployee.PositionId = positionId;
-                var result = _contextEmployee.Edit(dbEmployee);
+                var result = _contextEmployee.PositionChange(dbEmployee.Id, positionId, loggedinUser);
                 return result;
             }
             catch (Exception e)
