@@ -1,4 +1,4 @@
-﻿@model Furlough.DAL.Models.Employee
+﻿@model Furlough.Models.Employee
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 @{
@@ -23,10 +23,11 @@
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="DepartmentId" />
                     <div class="form-floating mb-3">
-                        <input class="form-control" asp-for="JoinDate"/>
-                        <label asp-for="JoinDate">@localizer["joinDate"]</label>
-                        <span asp-validation-for="JoinDate" class="text-danger"></span>
+                        <input class="form-control" asp-for="WorkStartDate"/>
+                        <label asp-for="WorkStartDate">@localizer["workStartDate"]</label>
+                        <span asp-validation-for="WorkStartDate" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-control" asp-for="PositionId" asp-items="ViewBag.DepartmentPositions"></select>

@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="approved" xml:space="preserve">
+    <value>Aprovuara</value>
+  </data>
   <data name="availDaysTitle" xml:space="preserve">
     <value>Денови</value>
+  </data>
+  <data name="cancelled" xml:space="preserve">
+    <value>Fshira</value>
   </data>
   <data name="dashTitle" xml:space="preserve">
     <value>ДОМА</value>
@@ -132,8 +138,14 @@
   <data name="logOut" xml:space="preserve">
     <value>Отклучи</value>
   </data>
+  <data name="pending" xml:space="preserve">
+    <value>Në pritje</value>
+  </data>
   <data name="posTitle" xml:space="preserve">
     <value>Позиција</value>
+  </data>
+  <data name="rejected" xml:space="preserve">
+    <value>Anuluara</value>
   </data>
   <data name="reqTitle" xml:space="preserve">
     <value>Барање</value>

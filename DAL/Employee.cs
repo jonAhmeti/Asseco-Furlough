@@ -51,7 +51,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@DepartmentId", obj.DepartmentId);
             command.Parameters.AddWithValue("@Email", obj.Email);
             command.Parameters.AddWithValue("@Name", obj.Name);
-            command.Parameters.AddWithValue("@Phone", obj.Phone);
+            command.Parameters.AddWithValue("@Phone", obj.Phone == null ? DBNull.Value : obj.Phone);
             command.Parameters.AddWithValue("@WorkStartDate", obj.WorkStartDate);
             command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
 

@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="approved" xml:space="preserve">
+    <value>Approved Requests</value>
+  </data>
   <data name="availDaysTitle" xml:space="preserve">
     <value>Days</value>
+  </data>
+  <data name="cancelled" xml:space="preserve">
+    <value>Cancelled Requests</value>
   </data>
   <data name="dashTitle" xml:space="preserve">
     <value>Dashboard</value>
@@ -132,8 +138,14 @@
   <data name="logOut" xml:space="preserve">
     <value>Log Out</value>
   </data>
+  <data name="pending" xml:space="preserve">
+    <value>Pending Requests</value>
+  </data>
   <data name="posTitle" xml:space="preserve">
     <value>Position</value>
+  </data>
+  <data name="rejected" xml:space="preserve">
+    <value>Rejected Requests</value>
   </data>
   <data name="reqTitle" xml:space="preserve">
     <value>Requests</value>

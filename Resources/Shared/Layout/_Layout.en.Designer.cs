@@ -139,5 +139,33 @@ namespace Resources.Shared {
                 return ResourceManager.GetString("availDaysTitle", resourceCulture);
             }
         }
+        public static string approved
+        {
+            get
+            {
+                return ResourceManager.GetString("approved", resourceCulture);
+            }
+        }
+        public static string rejected
+        {
+            get
+            {
+                return ResourceManager.GetString("rejected", resourceCulture);
+            }
+        }
+        public static string cancelled
+        {
+            get
+            {
+                return ResourceManager.GetString("cancelled", resourceCulture);
+            }
+        }
+        public static string pending
+        {
+            get
+            {
+                return ResourceManager.GetString("pending", resourceCulture);
+            }
+        }
     }
 }
