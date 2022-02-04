@@ -1,4 +1,4 @@
-﻿@model Furlough.DAL.Models.Employee
+﻿@model Furlough.Models.Employee
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 @{
@@ -43,6 +43,14 @@
                         <label asp-for="Name">@localizer["fullname"]</label>
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
+                    @{
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="form-floating mb-2">
+                                <span class="text-danger">@ViewBag.Message</span>
+                            </div>
+                        }
+                    }
                     <div class="d-flex justify-content-center mt-3">
                         <div class="form-group">
                             <input type="submit" value="@Resources.Shared._Table.create" class="btn btn-primary" />

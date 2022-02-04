@@ -59,6 +59,29 @@ namespace Furlough.DAL
             }
         }
 
+        public bool Delete(int employeeId)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_availableDaysDeleteByEmployeeId", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@EmployeeId", employeeId);
+
+                connection.Open();
+                var res = command.ExecuteNonQuery();
+                return res > 0;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public bool SetDays(int employeeId, string requestType, int daysAmount)
         {
             try

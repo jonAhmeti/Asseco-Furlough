@@ -169,7 +169,8 @@ namespace Furlough.DAL
                     {
                         Id = reader.GetInt32("Id"),
                         DepartmentId = reader.GetInt32("DepartmentId"),
-                        PositionId = reader.GetInt32("PositionId")
+                        PositionId = reader.GetInt32("PositionId"),
+                        Title = reader["Title"]?.ToString()
                     });
                 }
 

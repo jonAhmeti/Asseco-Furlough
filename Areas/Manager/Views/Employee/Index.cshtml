@@ -8,8 +8,7 @@
 
 <div class="container-fluid p-0 mt-4">
     <div class="w-100 d-flex justify-content-center">
-        <div
-            class="blue-gradient-div shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
+        <div class="blue-gradient-div shadow rounded-pill py-2 mx-4 mb-3 d-flex justify-content-center align-items-center">
             <h2 class="text-white mx-3">@Resources.Shared._Layout.empTitle</h2>
         </div>
     </div>
@@ -19,7 +18,6 @@
                 <tr>
                     <th>@localizer["userId"]</th>
                     <th>@localizer["fullname"]</th>
-                    <th>@localizer["department"]</th>
                     <th>@localizer["position"]</th>
 
                     <th class="text-center">
@@ -43,21 +41,29 @@
                         </td>
                         <td>
                             <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.DepartmentId)
-                            </a>
-                        </td>
-                        <td>
-                            <a class="rowLink" asp-action="Details" asp-route-id="@item.Id">
-                                @Html.DisplayFor(modelItem => item.PositionId)
+                                @{
+                                    string title;
+                                    try{
+
+                                        title = ((IEnumerable<Furlough.DAL.Models.DepartmentPositions>)ViewBag.Positions)
+                                            .FirstOrDefault(position => position.PositionId == item.PositionId).Title;
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        title = "Unknown";
+                                       //Happens when admin sets a new Employee with a positions that isn't added to the department
+                                    }
+                                    @title
+                                }
                             </a>
                         </td>
                         <td class="text-center align-middle">
                             <a class="mx-1 text-warning px-4 rounded border border-warning" asp-action="Edit"
-                            asp-route-id="@item.Id">
+                           asp-route-id="@item.Id">
                                 @Resources.Shared._Table.edit
                             </a>
                             <a class="mx-1 text-danger px-4 rounded border border-danger" asp-action="Delete"
-                            asp-route-id="@item.Id">
+                           asp-route-id="@item.Id">
                                 @Resources.Shared._Table.delete
                             </a>
                         </td>
