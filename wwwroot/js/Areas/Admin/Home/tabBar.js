@@ -14,10 +14,14 @@ $(function () {
       width: wid,
     });
   }
+
   $(window).on("load resize", function () {
-    var divWidth = $(".tabBarItem").width();
-    line.css("width", divWidth);
+    if ($(".tabBarItem").hasClass("activeBar")) {
+      var divWidth = $(".tabBarItem").width();
+      line.css("width", divWidth);
+    }
   });
+  
   tab.find(".tabBarItem a").click(function (e) {
     e.preventDefault();
     if (!$(this).parent().hasClass("activeBar") && !tab.hasClass("animate")) {
