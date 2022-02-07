@@ -90,7 +90,7 @@ aside .active {
 }
 @media screen and (min-width: 768px) {
   aside {
-    display: block !important;
+    display: flex !important;
   }
 }
 
