@@ -29,6 +29,17 @@
                 @Html.DisplayFor(model => model.Title)
             </dd>
         </dl>
+        @{
+            if (ViewBag.Message != null)
+            {
+                <dl class="row text-danger">
+                    <dt class="col-sm-2">@localizer["message"]:</dt>
+                    <dd class="col-sm-10">
+                        @ViewBag.Message
+                    </dd>
+                </dl>
+            }
+        }
         <div class="m-auto">
             <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
                 @Resources.Shared._Table.backToList

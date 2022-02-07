@@ -10,8 +10,7 @@
         data: { departmentId: $(selectDepartment).find(":selected").val() },
         success: function (result) {
             if (result != undefined && result != null) {
-
-                if (hasUsers)
+                if (hasUsers || window.location.href.includes("Edit"))
                     $(submitBtn).removeAttr('disabled');
 
                 $(selectPosition).removeAttr('disabled');
@@ -40,7 +39,7 @@
             success: function (result) {
                 if (result != undefined && result != null) {
 
-                    if (hasUsers)
+                    if (hasUsers || window.location.href.includes("Edit"))
                         $(submitBtn).removeAttr('disabled');
                     $(selectPosition).removeAttr('disabled');
 

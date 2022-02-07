@@ -41,16 +41,23 @@
             </dd>
             <dt class="col-sm-2">@localizer["department"]:</dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Department.Id)
+                @Html.DisplayFor(model => model.DepartmentId)
             </dd>
             <dt class="col-sm-2">@localizer["position"]:</dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Position.Id)
+                @Html.DisplayFor(model => model.PositionId)
             </dd>
             <dt class="col-sm-2">@localizer["userId"]:</dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.User.Id)
+                @Html.DisplayFor(model => model.UserId)
             </dd>
+            @if (ViewBag.Message != null)
+            {
+                <dt class="col-sm-2 text-danger">@localizer["message"]:</dt>
+                <dd class="col-sm-10 text-danger">
+                    @ViewBag.Message
+                </dd>
+            }
         </dl>
         <div class="w-auto">
             <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">

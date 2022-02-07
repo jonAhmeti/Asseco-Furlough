@@ -150,14 +150,15 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/User/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, string? message = null)
         {
             var user = _contextUser.GetById(id);
             if (user == null)
             {
                 return NotFound();
             }
-            var result = _contextUser.Delete(user.Id);
+
+            ViewData["Message"] = message;
             return View(user);
         }
 
@@ -165,6 +166,7 @@ namespace Furlough.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            string? message = null;
             try
             {
                 var result = _contextUser.Delete(id);
@@ -172,10 +174,12 @@ namespace Furlough.Areas.Admin.Controllers
             }
             catch (Exception e)
             {
+                if (e.Message.Contains("Request") && e.Message.Contains("FK__Request__"))
+                    message = "This user can't be deleted because they have submitted requests";
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
                 Console.ResetColor();
-                return RedirectToAction(nameof(Delete), id);
+                return RedirectToAction(nameof(Delete), new {id, message});
             }
         }
     }

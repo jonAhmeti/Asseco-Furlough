@@ -118,7 +118,7 @@ namespace Furlough.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PositionExists(position.Id))
+                    if (_contextPosition.GetById(id) == null)
                     {
                         return NotFound();
                     }
@@ -133,18 +133,15 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/Position/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id, string? message = null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var position = _contextPosition.GetById(id.Value);
+            var position = _contextPosition.GetById(id);
             if (position == null)
             {
                 return NotFound();
             }
+
+            ViewData["Message"] = message;
 
             return View(_vmMapper.PositionMap(position));
         }
@@ -154,17 +151,20 @@ namespace Furlough.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var position = _contextPosition.GetById(id);
-            var result = _contextPosition.Delete(id);
-            //var position = await _context.Positions.FindAsync(id);
-            //_context.Positions.Remove(position);
-            //await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            try
+            {
+                var position = _contextPosition.GetById(id);
+                var result = _contextPosition.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                string? message = "";
+                if (e.Message.Contains("FK__Departmen__Posit__"))
+                    message = "This position is already being used in a department";
 
-        private bool PositionExists(int id)
-        {
-            return _context.Positions.Any(e => e.Id == id);
+                return RedirectToAction(nameof(Delete), new { message });
+            }
         }
     }
 }

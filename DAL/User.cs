@@ -74,7 +74,7 @@ namespace Furlough.DAL
                 Console.WriteLine("User DAL error onDelete: " + e.Message);
                 Console.ResetColor();
 
-                return false;
+                throw e;
             }
         }
 

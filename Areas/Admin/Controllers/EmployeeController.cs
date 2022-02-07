@@ -17,11 +17,12 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly DAL.User _contextUsers;
         private readonly DAL.DepartmentPositions _contextDepartmentPositions;
         private readonly DAL.AvailableDays _contextAvailableDays;
+        private readonly DAL.Request _contextRequest;
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
 
         public EmployeeController(DAL.Employee contextEmployee, DAL.Department contextDepartment, DAL.User contextUsers,
-            DAL.AvailableDays contextAvailableDays, DAL.DepartmentPositions contextDepartmentPositions,
+            DAL.AvailableDays contextAvailableDays, DAL.DepartmentPositions contextDepartmentPositions, DAL.Request contextRequest,
             ViewModelMapper vmMapper, DalMapper dalMapper)
         {
             _contextEmployee = contextEmployee;
@@ -29,6 +30,7 @@ namespace Furlough.Areas.Admin.Controllers
             _contextUsers = contextUsers;
             _contextDepartmentPositions = contextDepartmentPositions;
             _contextAvailableDays = contextAvailableDays;
+            _contextRequest = contextRequest;
 
             _vmMapper = vmMapper;
             _dalMapper = dalMapper;
@@ -166,7 +168,7 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/Employee/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, string? message = null)
         {
             var employee = _contextEmployee.GetById(id);
             if (employee == null)
@@ -174,6 +176,7 @@ namespace Furlough.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            ViewData["Message"] = message;
             return View(employee);
         }
 
@@ -181,10 +184,29 @@ namespace Furlough.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            string? message = null;
+
+            var employeeDb = _contextEmployee.GetById(id);
+            if (employeeDb == null)
+                return NotFound();
+
             try
             {
-                var result = _contextEmployee.Delete(id);
-                return RedirectToAction(nameof(Index));
+                if (_contextRequest.GetByUser(employeeDb.UserId).Any())
+                {
+                    message = "Employee can't be delete because they have existing requests";
+                    return RedirectToAction(nameof(Delete), new { id, message });
+                }
+
+                var availDaysDelete = _contextAvailableDays.Delete(id);
+                if (availDaysDelete)
+                {
+                    var result = _contextEmployee.Delete(id);
+                    return RedirectToAction(nameof(Index));
+                }
+
+                message = "Employee's available days couldn't be deleted";
+                return RedirectToAction(nameof(Delete), new { id, message });
             }
             catch (Exception e)
             {
