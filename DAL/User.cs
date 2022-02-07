@@ -89,6 +89,17 @@ namespace Furlough.DAL
 
             return Mapper(command.ExecuteReader());
         }
+        public IEnumerable<Models.User> GetAttachedToEmployee()
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_userGetHasEmployee", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            connection.Open();
+
+            return Mapper(command.ExecuteReader());
+        }
 
         public Models.User GetById(int id)
         {

@@ -13,20 +13,28 @@ namespace Furlough.DAL
         }
         public bool Add(Models.Request obj)
         {
-            using var connection = new SqlConnection(_context.GetConnection());
-            using var command = new SqlCommand("sp_requestAdd", connection)
+            try
             {
-                CommandType = CommandType.StoredProcedure
-            };
-            command.Parameters.AddWithValue("@Dates", obj.Dates);
-            command.Parameters.AddWithValue("@RequestedByUserId", obj.RequestedByUserId);
-            command.Parameters.AddWithValue("@RequestStatusId", obj.RequestStatusId);
-            command.Parameters.AddWithValue("@DaysAmount", obj.DaysAmount);
-            command.Parameters.AddWithValue("@RequestTypeId", obj.RequestTypeId);
-            command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_requestAdd", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Dates", obj.Dates);
+                command.Parameters.AddWithValue("@RequestedByUserId", obj.RequestedByUserId);
+                command.Parameters.AddWithValue("@RequestStatusId", obj.RequestStatusId);
+                command.Parameters.AddWithValue("@DaysAmount", obj.DaysAmount);
+                command.Parameters.AddWithValue("@RequestTypeId", obj.RequestTypeId);
+                command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
 
-            connection.Open();
-            return command.ExecuteNonQuery() > 0;
+                connection.Open();
+                return command.ExecuteNonQuery() > 0;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
 
         public bool Edit(Models.Request obj, int prevRequestStatusId)
@@ -197,7 +205,7 @@ namespace Furlough.DAL
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
                 Console.ResetColor();
-                return false;
+                throw;
             }
             
         }

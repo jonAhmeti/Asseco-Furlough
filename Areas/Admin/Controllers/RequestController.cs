@@ -92,7 +92,7 @@ namespace Furlough.Areas.Admin.Controllers
         {
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type");
             ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type");
-            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username");
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAttachedToEmployee(), "Id", "Username");
             return View();
         }
 
@@ -101,16 +101,19 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateFrom,DateUntil,RequestedByUserId,RequestedOn,RequestStatusId,PaidDays,RequestTypeId")] Models.Request request)
+        public async Task<IActionResult> Create(Models.Request request)
         {
             if (ModelState.IsValid)
             {
+                var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+
+                request.LUBUserId = loggedinUser;
                 var result = _contextRequest.Add(_dalMapper.DalRequestMap(request));
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RequestStatusId"] = new SelectList(_contextRequestStatus.GetAll(), "Id", "Type", request.RequestStatusId);
             ViewData["RequestTypeId"] = new SelectList(_contextRequestType.GetAll(), "Id", "Type", request.RequestTypeId);
-            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAll(), "Id", "Username", request.RequestedByUserId);
+            ViewData["RequestedByUserId"] = new SelectList(_contextUser.GetAttachedToEmployee(), "Id", "Username", request.RequestedByUserId);
             return View(request);
         }
 
