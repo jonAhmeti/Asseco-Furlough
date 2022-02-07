@@ -80,6 +80,7 @@
     <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1" style="overflow-y: auto; overflow-x: hidden;">
         <aside id="sidenav" class="unselectable flex-grow-1 h-100 col-auto bg-white shadow position-relative"
             style="overflow-y: auto; overflow-x: hidden;">
+            
             <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
                 <a id="dashboardLink"
                     class="sidenavLinks rounded-pill nav-link d-flex align-items-center @(action.Length == 2 ? "active" : "")"
@@ -100,7 +101,7 @@
                         <i class="fas fa-briefcase"></i> @Resources.Shared._Layout.depTitle
                     </a>
                 </div>
-                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                <div class="md-ripples ripples-light mx-4 mt-3 rounded-pill">
                     <a class="sidenavLinks rounded-pill nav-link @(action.Length > 2 && action[2]=="Position" ? "active" : "")"
                         asp-area="Admin" asp-controller="Position" asp-action="Index">
                         <i class="fa-solid fa-chalkboard-user"></i> @Resources.Shared._Layout.posTitle
@@ -108,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="dropdownToggle md-ripples ripples-light mx-4 mb-3 rounded-pill">
+            <div class="dropdownToggle md-ripples ripples-light mx-4 my-3 rounded-pill">
                 <a
                     class="sidenavLinks rounded-pill nav-link @(action.Length > 2 && (action[2]=="User" || action[2]=="Employee" || action[2]=="AvailableDays") ? "active" : "")">
                     <i class="fas fa-users"></i> STAFF <i style="font-size: 1rem;" class="fas fa-caret-down"></i>
@@ -127,7 +128,7 @@
                         <i class="fas fa-user-tie"></i> @Resources.Shared._Layout.empTitle
                     </a>
                 </div>
-                <div class="md-ripples ripples-light my-3 rounded-pill">
+                <div class="md-ripples ripples-light mt-3 rounded-pill">
                     <a id="daysLink"
                         class="sidenavLinks rounded-pill nav-link d-flex align-items-center @(action.Length > 2 && action[2]=="AvailableDays" ? "active" : "")"
                         asp-area="Admin" asp-controller="AvailableDays" asp-action="Index">
@@ -137,7 +138,7 @@
                 </div>
             </div>
 
-            <div class="dropdownToggle md-ripples ripples-light mx-4 mb-3 rounded-pill">
+            <div class="dropdownToggle md-ripples ripples-light mx-4 my-3 rounded-pill">
                 <a class="sidenavLinks rounded-pill nav-link @(inRequest ? "active" : "")">
                     <i class="fa-solid fa-bars-staggered"></i> @Resources.Shared._Layout.reqTitle <i
                         style="font-size: 1rem;" class="fas fa-caret-down"></i>
@@ -162,7 +163,7 @@
                         <i class="fas fa-minus"></i> Rejected
                     </a>
                 </div>
-                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                <div class="md-ripples ripples-light mx-4 mt-3 rounded-pill">
                     <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Cancelled" ? "active" : "")"
                         asp-area="Admin" asp-controller="Request" asp-action="Cancelled">
                         <i class="fas fa-times"></i> Cancelled
