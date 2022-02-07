@@ -50,6 +50,10 @@
                 @Html.DisplayFor(model => model.DaysAmount)
             </dd>
         </dl>
+        @if (ViewBag.FkError)
+        {
+            <h4 class="text-danger">@localizer["FkError"]</h4>
+        }
         <div class="w-auto">
             <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
                 @Resources.Shared._Table.backToList

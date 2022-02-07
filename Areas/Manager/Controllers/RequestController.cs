@@ -188,7 +188,7 @@ namespace Furlough.Areas.Manager.Controllers
         }
 
         // GET: Manager/Request/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, bool fkError = false)
         {
             var request = _contextRequest.GetById(id);
             if (request == null)
@@ -196,7 +196,25 @@ namespace Furlough.Areas.Manager.Controllers
                 return NotFound();
             }
 
+            ViewBag.FkError = fkError;
             return View(request);
+        }
+
+        // POST: Admin/Request/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            try
+            {
+                var request = _contextRequest.DeleteById(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                //most likely this request already has history of being changed/edited
+                return RedirectToAction(nameof(Delete), new { fkError = true });
+            }
         }
     }
 }
