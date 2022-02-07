@@ -82,6 +82,40 @@ namespace Furlough.DAL
             }
         }
 
+        public bool Edit(Models.AvailableDay obj)
+        {
+            try
+            {
+                using var connection = new SqlConnection(_context.GetConnection());
+                using var command = new SqlCommand("sp_availableDaysEdit", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@EmployeeId", obj.EmployeeId);
+                command.Parameters.AddWithValue("@Medical", obj.Medical);
+                command.Parameters.AddWithValue("@Yearly", obj.Yearly);
+                command.Parameters.AddWithValue("@Overtime", obj.Overtime);
+                command.Parameters.AddWithValue("@Birth", obj.Birth);
+                command.Parameters.AddWithValue("@Child", obj.Child);
+                command.Parameters.AddWithValue("@Marriage", obj.Marriage);
+                command.Parameters.AddWithValue("@Unpaid", obj.Unpaid);
+                command.Parameters.AddWithValue("@BloodDonation", obj.BloodDonation);
+                command.Parameters.AddWithValue("@Maternity", obj.Maternity);
+                command.Parameters.AddWithValue("@DeathOfRelative", obj.DeathOfRelative);
+
+
+
+                connection.Open();
+                var res = command.ExecuteNonQuery();
+                return res > 0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public bool SetDays(int employeeId, string requestType, int daysAmount)
         {
             try
@@ -105,7 +139,7 @@ namespace Furlough.DAL
             {
                 return false;
             }
-            
+
         }
 
         //Object mapper; reader to model

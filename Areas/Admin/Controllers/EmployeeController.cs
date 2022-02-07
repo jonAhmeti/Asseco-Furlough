@@ -108,7 +108,7 @@ namespace Furlough.Areas.Admin.Controllers
                 }
 
                 ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
-                //get positions by department on ajax
+                ViewData["EmployeeDays"] = _contextAvailableDays.GetByEmployeeId(employee.Id);
                 return View(_vmMapper.EmployeeMap(employee));
             }
             catch (Exception e)
@@ -126,7 +126,7 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Models.Employee employee)
+        public async Task<IActionResult> Edit(int id, Models.Employee employee, Models.AvailableDay availableDays)
         {
             if (id != employee.Id)
             {
@@ -140,6 +140,9 @@ namespace Furlough.Areas.Admin.Controllers
                     var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
                     employee.LUBUserId = loggedinUser;
                     var result = _contextEmployee.Edit(_dalMapper.DalEmployeeMap(employee));
+
+                    availableDays.EmployeeId = employee.Id;
+                    var availableDaysResult = _contextAvailableDays.Edit(_dalMapper.DalAvailableDayMap(availableDays));
                 }
                 catch (Exception e)
                 {
@@ -160,7 +163,7 @@ namespace Furlough.Areas.Admin.Controllers
                     }
 
                 }
-                return RedirectToAction(nameof(Index));
+                return Ok("Saved successfully");
             }
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
             //get positions by department on ajax

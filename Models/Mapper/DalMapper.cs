@@ -4,6 +4,24 @@ namespace Furlough.Models.Mapper
 {
     public class DalMapper
     {
+        public DAL.Models.AvailableDay DalAvailableDayMap(AvailableDay obj)
+        {
+            return new DAL.Models.AvailableDay
+            {
+                EmployeeId = obj.EmployeeId,
+                Medical = obj.Medical,
+                Yearly = obj.Yearly,
+                Child = obj.Child,
+                Birth = obj.Birth,
+                BloodDonation = obj.BloodDonation,
+                DeathOfRelative = obj.DeathOfRelative,
+                Marriage = obj.Marriage,
+                Maternity = obj.Maternity,
+                Overtime = obj.Overtime,
+                Unpaid = obj.Unpaid
+            };
+        }
+
         public DAL.Models.User DalUserMap(User obj)
         {
             return new DAL.Models.User

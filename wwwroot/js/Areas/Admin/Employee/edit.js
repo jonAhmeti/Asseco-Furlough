@@ -15,21 +15,28 @@
             Id: $('input[name="Id"]').val(),
             UserId: $('input[name="UserId"]').val(),
             DepartmentId: $('select[name="DepartmentId"]').find(':selected').val(),
-            PositionId: $('input[name="PositionId"]').val(),
+            PositionId: $('select[name="PositionId"]').find(':selected').val(),
             Email: $('input[name="Email"]').val(),
             Name: $('input[name="Name"]').val(),
             WorkStartDate: $('input[name="WorkStartDate"]').val(),
         }
 
+        let availableDays = new Object();
+        const availableDaysInputs = $('input.roundIconValue');
+        for (var i = 0; i < availableDaysInputs.length; i++) {
+            availableDays[$(availableDaysInputs[i]).attr("data-request-type")] = $(availableDaysInputs[i]).val();
+        }
+
+        console.log(availableDays);
         $.ajax({
             beforeSend: function (jqXHR) {
                 jqXHR.setRequestHeader('X-AFTAsseco', antiForgeryToken);
             },
             method: 'POST',
             url: '/Admin/Employee/Edit',
-            data: { id: employee.Id ,employee: employee },
+            data: { id: employee.Id ,employee: employee, availableDays: availableDays },
             success: function (result) {
-                console.log(result);
+                alert(result);
             },
             error: function (error) {
                 alert(error.responseText);
