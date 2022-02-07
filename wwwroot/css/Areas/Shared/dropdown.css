@@ -1,7 +1,7 @@
 .layoutDropdown {
     position: relative;
     overflow: hidden;
-    box-shadow: inset 0 0 20px 0px #0000006b;
+    background-color: rgba(0, 0, 0, 0.175);
 }
 .hideDropdown {
   visibility: hidden;

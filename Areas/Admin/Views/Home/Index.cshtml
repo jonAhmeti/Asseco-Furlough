@@ -32,19 +32,19 @@
                         {
                             <ul rowId="@counter" class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
                                 <li class="col">
-                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" 
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee"
                                     asp-action="Details" asp-route-id="@item.Id">@item.UserId</a>
                                 </li>
                                 <li class="col">
-                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" 
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee"
                                     asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
                                 </li>
                                 <li class="col">
-                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" 
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee"
                                     asp-action="Details" asp-route-id="@item.Id">@item.DepartmentId</a>
                                 </li>
                                 <li class="col">
-                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" 
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee"
                                     asp-action="Details" asp-route-id="@item.Id">@item.PositionId</a>
                                 </li>
                             </ul>
@@ -53,15 +53,15 @@
                         }
                     </div>
                 </div>
-           </div>
+            </div>
         </div>
         <div class="col my-lg-0 my-2 h-100">
             <div class="w-100 h-100 d-flex flex-column align-items-center text-center rounded border border">
                 <div class="w-100 h-100">
                     <div class="w-100 m-0 row text-center blue-gradient rounded-top ">
-                        <a asp-area="Admin" asp-controller="Request" asp-action="Index" 
+                        <a asp-area="Admin" asp-controller="Request" asp-action="Index"
                             class="dashboardTableHeader py-2 w-100 row mx-0 mb-0 list-unstyled ">
-                            @localizer["recentRequests"] 
+                            @localizer["recentRequests"]
                         </a>
                     </div>
                     <ul class="listHeader w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
@@ -69,25 +69,25 @@
                         <li class="col">@localizer["requestedTime"]</li>
                         <li class="col">@localizer["type"]</li>
                     </ul>
-                @foreach (Furlough.DAL.Models.RequestByDepartment item in ViewBag.requests)
-                {
-                    <ul rowId="@counter" class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
-                        <li class="col-4">
-                            <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" 
-                            asp-action="Details" asp-route-id="@item.RequestId">@item.EmployeeName</a>
-                        </li>
-                        <li class="col-4">
-                            <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" 
-                            asp-action="Details" asp-route-id="@item.RequestId">@item.RequestedOn</a>
-                        </li>
-                        <li class="col-4">
-                            <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" 
-                            asp-action="Details" asp-route-id="@item.RequestId">@item.RequestStatusId</a>
-                        </li>
-                    </ul>
-                    //Counter Incremental
-                    counter++;
-                }
+                    @foreach (Furlough.DAL.Models.RequestByDepartment item in ViewBag.requests)
+                    {
+                        <ul rowId="@counter" class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
+                            <li class="col-4">
+                                <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" asp-action="Details"
+                                asp-route-id="@item.RequestId">@item.EmployeeName</a>
+                            </li>
+                            <li class="col-4">
+                                <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" asp-action="Details"
+                                asp-route-id="@item.RequestId">@item.RequestedOn</a>
+                            </li>
+                            <li class="col-4">
+                                <a class="dashboardRowLink" asp-area="Admin" asp-controller="Request" asp-action="Details"
+                                asp-route-id="@item.RequestId">@item.RequestStatusId</a>
+                            </li>
+                        </ul>
+                        //Counter Incremental
+                        counter++;
+                    }
                 </div>
             </div>
         </div>
@@ -96,21 +96,60 @@
         <div class="col my-lg-0 my-2 h-100">
             <div class="d-flex flex-column w-100 h-100 mb-2 rounded border">
                 <div class="w-100 m-0 row text-center blue-gradient rounded-top ">
-                        <a class="dashboardTableHeader py-2 w-100 row mx-0 mb-0 list-unstyled ">
-                            Upcoming Holidays
-                        </a>
-                    </div>
+                    <a class="dashboardTableHeader py-2 w-100 row mx-0 mb-0 list-unstyled ">
+                        Upcoming Holidays
+                    </a>
+                </div>
                 <div class="d-flex flex-column w-100 h-100 text-center">
                     <div class="w-100 flex-grow-1 overflow-auto" style="height: 1px;"></div>
                 </div>
-           </div>
+            </div>
         </div>
         <div class="col my-lg-0 my-2 h-100">
-            <table class="charts-css column">
-            </table>
+            <canvas id="myChart"></canvas>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = ['Red', 'Blue', 'Yellow', 'Green'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+</script>
+<script>
+    const myChart = new Chart(document.getElementById('myChart'),config);
+</script>
 
 <link href="~/css/Areas/Shared/dashboardIndex.css" rel="stylesheet" />
 <script src="~/js/Areas/Admin/Home/tabBar.js"></script>

@@ -79,47 +79,45 @@
         </nav>
     </header>
     <main role="main" class="d-flex flex-row row-cols-12 flex-grow-1" style="overflow-y: auto; overflow-x: hidden;">
-        <aside id="sidenav" class="unselectable flex-grow-1 h-100 col-auto bg-white shadow position-relative"
-            style="overflow-y: auto; overflow-x: hidden;">
-            <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                <a id="dashboardLink"
-                    class="sidenavLinks rounded-pill nav-link d-flex align-items-center @(action.Length == 2 ? "active" : "")"
-                    href="/">
-                    <span class="material-icons-round align-middle">dashboard</span> @Resources.Shared._Layout.dashTitle
-                </a>
-            </div>
-            <div class="dropdownToggle md-ripples ripples-light mx-4 my-3 rounded-pill">
-                <a class="sidenavLinks rounded-pill nav-link @(inRequest ? "active" : "")">
-                    <i class="fa-solid fa-bars-staggered"></i> @Resources.Shared._Layout.reqTitle <i
-                        style="font-size: 1rem;" class="fas fa-caret-down"></i>
-                </a>
-            </div>
-            <div class="layoutDropdown hideDropdown px-4">
-                <div class="md-ripples ripples-light mb-3 rounded-pill">
-                    <a class="sidenavLinks rounded-pill nav-link @(action.Length == 3 && action[2]=="Request" ? "active" : "")"
-                        asp-area="Employee" asp-controller="Request" asp-action="Index">
-                        <i class="far fa-clock"></i> Pending
+        <aside id="sidenav" class="unselectable flex-grow-1 flex-column h-100 col-auto bg-white shadow position-relative" style="overflow: hidden;">
+            <div style="flex: 1 1 auto; overflow: hidden overlay;">
+                <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
+                    <a id="dashboardLink"
+                        class="sidenavLinks rounded-pill nav-link d-flex align-items-center @(action.Length == 2 ? "active" : "")"
+                        href="/">
+                        <span class="material-icons-round align-middle">dashboard</span> @Resources.Shared._Layout.dashTitle
                     </a>
                 </div>
-                <div class="md-ripples ripples-light my-3 rounded-pill">
-                    <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Approved" ? "active" : "")"
-                        asp-area="Employee" asp-controller="Request" asp-action="Approved">
-                        <i class="fas fa-check"></i> Approved
+
+                <div class="dropdownToggle md-ripples ripples-light mx-4 my-3 rounded-pill">
+                    <a class="sidenavLinks rounded-pill nav-link @(inRequest ? "active" : "")">
+                        <i class="fa-solid fa-bars-staggered"></i> @Resources.Shared._Layout.reqTitle <i
+                            style="font-size: 1rem;" class="fas fa-caret-down"></i>
                     </a>
                 </div>
-                <div class="md-ripples ripples-light mt-3 rounded-pill">
-                    <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Rejected" ? "active" : "")"
-                        asp-area="Employee" asp-controller="Request" asp-action="Rejected">
-                        <i class="fas fa-minus"></i> Rejected
-                    </a>
+                <div class="layoutDropdown hideDropdown px-4">
+                    <div class="md-ripples ripples-light mb-3 rounded-pill">
+                        <a class="sidenavLinks rounded-pill nav-link @(action.Length == 3 && action[2]=="Request" ? "active" : "")"
+                            asp-area="Employee" asp-controller="Request" asp-action="Index">
+                            <i class="far fa-clock"></i> Pending
+                        </a>
+                    </div>
+                    <div class="md-ripples ripples-light my-3 rounded-pill">
+                        <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Approved" ? "active" : "")"
+                            asp-area="Employee" asp-controller="Request" asp-action="Approved">
+                            <i class="fas fa-check"></i> Approved
+                        </a>
+                    </div>
+                    <div class="md-ripples ripples-light mt-3 rounded-pill">
+                        <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Rejected" ? "active" : "")"
+                            asp-area="Employee" asp-controller="Request" asp-action="Rejected">
+                            <i class="fas fa-minus"></i> Rejected
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="md-ripples ripples-light mx-4 my-3 rounded-pill">
-                <a class="sidenavLinks rounded-pill nav-link">
-                    <i class="far fa-question-circle"></i> TEST
-                </a>
-            </div>
-            <div class="position-absolute w-100" style="bottom: 0;">
+
+            <div class="w-100" style="flex: 0 1 auto; bottom: 0;">
                 <partial name="~/Views/Shared/_logOut.cshtml" />
             </div>
         </aside>
