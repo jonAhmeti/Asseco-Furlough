@@ -40,7 +40,12 @@ namespace Furlough.Areas.Employee.Controllers
                 var userId = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value;
 
                 ViewBag.RequestTypes = _contextRequestType.GetAll();
-                return View(_contextRequest.GetByUser(int.Parse(userId), 1));
+                var requests = new List<Models.Request>();
+                foreach (var item in _contextRequest.GetByUser(int.Parse(userId), 1))
+                {
+                    requests.Add(_vmMapper.RequestMap(item));
+                }
+                return View(requests);
             }
             catch (Exception e)
             {

@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Furlough.DAL.Models.Request>
+﻿@model IEnumerable<Furlough.Models.Request>
 @using Microsoft.AspNetCore.Mvc.Localization
+@using System.ComponentModel.DataAnnotations
 @inject IViewLocalizer localizer
 @{
     ViewBag.Title = "Pending Requests";
@@ -44,7 +45,12 @@
                     <div class="d-flex align-items-center mb-3">
                         <div class="rounded-circle p-1 text-center roundIcon" style="background-color:@backgroundCircle;">@Html.Raw(icon)</div>
                         <div class="ms-3 d-flex flex-column fw-bold">@localizer["leaveType"]
-                            <div class="card-subtitle text-black-50">@requestType</div>
+                            <div class="card-subtitle text-black-50">
+                                @{
+                                    var displayAttribute = typeof(AvailableDay)?.GetProperty(requestType)?.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault() as DisplayAttribute;
+                                    @:@displayAttribute?.GetName()
+                                }
+                            </div> @*@(Html.DisplayName(typeof(AvailableDay).GetProperty(requestType).Name))*@
                         </div>
                     </div>
                 <!-- requested-on row -->
