@@ -1,14 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Furlough.SecurityHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,8 +42,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     options.LoginPath = "/";
     options.LogoutPath = "/Logout";
-    options.ReturnUrlParameter = "";
-    options.Cookie.Name = "DaddyCookie";
+    options.Cookie.Name = "GrandmaCookie";
+    options.AccessDeniedPath = "/";
 });
 //AntiFrogeryToken Header
 builder.Services.AddAntiforgery(options =>

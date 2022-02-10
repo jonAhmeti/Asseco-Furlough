@@ -1,12 +1,11 @@
 ﻿using Furlough.Models.Mapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
 
 namespace Furlough.Areas.Manager.Controllers
 {
     [Area("Manager")]
+    [Authorize(Roles = "Manager")]
     public class DepartmentController : Controller
     {
         private readonly DAL.Role _contextRole;

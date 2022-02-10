@@ -1,11 +1,12 @@
 ﻿using Furlough.Models.Mapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 
 namespace Furlough.Areas.Employee.Controllers
 {
     [Area("Employee")]
+    [Authorize(Roles = "Admin")]
     public class RequestController : Controller
     {
         private readonly IStringLocalizer _localizer;

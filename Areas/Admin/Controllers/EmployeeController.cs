@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Furlough.Models.Mapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Furlough.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class EmployeeController : Controller
     {
         private readonly DAL.Employee _contextEmployee;
@@ -221,6 +218,8 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // POST: Admin/Employee/Reset/5
+        [HttpPut]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Reset(int id)
         {
             var employee = _contextEmployee.GetById(id);
@@ -229,7 +228,7 @@ namespace Furlough.Areas.Admin.Controllers
 
             //  Reset employee available days to default and yearlyDays to the given value from method
             var result = _contextAvailableDays.SetAllDays(employee.Id, CalculateYearlyDays(employee.WorkStartDate));
-            return result ? Ok() : StatusCode(500);
+            return result ? Ok("Employee's days updated successfully, please refresh the page.") : StatusCode(500, "Something went wrong updating employee's days.");
         }
 
 

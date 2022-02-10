@@ -44,7 +44,7 @@ namespace Furlough.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home", new { 
-                    Area = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Role").Value });
+                    Area = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role).Value });
 
             ViewData["hasMessage"] = false;
             if (message != null)
@@ -126,7 +126,7 @@ namespace Furlough.Controllers
                 new Claim("Name", employee.Name),
                 new Claim("User", dbUser.Id.ToString()),
                 new Claim("Employee", employee.Id.ToString()),
-                new Claim("Role", role),
+                new Claim(ClaimTypes.Role, role),
                 new Claim("Department", employee.DepartmentId.ToString()),
                 new Claim("Position", employee.PositionId.ToString()),
                 new Claim("JoinedOn", employee.JoinDate.ToString())

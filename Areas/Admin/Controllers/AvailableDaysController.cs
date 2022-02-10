@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Furlough.Areas.Admin
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AvailableDaysController : Controller
     {
         private readonly DAL.AvailableDays _contextAvailableDays;

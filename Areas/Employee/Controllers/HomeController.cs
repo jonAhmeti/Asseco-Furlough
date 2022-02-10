@@ -1,9 +1,11 @@
 ﻿using Furlough.Models.Mapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furlough.Areas.Employee.Controllers
 {
     [Area("Employee")]
+    [Authorize(Roles = "Employee")]
     public class HomeController : Controller
     {
         private DAL.Request _contextRequest;

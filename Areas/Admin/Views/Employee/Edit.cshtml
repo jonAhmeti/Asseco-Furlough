@@ -109,9 +109,9 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center mt-2">
-                        <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Reset" asp-route-id="@Model.Id">
+                        <div class="mx-1 px-4 rounded btn btn-primary" id="resetBtn" data-employee-id="@Model.Id">
                             @Resources.Shared._Table.reset
-                        </a>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center mt-2">
                         <div class="form-group">

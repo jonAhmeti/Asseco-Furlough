@@ -3,6 +3,8 @@
     const edit = $('#submitBtn');
     const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
 
+    const resetAvailDaysBtn = $('#resetBtn');
+
     //Toast
     const toastMsg = $('#toastMsg');
     const toastClose = $('#toastBody button[data-bs-dismiss="toast"]');
@@ -46,5 +48,25 @@
 
     $(edit).on('click', function () {
         $(toastMsg).show();
+    });
+
+    $(resetAvailDaysBtn).on('click', function () {
+        if ($(this).attr('data-employee-id') != $('input[name="Id"]').val())
+            return;
+
+        $.ajax({
+            beforeSend: function (jqXHR) {
+                jqXHR.setRequestHeader('X-AFTAsseco', antiForgeryToken);
+            },
+            method: 'PUT',
+            url: '/Admin/Employee/Reset',
+            data: { id: $(this).attr('data-employee-id') },
+            success: function (result) {
+                alert(result);
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
+        });
     });
 });
