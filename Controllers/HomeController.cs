@@ -268,13 +268,10 @@ namespace Furlough.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    }
-}
-public class HomeController : Controller
-{
-    public IActionResult Get()
-    {
-        var stream = new FileStream(@"wwwroot\docs\Pobon.pdf", FileMode.Open);
-        return new FileStreamResult(stream, "application/pdf");
+        public IActionResult Get()
+        {
+            var stream = new FileStream(@"wwwroot\docs\Login.pdf", FileMode.Open);
+            return new FileStreamResult(stream, "application/pdf");
+        }
     }
 }
