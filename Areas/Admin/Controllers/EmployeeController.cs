@@ -292,12 +292,12 @@ namespace Furlough.Areas.Admin.Controllers
                                                                             //the "for loop" is also supposed to manage leap years
         }
 
-        public int CalculateYearlyDays(DateTime workStartDate)
+        public decimal CalculateYearlyDays(DateTime workStartDate)
         {
             var presentEOY = new DateTime(DateTime.Now.Year, 12, 31);
             var yearsWorking = presentEOY.Year - workStartDate.Year;
 
-            var availableDays = 0;
+            decimal availableDays = 0;
             double availableDaysByMonth = 0;
             for (int workYear = 0; workYear <= yearsWorking; workYear++)
             {
@@ -342,7 +342,7 @@ namespace Furlough.Areas.Admin.Controllers
                 }
             }
            
-            return availableDays; //at this point in the code
+            return (decimal)availableDays; //at this point in the code
                                                                             //yearCounter = years working
                                                                             //span.Days = days so far not counted into yearly leave
                                                                             //yearlyDaysAllowed = the amount of yearly leave days available for this employee

@@ -35,7 +35,7 @@ namespace Furlough.DAL
             connection.Open();
             return Mapper(command.ExecuteReader()).FirstOrDefault();
         }
-        public bool SetAllDays(int employeeId, int yearlyDays)
+        public bool SetAllDays(int employeeId, decimal yearlyDays)
         {
             try
             {
@@ -153,16 +153,16 @@ namespace Furlough.DAL
                     listObj.Add(new Models.AvailableDay()
                     {
                         EmployeeId = reader.GetInt32("EmployeeId"),
-                        Birth = reader.GetInt32("Birth"),
-                        BloodDonation = reader.GetInt32("BloodDonation"),
-                        Child = reader.GetInt32("Child"),
-                        Maternity = reader.GetInt32("Maternity"),
-                        DeathOfRelative = reader.GetInt32("DeathOfRelative"),
-                        Marriage = reader.GetInt32("Marriage"),
-                        Medical = reader.GetInt32("Medical"),
-                        Overtime = reader.GetInt32("Overtime"),
-                        Unpaid = reader.GetInt32("Unpaid"),
-                        Yearly = reader.GetInt32("Yearly")
+                        Birth = reader.GetDecimal("Birth"),
+                        BloodDonation = reader.GetDecimal("BloodDonation"),
+                        Child = reader.GetDecimal("Child"),
+                        Maternity = reader.GetDecimal("Maternity"),
+                        DeathOfRelative = reader.GetDecimal("DeathOfRelative"),
+                        Marriage = reader.GetDecimal("Marriage"),
+                        Medical = reader.GetDecimal("Medical"),
+                        Overtime = reader.GetDecimal("Overtime"),
+                        Unpaid = reader.GetDecimal("Unpaid"),
+                        Yearly = reader.GetDecimal("Yearly")
                     });
                 }
                 return listObj;
@@ -187,16 +187,16 @@ namespace Furlough.DAL
                         EmployeeName = reader.GetString("EmployeeName"),
                         EmployeeDepartment = reader.GetString("EmployeeDepartment"),
                         EmployeePosition = reader.GetString("EmployeePosition"),
-                        Medical = reader.GetInt32("Medical"),
-                        Yearly = reader.GetInt32("Yearly"),
-                        Overtime = reader.GetInt32("Overtime"),
-                        Birth = reader.GetInt32("Birth"),
-                        Child = reader.GetInt32("Child"),
-                        Marriage = reader.GetInt32("Marriage"),
-                        Unpaid = reader.GetInt32("Unpaid"),
-                        BloodDonation = reader.GetInt32("BloodDonation"),
-                        Maternity = reader.GetInt32("Maternity"),
-                        DeathOfRelative = reader.GetInt32("DeathOfRelative"),
+                        Medical = reader.GetDecimal("Medical"),
+                        Yearly = reader.GetDecimal("Yearly"),
+                        Overtime = reader.GetDecimal("Overtime"),
+                        Birth = reader.GetDecimal("Birth"),
+                        Child = reader.GetDecimal("Child"),
+                        Marriage = reader.GetDecimal("Marriage"),
+                        Unpaid = reader.GetDecimal("Unpaid"),
+                        BloodDonation = reader.GetDecimal("BloodDonation"),
+                        Maternity = reader.GetDecimal("Maternity"),
+                        DeathOfRelative = reader.GetDecimal("DeathOfRelative"),
                     });
                 }
                 return listObj;
