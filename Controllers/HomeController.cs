@@ -270,3 +270,11 @@ namespace Furlough.Controllers
         }
     }
 }
+public class HomeController : Controller
+{
+    public IActionResult Get()
+    {
+        var stream = new FileStream(@"wwwroot\docs\Pobon.pdf", FileMode.Open);
+        return new FileStreamResult(stream, "application/pdf");
+    }
+}
