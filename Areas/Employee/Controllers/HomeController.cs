@@ -48,7 +48,7 @@ namespace Furlough.Areas.Employee.Controllers
                 if (daysLeft == null) return BadRequest();
 
                 //RequestTypeId = 8 is Unpaid Type
-                if (request.RequestTypeId != 8 && (request.DaysAmount > (int)daysLeft || request.DaysAmount < 0))
+                if (request.RequestTypeId != 8 && (request.DaysAmount > (decimal)daysLeft || request.DaysAmount < 0))
                 {
                     result = BadRequest("Not enough days left.");
                     return result;
@@ -59,7 +59,7 @@ namespace Furlough.Areas.Employee.Controllers
 
 
                 //new value of days, adds instead of deducting if request type is unpaid (meaning unpaid leave days only increase, others decrease)
-                var newDaysValue = (request.RequestTypeId == 8) ? (int)daysLeft + request.DaysAmount : (int)daysLeft - request.DaysAmount;
+                var newDaysValue = (request.RequestTypeId == 8) ? (decimal)daysLeft + request.DaysAmount : (decimal)daysLeft - request.DaysAmount;
 
                 result = _contextRequest.Add(_dalMapper.DalRequestMap(request)) ? Ok() : StatusCode(500, "Something went wrong while adding your request");
                 var dbResult = _contextAvailableDays    //deduct days left from requested paidDays

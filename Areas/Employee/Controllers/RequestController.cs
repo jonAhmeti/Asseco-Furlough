@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 namespace Furlough.Areas.Employee.Controllers
 {
     [Area("Employee")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Employee")]
     public class RequestController : Controller
     {
         private readonly IStringLocalizer _localizer;
@@ -109,12 +109,12 @@ namespace Furlough.Areas.Employee.Controllers
                 //check if user has available days
                 var availableDays = _contextAvailableDay.GetByEmployeeId(loggedinEmployee);
                 var leaveType = Enum.GetName(typeof(Models.Enums.RequestType), prevRequest.RequestTypeId);
-                var daysOfType = (int?)typeof(DAL.Models.AvailableDay).GetProperty(leaveType).GetValue(availableDays);
+                var daysOfType = (decimal?)typeof(DAL.Models.AvailableDay).GetProperty(leaveType).GetValue(availableDays);
 
                 if (daysOfType < obj.DaysAmount)
                     return BadRequest("Not enough days left in this category");
 
-                var daysDifference = prevRequest.DaysAmount - obj.DaysAmount;
+                var daysDifference = (decimal) prevRequest.DaysAmount - obj.DaysAmount;
 
                 var result = _contextRequest.EditDates(id, obj.Dates, loggedinUser, daysDifference, leaveType);
                 if (result) //add to RequestHistory
@@ -160,21 +160,25 @@ namespace Furlough.Areas.Employee.Controllers
                 {
                     var availableDays = _contextAvailableDay.GetByEmployeeId(loggedinEmployee);
                     var requestType = _contextRequestType.GetById(request.RequestTypeId);
-                    var availableRequestDays = (int)availableDays.GetType().GetProperty(requestType.Type).GetValue(availableDays);
+                    var availableRequestDays = (decimal)availableDays.GetType().GetProperty(requestType.Type).GetValue(availableDays);
                     var res = _contextAvailableDay.SetDays(loggedinEmployee, requestType.Type, availableRequestDays + request.DaysAmount);
                 }
 
                 var x = _localizer.GetAllStrings();
-                return result ? Ok() : StatusCode(500, "Something went wrong cancelling your request.");
+                return result ? Ok("Cancelled successully!") : StatusCode(500, "Something went wrong cancelling your request.");
                 //will return Error 500 most likely if Request status was previously changed by Admin and back to Pending
             }
             catch (Exception e)
             {
+                var message = "Something went wrong, please contact the administrator.";
+                if (e.Message.Contains("FK__RequestHi__"))
+                    message = "Please ask the administrator to cancel your request";
+
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
                 Console.ResetColor();
 
-                return StatusCode(500);
+                return StatusCode(500, message);
             }
             
         }

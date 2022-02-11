@@ -116,7 +116,7 @@ namespace Furlough.DAL
             }
         }
 
-        public bool SetDays(int employeeId, string requestType, int daysAmount)
+        public bool SetDays(int employeeId, string requestType, decimal daysAmount)
         {
             try
             {

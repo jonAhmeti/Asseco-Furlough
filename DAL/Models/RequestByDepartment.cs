@@ -10,6 +10,6 @@
         public string RequestDates { get; set; }
         public DateTime RequestedOn { get; set; }
         public byte RequestStatusId { get; set; }
-        public int RequestDaysAmount { get; set; }
+        public decimal RequestDaysAmount { get; set; }
     }
 }

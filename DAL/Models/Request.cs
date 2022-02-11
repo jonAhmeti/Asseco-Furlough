@@ -10,7 +10,7 @@ namespace Furlough.DAL.Models
         public int RequestedByUserId { get; set; }
         public DateTime RequestedOn { get; set; }
         public byte RequestStatusId { get; set; }
-        public int DaysAmount { get; set; }
+        public decimal DaysAmount { get; set; }
         public int RequestTypeId { get; set; }
         public string? Reason { get; set; }
         public DateTime LUD { get; set; }

@@ -15,7 +15,7 @@ namespace Furlough.Models
         [Display(Name = "requestStatusId", ResourceType = typeof(Resources.Models.Request.Display))]
         public byte RequestStatusId { get; set; }
         [Display(Name = "daysAmount", ResourceType = typeof(Resources.Models.Request.Display))]
-        public int DaysAmount { get; set; }
+        public decimal DaysAmount { get; set; }
         [Display(Name = "requestTypeId", ResourceType = typeof(Resources.Models.Request.Display))]
         public int RequestTypeId { get; set; }
         [Display(Name = "reason", ResourceType = typeof(Resources.Models.Request.Display))]

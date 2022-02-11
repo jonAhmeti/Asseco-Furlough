@@ -56,7 +56,7 @@ namespace Furlough.DAL
             return command.ExecuteNonQuery() > 0;
         }
 
-        public bool EditDates(int requestId, string dates, int userId, int daysDifference, string leaveType)
+        public bool EditDates(int requestId, string dates, int userId, decimal daysDifference, string leaveType)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_requestEditDates", connection)
@@ -222,7 +222,7 @@ namespace Furlough.DAL
                     {
                         Id = reader.GetInt32("Id"),
                         Dates = reader.GetString("Dates"),
-                        DaysAmount = reader.GetInt32("DaysAmount"),
+                        DaysAmount = reader.GetDecimal("DaysAmount"),
                         RequestedByUserId = reader.GetInt32("RequestedByUserId"),
                         RequestedOn = reader.GetDateTime("RequestedOn"),
                         RequestStatusId = reader.GetByte("RequestStatusId"),
@@ -259,7 +259,7 @@ namespace Furlough.DAL
                         EmployeeId = reader.GetInt32("EmployeeId"),
                         EmployeePositionId = reader.GetInt32("EmployeePositionId"),
                         RequestStatusId = reader.GetByte("RequestStatusId"),
-                        RequestDaysAmount = reader.GetInt32("RequestDaysAmount"),
+                        RequestDaysAmount = reader.GetDecimal("RequestDaysAmount"),
                     });
                 }
                 return listObj;
