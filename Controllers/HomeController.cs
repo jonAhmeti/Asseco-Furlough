@@ -268,9 +268,11 @@ namespace Furlough.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult Get()
+        public IActionResult GetManual()
         {
-            var stream = new FileStream(@"wwwroot\docs\Login.pdf", FileMode.Open);
+            var loggedinRole = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value ?? "Employee";
+
+            var stream = new FileStream($"wwwroot\\docs\\manual-{loggedinRole.ToLower()}.pdf", FileMode.Open);
             return new FileStreamResult(stream, "application/pdf");
         }
     }
