@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Furlough.DAL.FurloughContext>(
     options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("furloughJon"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("furlough"));
     });
 builder.Services.AddMvc().AddRazorRuntimeCompilation()
     .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)

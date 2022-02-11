@@ -23,7 +23,7 @@ namespace Furlough.DAL
 
         public string GetConnection()
         {
-            return _config.GetConnectionString("furloughJon");
+            return _config.GetConnectionString("furlough");
         }
 
         public virtual DbSet<Models.AvailableDay> AvailableDays { get; set; } = null!;
