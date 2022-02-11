@@ -102,13 +102,13 @@ namespace Furlough.Controllers
                             area = "Employee";
                             break;
                         }
-                    case 4:
+                    case 2:
                         {
                             area = "Manager";
                             role = "Manager";
                             break;
                         }
-                    case 5:
+                    case 3:
                         {
                             area = "Admin";
                             role = "Admin";
