@@ -23,11 +23,12 @@
     let cancelBtns = $('button[name="cancel"]');
     for (var i = 0; i < cancelBtns.length; i++) {
         $(cancelBtns[i]).on('click', function () {
+            let requestId = this.getAttribute("requestId");
             $.ajax({
                 method: 'DELETE',
                 url: `Request/Cancel/${this.getAttribute("requestId")}`,
                 success: function (result) {
-                    $(`div[requestid="${this.requestId}"]`).animate({ width: 0, opacity: 0 }, 1000,
+                    $(`div[requestid="${requestId}"]`).animate({ width: 0, opacity: 0 }, 1000,
                         function () { $(this).remove(); });
                     const requestCount = $("#requestCount");
                     $(requestCount).text(parseInt($(requestCount).text()) - 1);
