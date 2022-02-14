@@ -127,3 +127,7 @@ a {
 .noScrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.cursor-Pointer:hover {
+  cursor: pointer;
+}

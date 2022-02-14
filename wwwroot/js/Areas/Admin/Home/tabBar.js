@@ -1,5 +1,6 @@
 $(function () {
   var tab = $(".tabBar");
+  var tabBox = $("#tabBarBox")
   var line = $( ".line" ).last();
   
   var active = tab.find(".activeBar");
@@ -22,6 +23,55 @@ $(function () {
     }
   });
   
+  $(tabBox).on("scroll", function () {
+    if (line.width() != 0) {
+      tab.addClass("animate");
+
+      if (divPos.left >= pos) {
+        line.animate(
+          {
+            width: divPos.left - pos + divWidth,
+          },
+          300,
+          function () {
+            line.animate(
+              {
+                width: divWidth,
+                left: divPos.left,
+              },
+              150,
+              function () {
+                tab.removeClass("animate");
+              }
+            );
+          }
+        );
+      } else {
+        line.animate(
+          {
+            left: divPos.left,
+            width: pos - divPos.left + wid,
+          },
+          300,
+          function () {
+            line.animate(
+              {
+                width: divWidth,
+              },
+              150,
+              function () {
+                tab.removeClass("animate");
+              }
+            );
+          }
+        );
+      }
+      pos = divPos.left;
+      wid = divWidth;
+      done = true;
+    }
+  });
+
   tab.find(".tabBarItem a").click(function (e) {
     e.preventDefault();
     if (!$(this).parent().hasClass("activeBar") && !tab.hasClass("animate")) {
@@ -80,4 +130,27 @@ $(function () {
       wid = width;
     }
   });
+
+  const leftArrow = $("#tabBarLeftArrow"),
+    rightArrow = $("#tabBarRightArrow"),
+    tabBar = $("#tabBarBox"),
+    tabItems = $(".tabBarItem");
+
+  const tabItem_width = tabItems.width();
+  let tabBar_scroll_left = tabBar[0].scrollLeft;
+  rightArrow.on("click", () => {
+    tabBar_scroll_left += tabItem_width;
+    if (tabBar_scroll_left >= tabItem_width * 3) {
+      tabBar_scroll_left = tabItem_width * 3;
+    }
+    tabBar[0].scrollLeft = tabBar_scroll_left;
+  });
+  leftArrow.on("click", () => {
+    tabBar_scroll_left -= tabItem_width;
+    if (tabBar_scroll_left <= 0) {
+      tabBar_scroll_left = 0;
+    }
+    tabBar[0].scrollLeft = tabBar_scroll_left;
+  });
+
 });

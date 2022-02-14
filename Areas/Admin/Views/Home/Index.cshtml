@@ -7,21 +7,23 @@
 
 <div class="container w-100 h-100 d-flex flex-column justify-content-center p-2 p-sm-3 p-md-4 p-lg-5">
     <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
-        <div class="col my-lg-0 my-2 w-100 h-100">
+        <div class="col my-lg-0 my-2 h-100">
             <div class="d-flex flex-column w-100 h-100 mb-2 rounded border">
-                <div class="tabBar">
-                    <div class="tabBarList w-100 m-0 row text-center blue-gradient rounded-top">
+                <div class="tabBar unselectable blue-gradient rounded-top d-flex">
+                    <div id="tabBarLeftArrow" class="tabBarArrow d-flex justify-content-center align-items-center py-2 px-3"><i class="fa-solid col fa-arrow-left"></i></div>
+                    <div id="tabBarBox" class="tabBarList w-100 m-0 hstack row-cols-4 text-center noScrollbar " style="scroll-behavior: smooth; overflow-y: hidden;">
                         @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
                         {
-                            <div class="tabBarItem col rounded-top" departmentId="@item.Id">
-                                <a style="white-space: nowrap;" href="">@item.Name</a>
+                            <div class="tabBarItem cursor-Pointer" departmentId="@item.Id">
+                                <a class="px-2" style="white-space: nowrap;">@item.Name</a>
                             </div>
                         }
                     </div>
                     <div class="line"></div>
+                    <div id="tabBarRightArrow" class="tabBarArrow d-flex justify-content-center align-items-center py-2 px-3"><i class="fa-solid fa-arrow-right"></i></div>
                 </div>
                 <div class="d-flex flex-column w-100 h-100 text-center">
-                    <ul class="listHeader w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
+                    <ul class="listHeader unselectable w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
                         <li class="col">@localizer["userId"]</li>
                         <li class="col">@localizer["name"]</li>
                         <li class="col">@localizer["department"]</li>
@@ -55,18 +57,16 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
         <div class="col my-lg-0 my-2 h-100">
             <div class="w-100 h-100 d-flex flex-column align-items-center text-center rounded border border">
                 <div class="w-100 h-100">
-                    <div class="w-100 m-0 row text-center blue-gradient rounded-top ">
+                    <div class="w-100 unselectable m-0 row text-center blue-gradient rounded-top ">
                         <a asp-area="Admin" asp-controller="Request" asp-action="Index"
                             class="dashboardTableHeader py-2 w-100 row mx-0 mb-0 list-unstyled ">
                             @localizer["recentRequests"]
                         </a>
                     </div>
-                    <ul class="listHeader w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
+                    <ul class="listHeader unselectable w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
                         <li class="col">@localizer["name"]</li>
                         <li class="col">@localizer["requestedTime"]</li>
                         <li class="col">@localizer["type"]</li>
@@ -93,7 +93,9 @@
                 </div>
             </div>
         </div>
-        <div class="col my-lg-0 my-2 h-100">
+    </div>
+    <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
+        <div class="col my-lg-0 m-auto my-2 h-100">
             <canvas id="myChart"></canvas>
         </div>
     </div>
@@ -101,34 +103,38 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const labels = ['Red', 'Blue', 'Yellow', 'Green'];
-    const dataValue = [12, 19, 3, 5];
-    const bgColor = [
+    var labels = ['Red', 'Blue', 'Yellow', 'Green'];
+    var dataValue = [12, 19, 3, 5];
+    var bgColor = [
             'rgba(255, 99, 132, 0.5)',
             'rgba(54, 162, 235, 0.5)',
             'rgba(255, 206, 86, 0.5)',
             'rgba(75, 192, 192, 0.5)'
         ];
-    const brColor = [
+    var brColor = [
             'rgba(255, 99, 132, 1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)'
         ];
-    const data = {
-        labels: labels,
-        datasets: [
-            for (let i = 0; i < labels.length; i++) {
-                label: labels[i],
-                data: dataValue[i],
-                backgroundColor: bgColor[i],
-                borderColor: brColor[i],
-                borderWidth: 1
-            }
-        }]
+    var datasets = [];
+    for (let i = 0; i < labels.length; i++) {
+        var obj = {};
+        var objdata = [];
+        objdata.push(dataValue[i]);
+        obj['label'] = labels[i];
+        obj['data'] = objdata;        
+        obj['backgroundColor'] = bgColor[i];
+        obj['borderColor'] = brColor[i];
+        obj['borderWidth'] = 1;
+        datasets.push(obj);
+        console.log(datasets);
+    }
+    var data = {
+        labels: " ",
+        datasets: datasets
     };
-
-    const config = {
+    var config = {
         type: 'bar',
         data: data,
         options: {
@@ -142,7 +148,7 @@
     };
 </script>
 <script>
-    const myChart = new Chart(document.getElementById('myChart'),config);
+    var myChart = new Chart(document.getElementById('myChart'),config);
 </script>
 
 <link href="~/css/Areas/Shared/dashboardIndex.css" rel="stylesheet" />
