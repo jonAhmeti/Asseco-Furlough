@@ -17,7 +17,7 @@
             if (clickPrevention) {
                 return;
             } 
-            else if (!$(this).hasClass("activeBar")) {
+            else if ($(this).hasClass("activeBar")) {
                 var tabText = $(this).find("a").text().toUpperCase();
                 for (let i = 0; i < employeeDep.length; i++) {
                     var listDepText = employeeDep[i].getElementsByTagName("li");
@@ -32,7 +32,4 @@
             setTimeout(function(){clickPrevention = false;}, 450);
         });
     }
-    console.log(departmentsID);
-    console.log(departmentsName);
-    console.log(lookup);
 });
