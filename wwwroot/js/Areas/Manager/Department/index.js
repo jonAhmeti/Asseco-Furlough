@@ -117,6 +117,7 @@
         for (var i = 0; i < addedRoles.length; i++) {
             addedRolesArray.push($(addedRoles[i]).attr("roleId"));
         }
+        addedRoles = $(".addedRole");
 
         if (ArraysAreSame(addedRolesArray, initialValues)) {
             //alert("nothing changed");
@@ -137,6 +138,21 @@
                                 ${result ? "Roles updated successfully." : "Something went wrong."}
                     `);
                     $(toastMsg).show();
+
+                    //set addedRolesArray to employees' positions dropdown also
+                    for (var i = 0; i < employeeCards.length; i++) {
+                        if (addedRoles.length == 0) {
+                            $(employeeCards[i]).html('<option disabled value="-1" selected>-- Choose one --</option>');
+                        }
+                        else {
+                            $(employeeCards[i]).html('<option disabled value="-1" selected>-- Choose one --</option>');
+                            $(employeeCards[i]).append($.map(addedRoles, function (item) {
+                                return `<option ${$(employeeCards[i]).attr('currentPosition') == $(item).attr('roleId') ? 'selected' : ''} 
+                                                value=${$(item).attr('roleId')}>${$(item).text()}
+                                        </option>`
+                            }));
+                        }
+                    }
                 },
                 error: function (error) {
                     $(toastBody).html(`
