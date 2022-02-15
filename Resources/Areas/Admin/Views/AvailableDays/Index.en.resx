@@ -150,6 +150,9 @@
   <data name="overtime" xml:space="preserve">
     <value>Overtime</value>
   </data>
+  <data name="prevYearly" xml:space="preserve">
+    <value>Previous Year Days</value>
+  </data>
   <data name="unpaid" xml:space="preserve">
     <value>Unpaid</value>
   </data>

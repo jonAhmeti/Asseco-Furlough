@@ -22,6 +22,7 @@
                     <th>@localizer["employeePosition"]</th>
                     <th>@localizer["medical"]</th>
                     <th>@localizer["yearly"]</th>
+                    <th>@localizer["prevYearly"]</th>
                     <th>@localizer["overtime"]</th>
                     <th>@localizer["birth"]</th>
                     <th>@localizer["child"]</th>
@@ -59,6 +60,11 @@
                         <td>
                             <a class="rowLink" asp-controller="Employee" asp-action="Details" asp-route-id="@item.EmployeeId">
                                 @Html.DisplayFor(modelItem => item.Yearly)
+                            </a>
+                        </td>
+                         <td>
+                            <a class="rowLink" asp-controller="Employee" asp-action="Details" asp-route-id="@item.EmployeeId">
+                                @Html.DisplayFor(modelItem => item.PrevYearly)
                             </a>
                         </td>
                         <td>

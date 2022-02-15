@@ -150,6 +150,9 @@
   <data name="overtime" xml:space="preserve">
     <value>Punë jashtë orari</value>
   </data>
+  <data name="prevYearly" xml:space="preserve">
+    <value>Ditët e vitit të kaluar</value>
+  </data>
   <data name="unpaid" xml:space="preserve">
     <value>Pa pagesë</value>
   </data>

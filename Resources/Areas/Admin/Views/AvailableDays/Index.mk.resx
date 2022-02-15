@@ -150,6 +150,9 @@
   <data name="overtime" xml:space="preserve">
     <value>Прекувремена работа</value>
   </data>
+  <data name="prevYearly" xml:space="preserve">
+    <value>Денови од претходната година</value>
+  </data>
   <data name="unpaid" xml:space="preserve">
     <value>Па страница</value>
   </data>
