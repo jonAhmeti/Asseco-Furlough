@@ -171,6 +171,12 @@
   <data name="OvertimeMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Here are the days you've earned from working overtime so far.</value>
   </data>
+  <data name="PrevYearly" xml:space="preserve">
+    <value>Previous year days</value>
+  </data>
+  <data name="PrevYearlyMessage" xml:space="preserve">
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Days left from previous year. They're usually reset around 30st of June</value>
+  </data>
   <data name="reason" xml:space="preserve">
     <value>Arsyeja</value>
   </data>

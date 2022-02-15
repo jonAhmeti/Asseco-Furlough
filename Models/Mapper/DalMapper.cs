@@ -18,7 +18,8 @@ namespace Furlough.Models.Mapper
                 Marriage = obj.Marriage,
                 Maternity = obj.Maternity,
                 Overtime = obj.Overtime,
-                Unpaid = obj.Unpaid
+                Unpaid = obj.Unpaid,
+                PrevYearly = obj.PrevYearly
             };
         }
 
