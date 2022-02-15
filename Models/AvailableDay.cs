@@ -12,6 +12,8 @@ namespace Furlough.Models
         public decimal Medical { get; set; }
         [Display(Name = "yearly", ResourceType = typeof(Resources.Models.AvailableDay.Display))]
         public decimal Yearly { get; set; }
+        [Display(Name = "prevYear", ResourceType = typeof(Resources.Models.AvailableDay.Display))]
+        public decimal PrevYearly { get; set; }
         [Display(Name = "overtime", ResourceType = typeof(Resources.Models.AvailableDay.Display))]
         public decimal Overtime { get; set; }
         [Display(Name = "birth", ResourceType = typeof(Resources.Models.AvailableDay.Display))]

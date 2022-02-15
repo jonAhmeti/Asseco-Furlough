@@ -66,9 +66,9 @@ namespace Furlough.Areas.Manager.Controllers
 
 
         [HttpPut]
-        public bool UpdateDepartmentPositions(int departmentId, IEnumerable<string> positionsId)
+        public bool UpdateDepartmentPositions(IEnumerable<string> positionsId)
         {
-            departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
+            var departmentId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Department").Value);
             var alreadyAddedPositions = new List<string>();
             foreach (var item in _contextDepartmentRoles.GetPositionsByDepartmentId(departmentId))
             {

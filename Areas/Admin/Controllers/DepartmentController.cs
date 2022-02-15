@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Furlough.DAL;
 using Microsoft.AspNetCore.Authorization;
 using Furlough.Models.Mapper;
 
@@ -10,17 +9,22 @@ namespace Furlough.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class DepartmentController : Controller
     {
-        private readonly FurloughContext _context;
+        private readonly DAL.FurloughContext _context;
         private readonly DAL.Department _contextDepartment;
+        private readonly DAL.DepartmentPositions _contextDepartmentPositions;
+        private readonly DAL.Position _contextPosition;
         private readonly DalMapper _dalMapper;
         private ViewModelMapper _vmMapper;
 
-        public DepartmentController(FurloughContext context, DAL.Department contextDepartment,
+        public DepartmentController(DAL.FurloughContext context, DAL.Department contextDepartment, DAL.DepartmentPositions contextDepartmentPositions,
+            DAL.Position contextPosition,
             Models.Mapper.DalMapper dalMapper, Models.Mapper.ViewModelMapper vmMapper)
         {
             //Context variables
             _context = context;
             _contextDepartment = contextDepartment;
+            _contextDepartmentPositions = contextDepartmentPositions;
+            _contextPosition = contextPosition;
 
             //Object Mappers
             _dalMapper = dalMapper;
@@ -89,21 +93,30 @@ namespace Furlough.Areas.Admin.Controllers
         }
 
         // GET: Admin/Department/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             try
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
+                var department = _contextDepartment.GetById(id);
 
-                var department = _contextDepartment.GetById(id.Value);
-
-                if (department == null)
+                var positions = new List<Models.Position>();
+                var unaddedPositions = new List<Models.Position>();
+                var employees = new List<Models.Employee>();
+                foreach (var item in _contextDepartmentPositions.GetPositionsByDepartmentId(id)) //get Department By User/Employee Id
                 {
-                    return NotFound();
+                    positions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
                 }
+                foreach (var item in _contextPosition.GetAll())
+                {
+                    var vmItem = _vmMapper.PositionMap(item);
+                    if (!positions.Exists(x => x.Id == vmItem.Id))
+                    {
+                        unaddedPositions.Add(vmItem);
+                    }
+                }
+                ViewBag.positions = positions;
+                ViewBag.unaddedPositions = unaddedPositions;
+
                 return View(_vmMapper.DepartmentMap(department));
             }
             catch (Exception e)
@@ -133,8 +146,24 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 try
                 {
-                    //_context.Update(department);
-                    //await _context.SaveChangesAsync();
+                    var positions = new List<Models.Position>();
+                    var unaddedPositions = new List<Models.Position>();
+                    var employees = new List<Models.Employee>();
+                    foreach (var item in _contextDepartmentPositions.GetPositionsByDepartmentId(id)) //get Department By User/Employee Id
+                    {
+                        positions.Add(_vmMapper.PositionMap(_contextPosition.GetById(item.PositionId)));
+                    }
+                    foreach (var item in _contextPosition.GetAll())
+                    {
+                        var vmItem = _vmMapper.PositionMap(item);
+                        if (!positions.Exists(x => x.Id == vmItem.Id))
+                        {
+                            unaddedPositions.Add(vmItem);
+                        }
+                    }
+                    ViewBag.positions = positions;
+                    ViewBag.unaddedPositions = unaddedPositions;
+
                     var result = _contextDepartment.Edit(_dalMapper.DalDepartmentMap(department));
                 }
                 catch (DbUpdateConcurrencyException)
@@ -151,6 +180,35 @@ namespace Furlough.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(department);
+        }
+
+        [HttpPut]
+        public bool UpdateDepartmentPositions(int departmentId, IEnumerable<string> positionsId)
+        {
+            var alreadyAddedPositions = new List<string>();
+            foreach (var item in _contextDepartmentPositions.GetPositionsByDepartmentId(departmentId))
+            {
+                alreadyAddedPositions.Add(item.PositionId.ToString());
+            }
+
+            var positionsToAdd = "";
+            for (var i = 0; i < positionsId.Count(); i++)
+            {
+                //if (alreadyAddedPositions.Contains(positionsId.ElementAt(i)))
+                //    continue;
+
+                if (i < positionsId.Count() - 1)
+                {
+                    positionsToAdd += $"{positionsId.ElementAt(i)},";
+                }
+                else
+                    positionsToAdd += $"{positionsId.ElementAt(i)}";
+            }
+
+            //We don't connect Employee with DepartmentPositions
+            //because there might've been a position before that now no longer exists in a specific department
+            var result = _contextDepartmentPositions.UpdateDepartmentPositions(departmentId, positionsToAdd);
+            return true;
         }
 
         // GET: Admin/Department/Delete/5

@@ -5,6 +5,7 @@
     ViewData["Title"] = "Edit";
 }
 
+<link rel="stylesheet" href="~/css/Areas/Manager/Department/index.css" />
 <div class="container subPageContainer">
     <div class="w-100">
         <div class="detailHeaderWrapper d-flex justify-content-between mb-3">
@@ -13,7 +14,7 @@
             </div>
             <div class="d-flex align-items-center">
                 <a class="mx-1 text-danger paddingXBtn rounded border border-danger" asp-action="Delete"
-                    asp-route-id="@Model.Id">@Resources.Shared._Table.delete</a>
+                   asp-route-id="@Model.Id">@Resources.Shared._Table.delete</a>
             </div>
         </div>
     </div>
@@ -24,14 +25,14 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-floating mb-2">
-                        <input class="form-control" asp-for="Name" placeholder='@localizer["departmentName"]'/>
+                        <input class="form-control" asp-for="Name" placeholder='@localizer["departmentName"]' />
                         <label asp-for="Name">@localizer["departmentName"]</label>
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <div class="form-group">
                             <input type="submit" value="@Resources.Shared._Table.save"
-                                class="btn btn-primary" />
+                                   class="btn btn-primary" />
                         </div>
                         <div class="w-auto">
                             <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">
@@ -44,3 +45,54 @@
         </div>
     </div>
 </div>
+
+<!--Positions Section-->
+<div class="w-100 h-100">
+    <div class="container-fluid">
+        <div class="row px-5">
+            <div class="col">
+                <!--Take the department from UserId-->
+                <div class="row">
+                    <div class="col overflow-hidden">
+                        <div class="d-flex justify-content-between bg-white">
+                            <span class="fs-5 btn position-relative bg-white px-3 text-secondary clickable" style="top:20px;"
+                                  id="rolesEditBtn" title="Edit roles">
+                                Positions <i class="fa-regular fa-pen-to-square ms-1"></i>
+                            </span>
+                            <div class="position-relative bg-white px-3" style="top:20px;" id="submitRoles">
+                                <span class="btn btn-outline-secondary disabled">Submit</span>
+                            </div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 px-5 pt-4 pb-3 border shadow-sm roleBorder"
+                             id="rolesContainer">
+                            @{
+                                foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.positions)
+                                {
+                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill addedRole"
+                                     roleId=@item.Id>
+                                        <span>@item.Title</span>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 px-5 py-4 border roleBorder position-relative"
+                             id="rolesEditContainer">
+                            @{
+                                foreach (var item in (IEnumerable<Furlough.Models.Position>)ViewBag.unaddedPositions)
+                                {
+                                    <div class="rounded-pill m-2 p-1 text-center overflow-hidden fw-bold text-nowrap rolePill unaddedRole"
+                                     roleId=@item.Id>
+                                        <span>@item.Title</span>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    Scripts    -->
+<script src="~/js/Areas/Admin/Department/index.js"></script>
