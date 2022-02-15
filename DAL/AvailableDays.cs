@@ -103,6 +103,7 @@ namespace Furlough.DAL
                 command.Parameters.AddWithValue("@BloodDonation", obj.BloodDonation);
                 command.Parameters.AddWithValue("@Maternity", obj.Maternity);
                 command.Parameters.AddWithValue("@DeathOfRelative", obj.DeathOfRelative);
+                command.Parameters.AddWithValue("@PrevYearly", obj.DeathOfRelative);
 
 
 
@@ -162,7 +163,8 @@ namespace Furlough.DAL
                         Medical = reader.GetDecimal("Medical"),
                         Overtime = reader.GetDecimal("Overtime"),
                         Unpaid = reader.GetDecimal("Unpaid"),
-                        Yearly = reader.GetDecimal("Yearly")
+                        Yearly = reader.GetDecimal("Yearly"),
+                        PrevYearly = reader.GetDecimal("PrevYearly")
                     });
                 }
                 return listObj;
@@ -197,6 +199,8 @@ namespace Furlough.DAL
                         BloodDonation = reader.GetDecimal("BloodDonation"),
                         Maternity = reader.GetDecimal("Maternity"),
                         DeathOfRelative = reader.GetDecimal("DeathOfRelative"),
+                        PrevYearly = reader.GetDecimal("PrevYearly")
+                        
                     });
                 }
                 return listObj;

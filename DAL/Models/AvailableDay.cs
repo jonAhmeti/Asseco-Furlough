@@ -6,6 +6,7 @@
         public int EmployeeId { get; set; }
         public decimal Medical { get; set; } //Medical days default to 20
         public decimal Yearly { get; set; } //Yearly days, 18 for the first job, 20 after first year, increases by 1 every 5 years
+        public decimal PrevYearly { get; set; }
         public decimal Overtime { get; set; } //Starts at 0, increases depending on HR or manager and overtime worked
         public decimal Birth { get; set; } //Birth leave days, starts at 3
         public decimal Child { get; set; } //For children under 3 years old, 3 days a year for the female gender afaik.

@@ -13,6 +13,7 @@ namespace Furlough.DAL.Models
         public string EmployeePosition { get; set; }
         public decimal Medical { get; set; }
         public decimal Yearly { get; set; }
+        public decimal PrevYearly { get; set; }
         public decimal Overtime { get; set; }
         public decimal Birth { get; set; }
         public decimal Child { get; set; }
