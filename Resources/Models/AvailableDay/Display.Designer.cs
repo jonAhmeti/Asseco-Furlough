@@ -142,6 +142,15 @@ namespace Furlough.Resources.Models.AvailableDay {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Previous Year Days.
+        /// </summary>
+        public static string prevYear {
+            get {
+                return ResourceManager.GetString("prevYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unpaid.
         /// </summary>
         public static string unpaid {
