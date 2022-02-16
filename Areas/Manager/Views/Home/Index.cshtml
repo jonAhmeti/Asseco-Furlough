@@ -89,24 +89,77 @@
         </div>
     </div>
     <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
-        @* <div class="col my-lg-0 my-2 h-100">
-            <div class="d-flex flex-column w-100 h-100 mb-2 rounded border">
-                <div class="w-100 m-0 row text-center blue-gradient rounded-top ">
-                        <a class="dashboardTableHeader py-2 w-100 row mx-0 mb-0 list-unstyled ">
-                            Upcoming Holidays
-                        </a>
-                    </div>
-                <div class="d-flex flex-column w-100 h-100 text-center">
-                    <div class="w-100 flex-grow-1 overflow-auto" style="height: 1px;"></div>
-                </div>
-           </div>
+        <div class="col my-lg-0 m-auto my-2 h-100">
+            <canvas id="myChart"></canvas>
         </div>
-        <div class="col my-lg-0 my-2 h-100">
-            <table class="charts-css column">
-            </table>
-        </div> *@
     </div>
 </div>
+
+@* <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var labels = [];
+    @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
+    {
+        @:labels.push("@item.Name");
+    }
+
+    var dataValue = [12, 3, 7, 19, 6, 10];
+
+    var bgColor = [
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)'
+        ];
+    var brColor = [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)'
+        ];
+    var datasets = [];
+    for (let i = 0; i < labels.length; i++) {
+        var obj = {};
+        var objdata = [];
+        objdata.push(dataValue[i]);
+        obj['label'] = labels[i];
+        obj['data'] = objdata;        
+        obj['backgroundColor'] = bgColor[i];
+        obj['borderColor'] = brColor[i];
+        obj['borderWidth'] = 1;
+        datasets.push(obj);
+        console.log(datasets);
+    }
+    var data = {
+        labels: ['Employee on Vacation'],
+        datasets: datasets
+    };
+    var config = {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        boxWidth: 8
+                    }
+                }
+            }
+        }
+    };
+</script>
+<script>
+    var myChart = new Chart(document.getElementById('myChart'),config);
+</script> *@
 
 <link href="~/css/Areas/Shared/dashboardIndex.css" rel="stylesheet" />
 <script src="~/js/Areas/Admin/Home/index.js"></script>

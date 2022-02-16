@@ -105,16 +105,28 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    var labels = ['Red', 'Blue', 'Yellow', 'Green'];
-    var dataValue = [12, 19, 3, 5];
+    var labels = [];
+    @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
+    {
+        @:labels.push("@item.Name");
+    }
+
+    var dataValue = [12, 3, 7, 19, 6, 10];
+
     var bgColor = [
             'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
             'rgba(54, 162, 235, 0.5)',
             'rgba(255, 206, 86, 0.5)',
             'rgba(75, 192, 192, 0.5)'
         ];
     var brColor = [
             'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)'
@@ -133,7 +145,7 @@
         console.log(datasets);
     }
     var data = {
-        labels: " ",
+        labels: ['Employee on Vacation'],
         datasets: datasets
     };
     var config = {
@@ -144,6 +156,10 @@
                 legend: {
                     display: true,
                     position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        boxWidth: 8
+                    }
                 }
             }
         }

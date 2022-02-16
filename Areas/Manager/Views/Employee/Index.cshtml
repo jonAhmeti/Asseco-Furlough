@@ -13,13 +13,18 @@
         </div>
     </div>
     <div class="w-75 m-auto overflow-auto shadow border rounded" style="margin-top:-2rem !important;">
-        <table class="table indexTable rounded">
+        <table class="table indexTable shadow">
             <thead>
+                <tr>
+                    <th class="border-0"></th>
+                    <th class="border-0"></th>
+                    <th class="border-0"></th>
+                    <th class="border-0 w-25"></th>
+                </tr>
                 <tr>
                     <th>@localizer["userId"]</th>
                     <th>@localizer["fullname"]</th>
                     <th>@localizer["position"]</th>
-
                     <th class="text-center">
                         <a class="mx-1 text-primary px-4 rounded border border-primary" asp-action="Create">@Resources.Shared._Table.create</a>
                     </th>
