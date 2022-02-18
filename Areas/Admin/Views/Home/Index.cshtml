@@ -9,52 +9,50 @@
     <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
         <div class="col my-lg-0 my-2 h-100">
             <div class="d-flex flex-column w-100 h-100 mb-2 rounded border">
-                <div class="w-100 h-100">
-                    <div class="tabBar unselectable blue-gradient rounded-top d-flex">
-                        <div id="tabBarLeftArrow" class="tabBarArrow d-flex justify-content-center align-items-center py-2 px-3"><i class="fa-solid col fa-arrow-left"></i></div>
-                        <div id="tabBarBox" class="tabBarList w-100 m-0 hstack row-cols-4 text-center noScrollbar " style="scroll-behavior: smooth; overflow-y: hidden;">
-                            @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
-                            {
-                                <div class="tabBarItem cursor-Pointer" departmentId="@item.Id">
-                                    <a class="px-2" style="white-space: nowrap;">@item.Name</a>
-                                </div>
-                            }
-                        </div>
-                        @* <div class="line"></div> *@
-                        <div id="tabBarRightArrow" class="tabBarArrow d-flex justify-content-center align-items-center py-2 px-3"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="tabBar unselectable blue-gradient rounded-top d-flex">
+                    <div id="tabBarLeftArrow" class="tabBarArrow d-flex justify-content-center align-items-center py-2 px-3"><i class="fa-solid col fa-arrow-left"></i></div>
+                    <div id="tabBarBox" class="tabBarList w-100 m-0 hstack row-cols-4 text-center noScrollbar " style="scroll-behavior: smooth; overflow-y: hidden;">
+                        @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
+                        {
+                            <div class="tabBarItem cursor-Pointer" departmentId="@item.Id">
+                                <a class="px-2" style="white-space: nowrap;">@item.Name</a>
+                            </div>
+                        }
                     </div>
-                    <div class="d-flex flex-column w-100 h-100 text-center">
-                        <ul class="listHeader unselectable w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
-                            <li class="col">@localizer["userId"]</li>
-                            <li class="col">@localizer["name"]</li>
-                            <li class="col">@localizer["department"]</li>
-                            <li class="col">@localizer["position"]</li>
-                        </ul>
-                        <div class="w-100 flex-grow-1 overflow-auto" style="height: 1px;">
-                            @foreach (Furlough.DAL.Models.Employee item in ViewBag.employees)
-                            {
-                                <ul rowId="@counter" class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
-                                    <li class="col">
-                                        <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee"
-                                        asp-action="Details" asp-route-id="@item.Id">@item.UserId</a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee"
-                                        asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee"
-                                        asp-action="Details" asp-route-id="@item.Id">@item.DepartmentId</a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee"
-                                        asp-action="Details" asp-route-id="@item.Id">@item.PositionId</a>
-                                    </li>
-                                </ul>
-                                //Counter Incremental
-                                counter++;
-                            }
-                        </div>
+                    @* <div class="line"></div> *@
+                    <div id="tabBarRightArrow" class="tabBarArrow d-flex justify-content-center align-items-center py-2 px-3"><i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+                <div class="d-flex flex-column w-100 h-100 text-center">
+                    <ul class="listHeader unselectable w-100 row mx-0 mb-0 list-unstyled border-bottom border-1 border-dark">
+                        <li class="col">@localizer["userId"]</li>
+                        <li class="col">@localizer["name"]</li>
+                        <li class="col">@localizer["department"]</li>
+                        <li class="col">@localizer["position"]</li>
+                    </ul>
+                    <div class="w-100 flex-grow-1 overflow-auto" style="height: 1px;">
+                        @foreach (Furlough.DAL.Models.Employee item in ViewBag.employees)
+                        {
+                            <ul rowId="@counter" class="listItem w-100 row mx-0 mb-0 list-unstyled border-bottom border-1">
+                                <li class="col">
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" asp-action="Details"
+                                    asp-route-id="@item.Id">@item.UserId</a>
+                                </li>
+                                <li class="col">
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" asp-action="Details"
+                                    asp-route-id="@item.Id">@item.Name</a>
+                                </li>
+                                <li class="col">
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" asp-action="Details"
+                                    asp-route-id="@item.Id">@item.DepartmentId</a>
+                                </li>
+                                <li class="col">
+                                    <a class="dashboardRowLink" asp-area="Admin" asp-controller="Employee" asp-action="Details"
+                                    asp-route-id="@item.Id">@item.PositionId</a>
+                                </li>
+                            </ul>
+                            //Counter Incremental
+                            counter++;
+                        }
                     </div>
                 </div>
             </div>
@@ -105,16 +103,28 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    var labels = ['Red', 'Blue', 'Yellow', 'Green'];
-    var dataValue = [12, 19, 3, 5];
+    var labels = [];
+    @foreach (Furlough.DAL.Models.Department item in ViewBag.departments)
+    {
+        @:labels.push("@item.Name");
+    }
+
+    var dataValue = [12, 3, 7, 19, 6, 10];
+
     var bgColor = [
             'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
             'rgba(54, 162, 235, 0.5)',
             'rgba(255, 206, 86, 0.5)',
             'rgba(75, 192, 192, 0.5)'
         ];
     var brColor = [
             'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)'
@@ -133,7 +143,7 @@
         console.log(datasets);
     }
     var data = {
-        labels: " ",
+        labels: ['Employee on Vacation'],
         datasets: datasets
     };
     var config = {
@@ -144,6 +154,10 @@
                 legend: {
                     display: true,
                     position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        boxWidth: 8
+                    }
                 }
             }
         }
