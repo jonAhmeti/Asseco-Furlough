@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Furlough.DAL;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 
@@ -11,13 +10,13 @@ namespace Furlough.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
-        private readonly FurloughContext _context;
+        private readonly DAL.FurloughContext _context;
         private readonly DAL.User _contextUser;
         private readonly DAL.Role _contextRole;
         private readonly Models.Mapper.DalMapper _dalMapper;
         private readonly Models.Mapper.ViewModelMapper _vmMapper;
 
-        public UserController(FurloughContext context, DAL.User contextUser, DAL.Role contextRole,
+        public UserController(DAL.FurloughContext context, DAL.User contextUser, DAL.Role contextRole,
             Models.Mapper.DalMapper dalMapper, Models.Mapper.ViewModelMapper vmMapper)
         {
             _context = context;
@@ -82,12 +81,13 @@ namespace Furlough.Areas.Admin.Controllers
                     return BadRequest("Password can't be empty or contain spaces");
                 }
 
-                //Re-set user password to the hashed value
-                var passwordHasher = new SecurityHandlers.PasswordHasher(user.Password);
+                //Password doesn't matter here as it gets RESET on Employee Create for this user!
+                var passwordHasher = new SecurityHandlers.PasswordHasher(SecurityHandlers.PasswordHasher.Generate(16,5));
                 user.Password = passwordHasher.GetHashWithSalt();
 
                 user.LUBUserId = loggedinUser;
-                _contextUser.Add(_dalMapper.DalUserMap(user));
+                var isAdded = _contextUser.Add(_dalMapper.DalUserMap(user));
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RoleId"] = new SelectList(_contextRole.GetAll(), "Id", "Title", user.RoleId);

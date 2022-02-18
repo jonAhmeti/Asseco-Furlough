@@ -73,7 +73,7 @@ namespace Furlough.DAL
 
                 connection.Open();
                 var res = command.ExecuteNonQuery();
-                return res > 0;
+                return res >= 0;
 
             }
             catch (Exception e)

@@ -51,6 +51,9 @@ builder.Services.AddAntiforgery(options =>
     options.HeaderName = "X-AFTAsseco";
 });
 
+//Mail service
+builder.Services.Configure<Furlough.Services.Mail.MailSettings>(builder.Configuration.GetSection("EtherealSettings"));
+builder.Services.AddTransient<Furlough.Services.Mail.IMailService, Furlough.Services.Mail.MailService>();
 //Mapper services
 builder.Services.AddScoped<Furlough.Models.Mapper.DalMapper>();
 builder.Services.AddScoped<Furlough.Models.Mapper.ViewModelMapper>();

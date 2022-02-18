@@ -17,10 +17,12 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly DAL.Request _contextRequest;
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
+        private readonly Services.Mail.IMailService _mailService;
 
         public EmployeeController(DAL.Employee contextEmployee, DAL.Department contextDepartment, DAL.User contextUsers,
             DAL.AvailableDays contextAvailableDays, DAL.DepartmentPositions contextDepartmentPositions, DAL.Request contextRequest,
-            ViewModelMapper vmMapper, DalMapper dalMapper)
+            ViewModelMapper vmMapper, DalMapper dalMapper,
+            Services.Mail.IMailService mailService)
         {
             _contextEmployee = contextEmployee;
             _contextDepartment = contextDepartment;
@@ -31,6 +33,8 @@ namespace Furlough.Areas.Admin.Controllers
 
             _vmMapper = vmMapper;
             _dalMapper = dalMapper;
+
+            _mailService = mailService;
         }
 
         // GET: Admin/Employee
@@ -49,7 +53,7 @@ namespace Furlough.Areas.Admin.Controllers
             }
 
             ViewData["EmployeeDays"] = _contextAvailableDays.GetByEmployeeId(employee.Id);
-            
+
             return View(employee);
         }
 
@@ -78,10 +82,21 @@ namespace Furlough.Areas.Admin.Controllers
 
                 var employeeId = _contextEmployee.Add(_dalMapper.DalEmployeeMap(employee));
                 if (employeeId == null)
-                {
                     return StatusCode(500, "Something went wrong adding a new employee.");
-                }
 
+                //Re-set random password and send to employee email
+                var dbUser = _contextUsers.GetById(employee.UserId);
+                var password = SecurityHandlers.PasswordHasher.Generate(21, 5);
+                dbUser.Password = new SecurityHandlers.PasswordHasher(password).GetHashWithSalt();
+                var edited =  _contextUsers.Edit(dbUser);
+                if (edited)
+                    await _mailService.SendEmailAsync(
+                        new Services.Mail.MailRequest(employee.Email,
+                        Resources.Services.Mail.User.createdSubject,
+                        String.Format(Resources.Services.Mail.User.createdBody, employee.Name, dbUser.Username, password, employee.Email),
+                        null));
+
+                //set available days
                 var result = _contextAvailableDays.SetAllDays(employeeId.Value, CalculateYearlyDays(employee.WorkStartDate));
                 return RedirectToAction(nameof(Index));
             }
@@ -341,12 +356,12 @@ namespace Furlough.Areas.Admin.Controllers
                     availableDays++;
                 }
             }
-           
+
             return (decimal)availableDays; //at this point in the code
-                                                                            //yearCounter = years working
-                                                                            //span.Days = days so far not counted into yearly leave
-                                                                            //yearlyDaysAllowed = the amount of yearly leave days available for this employee
-                                                                            //the "for loop" is also supposed to manage leap years
+                                           //yearCounter = years working
+                                           //span.Days = days so far not counted into yearly leave
+                                           //yearlyDaysAllowed = the amount of yearly leave days available for this employee
+                                           //the "for loop" is also supposed to manage leap years
         }
         #endregion
     }

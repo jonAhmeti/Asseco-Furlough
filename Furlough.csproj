@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
@@ -64,6 +65,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Display.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Services\Mail\Request.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Request.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Services\Mail\User.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>User.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Shared\Layout\_Layout.en.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -117,6 +128,14 @@
     <EmbeddedResource Update="Resources\Models\User\Display.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Display.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Services\Mail\Request.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Request.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Services\Mail\User.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>User.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Shared\Layout\_Layout.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

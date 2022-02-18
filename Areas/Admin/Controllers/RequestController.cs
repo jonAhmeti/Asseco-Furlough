@@ -19,11 +19,13 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly DAL.AvailableDays _contextAvailableDays;
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
+        private readonly Services.Mail.IMailService _mailService;
 
         public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType, DAL.User contextUser,
             DAL.Employee contextEmployee, DAL.RequestStatus contextRequestStatus, DAL.RequestHistory contextRequestHistory,
             DAL.AvailableDays contextAvailableDays,
-            ViewModelMapper vmMapper, DalMapper dalMapper)
+            ViewModelMapper vmMapper, DalMapper dalMapper,
+            Services.Mail.IMailService mailService)
         {
             _contextUser = contextUser;
             _contextRequest = contextRequest;
@@ -35,6 +37,8 @@ namespace Furlough.Areas.Admin.Controllers
 
             _vmMapper = vmMapper;
             _dalMapper = dalMapper;
+
+            _mailService = mailService;
         }
 
         // GET: Admin/Request
@@ -171,11 +175,74 @@ namespace Furlough.Areas.Admin.Controllers
 
                     request.LUBUserId = loggedinUser;
                     if (request.RequestTypeId != prevRequest.RequestTypeId)
-                    {
                         request.RequestTypeId = prevRequest.RequestTypeId;
-                    }
                     //make edit
                     var result = _contextRequest.Edit(_dalMapper.DalRequestMap(request), prevRequest.RequestStatusId);
+
+                    //send email when  request changed to approved or rejected
+                    if (result)
+                    {
+                        var dbEmployee = _contextEmployee.GetByUserId(request.RequestedByUserId);
+                        switch (request.RequestStatusId)
+                        {
+                            case 1:
+                                {
+                                    await _mailService.SendEmailAsync(
+                                        new Services.Mail.MailRequest(
+                                            dbEmployee.Email,
+                                            string.Format(Resources.Services.Mail.Request.requestSubject,
+                                                Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
+                                            string.Format(Resources.Services.Mail.Request.requestPending,
+                                                request.RequestedOn.ToShortDateString(),
+                                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                                request.Dates, request.DaysAmount),
+                                            null));
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    await _mailService.SendEmailAsync(
+                                        new Services.Mail.MailRequest(
+                                            dbEmployee.Email,
+                                            string.Format(Resources.Services.Mail.Request.requestSubject,
+                                                Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
+                                            string.Format(Resources.Services.Mail.Request.requestApproved,
+                                                request.RequestedOn.ToShortDateString(),
+                                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                                request.Dates, request.DaysAmount),
+                                            null));
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    await _mailService.SendEmailAsync(
+                                        new Services.Mail.MailRequest(
+                                            dbEmployee.Email,
+                                            string.Format(Resources.Services.Mail.Request.requestSubject,
+                                                Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
+                                            string.Format(Resources.Services.Mail.Request.requestRejected,
+                                                request.RequestedOn.ToShortDateString(),
+                                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                                request.Dates, request.DaysAmount),
+                                            null));
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    await _mailService.SendEmailAsync(
+                                        new Services.Mail.MailRequest(
+                                            dbEmployee.Email,
+                                            string.Format(Resources.Services.Mail.Request.requestSubject,
+                                                Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
+                                            string.Format(Resources.Services.Mail.Request.requestCancelled,
+                                                request.RequestedOn.ToShortDateString(),
+                                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                                request.Dates, request.DaysAmount),
+                                            null));
+                                    break;
+                                }
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

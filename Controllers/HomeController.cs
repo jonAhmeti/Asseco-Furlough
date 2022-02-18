@@ -23,8 +23,8 @@ namespace Furlough.Controllers
         private readonly DAL.DepartmentPositions _contextDepartmentPositions;
         private readonly ViewModelMapper _vmMapper;
 
-        public HomeController(ILogger<HomeController> logger, 
-            DAL.User contextUser, DAL.Employee contextEmployee, 
+        public HomeController(ILogger<HomeController> logger,
+            DAL.User contextUser, DAL.Employee contextEmployee,
             DAL.Department contextDepartment, DAL.DepartmentPositions contextDepartmentPositions, DAL.Position contextPosition,
             ViewModelMapper vmMapper)
         {
@@ -43,8 +43,10 @@ namespace Furlough.Controllers
         public IActionResult Index(string? message = null)
         {
             if (HttpContext.User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home", new { 
-                    Area = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role).Value });
+                return RedirectToAction("Index", "Home", new
+                {
+                    Area = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role).Value
+                });
 
             ViewData["hasMessage"] = false;
             if (message != null)
@@ -68,6 +70,24 @@ namespace Furlough.Controllers
         public async Task<IActionResult> Login(Models.User user)
         {
             var area = "";
+            //testing purposes, to be removed
+            if (user.Username == "testost")
+            {
+
+                var claims = new[]
+                {
+                new Claim("Name", "test"),
+                new Claim("User", "0"), //this needs to be changed to an already created dbUser & dbEmployee
+                new Claim("Employee", "0"),
+                new Claim(ClaimTypes.Role, "Admin"),
+                new Claim("Department", "1"),
+                new Claim("Position", "1")
+                };
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+                return RedirectToAction("Index", "Home", new { area });
+            }
 
             try
             {
@@ -128,14 +148,13 @@ namespace Furlough.Controllers
                 new Claim("Employee", employee.Id.ToString()),
                 new Claim(ClaimTypes.Role, role),
                 new Claim("Department", employee.DepartmentId.ToString()),
-                new Claim("Position", employee.PositionId.ToString()),
-                new Claim("JoinedOn", employee.JoinDate.ToString())
+                new Claim("Position", employee.PositionId.ToString())
             };
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
 
-                
+
             }
             catch (Exception e)
             {
@@ -177,7 +196,7 @@ namespace Furlough.Controllers
 
         #endregion
         #region Partial Views Login/Signup
-        
+
         // [AllowAnonymous]
         // [HttpGet]
         // public IActionResult LoginPartial()
@@ -236,7 +255,7 @@ namespace Furlough.Controllers
 
                 return null;
             }
-                
+
         }
 
         [AllowAnonymous]

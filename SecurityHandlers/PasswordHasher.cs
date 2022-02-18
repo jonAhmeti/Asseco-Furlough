@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System;
+using System.Security;
+using System.Security.Cryptography;
 
 namespace Furlough.SecurityHandlers
 {
@@ -10,6 +11,8 @@ namespace Furlough.SecurityHandlers
         private readonly string _password;
         private readonly Random _random = new Random();
         private readonly string _hashedPassword;
+
+        public static readonly char[] allowedSymbols = "!@#$%^&*()_-+=[{]};:>|./?".ToCharArray();
         public PasswordHasher(string password)
         {
             _random.NextBytes(_salt);
@@ -37,7 +40,7 @@ namespace Furlough.SecurityHandlers
 
         public string GetHashWithSalt(string? salt = null, string? hashedPassword = null)
         {
-            salt ??= _saltString; //gives salt variable the value of _saltString only ig salt is null
+            salt ??= _saltString; //gives salt variable the value of _saltString only if salt is null
             if (salt.Length != 24)
                 throw new NotSupportedException("Salt length must be 24 characters");
 
@@ -70,6 +73,74 @@ namespace Furlough.SecurityHandlers
                 Console.WriteLine(e.Message + extraMessage);
                 Console.ResetColor();
                 return false;
+            }
+        }
+
+        public static string Generate(int length, int numberOfNonAlphanumericCharacters)
+        {
+            if (length < 1 || length > 128)
+            {
+                throw new ArgumentException(nameof(length));
+            }
+
+            if (numberOfNonAlphanumericCharacters > length || numberOfNonAlphanumericCharacters < 0)
+            {
+                throw new ArgumentException(nameof(numberOfNonAlphanumericCharacters));
+            }
+
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                var byteBuffer = new byte[length];
+
+                rng.GetBytes(byteBuffer);
+
+                var count = 0;
+                var characterBuffer = new char[length];
+
+                for (var iter = 0; iter < length; iter++)
+                {
+                    var i = byteBuffer[iter] % 87;
+
+                    if (i < 10)
+                    {
+                        characterBuffer[iter] = (char)('0' + i);
+                    }
+                    else if (i < 36)
+                    {
+                        characterBuffer[iter] = (char)('A' + i - 10);
+                    }
+                    else if (i < 62)
+                    {
+                        characterBuffer[iter] = (char)('a' + i - 36);
+                    }
+                    else
+                    {
+                        characterBuffer[iter] = allowedSymbols[i - 62];
+                        count++;
+                    }
+                }
+
+                if (count >= numberOfNonAlphanumericCharacters)
+                {
+                    return new string(characterBuffer);
+                }
+
+                int j;
+                var rand = new Random();
+
+                for (j = 0; j < numberOfNonAlphanumericCharacters - count; j++)
+                {
+                    int k;
+                    do
+                    {
+                        k = rand.Next(0, length);
+                    }
+                    while (!char.IsLetterOrDigit(characterBuffer[k]));
+
+                    characterBuffer[k] = allowedSymbols[rand.Next(0, allowedSymbols.Length)];
+                }
+
+                return new string(characterBuffer);
             }
         }
     }
