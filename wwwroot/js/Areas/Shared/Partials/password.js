@@ -161,7 +161,7 @@ function setStrength(password) {
         }
     }
 
-    if (hasUpper == 0 || hasLower == 0 || hasNumeric == 0 || password.length < 8 || !password.match(/^(?=.*[#?!@$%^&*-])/)) {
+    if (hasUpper == 0 || hasLower == 0 || hasNumeric == 0 || password.length < 8 || !password.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-]).[\S]{8,32}$/)) {
         missingTypes += (hasUpper == 0 ? "an upper case letter " : "") +
             (hasLower == 0 ? "a lower case letter " : "") +
             (hasNumeric == 0 ? "a number " : "") +

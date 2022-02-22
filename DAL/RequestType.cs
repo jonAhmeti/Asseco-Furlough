@@ -121,6 +121,7 @@ namespace Furlough.DAL
                     {
                         Id = reader.GetInt32("Id"),
                         Type = reader.GetString("Type"),
+                        OrderNum = reader.GetByte("OrderNum")
                     });
                 }
                 return listObj;

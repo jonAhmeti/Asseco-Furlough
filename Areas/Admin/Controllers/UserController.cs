@@ -75,7 +75,7 @@ namespace Furlough.Areas.Admin.Controllers
             {
                 var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
                 //Password validation
-                var regexPassword = new Regex("^(?!.*\\s)(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-]).{8,32}$");
+                var regexPassword = new Regex("/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-]).[^\\s]{8,32}$/gm");
                 if (!regexPassword.IsMatch(user.Password.Trim()))
                 {
                     return BadRequest("Password can't be empty or contain spaces");
