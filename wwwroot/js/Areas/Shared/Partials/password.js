@@ -87,12 +87,6 @@ $(function() {
       }
     });
 
-    $("[confirm-pass]").parent().on("click", function() {
-      if($("[confirm-pass]").prop("disabled")) {
-        alert("baka");
-      }
-    });
-
     $("[data-strength]").keyup(function() {
       var password = $(this).val();
       var getStrength = setStrength(password);
@@ -107,14 +101,23 @@ $(function() {
     function confirmPassword(confirmPass) {
       var password = $("[data-strength]").val();
       if (confirmPass == password) {
-        $("#userForm").find("input[type=submit]").removeAttr("disabled")
+        $("input[type=submit]").removeAttr("disabled")
       } else {
-        $("#userForm").find("input[type=submit]").attr("disabled", "true")
+        $("input[type=submit]").attr("disabled", "true")
       }
     }
 
     //password visibility functionality
     const passwordInput = $("#Password");
+    $(passwordInput).on('click', function () {
+        $('#Password').removeClass('border-danger').css('box-shadow', '');
+    });
+
+    $("[confirm-pass]").parent().on("click", function () {
+        if ($("[confirm-pass]").prop("disabled")) {
+            $('#Password').addClass('border-danger').css('box-shadow', 'red 0 0 10px');
+        }
+    });
 
     const showPassword = $("#showPassword");
     $(showPassword).on('click', function () {
@@ -163,7 +166,8 @@ function setStrength(password) {
             (hasLower == 0 ? "a lower case letter " : "") +
             (hasNumeric == 0 ? "a number " : "") +
             (password.length < 8 ? "at least 8 characters " : "") +
-            (!password.match(/^(?=.*[#?!@$%^&*-])/) ? "a symbol " : "");
+            (!password.match(/^(?=.*[#?!@$%^&*-])/) ? "a symbol " : "") +
+            (password.includes(' ') ? "a whitespace" : "");
     }
 
     strength = hasUpper + hasLower + hasNumeric + hasSymbol + passLength;

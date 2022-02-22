@@ -9,11 +9,12 @@
 <script src="~/js/Areas/Employee/Home/calendar.js"></script>
 <div class="w-100 h-100">
     <div class="container-fluid overflow-hidden">
+        <div class="text-center h2 mt-4">@localizer["annualDays"]</div>
         <div id="infoCardsWrapper" class="position-relative hstack pb-5 justify-content-center">
             <div class="position-absolute bg-white p-2 rounded-circle d-flex shadow-sm" id="infoCardsArrowLeft">
                 <i class="fa-solid fa-arrow-left"></i>
             </div>
-            <div class="row-cols-1 row-cols-md-3 row-cols-lg-4 p-3 hstack" id="infoCards">
+            <div class="row-cols-1 row-cols-md-3 row-cols-lg-4 px-3 hstack" id="infoCards">
                 @foreach (var item in (IEnumerable<Furlough.DAL.Models.RequestType>)ViewBag.requestTypes)
                 {
                     string icon = "";

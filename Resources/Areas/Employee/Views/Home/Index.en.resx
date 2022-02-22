@@ -117,20 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="annualDays" xml:space="preserve">
+    <value>Annual Days</value>
+  </data>
   <data name="Birth" xml:space="preserve">
-    <value>Birth days</value>
+    <value>Birth</value>
   </data>
   <data name="BirthMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Push through it! Literally</value>
   </data>
   <data name="BloodDonation" xml:space="preserve">
-    <value>Blood donor days</value>
+    <value>Blood donor</value>
   </data>
   <data name="BloodDonationMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Ct. Dracula</value>
   </data>
   <data name="Child" xml:space="preserve">
-    <value>Child days</value>
+    <value>Child</value>
   </data>
   <data name="ChildMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;You're allowed to spend 3 days if you have a child younger than 3 years old.</value>
@@ -145,19 +148,19 @@
     <value>Celebrate their life</value>
   </data>
   <data name="Marriage" xml:space="preserve">
-    <value>Marriage days</value>
+    <value>Marriage</value>
   </data>
   <data name="MarriageMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;You can take marriage leave days for, well... marrying reasons</value>
   </data>
   <data name="Maternity" xml:space="preserve">
-    <value>Maternity days</value>
+    <value>Maternity</value>
   </data>
   <data name="MaternityMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Allows 6 months at 70% of your wage. Other 3 months are paid from the ministry and the last 3 are unpaid.</value>
   </data>
   <data name="Medical" xml:space="preserve">
-    <value>Medical days</value>
+    <value>Medical</value>
   </data>
   <data name="MedicalMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;You can take medical leave for health reasons. Requirements: Doctor's prescription.</value>
@@ -166,7 +169,7 @@
     <value>No. of days selected</value>
   </data>
   <data name="Overtime" xml:space="preserve">
-    <value>Bonus overtime days</value>
+    <value>Overtime</value>
   </data>
   <data name="OvertimeMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Here are the days you've earned from working overtime so far.</value>
@@ -175,7 +178,7 @@
     <value>Previous year days</value>
   </data>
   <data name="PrevYearlyMessage" xml:space="preserve">
-    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Days left from previous year. They're usually reset around 30st of June</value>
+    <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Days left from previous year. They're usually reset around 30th of June</value>
   </data>
   <data name="reason" xml:space="preserve">
     <value>Reason</value>
@@ -193,7 +196,7 @@
     <value>Selected days</value>
   </data>
   <data name="spentDays" xml:space="preserve">
-    <value>Spent days</value>
+    <value>Spent</value>
   </data>
   <data name="spentDaysMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;</value>
@@ -205,7 +208,7 @@
     <value>Spent days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;Displays how many unpaid days you have taken so far.</value>
   </data>
   <data name="Yearly" xml:space="preserve">
-    <value>Base year days</value>
+    <value>Annual</value>
   </data>
   <data name="YearlyMessage" xml:space="preserve">
     <value>Available days: &lt;span class="fw-bold"&gt;{0}&lt;/span&gt;&lt;hr /&gt;&lt;br /&gt;This is your yearly leave days. You have 20 days after a year of working, which increases by 1 day for every 5 years.</value>

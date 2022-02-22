@@ -31,6 +31,11 @@ namespace Furlough.Areas.Employee.Controllers
             return View();
         }
 
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult SubmitRequest(Models.Request request)
         {

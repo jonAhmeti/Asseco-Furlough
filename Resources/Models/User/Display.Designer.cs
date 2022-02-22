@@ -61,6 +61,15 @@ namespace Furlough.Resources.Models.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        public static string confirmPassword {
+            get {
+                return ResourceManager.GetString("confirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string id {

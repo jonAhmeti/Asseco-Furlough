@@ -27,17 +27,7 @@
                         <label asp-for="Username" class="control-label">@localizer["username"]</label>
                         <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" data-strength asp-for="Password" class="form-control" placeholder='@localizer["password"]' maxlength="32" />
-                        <label asp-for="Password" pass-label class="control-label">@localizer["password"]</label>
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                        <span class="material-icons-round text-muted endOfInput noselect" id="showPassword">visibility</span>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input type="password" confirm-pass disabled class="form-control" placeholder='@localizer["confirmPassword"]' />
-                        <label class="control-label">@localizer["confirmPassword"]</label>
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
+                    <partial name="_PasswordPartial" />
                     <div class="d-flex justify-content-center mt-3">
                         <div class="form-group">
                             <input type="submit" disabled value="@Resources.Shared._Table.create" class="btn btn-primary" />
@@ -53,6 +43,3 @@
         </div>
     </div>
 </div>
-
-<link rel="stylesheet" href="~/css/Areas/Admin/User/index.css">
-<script src="~/js/Areas/Admin/User/validation.js"></script>

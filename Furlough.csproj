@@ -21,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\Areas\Admin\User\" />
     <Folder Include="wwwroot\js\Areas\Admin\Shared\" />
+    <Folder Include="wwwroot\js\Areas\Admin\User\" />
   </ItemGroup>
 
   <ItemGroup>
