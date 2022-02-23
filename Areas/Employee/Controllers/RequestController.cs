@@ -40,7 +40,6 @@ namespace Furlough.Areas.Employee.Controllers
             {
                 var userId = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value;
 
-                ViewBag.RequestTypes = _contextRequestType.GetAll();
                 var requests = new List<Models.Request>();
                 foreach (var item in _contextRequest.GetByUser(int.Parse(userId), 1))
                 {
@@ -67,7 +66,6 @@ namespace Furlough.Areas.Employee.Controllers
             {
                 requests.Add(_vmMapper.RequestMap(item));
             }
-            ViewBag.RequestTypes = _contextRequestType.GetAll();
             return View(requests);
         }
 
@@ -80,7 +78,6 @@ namespace Furlough.Areas.Employee.Controllers
             {
                 requests.Add(_vmMapper.RequestMap(item));
             }
-            ViewBag.RequestTypes = _contextRequestType.GetAll();
             return View(requests);
         }
 

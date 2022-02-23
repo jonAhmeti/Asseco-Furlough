@@ -1,6 +1,7 @@
 ﻿using Furlough.Models.Mapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Transactions;
 
 namespace Furlough.Areas.Employee.Controllers
 {
@@ -12,8 +13,10 @@ namespace Furlough.Areas.Employee.Controllers
         private DAL.RequestType _contextRequestType;
         private DAL.AvailableDays _contextAvailableDays;
         private DalMapper _dalMapper;
+        private readonly Services.Mail.IMailService _mailService;
 
         public HomeController(DalMapper dalMapper, 
+            Services.Mail.IMailService mailService,
             DAL.RequestType contextRequestType, DAL.Request contextRequest, DAL.AvailableDays contextAvailableDays )
         {
             _contextRequest = contextRequest;
@@ -21,12 +24,13 @@ namespace Furlough.Areas.Employee.Controllers
             _contextAvailableDays = contextAvailableDays;
 
             _dalMapper = dalMapper;
+            _mailService = mailService;
         }
 
         public IActionResult Index()
         {
             var employeeId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
-            ViewBag.requestTypes = _contextRequestType.GetAll().OrderBy(obj => obj.OrderNum);
+            ViewBag.requestTypes = _contextRequestType.GetAll(); //.OrderBy(obj => obj.OrderNum); //stored procedure already returns it in order
             ViewBag.availableDays = _contextAvailableDays.GetByEmployeeId(employeeId);
             return View();
         }
@@ -66,9 +70,21 @@ namespace Furlough.Areas.Employee.Controllers
                 //new value of days, adds instead of deducting if request type is unpaid (meaning unpaid leave days only increase, others decrease)
                 var newDaysValue = (request.RequestTypeId == 8) ? (decimal)daysLeft + request.DaysAmount : (decimal)daysLeft - request.DaysAmount;
 
-                result = _contextRequest.Add(_dalMapper.DalRequestMap(request)) ? Ok() : StatusCode(500, "Something went wrong while adding your request");
-                var dbResult = _contextAvailableDays    //deduct days left from requested paidDays
-                    .SetDays(employeeId, _contextRequestType.GetById(request.RequestTypeId).Type, newDaysValue);
+                using (var transScope = new TransactionScope())
+                {
+                    bool addedRequest = _contextRequest.Add(_dalMapper.DalRequestMap(request));
+                    bool dbResult = _contextAvailableDays    //deduct days left from requested paidDays
+                        .SetDays(employeeId, _contextRequestType.GetById(request.RequestTypeId).Type, newDaysValue);
+
+                    result = StatusCode(500, "Something went wrong while adding your request");
+
+                    if (addedRequest && dbResult)
+                    {
+                        result = Ok();
+                        transScope.Complete();
+                    }
+                }
+                
             }
             catch (Exception e)
             {

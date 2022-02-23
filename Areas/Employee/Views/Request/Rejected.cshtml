@@ -13,7 +13,7 @@
         {
             string icon = "";
             string backgroundCircle = "#000";
-            string requestType = ViewBag.RequestTypes[--item.RequestTypeId].Type;
+            string requestType = Enum.GetName(typeof(Furlough.Models.Enums.RequestType), item.RequestTypeId);
             switch (requestType)
             {
                 case "Medical":

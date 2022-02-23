@@ -14,11 +14,13 @@
         {
             string icon = "";
             string backgroundCircle = "#000";
-            string requestType = ViewBag.RequestTypes[--item.RequestTypeId].Type;
+            string requestType = Enum.GetName(typeof(Furlough.Models.Enums.RequestType), item.RequestTypeId);
             switch (requestType)
             {
                 case "Medical":
                     { icon = "<i class=\"fa-solid fa-stethoscope\"></i>"; backgroundCircle = "#A0CED9"; break; }
+                case "PrevYearly":
+                    { icon = "<i class=\"fa-regular fa-calendar\"></i>"; backgroundCircle = "#449DD1"; break; }
                 case "BloodDonation":
                     { icon = "<span class=\"material-icons-round\">bloodtype</span>"; backgroundCircle = "#DE3C4B"; break; }
                 case "Yearly":
@@ -37,7 +39,7 @@
                     { icon = "<span class=\"material-icons-round\">pregnant_woman</span>"; backgroundCircle = "#D33F49"; break; }
                 case "DeathOfRelative":
                     { icon = "<i class=\"fa-solid fa-heart\"></i>"; backgroundCircle = "#DF1B48"; break; }
-                }
+            }
 
             <div requestId="@item.Id" class="card col m-3 shadow-sm requestCard">
                 <div class="card-body">

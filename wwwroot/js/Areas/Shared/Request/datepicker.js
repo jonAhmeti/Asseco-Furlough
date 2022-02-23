@@ -1,7 +1,9 @@
 ﻿$(function () {
+    const today = new Date();
+    today.setMonth(today.getMonth() - 6);
     $('.datepicker').datepicker({
         format: 'yyyy/mm/dd',
-        startDate: '0d',
+        startDate: `${today.getFullYear()}/${today.getMonth()}/${today.getDay()}`, //'0d',
         clearBtn: true,
         daysOfWeekDisabled: '0,6',
         multidate: true,

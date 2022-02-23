@@ -11,6 +11,7 @@
         Maternity,
         Unpaid,
         BloodDonation,
-        DeathOfRelative
+        DeathOfRelative,
+        PrevYearly
     }
 }
