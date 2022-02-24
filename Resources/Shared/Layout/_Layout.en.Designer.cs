@@ -59,112 +59,103 @@ namespace Resources.Shared {
                 resourceCulture = value;
             }
         }
-        /// <summary>
-        ///   Looks up a localized string similar to Dashboard.
-        /// </summary>
+
         public static string dashTitle {
             get {
                 return ResourceManager.GetString("dashTitle", resourceCulture);
             }
         }
-        /// <summary>
-        ///   Looks up a localized string similar to Department.
-        /// </summary>
+
         public static string depTitle {
             get {
                 return ResourceManager.GetString("depTitle", resourceCulture);
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Employee.
-        /// </summary>
         public static string empTitle {
             get {
                 return ResourceManager.GetString("empTitle", resourceCulture);
             }
         }
 
-        /// <summary>
-        ///   Looks up a localized string similar to Log Out.
-        /// </summary>
         public static string logOut {
             get {
                 return ResourceManager.GetString("logOut", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Position.
-        /// </summary>
+
         public static string posTitle {
             get {
                 return ResourceManager.GetString("posTitle", resourceCulture);
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Request.
-        /// </summary>
         public static string reqTitle {
             get {
                 return ResourceManager.GetString("reqTitle", resourceCulture);
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Role.
-        /// </summary>
         public static string roleTitle {
             get {
                 return ResourceManager.GetString("roleTitle", resourceCulture);
             }
         }
 
-        /// <summary>
-        ///   Looks up a localized string similar to User.
-        /// </summary>
-        public static string userTitle
-        {
-            get
-            {
+        public static string userTitle {
+            get {
                 return ResourceManager.GetString("userTitle", resourceCulture);
             }
         }
 
-        public static string availDaysTitle
-        {
-            get
-            {
+        public static string availDaysTitle {
+            get {
                 return ResourceManager.GetString("availDaysTitle", resourceCulture);
             }
         }
-        public static string approved
-        {
-            get
-            {
+        public static string approved {
+            get {
                 return ResourceManager.GetString("approved", resourceCulture);
             }
         }
-        public static string rejected
-        {
-            get
-            {
+        public static string rejected {
+            get {
                 return ResourceManager.GetString("rejected", resourceCulture);
             }
         }
-        public static string cancelled
-        {
-            get
-            {
+        public static string cancelled {
+            get {
                 return ResourceManager.GetString("cancelled", resourceCulture);
             }
         }
-        public static string pending
-        {
+        public static string pending {
             get
             {
                 return ResourceManager.GetString("pending", resourceCulture);
+            }
+        }
+        public static string openManual {
+            get
+            {
+                return ResourceManager.GetString("openManual", resourceCulture);
+            }
+        }
+        public static string empProfile {
+            get
+            {
+                return ResourceManager.GetString("empProfile", resourceCulture);
+            }
+        }
+        public static string company {
+            get
+            {
+                return ResourceManager.GetString("company", resourceCulture);
+            }
+        }
+        public static string staff {
+            get
+            {
+                return ResourceManager.GetString("staff", resourceCulture);
             }
         }
     }

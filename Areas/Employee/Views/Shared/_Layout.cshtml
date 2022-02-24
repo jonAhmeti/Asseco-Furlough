@@ -72,11 +72,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between flex-row-reverse flex-grow-0">
                     <ul class="navbar-nav align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" target="_blank" asp-area="" asp-controller="Home" asp-action="GetManual">Open Manual</a>
+                            <a class="nav-link text-dark" target="_blank" asp-area="" asp-controller="Home" asp-action="GetManual">@Resources.Shared._Layout.openManual</a>
                         </li>
                         <li class="nav-item ms-2">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Profile">
-                                Profile
+                                @Resources.Shared._Layout.empProfile
                             </a>
                         </li>
                         <li class="ms-5 nav-item">
@@ -111,19 +111,19 @@
                     <div class="md-ripples ripples-light mb-3 mx-4 rounded-pill">
                         <a class="sidenavLinks rounded-pill nav-link @(action.Length == 3 && action[2]=="Request" ? "active" : "")"
                            asp-area="Employee" asp-controller="Request" asp-action="Index">
-                            <i class="far fa-clock"></i> Pending
+                            <i class="far fa-clock"></i> @Resources.Shared._Layout.pending
                         </a>
                     </div>
                     <div class="md-ripples ripples-light my-3 mx-4 rounded-pill">
                         <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Approved" ? "active" : "")"
                            asp-area="Employee" asp-controller="Request" asp-action="Approved">
-                            <i class="fas fa-check"></i> Approved
+                            <i class="fas fa-check"></i> @Resources.Shared._Layout.approved
                         </a>
                     </div>
                     <div class="md-ripples ripples-light mt-3 mx-4 rounded-pill">
                         <a class="sidenavLinks rounded-pill nav-link @(action.Length > 3 && action[3]=="Rejected" ? "active" : "")"
                            asp-area="Employee" asp-controller="Request" asp-action="Rejected">
-                            <i class="fas fa-minus"></i> Rejected
+                            <i class="fas fa-minus"></i> @Resources.Shared._Layout.rejected
                         </a>
                     </div>
                 </div>

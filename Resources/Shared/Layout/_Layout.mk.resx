@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="approved" xml:space="preserve">
-    <value>Aprovuara</value>
+    <value>Одобрено</value>
   </data>
   <data name="availDaysTitle" xml:space="preserve">
     <value>Денови</value>
   </data>
   <data name="cancelled" xml:space="preserve">
-    <value>Fshira</value>
+    <value>Откажано</value>
   </data>
   <data name="dashTitle" xml:space="preserve">
     <value>ДОМА</value>
@@ -139,13 +139,13 @@
     <value>Отклучи</value>
   </data>
   <data name="pending" xml:space="preserve">
-    <value>Në pritje</value>
+    <value>Во очекување</value>
   </data>
   <data name="posTitle" xml:space="preserve">
     <value>Позиција</value>
   </data>
   <data name="rejected" xml:space="preserve">
-    <value>Anuluara</value>
+    <value>Одбиено</value>
   </data>
   <data name="reqTitle" xml:space="preserve">
     <value>Барање</value>
@@ -155,5 +155,17 @@
   </data>
   <data name="userTitle" xml:space="preserve">
     <value>Корисници</value>
+  </data>
+  <data name="openManual" xml:space="preserve">
+    <value>Отворете го прирачникот</value>
+  </data>
+  <data name="empProfile" xml:space="preserve">
+    <value>профил</value>
+  </data>
+  <data name="company" xml:space="preserve">
+    <value>компанија</value>
+  </data>
+  <data name="staff" xml:space="preserve">
+    <value>кадар</value>
   </data>
 </root>

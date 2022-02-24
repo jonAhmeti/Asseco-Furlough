@@ -138,4 +138,7 @@
   <data name="userId" xml:space="preserve">
     <value>ИД</value>
   </data>
+  <data name="chartLabel" xml:space="preserve">
+    <value>Вработен на одмор</value>
+  </data>
 </root>

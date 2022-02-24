@@ -7,7 +7,7 @@
 
 <div class="container w-100 h-100 d-flex flex-column justify-content-center p-2 p-sm-3 p-md-4 p-lg-5">
     <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
-        <div class="col my-lg-0 my-2 h-100">
+        <div class="col my-lg-0 h-100">
             <div class="d-flex flex-column w-100 h-100 mb-2 rounded border">
                 <div class="tabBar unselectable blue-gradient rounded-top d-flex">
                     <div id="tabBarLeftArrow" class="tabBarArrow d-flex justify-content-center align-items-center py-2 px-3"><i class="fa-solid col fa-arrow-left"></i></div>
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="col my-lg-0 my-2 h-100">
+        <div class="col my-lg-0 h-100">
             <div class="w-100 h-100 d-flex flex-column align-items-center text-center rounded border">
                 <div class="w-100 h-100">
                     <div class="w-100 unselectable m-0 row text-center blue-gradient rounded-top ">
@@ -94,8 +94,8 @@
             </div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mb-2">
-        <div class="col my-lg-0 m-auto my-2 h-100">
+    <div class="row row-cols-1 row-cols-lg-2 w-100 h-50 mt-2">
+        <div class="col my-lg-0 m-auto h-100">
             <canvas id="myChart"></canvas>
         </div>
     </div>
@@ -143,7 +143,7 @@
         console.log(datasets);
     }
     var data = {
-        labels: ['Employee on Vacation'],
+        labels: ['@localizer["chartLabel"]'],
         datasets: datasets
     };
     var config = {

@@ -145,7 +145,7 @@
     <value>Прекувремено</value>
   </data>
   <data name="prevYear" xml:space="preserve">
-    <value>Денови од претходната година</value>
+    <value>Претходната година</value>
   </data>
   <data name="unpaid" xml:space="preserve">
     <value>Неплатено</value>

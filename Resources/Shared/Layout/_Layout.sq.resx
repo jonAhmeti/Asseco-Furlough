@@ -145,7 +145,7 @@
     <value>Pozita</value>
   </data>
   <data name="rejected" xml:space="preserve">
-    <value>Anuluara</value>
+    <value>Refuzuara</value>
   </data>
   <data name="reqTitle" xml:space="preserve">
     <value>Kërkesa</value>
@@ -155,5 +155,17 @@
   </data>
   <data name="userTitle" xml:space="preserve">
     <value>Përdorues</value>
+  </data>
+  <data name="openManual" xml:space="preserve">
+    <value>Hap manualin</value>
+  </data>
+  <data name="empProfile" xml:space="preserve">
+    <value>Profili</value>
+  </data>
+  <data name="company" xml:space="preserve">
+    <value>Kompania</value>
+  </data>
+  <data name="staff" xml:space="preserve">
+    <value>Stafi</value>
   </data>
 </root>

@@ -138,4 +138,7 @@
   <data name="userId" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="chartLabel" xml:space="preserve">
+    <value>Employees on Vacation</value>
+  </data>
 </root>
