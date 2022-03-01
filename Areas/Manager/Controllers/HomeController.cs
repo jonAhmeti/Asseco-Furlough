@@ -26,9 +26,12 @@ namespace Furlough.Areas.Manager.Controllers
             ViewBag.requests = _contextRequest.GetAllByRowCount(5, managerDepartmentId);
             ViewBag.employees = _contextEmployee.GetByDepartmentId(managerDepartmentId);
             ViewBag.Department = _contextDepartment.GetById(managerDepartmentId).Name;
+<<<<<<< Updated upstream
 
             ViewBag.Position = _contextDepartmentRoles.GetPositionsByDepartmentId(managerDepartmentId);
             ViewBag.Department = _contextDepartment.GetById(managerDepartmentId).Name;
+=======
+>>>>>>> Stashed changes
             return View();
         }
     }
