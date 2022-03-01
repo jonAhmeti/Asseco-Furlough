@@ -10,14 +10,12 @@ namespace Furlough.Areas.Manager.Controllers
         private readonly DAL.Request _contextRequest;
         private readonly DAL.Employee _contextEmployee;
         private readonly DAL.Department _contextDepartment;
-        private readonly DAL.DepartmentPositions _contextDepartmentRoles;
 
-        public HomeController(DAL.Request contextRequest, DAL.Employee contextEmployee, DAL.Department contextDepartment, DAL.DepartmentPositions contextDepartmentPositions)
+        public HomeController(DAL.Request contextRequest, DAL.Employee contextEmployee, DAL.Department contextDepartment)
         {
             _contextRequest = contextRequest;
             _contextEmployee = contextEmployee;
             _contextDepartment = contextDepartment;
-            _contextDepartmentRoles = contextDepartmentPositions;
         }
         public IActionResult Index()
         {
@@ -26,12 +24,6 @@ namespace Furlough.Areas.Manager.Controllers
             ViewBag.requests = _contextRequest.GetAllByRowCount(5, managerDepartmentId);
             ViewBag.employees = _contextEmployee.GetByDepartmentId(managerDepartmentId);
             ViewBag.Department = _contextDepartment.GetById(managerDepartmentId).Name;
-<<<<<<< Updated upstream
-
-            ViewBag.Position = _contextDepartmentRoles.GetPositionsByDepartmentId(managerDepartmentId);
-            ViewBag.Department = _contextDepartment.GetById(managerDepartmentId).Name;
-=======
->>>>>>> Stashed changes
             return View();
         }
     }
