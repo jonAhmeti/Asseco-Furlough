@@ -724,17 +724,20 @@ function setCalendarDayEvents() {
                     selectedDates.sort();
                     //console.log(selectedDates);
                     selectedDaysList.innerHTML = selectedDates.map(element => {
-                        return `<div class="row row-cols-6">
-                                    <div class="col-4 text-end">
+                        return `<div class="row p-1 row-cols-6">
+                                    <div class="col-2 px-1 text-end">
                                         <i class="fa-solid fa-circle-check text-success"></i>
                                     </div>
-                                    <div class="col-8 text-start"> 
+                                    <div class="col-7 px-1 text-start"> 
                                         ${dayNames.ddd[new Date(element.split('/')[0],
                                             element.split('/')[1],
                                             element.split('/')[2]).getDay()]}
                                         ${element.split('/')[2]} 
                                         ${monthNames[element.split('/')[1]]}
                                          ${element.split('/')[0]}
+                                    </div>
+                                    <div class="col-3 px-1 text-start">
+                                        <input id="daysAmount" type="number" min="5" max="15" placeholder="Amount">
                                     </div>
                                 </div>`
                     }).join('');

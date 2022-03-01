@@ -487,3 +487,20 @@ section div.box {
     overflow-x: hidden;
     box-shadow: inset 0 0.5rem 8px -7px rgb(0 0 0 / 15%) !important;
 }
+
+/*
+ * Remove arrows for input number
+ *-------------------------------------------------
+ * Chrome, Safari, Edge, Opera */
+#daysAmount::-webkit-outer-spin-button,
+#daysAmount::-webkit-inner-spin-button  {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+#daysAmount {
+    width: 75%;
+    margin-left: -1rem;
+    -moz-appearance: textfield;
+}
