@@ -62,6 +62,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Display.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Models\UserEmployee\Display.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Display.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Models\User\Display.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -124,6 +129,10 @@
       <LastGenOutput>Display.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\Request\Display.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Display.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\UserEmployee\Display.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Display.Designer.cs</LastGenOutput>
     </EmbeddedResource>

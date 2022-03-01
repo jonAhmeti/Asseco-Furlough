@@ -117,19 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="confirmPassword" xml:space="preserve">
-    <value>Konfirmo fjalëkalimin</value>
+  <data name="department" xml:space="preserve">
+    <value>Department</value>
   </data>
-  <data name="pageTitle" xml:space="preserve">
-    <value>Krijo përdorues</value>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="employeeId" xml:space="preserve">
+    <value>Employee ID</value>
+  </data>
+  <data name="insertDate" xml:space="preserve">
+    <value>Insert date</value>
+  </data>
+  <data name="lubUserId" xml:space="preserve">
+    <value>Last updated by user</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Full name</value>
   </data>
   <data name="password" xml:space="preserve">
-    <value>Fjalëkalimi</value>
+    <value>Password</value>
   </data>
-  <data name="role" xml:space="preserve">
-    <value>Roli</value>
+  <data name="phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="roleId" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="userId" xml:space="preserve">
+    <value>User ID</value>
   </data>
   <data name="username" xml:space="preserve">
-    <value>Përdoruesi</value>
+    <value>Username</value>
+  </data>
+  <data name="workStartDate" xml:space="preserve">
+    <value>Work start date</value>
   </data>
 </root>

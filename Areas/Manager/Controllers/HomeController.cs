@@ -28,6 +28,7 @@ namespace Furlough.Areas.Manager.Controllers
             ViewBag.Department = _contextDepartment.GetById(managerDepartmentId).Name;
 
             ViewBag.Position = _contextDepartmentRoles.GetPositionsByDepartmentId(managerDepartmentId);
+            ViewBag.Department = _contextDepartment.GetById(managerDepartmentId).Name;
             return View();
         }
     }

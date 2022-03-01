@@ -135,7 +135,13 @@
   <data name="position" xml:space="preserve">
     <value>Pozita</value>
   </data>
+  <data name="role" xml:space="preserve">
+    <value>Roli</value>
+  </data>
   <data name="userId" xml:space="preserve">
     <value>Emri i përdoruesit</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>Përdoruesi</value>
   </data>
 </root>

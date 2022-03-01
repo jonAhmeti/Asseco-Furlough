@@ -18,15 +18,7 @@
             <div class="px-0 col-lg-6 col-md-8 col-sm-10 col-12">
                 <form id="userForm" asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-floating mb-3">
-                        <select asp-for="RoleId" class="form-control" asp-items="ViewBag.Roles"></select>
-                        <label asp-for="RoleId" class="control-label">@localizer["role"]</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input asp-for="Username" class="form-control" placeholder='@localizer["username"]' />
-                        <label asp-for="Username" class="control-label">@localizer["username"]</label>
-                        <span asp-validation-for="Username" class="text-danger"></span>
-                    </div>
+                    
                     <partial name="_PasswordPartial" />
                     <div class="d-flex justify-content-center mt-3">
                         <div class="form-group">

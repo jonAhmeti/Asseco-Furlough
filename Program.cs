@@ -52,7 +52,7 @@ builder.Services.AddAntiforgery(options =>
 });
 
 //Mail service
-builder.Services.Configure<Furlough.Services.Mail.MailSettings>(builder.Configuration.GetSection("EtherealSettings"));
+builder.Services.Configure<Furlough.Services.Mail.MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<Furlough.Services.Mail.IMailService, Furlough.Services.Mail.MailService>();
 //Mapper services
 builder.Services.AddScoped<Furlough.Models.Mapper.DalMapper>();

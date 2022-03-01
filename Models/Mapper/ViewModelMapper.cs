@@ -2,6 +2,32 @@
 {
     public class ViewModelMapper
     {
+        public void UserEmployeeMap(Models.UserEmployee userEmployee, out Models.User user, out Models.Employee employee)
+        {
+            user = new Models.User
+            {
+                Id = userEmployee.UserId,
+                InsertDate = userEmployee.InsertDate,
+                LUBUserId = userEmployee.LUBUserId,
+                Password = userEmployee.Password,
+                Username = userEmployee.Username,
+                RoleId = userEmployee.RoleId
+            };
+
+            employee = new Models.Employee
+            {
+                Email = userEmployee.Email,
+                LUBUserId = userEmployee.LUBUserId,
+                UserId = userEmployee.UserId,
+                DepartmentId = userEmployee.DepartmentId,
+                Id = userEmployee.EmployeeId,
+                Name = userEmployee.Name,
+                Phone = userEmployee.Phone,
+                PositionId = userEmployee.PositionId,
+                WorkStartDate = userEmployee.WorkStartDate
+            };
+        }
+
         public Models.User UserMap(DAL.Models.User obj)
         {
             return new Models.User

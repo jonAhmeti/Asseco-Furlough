@@ -1,4 +1,4 @@
-﻿@model Furlough.Models.Employee
+﻿@model Furlough.Models.UserEmployee
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 @{
@@ -19,46 +19,46 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-floating mb-3">
-                        @{
-                            if (ViewBag.Users == null)
-                            {
-                                <input class="form-control text-primary" disabled name="UserId" value="@localizer["createNewUser"]"/>
-                                <label asp-for="UserId">@localizer["userId"]</label>
-                            }
-                            else
-                            {
-                                <select class="form-control" asp-for="UserId" asp-items="ViewBag.Users"></select>
-                                <label asp-for="UserId">@localizer["userId"]</label>
-                            }
-                        }
+                        <select asp-for="RoleId" class="form-control" asp-items="ViewBag.Roles"></select>
+                        <label asp-for="RoleId" class="control-label">@Html.DisplayNameFor(model => model.RoleId)</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Username" class="form-control" placeholder='@Html.DisplayNameFor(model => model.Username)' />
+                        <label asp-for="Username" class="control-label">@Html.DisplayNameFor(model => model.Username)</label>
+                        <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="WorkStartDate" />
-                        <label asp-for="WorkStartDate">@localizer["joinDate"]</label>
+                        <label asp-for="WorkStartDate">@Html.DisplayNameFor(model => model.WorkStartDate)</label>
                         <span asp-validation-for="WorkStartDate" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <select disabled class="form-control" asp-for="PositionId" asp-items="ViewBag.PositionId">
                         </select>
-                        <label asp-for="PositionId">@localizer["position"]</label>
+                        <label asp-for="PositionId">@Html.DisplayNameFor(model => model.PositionId)</label>
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.Departments"></select>
-                        <label asp-for="DepartmentId">@localizer["department"]</label>
+                        <label asp-for="DepartmentId">@Html.DisplayNameFor(model => model.DepartmentId)</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" asp-for="Email" placeholder="Email" />
-                        <label asp-for="Email"></label>
+                        <input class="form-control" asp-for="Email" placeholder="@Html.DisplayNameFor(model => model.Email)" />
+                        <label asp-for="Email">@Html.DisplayNameFor(model => model.Email)</label>
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-2">
-                        <input class="form-control" asp-for="Name" placeholder='@localizer["fullname"]' />
-                        <label asp-for="Name">@localizer["fullname"]</label>
+                        <input class="form-control" asp-for="Name" placeholder='@Html.DisplayNameFor(model => model.Name)' />
+                        <label asp-for="Name">@Html.DisplayNameFor(model => model.Name)</label>
                         <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input class="form-control" asp-for="Phone" placeholder='@Html.DisplayNameFor(model => model.Phone)' />
+                        <label asp-for="Phone">@Html.DisplayNameFor(model => model.Phone)</label>
+                        <span asp-validation-for="Phone" class="text-danger"></span>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <div class="form-group">
-                            <input disabled id="submitBtn" type="submit" value="@Resources.Shared._Table.create" class="btn btn-primary" />
+                            <input id="submitBtn" type="submit" value="@Resources.Shared._Table.create" class="btn btn-primary" />
                         </div>
                         <div class="d-flex align-items-center">
                             <a class="mx-1 px-4 rounded btn btn-primary" asp-action="Index">

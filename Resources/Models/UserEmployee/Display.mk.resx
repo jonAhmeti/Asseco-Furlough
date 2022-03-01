@@ -117,19 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="confirmPassword" xml:space="preserve">
-    <value>Потврди ја лозинката</value>
+  <data name="department" xml:space="preserve">
+    <value>оддел</value>
   </data>
-  <data name="pageTitle" xml:space="preserve">
-    <value>Корисник креирање</value>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="employeeId" xml:space="preserve">
+    <value>ИД на вработен</value>
+  </data>
+  <data name="insertDate" xml:space="preserve">
+    <value>Вметнете датум</value>
+  </data>
+  <data name="lubUserId" xml:space="preserve">
+    <value>Последно ажурирано од корисникот</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Целосно име</value>
   </data>
   <data name="password" xml:space="preserve">
     <value>Лозинка</value>
   </data>
-  <data name="role" xml:space="preserve">
+  <data name="phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="position" xml:space="preserve">
+    <value>Позиција</value>
+  </data>
+  <data name="roleId" xml:space="preserve">
     <value>Улога</value>
   </data>
+  <data name="userId" xml:space="preserve">
+    <value>Кориснички ID</value>
+  </data>
   <data name="username" xml:space="preserve">
-    <value>Корисник</value>
+    <value>Корисничко име</value>
+  </data>
+  <data name="workStartDate" xml:space="preserve">
+    <value>Датум на почеток на работа</value>
   </data>
 </root>

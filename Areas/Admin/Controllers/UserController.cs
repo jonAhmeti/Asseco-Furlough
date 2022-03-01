@@ -57,44 +57,6 @@ namespace Furlough.Areas.Admin.Controllers
             return View(user);
         }
 
-        // GET: Admin/User/Create
-        public IActionResult Create()
-        {
-            ViewData["Roles"] = new SelectList(_contextRole.GetAll(), "Id", "Title");
-            return View();
-        }
-
-        // POST: Admin/User/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Models.User user)
-        {
-            if (ModelState.IsValid)
-            {
-                var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
-                //Password validation
-                var regexPassword = new Regex("/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-]).[^\\s]{8,32}$/gm");
-                if (!regexPassword.IsMatch(user.Password.Trim()))
-                {
-                    return BadRequest("Password can't be empty or contain spaces");
-                }
-
-                //Password doesn't matter here as it gets RESET on Employee Create for this user!
-                var passwordHasher = new SecurityHandlers.PasswordHasher(SecurityHandlers.PasswordHasher.Generate(16,5));
-                user.Password = passwordHasher.GetHashWithSalt();
-
-                user.LUBUserId = loggedinUser;
-                var isAdded = _contextUser.Add(_dalMapper.DalUserMap(user));
-
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["RoleId"] = new SelectList(_contextRole.GetAll(), "Id", "Title", user.RoleId);
-            ViewData["UpdateBy"] = new SelectList(_contextUser.GetAll(), "Id", "Username", user.LUBUserId);
-            return View(user);
-        }
-
         // GET: Admin/User/Edit/5
         public async Task<IActionResult> Edit(int id)
         {

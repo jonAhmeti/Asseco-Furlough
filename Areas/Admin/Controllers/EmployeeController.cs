@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Furlough.Models.Mapper;
 using Microsoft.AspNetCore.Authorization;
+using System.Transactions;
 
 namespace Furlough.Areas.Admin.Controllers
 {
@@ -15,21 +16,24 @@ namespace Furlough.Areas.Admin.Controllers
         private readonly DAL.DepartmentPositions _contextDepartmentPositions;
         private readonly DAL.AvailableDays _contextAvailableDays;
         private readonly DAL.Request _contextRequest;
+        private readonly DAL.Role _contextRole;
         private readonly ViewModelMapper _vmMapper;
         private readonly DalMapper _dalMapper;
         private readonly Services.Mail.IMailService _mailService;
 
         public EmployeeController(DAL.Employee contextEmployee, DAL.Department contextDepartment, DAL.User contextUsers,
-            DAL.AvailableDays contextAvailableDays, DAL.DepartmentPositions contextDepartmentPositions, DAL.Request contextRequest,
+            DAL.AvailableDays contextAvailableDays, DAL.DepartmentPositions contextDepartmentPositions,
+            DAL.Request contextRequest, DAL.Role contextRole,
             ViewModelMapper vmMapper, DalMapper dalMapper,
             Services.Mail.IMailService mailService)
         {
-            _contextEmployee = contextEmployee;
-            _contextDepartment = contextDepartment;
-            _contextUsers = contextUsers;
             _contextDepartmentPositions = contextDepartmentPositions;
             _contextAvailableDays = contextAvailableDays;
+            _contextDepartment = contextDepartment;
+            _contextEmployee = contextEmployee;
             _contextRequest = contextRequest;
+            _contextUsers = contextUsers;
+            _contextRole = contextRole;
 
             _vmMapper = vmMapper;
             _dalMapper = dalMapper;
@@ -60,11 +64,8 @@ namespace Furlough.Areas.Admin.Controllers
         // GET: Admin/Employee/Create
         public IActionResult Create()
         {
+            ViewData["Roles"] = new SelectList(_contextRole.GetAll(), "Id", "Title");
             ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name");
-            //get positions by department on ajax
-
-            var unattachedUsers = _contextUsers.GetUnattachedToEmployees();
-            ViewData["Users"] = unattachedUsers.Count() == 0 ? null : new SelectList(unattachedUsers, "Id", "Username");
             return View();
         }
 
@@ -73,39 +74,56 @@ namespace Furlough.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Models.Employee employee)
+        public async Task<IActionResult> Create(Models.UserEmployee userEmployee)
         {
             if (ModelState.IsValid)
             {
+                //get Id of user that is logged in (HR)
                 var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
-                employee.LUBUserId = loggedinUser;
+                userEmployee.LUBUserId = loggedinUser;
 
+                //separate the two User and Employee models
+                var user = new Models.User();
+                var employee = new Models.Employee();
+                _vmMapper.UserEmployeeMap(userEmployee, out user, out employee);
+
+                //set random user password
+                var generatedPassword = SecurityHandlers.PasswordHasher.Generate(21, 5);
+                user.Password = new SecurityHandlers.PasswordHasher(generatedPassword).GetHashWithSalt();
+
+                using var transScope = new TransactionScope();
+                var userId = _contextUsers.Add(_dalMapper.DalUserMap(user));
+                if (userId == 0)
+                {
+                    transScope.Dispose();
+                    return StatusCode(500, "Something went wrong adding a new user.");
+                }
+
+                //add employee with registered UserId
+                employee.UserId = userId;
                 var employeeId = _contextEmployee.Add(_dalMapper.DalEmployeeMap(employee));
                 if (employeeId == null)
+                {
+                    transScope.Dispose();
                     return StatusCode(500, "Something went wrong adding a new employee.");
+                }
 
-                //Re-set random password and send to employee email
-                var dbUser = _contextUsers.GetById(employee.UserId);
-                var password = SecurityHandlers.PasswordHasher.Generate(21, 5);
-                dbUser.Password = new SecurityHandlers.PasswordHasher(password).GetHashWithSalt();
-                var edited =  _contextUsers.Edit(dbUser);
-                if (edited)
-                    await _mailService.SendEmailAsync(
-                        new Services.Mail.MailRequest(employee.Email,
-                        Resources.Services.Mail.User.createdSubject,
-                        String.Format(Resources.Services.Mail.User.createdBody, employee.Name, dbUser.Username, password, employee.Email),
-                        null));
+                await _mailService.SendEmailAsync(
+                    new Services.Mail.MailRequest(employee.Email,
+                    Resources.Services.Mail.User.createdSubject,
+                    String.Format(Resources.Services.Mail.User.createdBody, employee.Name, user.Username, generatedPassword, employee.Email),
+                    null));
 
+                transScope.Complete();
                 //set available days
                 var result = _contextAvailableDays.SetAllDays(employeeId.Value, CalculateYearlyDays(employee.WorkStartDate));
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", employee.DepartmentId);
-            //get positions by department on ajax
-            var unattachedUsers = _contextUsers.GetUnattachedToEmployees();
-            ViewData["Users"] = unattachedUsers.Count() == 0 ? null : new SelectList(unattachedUsers, "Id", "Username");
-            return View(employee);
+            ViewData["Departments"] = new SelectList(_contextDepartment.GetAll(), "Id", "Name", userEmployee.DepartmentId);
+            ViewData["Roles"] = new SelectList(_contextRole.GetAll(), "Id", "Title", userEmployee.RoleId);
+            ViewData["UpdateBy"] = new SelectList(_contextUsers.GetAll(), "Id", "Username", userEmployee.LUBUserId);
+            return View(userEmployee);
         }
 
         // GET: Admin/Employee/Edit/5
