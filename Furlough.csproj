@@ -72,10 +72,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Display.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Services\Mail\Request.Designer.cs">
+    <Compile Update="Resources\Services\Mail\RequestEdit.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Request.resx</DependentUpon>
+      <DependentUpon>RequestEdit.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Services\Mail\RequestCreate.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RequestCreate.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Services\Mail\User.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -140,9 +145,13 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Display.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Services\Mail\Request.resx">
+    <EmbeddedResource Update="Resources\Services\Mail\RequestEdit.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Request.Designer.cs</LastGenOutput>
+      <LastGenOutput>RequestEdit.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Services\Mail\RequestCreate.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RequestCreate.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Services\Mail\User.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

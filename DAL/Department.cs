@@ -93,6 +93,18 @@ namespace Furlough.DAL
             connection.Open();
             return Mapper(command.ExecuteReader());
         }
+        public Furlough.Models.UserEmployee GetDepartmentManager(int departmentId)
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_util_getDepartmentManager", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@DepartmentId", departmentId);
+
+            connection.Open();
+            return UserEmployeeMapper(command.ExecuteReader());
+        }
 
         //Object mapper; reader to model
         public IEnumerable<Models.Department> Mapper(SqlDataReader reader)
@@ -109,6 +121,31 @@ namespace Furlough.DAL
                     });
                 }
                 return listObj;
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                throw;
+            }
+        }
+
+        public Furlough.Models.UserEmployee UserEmployeeMapper(SqlDataReader reader)
+        {
+            var obj = new Furlough.Models.UserEmployee();
+            try
+            {
+                while (reader.Read())
+                {
+                    obj.Name = reader.GetString("Name");
+                    obj.Email = reader.GetString("Email");
+                    obj.Username = reader.GetString("Username");
+                    obj.Phone = reader["Phone"] == DBNull.Value ? null : reader.GetString("Phone");
+                    obj.EmployeeId = reader.GetInt32("EmployeeId");
+                    obj.UserId = reader.GetInt32("UserId");
+                }
+
+                reader.Close();
+                return obj;
             }
             catch (Exception e)
             {

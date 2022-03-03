@@ -190,9 +190,9 @@ namespace Furlough.Areas.Admin.Controllers
                                     await _mailService.SendEmailAsync(
                                         new Services.Mail.MailRequest(
                                             dbEmployee.Email,
-                                            string.Format(Resources.Services.Mail.Request.requestSubject,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestSubject,
                                                 Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
-                                            string.Format(Resources.Services.Mail.Request.requestPending,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestPending,
                                                 request.RequestedOn.ToShortDateString(),
                                                 Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
                                                 request.Dates, request.DaysAmount),
@@ -204,9 +204,9 @@ namespace Furlough.Areas.Admin.Controllers
                                     await _mailService.SendEmailAsync(
                                         new Services.Mail.MailRequest(
                                             dbEmployee.Email,
-                                            string.Format(Resources.Services.Mail.Request.requestSubject,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestSubject,
                                                 Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
-                                            string.Format(Resources.Services.Mail.Request.requestApproved,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestApproved,
                                                 request.RequestedOn.ToShortDateString(),
                                                 Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
                                                 request.Dates, request.DaysAmount),
@@ -218,9 +218,9 @@ namespace Furlough.Areas.Admin.Controllers
                                     await _mailService.SendEmailAsync(
                                         new Services.Mail.MailRequest(
                                             dbEmployee.Email,
-                                            string.Format(Resources.Services.Mail.Request.requestSubject,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestSubject,
                                                 Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
-                                            string.Format(Resources.Services.Mail.Request.requestRejected,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestRejected,
                                                 request.RequestedOn.ToShortDateString(),
                                                 Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
                                                 request.Dates, request.DaysAmount),
@@ -232,9 +232,9 @@ namespace Furlough.Areas.Admin.Controllers
                                     await _mailService.SendEmailAsync(
                                         new Services.Mail.MailRequest(
                                             dbEmployee.Email,
-                                            string.Format(Resources.Services.Mail.Request.requestSubject,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestSubject,
                                                 Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
-                                            string.Format(Resources.Services.Mail.Request.requestCancelled,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestCancelled,
                                                 request.RequestedOn.ToShortDateString(),
                                                 Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
                                                 request.Dates, request.DaysAmount),

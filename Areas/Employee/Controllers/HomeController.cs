@@ -9,17 +9,22 @@ namespace Furlough.Areas.Employee.Controllers
     [Authorize(Roles = "Employee")]
     public class HomeController : Controller
     {
-        private DAL.Request _contextRequest;
-        private DAL.RequestType _contextRequestType;
-        private DAL.AvailableDays _contextAvailableDays;
-        private DalMapper _dalMapper;
+        private readonly DAL.Request _contextRequest;
+        private readonly DAL.Employee _contextEmployee;
+        private readonly DAL.Department _contextDepartment;
+        private readonly DAL.RequestType _contextRequestType;
+        private readonly DAL.AvailableDays _contextAvailableDays;
+        private readonly DalMapper _dalMapper;
         private readonly Services.Mail.IMailService _mailService;
 
         public HomeController(DalMapper dalMapper, 
             Services.Mail.IMailService mailService,
-            DAL.RequestType contextRequestType, DAL.Request contextRequest, DAL.AvailableDays contextAvailableDays )
+            DAL.RequestType contextRequestType, DAL.Request contextRequest, DAL.AvailableDays contextAvailableDays,
+            DAL.Department contextDepartment, DAL.Employee contextEmployee)
         {
             _contextRequest = contextRequest;
+            _contextEmployee = contextEmployee;
+            _contextDepartment = contextDepartment;
             _contextRequestType = contextRequestType;
             _contextAvailableDays = contextAvailableDays;
 
@@ -41,7 +46,7 @@ namespace Furlough.Areas.Employee.Controllers
         }
 
         [HttpPost]
-        public IActionResult SubmitRequest(Models.Request request)
+        public async Task<IActionResult> SubmitRequest(Models.Request request)
         {
             IActionResult result;
 
@@ -51,6 +56,8 @@ namespace Furlough.Areas.Employee.Controllers
                 var employeeId = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Employee").Value);
                 var availableDays = _contextAvailableDays.GetByEmployeeId(employeeId);
 
+                var employee = _contextEmployee.GetById(employeeId);
+                var manager = _contextDepartment.GetDepartmentManager(employee.DepartmentId);
                 //This gets the type's property dynamically using the type of the request,
                 //after which we get that property from availableDays and get it's value
                 var daysLeft = availableDays.GetType().GetProperty(_contextRequestType.GetById(request.RequestTypeId).Type).GetValue(availableDays);
@@ -70,16 +77,45 @@ namespace Furlough.Areas.Employee.Controllers
                 //new value of days, adds instead of deducting if request type is unpaid (meaning unpaid leave days only increase, others decrease)
                 var newDaysValue = (request.RequestTypeId == 8) ? (decimal)daysLeft + request.DaysAmount : (decimal)daysLeft - request.DaysAmount;
 
-                using (var transScope = new TransactionScope())
+                using (var transScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    bool addedRequest = _contextRequest.Add(_dalMapper.DalRequestMap(request));
+                    int requestId = _contextRequest.Add(_dalMapper.DalRequestMap(request));
                     bool dbResult = _contextAvailableDays    //deduct days left from requested paidDays
                         .SetDays(employeeId, _contextRequestType.GetById(request.RequestTypeId).Type, newDaysValue);
 
                     result = StatusCode(500, "Something went wrong while adding your request");
 
-                    if (addedRequest && dbResult)
+                    if (requestId > 0 && dbResult)
                     {
+                        //Make sure you're either connected to ASSECO VPN or the building wifi
+                        //employee email
+                        await _mailService.SendEmailAsync(new Services.Mail.MailRequest(
+                            employee.Email,
+                            string.Format(Resources.Services.Mail.RequestCreate.employeeSubject, requestId),
+                            string.Format(Resources.Services.Mail.RequestCreate.employeeBody,
+                                employee.Name,
+                                DateTime.Now,
+                                request.Id,
+                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                request.Dates,
+                                request.DaysAmount,
+                                employee.Email),
+                            null));
+
+                        //manager email
+                        await _mailService.SendEmailAsync(new Services.Mail.MailRequest(
+                            employee.Email,
+                            string.Format(Resources.Services.Mail.RequestCreate.managerSubject, employee.Name),
+                            string.Format(Resources.Services.Mail.RequestCreate.managerBody,
+                                manager.Name,
+                                employee.Name,
+                                request.DaysAmount,
+                                request.Dates,
+                                requestId,
+                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                manager.Email),
+                            null));
+
                         result = Ok();
                         transScope.Complete();
                     }

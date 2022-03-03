@@ -91,7 +91,7 @@ namespace Furlough.Areas.Admin.Controllers
                 var generatedPassword = SecurityHandlers.PasswordHasher.Generate(21, 5);
                 user.Password = new SecurityHandlers.PasswordHasher(generatedPassword).GetHashWithSalt();
 
-                using var transScope = new TransactionScope();
+                using var transScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
                 var userId = _contextUsers.Add(_dalMapper.DalUserMap(user));
                 if (userId == 0)
                 {

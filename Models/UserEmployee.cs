@@ -31,6 +31,8 @@ namespace Furlough.Models
         [Display(Name = "department", ResourceType = typeof(Resources.Models.UserEmployee.Display))]
         public int DepartmentId { get; set; }
         [Required]
+        [RegularExpression("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$", 
+            ErrorMessage = "Make sure the email is valid and is of the asseco-see domain.")]
         [Display(Name = "email", ResourceType = typeof(Resources.Models.UserEmployee.Display))]
         public string Email { get; set; } = null!;
         [Required]

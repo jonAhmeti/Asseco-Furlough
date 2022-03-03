@@ -56,46 +56,14 @@
                         if (item.Name == "EmployeeId")
                             continue;
 
-                        string icon = "";
-                        string backgroundCircle = "#000";
-                        switch (item.Name)
-                        {
-                            case "Medical":
-                                { icon = "<i class=\"fa-solid fa-stethoscope\"></i>"; backgroundCircle = "#A0CED9"; break; }
-                            case "BloodDonation":
-                                { icon = "<span class=\"material-icons-round\">bloodtype</span>"; backgroundCircle = "#DE3C4B"; break; }
-                            case "Yearly":
-                                { icon = "<i class=\"fa-solid fa-calendar-days\"></i>"; backgroundCircle = "#FFC09F"; break; }
-                            case "PrevYearly":
-                                { icon = "<i class=\"fa-regular fa-calendar\"></i>"; backgroundCircle = "#449DD1"; break; }
-                            case "Overtime":
-                                { icon = "<i class=\"fa-solid fa-business-time\"></i>"; backgroundCircle = "#3bc199"; break; }
-                            case "Child":
-                                {
-                                    icon = "<span class=\"material-icons-round\">family_restroom</span>"; backgroundCircle = "#f9ad3b";
-                                    break;
-                                }
-                            case "Marriage":
-                                { icon = "<i class=\"fa-solid fa-martini-glass-citrus\"></i>"; backgroundCircle = "#917bbf"; break; }
-                            case "Unpaid":
-                                { icon = "<span class=\"material-icons-round\">money_off</span>"; backgroundCircle = "#A0CED9"; break; }
-                            case "Maternity":
-                                { icon = "<span class=\"material-icons-round\">chair</span>"; backgroundCircle = "#F7B801"; break; }
-                            case "Birth":
-                                {
-                                    icon = "<span class=\"material-icons-round\">pregnant_woman</span>"; backgroundCircle = "#D33F49";
-                                    break;
-                                }
-                            case "DeathOfRelative":
-                                { icon = "<i class=\"fa-solid fa-heart\"></i>"; backgroundCircle = "#DF1B48"; break; }
-                        }
+                        var requestType = (string[])typeof(Furlough.Models.RequestType).GetField("Icon" + item.Name).GetValue(null);
 
                         <div class="rounded-pill border col-auto p-0 d-flex m-2" style="line-height: 0;">
                             <div class="d-flex align-items-center">
-                                <span class="roundIcon text-black-50" style="background-color: @backgroundCircle;">@Html.Raw(icon)</span>
+                                <span class="roundIcon text-black-50" style="background-color: @requestType[1];">@Html.Raw(requestType[0])</span>
                                 <span class="mx-2">@item.Name</span>
                                 <!--NaN when that employee is not present in AvailableDays table-->
-                                <span class="roundIcon" style="border:2px solid @backgroundCircle; border-width:0 2px 2px 0;">@(ViewBag.EmployeeDays != null ? item.GetValue(ViewBag.EmployeeDays) : "NaN")</span>
+                                <span class="roundIcon" style="border:2px solid @requestType[1]; border-width:0 2px 2px 0;">@(ViewBag.EmployeeDays != null ? item.GetValue(ViewBag.EmployeeDays) : "NaN")</span>
                             </div>
                         </div>
                     }

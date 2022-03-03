@@ -11,7 +11,7 @@ namespace Furlough.DAL
         {
             _context = context;
         }
-        public bool Add(Models.Request obj)
+        public int Add(Models.Request obj)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace Furlough.DAL
                 command.Parameters.AddWithValue("@LUBUserId", obj.LUBUserId);
 
                 connection.Open();
-                return command.ExecuteNonQuery() > 0;
+                return (int)command.ExecuteScalar();
             }
             catch (Exception e)
             {

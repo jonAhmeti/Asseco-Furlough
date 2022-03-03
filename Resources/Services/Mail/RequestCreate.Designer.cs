@@ -22,14 +22,14 @@ namespace Furlough.Resources.Services.Mail {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Request {
+    public class RequestCreate {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Request() {
+        internal RequestCreate() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Furlough.Resources.Services.Mail {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Furlough.Resources.Services.Mail.Request", typeof(Request).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Furlough.Resources.Services.Mail.RequestCreate", typeof(RequestCreate).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,38 @@ namespace Furlough.Resources.Services.Mail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div&gt;&lt;div&gt;Your request that was made on &lt;i&gt;{0}&lt;/i&gt; has been approved!&lt;/div&gt;&lt;div class=&quot;display:flex; flex-direction: column;&quot;&gt;&lt;div&gt;Details&lt;/div&gt;&lt;div&gt;Leave type: &lt;b&gt;{1}&lt;/b&gt;&lt;br/&gt;Dates: &lt;b&gt;{2}&lt;/b&gt;&lt;br/&gt;Total days: &lt;b&gt;{3}&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;.
+        ///   Looks up a localized string similar to &lt;div style=&quot;display:flex;flex-direction:column;&quot;&gt;&lt;p&gt;Dear {0},&lt;/p&gt;&lt;p&gt;Your new request submitted on {1} was registered in our system.&lt;/p&gt;&lt;br/&gt;We&apos;ll let you know once it&apos;s status changes.&lt;/p&gt;&lt;br/&gt;&lt;br/&gt;&lt;p&gt;Request details:&lt;/p&gt;&lt;i&gt;Request Id: {2}&lt;br/&gt;Type: {3}&lt;br/&gt;Dates: {4}&lt;br/&gt;Total days: {5}&lt;br/&gt;&lt;/i&gt;&lt;/div&gt;&lt;div style=&quot;font-size:0.6rem&quot;&gt;&lt;p&gt;This email was intended for {6}&lt;/p&gt;&lt;/div&gt;.
         /// </summary>
-        public static string requestApproved {
+        public static string employeeBody {
             get {
-                return ResourceManager.GetString("requestApproved", resourceCulture);
+                return ResourceManager.GetString("employeeBody", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div&gt;&lt;div&gt;Your request that was made on &lt;i&gt;{0}&lt;/i&gt; has been cancelled.&lt;/div&gt;&lt;div class=&quot;display:flex; flex-direction: column;&quot;&gt;&lt;div&gt;Details&lt;/div&gt;&lt;div&gt;Leave type: &lt;b&gt;{1}&lt;/b&gt;&lt;br/&gt;Dates: &lt;b&gt;{2}&lt;/b&gt;&lt;br/&gt;Total days: &lt;b&gt;{3}&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;.
+        ///   Looks up a localized string similar to New request created with ID {0}.
         /// </summary>
-        public static string requestCancelled {
+        public static string employeeSubject {
             get {
-                return ResourceManager.GetString("requestCancelled", resourceCulture);
+                return ResourceManager.GetString("employeeSubject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div&gt;&lt;div&gt;Your request that was made on &lt;i&gt;{0}&lt;/i&gt; is set to pending.&lt;/div&gt;&lt;div class=&quot;display:flex; flex-direction: column;&quot;&gt;&lt;div&gt;Details&lt;/div&gt;&lt;div&gt;Leave type: &lt;b&gt;{1}&lt;/b&gt;&lt;br/&gt;Dates: &lt;b&gt;{2}&lt;/b&gt;&lt;br/&gt;Total days: &lt;b&gt;{3}&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;.
+        ///   Looks up a localized string similar to &lt;div style=&quot;display:flex;flex-direction:column;&quot;&gt;&lt;p&gt;Dear {0},&lt;/p&gt;&lt;p&gt;{1} has requested {2} total days leave on these dates:&lt;/p&gt;&lt;i&gt;{3}&lt;/i&gt;&lt;/p&gt;&lt;br/&gt;&lt;div&gt;&lt;p&gt;Request details:&lt;/p&gt;&lt;i&gt;Request Id: {4}&lt;br/&gt;Type: {5}&lt;br/&gt;Dates: {3}&lt;br/&gt;Total days: {2}&lt;br/&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;p&gt;You can make changes to the status of the request once you login to the Vacation Management System.&lt;/p&gt;&lt;/div&gt;&lt;div style=&quot;font-size:0.6rem&quot;&gt;&lt;p&gt;This email was intended for {6}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;.
         /// </summary>
-        public static string requestPending {
+        public static string managerBody {
             get {
-                return ResourceManager.GetString("requestPending", resourceCulture);
+                return ResourceManager.GetString("managerBody", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div&gt;&lt;div&gt;Your request that was made on &lt;i&gt;{0}&lt;/i&gt; has unfortunately been rejected.&lt;/div&gt;&lt;div class=&quot;display:flex; flex-direction: column;&quot;&gt;&lt;div&gt;Details&lt;/div&gt;&lt;div&gt;Leave type: &lt;b&gt;{1}&lt;/b&gt;&lt;br/&gt;Dates: &lt;b&gt;{2}&lt;/b&gt;&lt;br/&gt;Total days: &lt;b&gt;{3}&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;.
+        ///   Looks up a localized string similar to New request by {0}!.
         /// </summary>
-        public static string requestRejected {
+        public static string managerSubject {
             get {
-                return ResourceManager.GetString("requestRejected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Request {0}.
-        /// </summary>
-        public static string requestSubject {
-            get {
-                return ResourceManager.GetString("requestSubject", resourceCulture);
+                return ResourceManager.GetString("managerSubject", resourceCulture);
             }
         }
     }
