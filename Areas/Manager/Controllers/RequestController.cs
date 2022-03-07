@@ -18,21 +18,24 @@ namespace Furlough.Areas.Manager.Controllers
         private readonly DAL.RequestHistory _contextRequestHistory;
         private readonly DalMapper _dalMapper;
         private readonly ViewModelMapper _vmMapper;
+        private readonly Services.Mail.IMailService _mailService;
 
         public RequestController(DAL.Request contextRequest, DAL.RequestType contextRequestType,
             DAL.RequestStatus contextRequestStatus, DAL.RequestHistory contextRequestHistory, DAL.User contextUser,
-            DAL.Employee contextEmployee,
+            DAL.Employee contextEmployee, Services.Mail.IMailService mailService,
             DalMapper dalMapper, ViewModelMapper vmMapper)
         {
             _contextUser = contextUser;
-            _contextEmployee = contextEmployee;
             _contextRequest = contextRequest;
+            _contextEmployee = contextEmployee;
             _contextRequestType = contextRequestType;
             _contextRequestStatus = contextRequestStatus;
             _contextRequestHistory = contextRequestHistory;
 
             _dalMapper = dalMapper;
             _vmMapper = vmMapper;
+
+            _mailService = mailService;
         }
 
         // GET: Manager/Request
@@ -165,6 +168,68 @@ namespace Furlough.Areas.Manager.Controllers
                     }
                     //make edit
                     var result = _contextRequest.Edit(_dalMapper.DalRequestMap(request), prevRequest.RequestStatusId);
+                    if (result)
+                    {
+                        switch (request.RequestStatusId)
+                        {
+                            case 1:
+                                {
+                                    await _mailService.SendEmailAsync(
+                                        new Services.Mail.MailRequest(
+                                            employee.Email,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestSubject,
+                                                Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestPending,
+                                                request.RequestedOn.ToShortDateString(),
+                                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                                request.Dates, request.DaysAmount),
+                                            null));
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    await _mailService.SendEmailAsync(
+                                        new Services.Mail.MailRequest(
+                                            employee.Email,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestSubject,
+                                                Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestApproved,
+                                                request.RequestedOn.ToShortDateString(),
+                                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                                request.Dates, request.DaysAmount),
+                                            null));
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    await _mailService.SendEmailAsync(
+                                        new Services.Mail.MailRequest(
+                                            employee.Email,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestSubject,
+                                                Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestRejected,
+                                                request.RequestedOn.ToShortDateString(),
+                                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                                request.Dates, request.DaysAmount),
+                                            null));
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    await _mailService.SendEmailAsync(
+                                        new Services.Mail.MailRequest(
+                                            employee.Email,
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestSubject,
+                                                Enum.GetName(typeof(Models.Enums.RequestStatus), request.RequestStatusId)),
+                                            string.Format(Resources.Services.Mail.RequestEdit.requestCancelled,
+                                                request.RequestedOn.ToShortDateString(),
+                                                Enum.GetName(typeof(Models.Enums.RequestType), request.RequestTypeId),
+                                                request.Dates, request.DaysAmount),
+                                            null));
+                                    break;
+                                }
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

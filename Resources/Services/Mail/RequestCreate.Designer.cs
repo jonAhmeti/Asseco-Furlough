@@ -61,7 +61,7 @@ namespace Furlough.Resources.Services.Mail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div style=&quot;display:flex;flex-direction:column;&quot;&gt;&lt;p&gt;Dear {0},&lt;/p&gt;&lt;p&gt;Your new request submitted on {1} was registered in our system.&lt;/p&gt;&lt;br/&gt;We&apos;ll let you know once it&apos;s status changes.&lt;/p&gt;&lt;br/&gt;&lt;br/&gt;&lt;p&gt;Request details:&lt;/p&gt;&lt;i&gt;Request Id: {2}&lt;br/&gt;Type: {3}&lt;br/&gt;Dates: {4}&lt;br/&gt;Total days: {5}&lt;br/&gt;&lt;/i&gt;&lt;/div&gt;&lt;div style=&quot;font-size:0.6rem&quot;&gt;&lt;p&gt;This email was intended for {6}&lt;/p&gt;&lt;/div&gt;.
+        ///   Looks up a localized string similar to &lt;div style=&quot;display:flex;flex-direction:column;&quot;&gt;&lt;p&gt;Dear {0},&lt;/p&gt;&lt;p&gt;Your new request submitted on {1} was registered in our system.&lt;/p&gt;&lt;br/&gt;We&apos;ll let you know once its status changes.&lt;/p&gt;&lt;br/&gt;&lt;br/&gt;&lt;p&gt;Request details:&lt;/p&gt;&lt;i&gt;Request Id: {2}&lt;br/&gt;Type: {3}&lt;br/&gt;Dates: {4}&lt;br/&gt;Total days: {5}&lt;br/&gt;&lt;/i&gt;&lt;/div&gt;&lt;div style=&quot;font-size:0.6rem&quot;&gt;&lt;p&gt;This email was intended for {6}&lt;/p&gt;&lt;/div&gt;.
         /// </summary>
         public static string employeeBody {
             get {

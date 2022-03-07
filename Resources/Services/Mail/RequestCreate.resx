@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="employeeBody" xml:space="preserve">
-    <value>&lt;div style="display:flex;flex-direction:column;"&gt;&lt;p&gt;Dear {0},&lt;/p&gt;&lt;p&gt;Your new request submitted on {1} was registered in our system.&lt;/p&gt;&lt;br/&gt;We'll let you know once it's status changes.&lt;/p&gt;&lt;br/&gt;&lt;br/&gt;&lt;p&gt;Request details:&lt;/p&gt;&lt;i&gt;Request Id: {2}&lt;br/&gt;Type: {3}&lt;br/&gt;Dates: {4}&lt;br/&gt;Total days: {5}&lt;br/&gt;&lt;/i&gt;&lt;/div&gt;&lt;div style="font-size:0.6rem"&gt;&lt;p&gt;This email was intended for {6}&lt;/p&gt;&lt;/div&gt;</value>
+    <value>&lt;div style="display:flex;flex-direction:column;"&gt;&lt;p&gt;Dear {0},&lt;/p&gt;&lt;p&gt;Your new request submitted on {1} was registered in our system.&lt;/p&gt;&lt;br/&gt;We'll let you know once its status changes.&lt;/p&gt;&lt;br/&gt;&lt;br/&gt;&lt;p&gt;Request details:&lt;/p&gt;&lt;i&gt;Request Id: {2}&lt;br/&gt;Type: {3}&lt;br/&gt;Dates: {4}&lt;br/&gt;Total days: {5}&lt;br/&gt;&lt;/i&gt;&lt;/div&gt;&lt;div style="font-size:0.6rem"&gt;&lt;p&gt;This email was intended for {6}&lt;/p&gt;&lt;/div&gt;</value>
   </data>
   <data name="employeeSubject" xml:space="preserve">
     <value>New request created with ID {0}</value>

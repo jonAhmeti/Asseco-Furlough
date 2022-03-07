@@ -45,6 +45,12 @@ namespace Furlough.Areas.Employee.Controllers
             return View();
         }
 
+        [HttpPost("ChangePassword")]
+        public IActionResult ChangePassword(string OldPassword, string NewPassword)
+        {
+            return Ok();
+        }
+
         [HttpPost]
         public async Task<IActionResult> SubmitRequest(Models.Request request)
         {
