@@ -101,7 +101,7 @@ namespace Furlough.DAL
             return Mapper(command.ExecuteReader());
         }
 
-        public Models.User GetById(int id)
+        public Models.User GetById(int id, bool getPassword = false)
         {
             using var connection = new SqlConnection(_context.GetConnection());
             using var command = new SqlCommand("sp_userGetById", connection)
@@ -112,7 +112,7 @@ namespace Furlough.DAL
             command.Parameters.AddWithValue("@Id", id);
             connection.Open();
 
-            return Mapper(command.ExecuteReader()).FirstOrDefault();
+            return Mapper(command.ExecuteReader(), getPassword).FirstOrDefault();
         }
         public IEnumerable<Models.User> GetByDepartmentId(int id)
         {

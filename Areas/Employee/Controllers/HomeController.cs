@@ -9,6 +9,7 @@ namespace Furlough.Areas.Employee.Controllers
     [Authorize(Roles = "Employee")]
     public class HomeController : Controller
     {
+        private readonly DAL.User _contextUser;
         private readonly DAL.Request _contextRequest;
         private readonly DAL.Employee _contextEmployee;
         private readonly DAL.Department _contextDepartment;
@@ -20,8 +21,9 @@ namespace Furlough.Areas.Employee.Controllers
         public HomeController(DalMapper dalMapper, 
             Services.Mail.IMailService mailService,
             DAL.RequestType contextRequestType, DAL.Request contextRequest, DAL.AvailableDays contextAvailableDays,
-            DAL.Department contextDepartment, DAL.Employee contextEmployee)
+            DAL.Department contextDepartment, DAL.Employee contextEmployee, DAL.User contextUser)
         {
+            _contextUser = contextUser;
             _contextRequest = contextRequest;
             _contextEmployee = contextEmployee;
             _contextDepartment = contextDepartment;
@@ -45,10 +47,22 @@ namespace Furlough.Areas.Employee.Controllers
             return View();
         }
 
-        [HttpPost("ChangePassword")]
-        public IActionResult ChangePassword(string OldPassword, string NewPassword)
+        [HttpPost(Name = "ChangePassword")]
+        public IActionResult ChangePassword([FromForm]string OldPassword, [FromForm] string NewPassword)
         {
-            return Ok();
+            var loggedinUser = int.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "User").Value);
+            var dbUser = _contextUser.GetById(loggedinUser, true);
+            if (dbUser == null)
+                return BadRequest("User does not exist");
+
+            //give old password to PasswordHasher on init, it gets hashed, then give already hash-saved db password to check against in VerifyPassword method
+            if (!new SecurityHandlers.PasswordHasher(OldPassword).VerifyPassword(dbUser.Password))
+                return BadRequest("Wrong password");
+
+            dbUser.Password = new SecurityHandlers.PasswordHasher(NewPassword).GetHashWithSalt();   //returns the new hashed password + the salt
+            var edited = _contextUser.Edit(dbUser);
+
+            return edited ? Ok("Password changed successfully") : StatusCode(500, "Something went wrong changing your password");
         }
 
         [HttpPost]
