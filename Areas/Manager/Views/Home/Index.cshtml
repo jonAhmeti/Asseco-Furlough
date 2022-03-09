@@ -97,10 +97,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     var labels = [];
-    @*@foreach (Furlough.DAL.Models.DepartmentPositions item in ViewBag.Position)
+    @foreach (Furlough.DAL.Models.DepartmentPositions item in ViewBag.Position)
     {
         @:labels.push("@item.Title");
-    }*@
+    }
 
     var dataValue = [12, 3, 7, 19, 6, 10];
 
