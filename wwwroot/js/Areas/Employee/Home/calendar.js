@@ -640,13 +640,18 @@ dayNames = {
             //better to create a temporary array otherwise selectedDates will just keep increasing months and we will have to decrease it in a complete ajax statement
             let tempArray = new Array();
             for (var i = 0; i < selectedDates.length; i++) {
-                tempArray.push(`${selectedDates[i].split('/')[0]}/${parseInt(selectedDates[i].split('/')[1]) + 1}/${selectedDates[i].split('/')[2]}`);
+                const month = parseInt(selectedDates[i].split('/')[1]) + 1 < 10 ? '0' + (parseInt(selectedDates[i].split('/')[1]) + 1).toString() : (parseInt(selectedDates[i].split('/')[1]) + 1).toString();
+                const day = selectedDates[i].split('/')[2] < 10 ? '0' + selectedDates[i].split('/')[2].toString() : selectedDates[i].split('/')[2].toString();
+                tempArray.push(`${selectedDates[i].split('/')[0]}/${month}/${day}`);
             }
 
+            console.log(tempArray);
+            const stringDates = tempArray.join(',');
+            console.log(stringDates);
             $.ajax({
                 method: 'POST',
                 url: '/Employee/Home/SubmitRequest',
-                data: { Dates: tempArray, RequestTypeId: requestType.val(), DaysAmount: paidDays.val(), Reason: unpaidReasonVal },
+                data: { Dates: stringDates, RequestTypeId: requestType.val(), DaysAmount: paidDays.val(), Reason: unpaidReasonVal },
                 success: function (result) {
                     $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
                     $(toastBody).html("Request submitted successfully.");
@@ -708,8 +713,10 @@ function setCalendarDayEvents() {
                 year = dataOptions.year;
 
                 let clickedDate = `${year}/${month}/${day}`;
+                let todayTemp = new Date(new Date().toDateString());
 
-                if (dayNames.d[new Date(year,month,day).getDay()] != "S" && new Date(year, month, day) >= new Date() && !containsStringDate(clickedDate, selectedDates)) {
+
+                if (dayNames.d[new Date(year,month,day).getDay()] != "S" && new Date(year,month,day) >= todayTemp && !containsStringDate(clickedDate, selectedDates)) {
                     if (!listShow) {
                         listShow = true;
                         $("#selectedDaysWrapper").animate({ 'left': 0, 'opacity': '1' }, 500);

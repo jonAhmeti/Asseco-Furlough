@@ -89,9 +89,9 @@
 /*Todays date styling*/
     .dycalendar-month-container .dycalendar-today-date,
     .dycalendar-month-container .dycalendar-target-date {
-        color: #fff !important;
-        border-radius: 50%;
-        background-color: var(--bs-dark);
+        color: var(--bs-primary) !important;
+        border-radius: 50% !important;
+        background-color: rgba(33,37,41,0.3);
     }
 
 /*================================== MONTH CALENDAR ENS HERE ===============*/
