@@ -14,3 +14,7 @@
     .requestCard .card-body {
         min-width: 250px;
     }
+
+div.card {
+    overflow-x: auto;
+}
