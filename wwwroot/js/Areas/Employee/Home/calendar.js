@@ -1,5 +1,6 @@
 var selectedDates = new Array();
 var listShow = false;
+const isNumRegex = new RegExp('^[0-1]\.?[1-9]*$'); //decimal number 0.1 to 1
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -636,37 +637,61 @@ dayNames = {
                 return;
             }
 
+            //get clickedDateAmount inputs
+            const clickedAmountElements = $(".clickedDateAmount");
+            //get values only
+            const clickedAmountValues = new Array();
+            for (var i = 0; i < clickedAmountElements.length; i++) {
+                clickedAmountValues.push($(clickedAmountElements[i]).val());
+            }
+
             //create temp array to increase value by 1. backend checks months from 1-12, meanwhile JS from 0-11.
             //better to create a temporary array otherwise selectedDates will just keep increasing months and we will have to decrease it in a complete ajax statement
             let tempArray = new Array();
             for (var i = 0; i < selectedDates.length; i++) {
                 const month = parseInt(selectedDates[i].split('/')[1]) + 1 < 10 ? '0' + (parseInt(selectedDates[i].split('/')[1]) + 1).toString() : (parseInt(selectedDates[i].split('/')[1]) + 1).toString();
                 const day = selectedDates[i].split('/')[2] < 10 ? '0' + selectedDates[i].split('/')[2].toString() : selectedDates[i].split('/')[2].toString();
-                tempArray.push(`${selectedDates[i].split('/')[0]}/${month}/${day}`);
+                tempArray.push(`${selectedDates[i].split('/')[0]}/${month}/${day}:${clickedAmountValues[i]}`);
             }
 
-            console.log(tempArray);
             const stringDates = tempArray.join(',');
-            console.log(stringDates);
-            $.ajax({
-                method: 'POST',
-                url: '/Employee/Home/SubmitRequest',
-                data: { Dates: stringDates, RequestTypeId: requestType.val(), DaysAmount: paidDays.val(), Reason: unpaidReasonVal },
-                success: function (result) {
-                    $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
-                    $(toastBody).html("Request submitted successfully.");
-                    $(toastMsg).show();
-                },
-                error: function (error) {
-                    $(daysSubmitBtn).animate({ color: '#CA0B00' }, 500);
-                    $(toastBody).html(`${error.responseText} <br /> Something went wrong submitting your request.`);
-                    $(toastMsg).show();
-                },
-                complete: function () {
-                    $(this).finish();
-                    $(daysSubmitBtn).animate({ color: '#000' }, 1000);
+            const totalAmountInput = $('#totalDaysAmount');
+
+            let submittable = true;
+
+            var total = 0;
+            for (var i = 0; i < clickedAmountElements.length; i++) {
+                if (isNumRegex.test($(clickedAmountElements[i]).val())) {
+                    total += parseFloat($(clickedAmountElements[i]).val());
                 }
-            });
+                else {
+                    console.log('invalid value');
+                    submittable = false;
+                    alert('Please provide valid amount values.')
+                }
+            }
+            $(totalAmountInput).val(total);
+
+            if (submittable)
+                $.ajax({
+                    method: 'POST',
+                    url: '/Employee/Home/SubmitRequest',
+                    data: { Dates: stringDates, RequestTypeId: requestType.val(), DaysAmount: $(totalAmountInput).val() /*paidDays.val()*/, Reason: unpaidReasonVal },
+                    success: function (result) {
+                        $(daysSubmitBtn).animate({ color: '#4BB543' }, 500);
+                        $(toastBody).html("Request submitted successfully.");
+                        $(toastMsg).show();
+                    },
+                    error: function (error) {
+                        $(daysSubmitBtn).animate({ color: '#CA0B00' }, 500);
+                        $(toastBody).html(`${error.responseText} <br /> Something went wrong submitting your request.`);
+                        $(toastMsg).show();
+                    },
+                    complete: function () {
+                        $(this).finish();
+                        $(daysSubmitBtn).animate({ color: '#000' }, 1000);
+                    }
+                });
         });
 
         $(daysResetBtn).on('click', function () {
@@ -703,9 +728,6 @@ function setCalendarDayEvents() {
         {
             $(days[i]).on('click', function () {
 
-                
-
-
                 let dataOptions = JSON.parse(calendarHeader.attr('data-option'));
 
                 day = this.innerText;
@@ -728,14 +750,14 @@ function setCalendarDayEvents() {
                     console.log(`Date clicked: ${clickedDate}`);
                     selectedDates.push(clickedDate);
                     //display sorted date
-                    selectedDates.sort();
+                    //selectedDates.sort(); maybe better to not sort since it's easier to read days amount input in the order they were clicked
                     //console.log(selectedDates);
                     selectedDaysList.innerHTML = selectedDates.map(element => {
-                        return `<div class="row p-1 row-cols-6">
-                                    <div class="col-2 px-1 text-end">
+                        return `<div class="row my-2 px-3 row-cols-12 d-flex align-items-center">
+                                    <div class="col-1 px-1 text-end">
                                         <i class="fa-solid fa-circle-check text-success"></i>
                                     </div>
-                                    <div class="col-7 px-1 text-start"> 
+                                    <div class="col-6 px-1 text-start"> 
                                         ${dayNames.ddd[new Date(element.split('/')[0],
                                             element.split('/')[1],
                                             element.split('/')[2]).getDay()]}
@@ -743,11 +765,30 @@ function setCalendarDayEvents() {
                                         ${monthNames[element.split('/')[1]]}
                                          ${element.split('/')[0]}
                                     </div>
-                                    <div class="col-3 px-1 text-start">
-                                        <input id="daysAmount" type="number" min="5" max="15" placeholder="Amount">
+                                    <div class="col-5 px-1 text-start">
+                                        <input class="form-control float-end clickedDateAmount" value="1" type="number" min="0.1" max="1" step="0.1" placeholder="Amount 0-1">
                                     </div>
                                 </div>`
                     }).join('');
+                    const totalAmountInput = $('#totalDaysAmount');
+                    const clickedAmountElements = $(".clickedDateAmount");
+                    for (var i = 0; i < clickedAmountElements.length; i++) {
+                        $(clickedAmountElements[i]).on('change', function () {
+                            if (isNumRegex.test($(this).val())) {
+
+                                var total = 0;
+                                for (var i = 0; i < clickedAmountElements.length; i++) {
+                                    if (isNumRegex.test($(clickedAmountElements[i]).val())) { total += parseFloat($(clickedAmountElements[i]).val()); }
+                                }
+
+                                $(totalAmountInput).val(total.toFixed(2));
+                                $(this).removeClass('text-danger border-danger');
+                            }
+                            else {
+                                $(this).addClass('text-danger border-danger');
+                            }
+                        });
+                    }
 
                     const paidDays = $('input[name="paidDays"]');
                     $(paidDays).attr('max', selectedDates.length);
