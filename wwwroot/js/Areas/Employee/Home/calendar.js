@@ -1,6 +1,6 @@
 var selectedDates = new Array();
 var listShow = false;
-const isNumRegex = new RegExp('^[0-1]\.?[1-9]*$'); //decimal number 0.1 to 1
+const isNumRegex = new RegExp('(^|[^0-9])(0\.[1-9]|1.0|1)($|[^0-9])'); //decimal number 0.1 to 1
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -12,7 +12,17 @@ dayNames = {
     dd: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
     ddd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 };
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///
+///     The decimal functionality is not complete.
+///     Dates column is saved in following format: "YYYY/MM/DD:0.5,YYYY/MM/DD:0.1",
+///         The character : is the keyword for amount of time for that specific date,
+///         the comma , is the seperator between dates.
+///     Regex won't allow 0 or values larger than 1.
+///     Employee is not able to choose decimal days on Pending page, only on calendar
+///     Admin & Manager are not able to create requests with decimal days
+///
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 (function (global) {
 
