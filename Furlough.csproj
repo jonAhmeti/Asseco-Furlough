@@ -100,6 +100,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Areas\Admin\Views\Request\Shared\Index.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Resources.Request.Shared</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Admin\Views\Request\Shared\Index.mk.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Resources.Request.Shared</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Admin\Views\Request\Shared\Index.sq.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Resources.Request.Shared</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Areas\Employee\Views\Request\Index.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace></CustomToolNamespace>
