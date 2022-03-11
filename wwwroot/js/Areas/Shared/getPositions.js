@@ -10,7 +10,7 @@
         data: { departmentId: $(selectDepartment).find(":selected").val() },
         success: function (result) {
             if (result != undefined && result != null) {
-                if (hasUsers || window.location.href.includes("Edit"))
+                if (hasUsers || window.location.href.includes("Edit") || window.location.href.includes("Create"))
                     $(submitBtn).removeAttr('disabled');
 
                 $(selectPosition).removeAttr('disabled');
