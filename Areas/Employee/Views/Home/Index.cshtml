@@ -27,7 +27,7 @@
                             </div>
                             @*String format used for selecting parameters from localizer, including reflections for
                                 available days to dynamically get it's properties and values*@
-                            <p class="card-text">
+                            <p class="card-text" requestId="@item.Id">
                                 @Html.Raw(string.Format(@localizer[item.Type + "Message"].Value,
                             ViewBag.availableDays.GetType().GetProperty(item.Type).GetValue(ViewBag.availableDays)))
                             </p>

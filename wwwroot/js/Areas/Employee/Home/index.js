@@ -1,7 +1,7 @@
 ﻿$(function () {
     let rightArrow = $("#infoCardsArrowRight");
     let leftArrow = $("#infoCardsArrowLeft");
-    let infoCards = $("#infoCards"); 2
+    let infoCards = $("#infoCards");
     const infoCardsWrapper = $("#infoCardsWrapper");
 
     //info cards
@@ -36,4 +36,13 @@
         $(infoCards).animate({ scrollLeft: scrollVal - item_width }, 500);
     });
 
+    //check RequestType and inform user
+    const prevYearDays = $(infoCards).find('p.card-text[requestId="11"] span.fw-bold').text(); //get value of prevYear days amount
+    const typeSelect = $('select[name="requestType"]');
+    $(typeSelect).on('change', function () {
+        console.log($(typeSelect).find(':selected').val());
+        if ($(typeSelect).find(':selected').val() == 2) { //selected Yearly requestType
+            alert('Previous year days will be used if available before annual leave days.'); //make change here
+        }
+    })
 });
