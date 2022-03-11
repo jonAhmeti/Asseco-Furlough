@@ -114,9 +114,10 @@ namespace Furlough.Areas.Admin.Controllers
                     String.Format(Resources.Services.Mail.User.createdBody, employee.Name, user.Username, generatedPassword, employee.Email),
                     null));
 
-                transScope.Complete();
                 //set available days
                 var result = _contextAvailableDays.SetAllDays(employeeId.Value, CalculateYearlyDays(employee.WorkStartDate));
+
+                transScope.Complete();
                 return RedirectToAction(nameof(Index));
             }
 
