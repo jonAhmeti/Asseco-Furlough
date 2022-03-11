@@ -105,9 +105,20 @@ namespace Furlough.DAL
             connection.Open();
             return UserEmployeeMapper(command.ExecuteReader());
         }
+        public IEnumerable<Models.DepartmentChart> DepartmentChart()
+        {
+            using var connection = new SqlConnection(_context.GetConnection());
+            using var command = new SqlCommand("sp_util_getDepartmentsVacationNumber", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            connection.Open();
+            return ChartMapper(command.ExecuteReader());
+        }
 
         //Object mapper; reader to model
-        public IEnumerable<Models.Department> Mapper(SqlDataReader reader)
+        private IEnumerable<Models.Department> Mapper(SqlDataReader reader)
         {
             var listObj = new List<Models.Department>();
             try
@@ -129,7 +140,7 @@ namespace Furlough.DAL
             }
         }
 
-        public Furlough.Models.UserEmployee UserEmployeeMapper(SqlDataReader reader)
+        private Furlough.Models.UserEmployee UserEmployeeMapper(SqlDataReader reader)
         {
             var obj = new Furlough.Models.UserEmployee();
             try
@@ -154,5 +165,27 @@ namespace Furlough.DAL
             }
         }
 
+        private IEnumerable<Models.DepartmentChart> ChartMapper(SqlDataReader reader)
+        {
+            var list = new List<Models.DepartmentChart>();
+            try
+            {
+                while (reader.Read())
+                {
+                    list.Add(new Models.DepartmentChart
+                    {
+                        Department = reader.GetString("Department"),
+                        NoEmployees = reader.GetInt32("NoEmployees")
+                    });
+                }
+                reader.Close();
+                return list;
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                throw;
+            }
+        }
     }
 }

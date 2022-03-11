@@ -22,7 +22,8 @@ namespace Furlough.Areas.Admin.Controllers
             ViewBag.requests = _contextRequest.GetAllByRowCount(5);
             ViewBag.departments = _contextDepartment.GetAll();
             ViewBag.employees = _contextEmployee.GetAll();
-             return View();
+            ViewBag.chartData = _contextDepartment.DepartmentChart();
+            return View();
         }
     }
 }

@@ -118,18 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="employeeName" xml:space="preserve">
-    <value>Punëtori</value>
+    <value>Вработен</value>
   </data>
   <data name="requestDaysAmount" xml:space="preserve">
-    <value>Ditët e pushimit</value>
+    <value>Оставете денови</value>
   </data>
   <data name="requestedTime" xml:space="preserve">
-    <value>Koha e kërkesës</value>
+    <value>Барано време</value>
   </data>
   <data name="requestStatus" xml:space="preserve">
-    <value>Statusi</value>
-  </data>
-  <data name="requestType" xml:space="preserve">
-    <value>Tipi</value>
+    <value>Статус</value>
   </data>
 </root>
