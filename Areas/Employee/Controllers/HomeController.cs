@@ -94,8 +94,8 @@ namespace Furlough.Areas.Employee.Controllers
                 request.LUBUserId = loggedinUser;
 
 
-                //new value of days, adds instead of deducting if request type is unpaid (meaning unpaid leave days only increase, others decrease)
-                var newDaysValue = (request.RequestTypeId == 8) ? (decimal)daysLeft + request.DaysAmount : (decimal)daysLeft - request.DaysAmount;
+                //new value of days, adds instead of deducting if request type is unpaid (meaning unpaid and death case leave days only increase, others decrease)
+                var newDaysValue = (request.RequestTypeId == 8 || request.RequestTypeId == 10) ? (decimal)daysLeft + request.DaysAmount : (decimal)daysLeft - request.DaysAmount;
 
                 using (var transScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
@@ -124,7 +124,7 @@ namespace Furlough.Areas.Employee.Controllers
 
                         //manager email
                         await _mailService.SendEmailAsync(new Services.Mail.MailRequest(
-                            employee.Email,
+                            manager.Email,
                             string.Format(Resources.Services.Mail.RequestCreate.managerSubject, employee.Name),
                             string.Format(Resources.Services.Mail.RequestCreate.managerBody,
                                 manager.Name,
