@@ -42,7 +42,7 @@
     $(typeSelect).on('change', function () {
         console.log($(typeSelect).find(':selected').val());
         if ($(typeSelect).find(':selected').val() == 2) { //selected Yearly requestType
-            alert('Previous year days will be used if available before annual leave days.'); //make change here
+            alert(prevYearAlert);
         }
     })
 });
